@@ -33,6 +33,7 @@
 - **Filament Cost Tracking** - Track costs per print with customizable filament database
 - **Photo Attachments** - Attach photos to archived prints for documentation
 - **Failure Analysis** - Document failed prints with notes and photos
+- **Project Page Editor** - View and edit embedded MakerWorld project pages with images, descriptions, and designer info
 - **Cloud Profiles Sync** - Access your Bambu Cloud slicer presets
 - **File Manager** - Browse and manage files on your printer's SD card
 - **Re-print** - Send archived prints back to any connected printer
@@ -308,6 +309,15 @@ Prints are automatically archived when they complete. You can also:
 - Add failure analysis notes for failed prints
 - Re-print any archived 3MF to a connected printer
 - Export archives for backup
+
+### Project Page
+
+3MF files downloaded from MakerWorld contain embedded project pages with model information. To view:
+1. Right-click any archive in the Archives page
+2. Select "Project Page" from the context menu
+3. View title, description, designer info, license, and images
+4. Click "Edit" to modify the project page metadata
+5. Changes are saved directly to the 3MF file
 
 ## Tech Stack
 
