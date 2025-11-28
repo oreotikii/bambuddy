@@ -35,6 +35,16 @@
   - Filament usage trends
   - Print activity calendar
   - Cost tracking
+  - Time accuracy tracking
+- **Print Time Accuracy** - Compare estimated vs actual print times
+  - Color-coded badges (green=accurate, blue=faster, orange=slower)
+  - Per-printer accuracy statistics
+  - Dashboard widget showing average accuracy
+- **Duplicate Detection** - Automatically detect when models have been printed before
+  - SHA256 content hash for exact matching
+  - Purple badge indicator on archive cards
+  - "Duplicates" collection filter to find all duplicates
+  - View duplicate history when viewing archive details
 - **Filament Cost Tracking** - Track costs per print with customizable filament database
 - **Photo Attachments** - Attach photos to archived prints for documentation
 - **Failure Analysis** - Document failed prints with notes and photos
@@ -488,6 +498,8 @@ sudo journalctl -u bambusy -f
 - [ ] Mobile-responsive improvements
 - [ ] Printer groups/organization
 - [x] Smart plug integration (Tasmota)
+- [x] Print time accuracy tracking
+- [x] Duplicate detection
 
 ## License
 
