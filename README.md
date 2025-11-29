@@ -1,4 +1,4 @@
-# Bambusy
+v∆v
 
 <p align="center">
   <img src="static/img/bambusy_logo_dark.png" alt="Bambusy Logo" width="300">
@@ -21,8 +21,8 @@
 
 ## Features
 
-- **Multi-Printer Support** - Connect and monitor multiple Bambu Lab printers (X1, X1C, P1P, P1S, A1, A1 Mini)
-- **Automatic Print Archiving** - Automatically saves 3MF files when prints complete
+- **Multi-Printer Support** - Connect and monitor multiple Bambu Lab printers (H2C, H2D, H2S, X1, X1C, P1P, P1S, A1, A1 Mini)
+- **Automatic Print Archiving** - Automatically saves 3MF files
 - **3D Model Preview** - Interactive Three.js viewer for archived prints
 - **Real-time Monitoring** - Live printer status via WebSocket with print progress, temperatures, and more
 - **Smart Plug Integration** - Control Tasmota-based smart plugs with automation:
@@ -500,17 +500,19 @@ sudo journalctl -u bambusy -f
 - [ ] Limited to local network printers
 
 ### Planned Features
-- [ ] Docker deployment
-- [ ] Multi-user support with authentication
-- [ ] Print queue management
-- [ ] Timelapse video integration
-- [ ] Mobile-responsive improvements
-- [ ] Printer groups/organization
+- [x] Timelapse video integration
 - [x] Smart plug integration (Tasmota)
 - [x] Print time accuracy tracking
 - [x] Duplicate detection
 - [x] HMS error monitoring
 - [x] MQTT debug logging
+- [x] Embedded project page editor
+- [x] QR code labels
+- [x] Energy monitoring and statistics
+- [ ] Print scheduling and queuing
+- [ ] Maintenance tracker
+- [ ] Notifications
+- [ ] Mobile support
 
 ## License
 
