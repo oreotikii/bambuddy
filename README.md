@@ -1,4 +1,4 @@
-# Bambusy
+v∆v
 
 <p align="center">
   <img src="static/img/bambusy_logo_dark.png" alt="Bambusy Logo" width="300">
@@ -25,10 +25,17 @@ This is a first beta version and needs to be tested thoroughly.
 
 ## Features
 
-- **Multi-Printer Support** - Connect and monitor multiple Bambu Lab printers (X1, X1C, P1P, P1S, A1, A1 Mini)
-- **Automatic Print Archiving** - Automatically saves 3MF files when prints complete
+- **Multi-Printer Support** - Connect and monitor multiple Bambu Lab printers (H2C, H2D, H2S, X1, X1C, P1P, P1S, A1, A1 Mini)
+- **Automatic Print Archiving** - Automatically saves 3MF files with full metadata extraction
 - **3D Model Preview** - Interactive Three.js viewer for archived prints
-- **Real-time Monitoring** - Live printer status via WebSocket with print progress, temperatures, and more
+- **Real-time Monitoring** - Live printer status via WebSocket with print progress, temperatures, layer count, and more
+- **Print Queue & Scheduling** - Schedule prints for specific times with powerful automation:
+  - Queue multiple prints per printer
+  - Schedule prints for a specific date/time
+  - Auto power-on printer before scheduled print starts
+  - Auto power-off after print completes (with nozzle cooldown)
+  - Stop active prints with one click
+  - Drag-and-drop queue reordering
 - **Smart Plug Integration** - Control Tasmota-based smart plugs with automation:
   - Auto power-on when print starts
   - Auto power-off when print completes
@@ -60,6 +67,14 @@ This is a first beta version and needs to be tested thoroughly.
   - Expandable JSON payloads for detailed inspection
 - **Filament Cost Tracking** - Track costs per print with customizable filament database
 - **Photo Attachments** - Attach photos to archived prints for documentation
+  - Automatic finish photo capture when print completes (via printer camera)
+  - Manual photo uploads
+- **Print Metadata** - Rich metadata extracted from 3MF files:
+  - Print time estimate and actual time comparison
+  - Filament usage (grams) and type
+  - Total layer count and layer height
+  - Nozzle/bed temperatures
+  - Multi-color support with color swatches
 - **Failure Analysis** - Document failed prints with notes and photos
 - **Project Page Editor** - View and edit embedded MakerWorld project pages with images, descriptions, and designer info
 - **Cloud Profiles Sync** - Access your Bambu Cloud slicer presets
@@ -338,6 +353,38 @@ Prints are automatically archived when they complete. You can also:
 - Re-print any archived 3MF to a connected printer
 - Export archives for backup
 
+### Print Queue & Scheduling
+
+The print queue allows you to schedule prints for later execution with smart automation.
+
+#### Adding to Queue
+
+1. Go to the **Archives** page
+2. Right-click an archive and select **Schedule**, or click the calendar icon
+3. Choose a printer and optional scheduled time
+4. Configure options:
+   - **Scheduled Time**: Leave empty for "next available" or pick a specific date/time
+   - **Auto Power Off**: Automatically turn off the printer when the print completes
+
+#### Queue Management
+
+- **View Queue**: Click the queue icon on any printer card, or go to the Queue page
+- **Reorder**: Drag and drop queue items to change print order
+- **Cancel Pending**: Click the X button on any pending queue item
+- **Stop Active Print**: Click the stop button on an actively printing item (with confirmation)
+
+#### Automation Flow
+
+When a scheduled print is ready to start:
+1. **Power On**: If linked to a smart plug, the printer powers on automatically
+2. **Wait for Connection**: System waits for the printer to connect (up to 2 minutes)
+3. **Upload & Start**: The 3MF file is uploaded via FTP and the print starts
+4. **Monitor**: Progress is tracked in real-time
+5. **Completion**: When the print finishes:
+   - Queue item is marked complete/failed
+   - If "Auto Power Off" was enabled, waits for nozzle to cool below 50°C
+   - Printer powers off automatically
+
 ### Project Page
 
 3MF files downloaded from MakerWorld contain embedded project pages with model information. To view:
@@ -474,8 +521,13 @@ mv bambusy.db bambusy.db.backup
 
 ### View server logs
 
+Bambusy writes logs to `bambutrack.log` in the application directory (rotating, max 5MB × 3 files).
+
 ```bash
-# If running directly
+# View live log file
+tail -f bambutrack.log
+
+# If running directly with verbose output
 uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --log-level debug
 
 # If running as systemd service
@@ -496,6 +548,21 @@ sudo journalctl -u bambusy -f
 2. **Verify automation is enabled** - Check the Enabled, Auto On, and Auto Off toggles
 3. **Temperature mode issues** - If using temperature mode, ensure the printer is still connected so Bambusy can read the nozzle temperature
 
+### Scheduled print not starting
+
+1. **Check printer connection** - The printer must be able to connect after power-on
+2. **Verify smart plug** - If using auto power-on, ensure the smart plug is configured and working
+3. **Check queue status** - Look at the queue page for error messages
+4. **Time zone issues** - Scheduled times are in your local time zone; ensure your system clock is correct
+5. **View logs** - Check `bambutrack.log` for detailed error messages
+
+### Print queue shows "Failed to start"
+
+Common causes:
+- **Printer not ready** - The printer needs to be idle and connected
+- **File upload failed** - Check FTP connectivity to the printer
+- **HMS errors** - Check the printer for any health system errors that prevent printing
+
 ## Known Issues / Roadmap
 
 ### Beta Limitations
@@ -504,17 +571,20 @@ sudo journalctl -u bambusy -f
 - [ ] Limited to local network printers
 
 ### Planned Features
-- [ ] Docker deployment
-- [ ] Multi-user support with authentication
-- [ ] Print queue management
-- [ ] Timelapse video integration
-- [ ] Mobile-responsive improvements
-- [ ] Printer groups/organization
+- [x] Timelapse video integration
 - [x] Smart plug integration (Tasmota)
 - [x] Print time accuracy tracking
 - [x] Duplicate detection
 - [x] HMS error monitoring
 - [x] MQTT debug logging
+- [x] Embedded project page editor
+- [x] QR code labels
+- [x] Energy monitoring and statistics
+- [x] Print scheduling and queuing
+- [x] Automatic finish photo capture
+- [ ] Maintenance tracker
+- [ ] Notifications (email, push)
+- [ ] Mobile-optimized UI
 
 ## License
 
