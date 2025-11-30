@@ -91,6 +91,7 @@ v∆v
 - **Spoolman Integration** - Sync AMS filament data with your Spoolman server
   - Automatic or manual sync modes
   - Per-printer or all-printer sync
+  - Auto-creates spools and filaments in Spoolman
   - Matches Bambu Lab spools by unique tray UUID
   - Tracks filament usage during prints
   - Third-party spools (SpoolEase, etc.) gracefully skipped
@@ -644,16 +645,17 @@ Bambusy matches AMS spools to Spoolman spools using the **tray UUID** - a unique
 - Remaining filament weight (from AMS sensor)
 - Filament usage during prints (deducted from Spoolman inventory)
 
+**Auto-Creation:**
+- When a Bambu Lab spool is detected that doesn't exist in Spoolman, it's automatically created
+- Filament types are matched by material and color, or created if needed
+- The "Bambu Lab" vendor is auto-created if it doesn't exist
+- New spools include a comment noting they were auto-created
+
 **Limitations:**
 - Only **Bambu Lab original spools** can be synced (they have valid tray UUIDs)
 - Third-party spools (SpoolEase, refilled spools, etc.) are gracefully skipped - they won't cause errors
-- Spools must exist in Spoolman before syncing - Bambusy doesn't create new spools automatically
 
 #### Troubleshooting Spoolman
-
-**"Spool not found in Spoolman" errors:**
-- The Bambu Lab spool exists in your AMS but hasn't been added to Spoolman yet
-- Add the spool in Spoolman's web interface, matching the filament type and color
 
 **Third-party spools showing in AMS:**
 - SpoolEase and other third-party spools are automatically skipped during sync
