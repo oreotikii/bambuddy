@@ -98,7 +98,7 @@ v∆v
 
 <!-- Add your screenshots here -->
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="800">
+  <img src="docs/screenshots/statistics.png" alt="Statistics" width="800">
   <br><em>Customizable Dashboard with drag-and-drop widgets</em>
 </p>
 
@@ -115,6 +115,11 @@ v∆v
 <p align="center">
   <img src="docs/screenshots/queue.png" alt="Queue" width="800">
   <br><em>Queueing and scheduling</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/k_profiles.png" alt="k Profiles" width="800">
+  <br><em>k Profiles</em>
 </p>
 
 <p align="center">
