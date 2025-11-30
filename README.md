@@ -73,6 +73,12 @@ v∆v
   - Multi-color support with color swatches
 - **Failure Analysis** - Document failed prints with notes and photos
 - **Project Page Editor** - View and edit embedded MakerWorld project pages with images, descriptions, and designer info
+- **K-Profiles (Pressure Advance)** - Manage pressure advance settings directly on your printers
+  - View, edit, add, and delete K-profiles per printer
+  - Filter by nozzle size (0.2, 0.4, 0.6, 0.8mm) and flow type (High Flow, Standard)
+  - Search by profile name or filament
+  - Dual-nozzle support for H2 series (auto-detected from MQTT)
+  - Left/Right extruder column layout for dual-nozzle printers
 - **Cloud Profiles Sync** - Access your Bambu Cloud slicer presets
 - **File Manager** - Browse and manage files on your printer's SD card
 - **Re-print** - Send archived prints back to any connected printer
@@ -430,6 +436,52 @@ When a scheduled print is ready to start:
 4. Click "Edit" to modify the project page metadata
 5. Changes are saved directly to the 3MF file
 
+### K-Profiles (Pressure Advance)
+
+K-profiles store pressure advance (Linear Advance) settings for different filament and nozzle combinations. Bambusy lets you view and manage these settings directly on your printers.
+
+#### Viewing K-Profiles
+
+1. Go to **Settings** > **K-Profiles**
+2. Select a connected printer from the dropdown
+3. Choose a nozzle size (0.2, 0.4, 0.6, or 0.8mm)
+4. Profiles are displayed with:
+   - K-value (pressure advance factor)
+   - Profile name and filament
+   - Flow type (HF = High Flow, S = Standard)
+
+#### Dual-Nozzle Printers (H2 Series)
+
+For dual-nozzle printers (H2D, H2C, H2S), Bambusy automatically detects the nozzle configuration and displays:
+- **Left/Right columns** showing profiles for each extruder
+- **Extruder filter** to show profiles for one extruder only
+- **Extruder selector** when adding new profiles
+
+The nozzle count is auto-detected from MQTT temperature data when the printer connects.
+
+#### Editing K-Profiles
+
+1. Click on any profile card to open the edit modal
+2. Modify the K-value (typical ranges: 0.01-0.06 for PLA, 0.02-0.10 for PETG)
+3. Click **Save** to update the profile on the printer
+4. Click the trash icon to delete a profile (with confirmation)
+
+#### Adding K-Profiles
+
+1. Click **Add Profile** in the header
+2. Select a filament from the dropdown (populated from existing profiles on the printer)
+3. Choose flow type (High Flow or Standard) and nozzle size
+4. For dual-nozzle printers, select Left or Right extruder
+5. Enter the K-value and click **Save**
+
+**Note:** Filaments must first be calibrated in Bambu Studio to appear in the dropdown. Bambusy reads the filament list from existing K-profiles on the printer.
+
+#### Filtering and Search
+
+- **Search**: Type to filter by profile name or filament ID
+- **Extruder filter** (dual-nozzle only): Show All, Left Only, or Right Only
+- **Flow type filter**: Show All, HF Only, or S Only
+
 ### Smart Plug Integration
 
 Bambusy supports Tasmota-based smart plugs for automated power control. This is useful for:
@@ -646,6 +698,7 @@ To fix the printer's clock:
 - [x] Energy monitoring and statistics
 - [x] Print scheduling and queuing
 - [x] Automatic finish photo capture
+- [x] K-Profiles management (pressure advance)
 - [ ] Maintenance tracker
 - [ ] Notifications (email, push)
 - [ ] Mobile-optimized UI
