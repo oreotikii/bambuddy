@@ -135,6 +135,11 @@ v∆v
 </p>
 
 <p align="center">
+  <img src="docs/screenshots/maintenance.png" alt="Maintenance" width="800">
+  <br><em>Maintenance</em>
+</p>
+
+<p align="center">
   <img src="docs/screenshots/settings.png" alt="Settings" width="800">
   <br><em>Settings</em>
 </p>
