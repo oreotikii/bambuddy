@@ -22,6 +22,12 @@ v∆v
 ## Features
 
 - **Multi-Printer Support** - Connect and monitor multiple Bambu Lab printers (H2C, H2D, H2S, X1, X1C, P1P, P1S, A1, A1 Mini)
+- **AMS Humidity & Temperature Monitoring** - Visual indicators for AMS dryness conditions:
+  - Dynamic water drop icons (empty/half/full) based on humidity level
+  - Dynamic thermometer icons showing temperature status
+  - Color-coded values: green (good), gold (fair), red (bad)
+  - Configurable thresholds in Settings
+  - Dual-nozzle support with L/R indicators for H2 series
 - **Automatic Print Archiving** - Automatically saves 3MF files with full metadata extraction
 - **3D Model Preview** - Interactive Three.js viewer for archived prints
 - **Real-time Monitoring** - Live printer status via WebSocket with print progress, temperatures, layer count, and more
