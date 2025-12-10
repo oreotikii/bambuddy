@@ -133,8 +133,18 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/maintenance_status.png" alt="Maintenance" width="800">
+  <img src="docs/screenshots/maintenance_status.png" alt="Maintenance Status" width="800">
   <br><em>Maintenance tracking per printer</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/maintenance_settings.png" alt="Maintenance Settings" width="800">
+  <br><em>Configure maintenance types and intervals</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/profiles_create.png" alt="Profiles" width="800">
+  <br><em>Create and manage filament profiles</em>
 </p>
 
 <p align="center">
