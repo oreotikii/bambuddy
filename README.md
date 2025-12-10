@@ -130,31 +130,27 @@
 ## 🚀 Quick Start
 
 ### Requirements
+- Python 3.10+ (3.11/3.12 recommended)
 - Bambu Lab printer with **LAN Mode** enabled
 - Same local network as printer
 
-### Docker (Recommended)
+### Installation
 
 ```bash
-git clone https://github.com/maziggy/bambuddy.git
-cd bambuddy
-docker compose up -d
-```
-
-Open **http://localhost:8000** and add your printer!
-
-### Manual Installation
-
-```bash
+# Clone and setup
 git clone https://github.com/maziggy/bambuddy.git
 cd bambuddy
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+# Run
 uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
 ```
 
-> **Need detailed instructions?** See the [Installation Guide](https://github.com/maziggy/bambuddy-wiki/blob/main/Installation.md) or [Docker Guide](https://github.com/maziggy/bambuddy-wiki/blob/main/Docker.md)
+Open **http://localhost:8000** and add your printer!
+
+> **Need detailed instructions?** See the [Installation Guide](https://github.com/maziggy/bambuddy-wiki/blob/main/Installation.md)
 
 ### Enabling LAN Mode
 
