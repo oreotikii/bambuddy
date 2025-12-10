@@ -109,12 +109,17 @@
 
 <p align="center">
   <img src="docs/screenshots/printers.png" alt="Printers" width="800">
-  <br><em>Real-time printer monitoring</em>
+  <br><em>Real-time printer monitoring with AMS status</em>
 </p>
 
 <p align="center">
   <img src="docs/screenshots/archives.png" alt="Archives" width="800">
-  <br><em>Print archive with 3D preview</em>
+  <br><em>Print archive with context menu and project assignment</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/projects.png" alt="Projects" width="800">
+  <br><em>Group related prints into projects</em>
 </p>
 
 <p align="center">
@@ -128,8 +133,28 @@
 </p>
 
 <p align="center">
+  <img src="docs/screenshots/maintenance_status.png" alt="Maintenance" width="800">
+  <br><em>Maintenance tracking per printer</em>
+</p>
+
+<p align="center">
   <img src="docs/screenshots/settings.png" alt="Settings" width="800">
   <br><em>Configuration and integrations</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/smart_plugs.png" alt="Smart Plugs" width="800">
+  <br><em>Smart plug control and automation</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/notifications.png" alt="Notifications" width="800">
+  <br><em>Multi-provider notification system</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/api_keys.png" alt="API Keys" width="800">
+  <br><em>API keys and webhook endpoints</em>
 </p>
 
 </details>
