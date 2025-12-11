@@ -45,16 +45,18 @@
 ### 📦 Print Archive
 - Automatic 3MF archiving with metadata
 - 3D model preview (Three.js)
-- Duplicate detection
+- Duplicate detection & full-text search
 - Photo attachments & failure analysis
 - Re-print to any connected printer
+- Archive comparison (side-by-side diff)
 
 ### 📊 Monitoring & Stats
 - Real-time printer status via WebSocket
 - HMS error monitoring
 - Print success rates & trends
 - Filament usage tracking
-- Cost analytics
+- Cost analytics & failure analysis
+- CSV/Excel export
 
 ### ⏰ Scheduling & Automation
 - Print queue with drag-and-drop
@@ -62,6 +64,12 @@
 - Smart plug integration (Tasmota)
 - Auto power-on before print
 - Auto power-off after cooldown
+
+### 📁 Projects
+- Group related prints (e.g., "Voron Build")
+- Track progress with target counts
+- Color-coded project badges
+- Assign archives via context menu
 
 </td>
 <td width="50%" valign="top">
@@ -78,6 +86,7 @@
 - Bambu Cloud profile management
 - K-profiles (pressure advance)
 - External sidebar links
+- Webhooks & API keys
 
 ### 🛠️ Maintenance
 - Maintenance scheduling & tracking
@@ -100,12 +109,17 @@
 
 <p align="center">
   <img src="docs/screenshots/printers.png" alt="Printers" width="800">
-  <br><em>Real-time printer monitoring</em>
+  <br><em>Real-time printer monitoring with AMS status</em>
 </p>
 
 <p align="center">
   <img src="docs/screenshots/archives.png" alt="Archives" width="800">
-  <br><em>Print archive with 3D preview</em>
+  <br><em>Print archive with context menu and project assignment</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/projects.png" alt="Projects" width="800">
+  <br><em>Group related prints into projects</em>
 </p>
 
 <p align="center">
@@ -119,8 +133,53 @@
 </p>
 
 <p align="center">
+  <img src="docs/screenshots/maintenance_status.png" alt="Maintenance Status" width="800">
+  <br><em>Maintenance tracking per printer</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/maintenance_overdue.png" alt="Maintenance Overdue" width="800">
+  <br><em>Overdue maintenance alerts</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/maintenance_settings.png" alt="Maintenance Settings" width="800">
+  <br><em>Configure maintenance types and intervals</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/profiles_create.png" alt="Profiles Create" width="800">
+  <br><em>Create new filament presets</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/profiles_edit.png" alt="Profiles Edit" width="800">
+  <br><em>Edit filament preset settings</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/profiles_k.png" alt="K-Profiles" width="800">
+  <br><em>Pressure advance (K-factor) profiles</em>
+</p>
+
+<p align="center">
   <img src="docs/screenshots/settings.png" alt="Settings" width="800">
   <br><em>Configuration and integrations</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/smart_plugs.png" alt="Smart Plugs" width="800">
+  <br><em>Smart plug control and automation</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/notifications.png" alt="Notifications" width="800">
+  <br><em>Multi-provider notification system</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/api_keys.png" alt="API Keys" width="800">
+  <br><em>API keys and webhook endpoints</em>
 </p>
 
 </details>
