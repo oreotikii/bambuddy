@@ -206,6 +206,101 @@
 
 ### Installation
 
+#### Docker (Recommended)
+
+```bash
+git clone https://github.com/maziggy/bambuddy.git
+cd bambuddy
+docker compose up -d
+```
+
+Open **http://localhost:8000** in your browser.
+
+<details>
+<summary><strong>Docker Configuration & Commands</strong></summary>
+
+**Environment Variables:**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `TZ` | `UTC` | Your timezone (e.g., `America/New_York`, `Europe/Berlin`) |
+| `DEBUG` | `false` | Enable debug logging |
+| `LOG_LEVEL` | `INFO` | Log level: `DEBUG`, `INFO`, `WARNING`, `ERROR` |
+
+**Data Persistence:**
+
+| Volume | Purpose |
+|--------|---------|
+| `bambuddy.db` | SQLite database with all your print data |
+| `archive/` | Archived 3MF files and thumbnails |
+| `logs/` | Application logs |
+
+**Updating:**
+
+```bash
+cd bambuddy && git pull && docker compose up -d --build
+```
+
+**Useful Commands:**
+
+```bash
+# View logs
+docker compose logs -f
+
+# Stop/Start
+docker compose down
+docker compose up -d
+
+# Shell access
+docker compose exec bambuddy /bin/bash
+```
+
+**Custom Port:**
+
+```yaml
+ports:
+  - "3000:8000"  # Access on port 3000
+```
+
+**Reverse Proxy (Nginx):**
+
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name bambuddy.yourdomain.com;
+
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 86400;
+    }
+}
+```
+
+> **Note:** WebSocket support is required for real-time printer updates.
+
+**Network Mode Host** (for easier printer discovery):
+
+```yaml
+services:
+  bambuddy:
+    build: .
+    network_mode: host
+```
+
+</details>
+
+#### Manual Installation
+
 ```bash
 # Clone and setup
 git clone https://github.com/maziggy/bambuddy.git
