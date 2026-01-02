@@ -95,6 +95,7 @@
 - K-profiles (pressure advance)
 - External sidebar links
 - Webhooks & API keys
+- Interactive API browser with live testing
 
 ### 🖨️ Virtual Printer
 - Emulates a Bambu Lab printer on your network
