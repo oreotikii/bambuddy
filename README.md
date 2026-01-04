@@ -103,6 +103,7 @@
 ### 🖨️ Virtual Printer
 - Emulates a Bambu Lab printer on your network
 - Send prints directly from Bambu Studio/Orca Slicer
+- Configurable printer model (X1C, P1S, A1, H2D, etc.)
 - Queue mode or auto-start mode
 - SSDP discovery (appears in slicer automatically)
 - Secure TLS/MQTT communication
