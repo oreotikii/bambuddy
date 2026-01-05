@@ -108,12 +108,14 @@
 - SSDP discovery (appears in slicer automatically)
 - Secure TLS/MQTT communication
 
-### 🛠️ Maintenance
+### 🛠️ Maintenance & Support
 - Maintenance scheduling & tracking
 - Interval reminders (hours/days)
 - Print time accuracy stats
 - File manager for printer storage
 - Firmware update helper (LAN-only printers)
+- Debug logging toggle with live indicator
+- Support bundle generator (privacy-filtered)
 
 </td>
 </tr>
