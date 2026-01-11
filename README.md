@@ -80,7 +80,7 @@
 - Track progress with target counts
 - Quantity tracking for batch prints
 - Color-coded project badges
-- Assign archives via context menu
+- Bulk assign archives via multi-select toolbar
 
 </td>
 <td width="50%" valign="top">
