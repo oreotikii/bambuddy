@@ -49,7 +49,7 @@
 - Duplicate detection & full-text search
 - Photo attachments & failure analysis
 - Timelapse editor (trim, speed, music)
-- Re-print to any connected printer with AMS filament preview
+- Re-print to any connected printer with AMS mapping (auto-match or manual slot selection)
 - Archive comparison (side-by-side diff)
 
 ### 📊 Monitoring & Control
