@@ -49,14 +49,14 @@
 - Duplicate detection & full-text search
 - Photo attachments & failure analysis
 - Timelapse editor (trim, speed, music)
-- Re-print to any connected printer with AMS filament preview
+- Re-print to any connected printer with AMS mapping (auto-match or manual slot selection)
 - Archive comparison (side-by-side diff)
 
 ### 📊 Monitoring & Control
 - Real-time printer status via WebSocket
 - Live camera streaming (MJPEG) & snapshots
 - Fan status monitoring (part cooling, auxiliary, chamber)
-- Printer control (stop, pause, resume)
+- Printer control (stop, pause, resume, chamber light)
 - Resizable printer cards (S/M/L/XL)
 - Skip objects during print
 - AMS slot RFID re-read
@@ -80,7 +80,7 @@
 - Track progress with target counts
 - Quantity tracking for batch prints
 - Color-coded project badges
-- Assign archives via context menu
+- Bulk assign archives via multi-select toolbar
 
 </td>
 <td width="50%" valign="top">
@@ -108,11 +108,14 @@
 - SSDP discovery (appears in slicer automatically)
 - Secure TLS/MQTT communication
 
-### 🛠️ Maintenance
+### 🛠️ Maintenance & Support
 - Maintenance scheduling & tracking
 - Interval reminders (hours/days)
 - Print time accuracy stats
 - File manager for printer storage
+- Firmware update helper (LAN-only printers)
+- Debug logging toggle with live indicator
+- Support bundle generator (privacy-filtered)
 
 </td>
 </tr>
