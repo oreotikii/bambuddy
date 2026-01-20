@@ -127,6 +127,7 @@
 - File manager for printer storage
 - Firmware update helper (LAN-only printers)
 - Debug logging toggle with live indicator
+- Live application log viewer with filtering
 - Support bundle generator (privacy-filtered)
 
 </td>
