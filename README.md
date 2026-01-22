@@ -76,7 +76,8 @@
 - Scheduled prints (date/time)
 - Queue Only mode (stage without auto-start)
 - Smart plug integration (Tasmota, Home Assistant)
-- Energy consumption tracking
+- Energy consumption tracking (per-print kWh and cost)
+- HA energy sensor support (for plugs with separate power/energy sensors)
 - Auto power-on before print
 - Auto power-off after cooldown
 
