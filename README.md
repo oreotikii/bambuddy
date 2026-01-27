@@ -113,6 +113,8 @@
 - Quiet hours & daily digest
 - Customizable message templates
 - Print finish photo URL in notifications
+- HMS error alerts (AMS, nozzle, etc.)
+- Build plate detection alerts
 
 ### 🔧 Integrations
 - [Spoolman](https://github.com/Donkie/Spoolman) filament sync
