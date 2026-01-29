@@ -52,11 +52,14 @@
 - Photo attachments & failure analysis
 - Timelapse editor (trim, speed, music)
 - Re-print to any connected printer with AMS mapping (auto-match or manual slot selection, multi-plate support)
+- Plate thumbnail browsing for multi-plate archives (hover to navigate between plates)
 - Archive comparison (side-by-side diff)
 
 ### 📊 Monitoring & Control
 - Real-time printer status via WebSocket
 - Live camera streaming (MJPEG) & snapshots with multi-viewer support
+- External camera support (MJPEG, RTSP, HTTP snapshot, USB/V4L2) with layer-based timelapse
+- **Build plate empty detection** - Auto-pause print if objects detected on plate (multi-reference calibration, ROI adjustment)
 - Fan status monitoring (part cooling, auxiliary, chamber)
 - Printer control (stop, pause, resume, chamber light)
 - Resizable printer cards (S/M/L/XL)
@@ -83,6 +86,8 @@
 
 ### 📁 File Manager (Library)
 - Upload and organize sliced files (3MF, gcode)
+- ZIP file extraction with folder structure preservation
+- Option to create folder from ZIP filename
 - Folder structure with drag-and-drop
 - Rename files and folders via context menu
 - Print directly to any printer with full options
@@ -97,6 +102,7 @@
 - Auto-detect parts count from 3MF files
 - Color-coded project badges
 - Bulk assign archives via multi-select toolbar
+- Import/Export projects as ZIP (includes files) or JSON
 
 </td>
 <td width="50%" valign="top">
@@ -108,12 +114,16 @@
 - Quiet hours & daily digest
 - Customizable message templates
 - Print finish photo URL in notifications
+- HMS error alerts (AMS, nozzle, etc.)
+- Build plate detection alerts
 
 ### 🔧 Integrations
 - [Spoolman](https://github.com/Donkie/Spoolman) filament sync
 - MQTT publishing for Home Assistant, Node-RED, etc.
+- **Prometheus metrics** - Export printer telemetry for Grafana dashboards
 - Bambu Cloud profile management
 - K-profiles (pressure advance)
+- **GitHub backup** - Schedule automatic backups of cloud profiles, k profiles and settings to GitHub
 - External sidebar links
 - Webhooks & API keys
 - Interactive API browser with live testing
