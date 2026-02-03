@@ -10,6 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/maziggy/bambuddy/releases"><img src="https://img.shields.io/github/v/release/maziggy/bambuddy?style=flat-square&color=blue" alt="Release"></a>
+  <img src="https://github.com/maziggy/bambuddy/actions/workflows/ci.yml/badge.svg?branch=main">
   <a href="https://github.com/maziggy/bambuddy/blob/main/LICENSE"><img src="https://img.shields.io/github/license/maziggy/bambuddy?style=flat-square" alt="License"></a>
   <a href="https://github.com/maziggy/bambuddy/stargazers"><img src="https://img.shields.io/github/stars/maziggy/bambuddy?style=flat-square" alt="Stars"></a>
   <a href="https://github.com/maziggy/bambuddy/issues"><img src="https://img.shields.io/github/issues/maziggy/bambuddy?style=flat-square" alt="Issues"></a>
@@ -25,6 +26,25 @@
   <a href="https://discord.gg/aFS3ZfScHM">Discord</a> •
   <a href="#-contributing">Contributing</a>
 </p>
+
+---
+
+## 🌐 NEW: Remote Printing with Proxy Mode
+
+<p align="center">
+  <img src="docs/images/proxy-mode-diagram.png" alt="Proxy Mode Architecture" width="800">
+</p>
+
+**Print from anywhere in the world** — Bambuddy's new Proxy Mode acts as a secure relay between your slicer and printer:
+
+- 🔒 **End-to-end TLS encryption** — Your print data is encrypted from slicer to printer
+- 🌍 **No cloud dependency** — Direct connection through your own Bambuddy server
+- 🔑 **Uses printer's access code** — No additional credentials needed
+- ⚡ **Full-speed printing** — FTP and MQTT protocols proxied transparently
+
+Perfect for remote print farms, traveling makers, or accessing your home printer from work.
+
+👉 **[Setup Guide →](https://wiki.bambuddy.cool/features/virtual-printer/#proxy-mode-new-in-017)**
 
 ---
 
@@ -77,7 +97,7 @@
 ### ⏰ Scheduling & Automation
 - Print queue with drag-and-drop
 - Multi-printer selection (send to multiple printers at once)
-- Model-based queue assignment (send to "any X1C" for load balancing)
+- Model-based queue assignment (send to "any X1C" for load balancing) with location filtering
 - Filament validation (only assign to printers with required filaments)
 - Per-printer AMS mapping (individual slot configuration for print farms)
 - Scheduled prints (date/time)
@@ -135,13 +155,14 @@
 - Webhooks & API keys
 - Interactive API browser with live testing
 
-### 🖨️ Virtual Printer
+### 🖨️ Virtual Printer & Remote Printing
+- **🌐 Proxy Mode (NEW!)** — Print remotely from anywhere via secure TLS relay
 - Emulates a Bambu Lab printer on your network
 - Send prints directly from Bambu Studio/Orca Slicer
 - Configurable printer model (X1C, P1S, A1, H2D, etc.)
-- Queue mode or auto-start mode
+- Archive mode, Review mode, Queue mode, or Proxy mode
 - SSDP discovery (appears in slicer automatically)
-- Secure TLS/MQTT communication
+- Secure TLS/MQTT/FTP communication
 
 ### 🛠️ Maintenance & Support
 - Maintenance scheduling & tracking
@@ -158,6 +179,7 @@
 - Group-based permissions (50+ granular permissions)
 - Default groups: Administrators, Operators, Viewers
 - JWT tokens with secure password hashing
+- Comprehensive API protection (200+ endpoints secured)
 - User management (create, edit, delete, groups)
 - User activity tracking (who uploaded archives, library files, queued prints, started prints)
 
@@ -421,7 +443,26 @@ services:
 
 </details>
 
-#### Manual Installation
+#### Windows (Portable Launcher)
+
+The easiest way to run Bambuddy on Windows - no installation required:
+
+```batch
+git clone https://github.com/maziggy/bambuddy.git
+cd bambuddy
+start_bambuddy.bat
+```
+
+Double-click `start_bambuddy.bat` and it will:
+- Download Python and Node.js automatically (portable, no system changes)
+- Install dependencies and build the frontend
+- Open your browser to http://localhost:8000
+
+Everything is stored in the `.portable\` folder. Use `start_bambuddy.bat reset` to clean up.
+
+> **Custom port:** `set PORT=9000 & start_bambuddy.bat`
+
+#### Manual Installation (Linux/macOS)
 
 ```bash
 # Clone and setup

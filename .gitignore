@@ -35,8 +35,8 @@ archive/
 # Firmware cache (downloaded firmware files)
 firmware/
 
-# Virtual printer (auto-generated certs and uploads)
-virtual_printer/
+# Virtual printer (auto-generated certs and uploads at repo root)
+/virtual_printer/
 
 # IDE
 .idea/
@@ -58,3 +58,6 @@ firmware/
 node_modules/
 
 data/
+
+# JWT secret file (should be in data dir, but protect project root too)
+.jwt_secret
