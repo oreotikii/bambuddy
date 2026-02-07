@@ -39,7 +39,8 @@
 
 **Print from anywhere in the world** — Bambuddy's new Proxy Mode acts as a secure relay between your slicer and printer:
 
-- 🔒 **End-to-end TLS encryption** — Your print data is encrypted from slicer to printer
+- 🔒 **TLS-encrypted control channels** — MQTT and FTP control fully encrypted
+- 🛡️ **VPN recommended** — Use Tailscale/WireGuard for full data encryption ([details](https://wiki.bambuddy.cool/features/virtual-printer/))
 - 🌍 **No cloud dependency** — Direct connection through your own Bambuddy server
 - 🔑 **Uses printer's access code** — No additional credentials needed
 - ⚡ **Full-speed printing** — FTP and MQTT protocols proxied transparently
@@ -163,7 +164,7 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Send prints directly from Bambu Studio/Orca Slicer
 - Configurable printer model (X1C, P1S, A1, H2D, etc.)
 - Archive mode, Review mode, Queue mode, or Proxy mode
-- SSDP discovery (appears in slicer automatically)
+- SSDP discovery (same LAN) or manual IP entry (VPN/remote)
 - Secure TLS/MQTT/FTP communication
 
 ### 🛠️ Maintenance & Support
