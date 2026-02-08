@@ -193,6 +193,17 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 
 ---
 
+## 🎬 Demo
+
+<p align="center">
+  <a href="https://youtu.be/bmq2Z0lEXeo">
+    <img src="https://img.youtube.com/vi/bmq2Z0lEXeo/maxresdefault.jpg" alt="Bambuddy Demo Video" width="800">
+  </a>
+  <br><em>Click to watch the demo on YouTube</em>
+</p>
+
+---
+
 ## 📸 Screenshots
 
 <details>
