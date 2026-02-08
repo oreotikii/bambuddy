@@ -148,7 +148,7 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Queue events (waiting, skipped, failed)
 
 ### 🔧 Integrations
-- [Spoolman](https://github.com/Donkie/Spoolman) filament sync
+- [Spoolman](https://github.com/Donkie/Spoolman) filament sync with per-filament usage tracking and fill level display
 - MQTT publishing for Home Assistant, Node-RED, etc.
 - **Prometheus metrics** - Export printer telemetry for Grafana dashboards
 - Bambu Cloud profile management
