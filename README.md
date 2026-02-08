@@ -442,7 +442,7 @@ services:
     network_mode: host
 ```
 
-> **Note:** Docker's default bridge networking cannot receive SSDP multicast packets for automatic printer discovery. When using `network_mode: host`, Bambuddy can discover printers via subnet scanning - enter your network range (e.g., `192.168.1.0/24`) in the Add Printer dialog.
+> **Note:** Docker's default bridge networking cannot receive SSDP multicast packets for automatic printer discovery. When using `network_mode: host`, Bambuddy auto-detects your network subnet and can discover printers via subnet scanning in the Add Printer dialog.
 
 </details>
 
