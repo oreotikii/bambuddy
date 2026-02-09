@@ -152,6 +152,7 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - MQTT publishing for Home Assistant, Node-RED, etc.
 - **Prometheus metrics** - Export printer telemetry for Grafana dashboards
 - Bambu Cloud profile management
+- **Local Profiles** - Import OrcaSlicer presets (`.orca_filament`, `.bbscfg`, `.bbsflmt`, `.zip`, `.json`) without Bambu Cloud
 - K-profiles (pressure advance)
 - **GitHub backup** - Schedule automatic backups of cloud profiles, k profiles and settings to GitHub
 - External sidebar links
