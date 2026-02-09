@@ -175,7 +175,7 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Firmware update helper (LAN-only printers)
 - Debug logging toggle with live indicator
 - Live application log viewer with filtering
-- Support bundle generator (privacy-filtered)
+- Support bundle generator with comprehensive diagnostics (privacy-filtered)
 
 ### 🔒 Optional Authentication
 - Enable/disable authentication any time
