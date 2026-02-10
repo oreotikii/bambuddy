@@ -166,6 +166,7 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Configurable printer model (X1C, P1S, A1, H2D, etc.)
 - Archive mode, Review mode, Queue mode, or Proxy mode
 - SSDP discovery (same LAN) or manual IP entry (VPN/remote)
+- Network interface override for multi-NIC/Docker/VPN setups
 - Secure TLS/MQTT/FTP communication
 
 ### 🛠️ Maintenance & Support
