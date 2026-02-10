@@ -39,7 +39,8 @@
 
 **Print from anywhere in the world** — Bambuddy's new Proxy Mode acts as a secure relay between your slicer and printer:
 
-- 🔒 **End-to-end TLS encryption** — Your print data is encrypted from slicer to printer
+- 🔒 **TLS-encrypted control channels** — MQTT and FTP control fully encrypted
+- 🛡️ **VPN recommended** — Use Tailscale/WireGuard for full data encryption ([details](https://wiki.bambuddy.cool/features/virtual-printer/))
 - 🌍 **No cloud dependency** — Direct connection through your own Bambuddy server
 - 🔑 **Uses printer's access code** — No additional credentials needed
 - ⚡ **Full-speed printing** — FTP and MQTT protocols proxied transparently
@@ -49,8 +50,6 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 👉 **[Setup Guide →](https://wiki.bambuddy.cool/features/virtual-printer/#proxy-mode-new-in-017)**
 
 ---
-
-> **Testers Needed!** I only have X1C and H2D devices. Help make Bambuddy work with all Bambu Lab printers by [reporting your experience](https://github.com/maziggy/bambuddy/issues)!
 
 ## Why Bambuddy?
 
@@ -147,10 +146,11 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Queue events (waiting, skipped, failed)
 
 ### 🔧 Integrations
-- [Spoolman](https://github.com/Donkie/Spoolman) filament sync
+- [Spoolman](https://github.com/Donkie/Spoolman) filament sync with per-filament usage tracking and fill level display
 - MQTT publishing for Home Assistant, Node-RED, etc.
 - **Prometheus metrics** - Export printer telemetry for Grafana dashboards
 - Bambu Cloud profile management
+- **Local Profiles** - Import OrcaSlicer presets (`.orca_filament`, `.bbscfg`, `.bbsflmt`, `.zip`, `.json`) without Bambu Cloud
 - K-profiles (pressure advance)
 - **GitHub backup** - Schedule automatic backups of cloud profiles, k profiles and settings to GitHub
 - External sidebar links
@@ -163,7 +163,8 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Send prints directly from Bambu Studio/Orca Slicer
 - Configurable printer model (X1C, P1S, A1, H2D, etc.)
 - Archive mode, Review mode, Queue mode, or Proxy mode
-- SSDP discovery (appears in slicer automatically)
+- SSDP discovery (same LAN) or manual IP entry (VPN/remote)
+- Network interface override for multi-NIC/Docker/VPN setups
 - Secure TLS/MQTT/FTP communication
 
 ### 🛠️ Maintenance & Support
@@ -171,10 +172,10 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Interval reminders (hours/days)
 - Print time accuracy stats
 - File manager for printer storage
-- Firmware update helper (LAN-only printers)
+- Firmware update helper with version badge (LAN-only printers)
 - Debug logging toggle with live indicator
 - Live application log viewer with filtering
-- Support bundle generator (privacy-filtered)
+- Support bundle generator with comprehensive diagnostics (privacy-filtered)
 
 ### 🔒 Optional Authentication
 - Enable/disable authentication any time
@@ -184,12 +185,16 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Comprehensive API protection (200+ endpoints secured)
 - User management (create, edit, delete, groups)
 - User activity tracking (who uploaded archives, library files, queued prints, started prints)
+- **Advanced Auth via Email** — SMTP integration for automated user onboarding and self-service password resets
+- Admin creates users with email — system sends secure random password automatically
+- Users can reset their own password from the login screen (no admin needed)
+- Customizable email templates (welcome email, password reset)
 
 </td>
 </tr>
 </table>
 
-**Plus:** Customizable themes (style, background, accent) • Mobile responsive • Keyboard shortcuts • Multi-language (EN/DE) • Auto updates • Database backup/restore • System info dashboard
+**Plus:** Configurable slicer (Bambu Studio / OrcaSlicer) • Customizable themes (style, background, accent) • Mobile responsive • Keyboard shortcuts • Multi-language (EN/DE) • Auto updates • Database backup/restore • System info dashboard
 
 ---
 
@@ -452,7 +457,7 @@ services:
     network_mode: host
 ```
 
-> **Note:** Docker's default bridge networking cannot receive SSDP multicast packets for automatic printer discovery. When using `network_mode: host`, Bambuddy can discover printers via subnet scanning - enter your network range (e.g., `192.168.1.0/24`) in the Add Printer dialog.
+> **Note:** Docker's default bridge networking cannot receive SSDP multicast packets for automatic printer discovery. When using `network_mode: host`, Bambuddy auto-detects your network subnet and can discover printers via subnet scanning in the Add Printer dialog.
 
 </details>
 
@@ -523,9 +528,10 @@ Full documentation available at **[wiki.bambuddy.cool](http://wiki.bambuddy.cool
 
 | Series | Models |
 |--------|--------|
-| H2 | H2D, H2S |
-| X1 | X1, X1 Carbon |
-| P1 | P1P, P1S, P2S |
+| X1 | X1, X1 Carbon, X1E |
+| H2 | H2D, H2D Pro, H2C, H2S |
+| P1 | P1P, P1S |
+| P2 | P2S |
 | A1 | A1, A1 Mini |
 
 ---
