@@ -191,7 +191,7 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 </tr>
 </table>
 
-**Plus:** Customizable themes (style, background, accent) • Mobile responsive • Keyboard shortcuts • Multi-language (EN/DE) • Auto updates • Database backup/restore • System info dashboard
+**Plus:** Configurable slicer (Bambu Studio / OrcaSlicer) • Customizable themes (style, background, accent) • Mobile responsive • Keyboard shortcuts • Multi-language (EN/DE) • Auto updates • Database backup/restore • System info dashboard
 
 ---
 
