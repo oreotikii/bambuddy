@@ -103,6 +103,7 @@ Perfect for remote print farms, traveling makers, or accessing your home printer
 - Per-printer AMS mapping (individual slot configuration for print farms)
 - Scheduled prints (date/time)
 - Queue Only mode (stage without auto-start)
+- Clear plate confirmation between queued prints
 - Smart plug integration (Tasmota, Home Assistant, MQTT)
 - MQTT smart plugs: Subscribe to Zigbee2MQTT, Shelly, or any MQTT topic for energy monitoring
 - Energy consumption tracking (per-print kWh and cost)
