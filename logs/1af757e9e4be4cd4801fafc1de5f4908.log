@@ -1,0 +1,200 @@
+2026-05-02 16:18:17,082 INFO [backend.app.api.routes.camera] Using chamber image protocol for P1S
+2026-05-02 16:18:17,082 INFO [backend.app.api.routes.camera] Starting chamber image stream for [IP] (stream_id=1-de07b946, model=P1S)
+2026-05-02 16:18:17,805 INFO [backend.app.services.camera] Chamber image: connected to [IP]:6000
+2026-05-02 16:18:24,324 INFO [backend.app.api.routes.camera] Closed chamber image connection for stream 1-de07b946
+2026-05-02 16:18:24,324 INFO [backend.app.api.routes.camera] Stopped 1 camera stream(s) for printer 1
+2026-05-02 16:18:24,327 WARNING [backend.app.services.camera] Chamber image: connection closed by printer
+2026-05-02 16:18:24,328 WARNING [backend.app.api.routes.camera] Chamber image stream ended for 1-de07b946
+2026-05-02 16:18:24,328 INFO [backend.app.api.routes.camera] Chamber image stream stopped for [IP] (stream_id=1-de07b946)
+2026-05-02 16:20:14,613 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:20:23,422 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-02 16:20:26,648 INFO [backend.app.services.camera] Saved camera frame to: /tmp/tmp1socs9n8.jpg
+2026-05-02 16:20:31,597 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:20:32,736 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:25:14,619 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:25:55,778 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-02 16:25:55,778 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-02 16:25:58,386 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 127134 bytes
+2026-05-02 16:26:02,564 INFO [backend.app.services.notification_service] Sent notification via What’s App
+2026-05-02 16:30:14,625 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:35:14,631 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:38:02,697 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-02 16:38:02,697 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-02 16:38:04,695 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 127843 bytes
+2026-05-02 16:38:08,837 INFO [backend.app.services.notification_service] Sent notification via What’s App
+2026-05-02 16:40:14,638 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:45:14,645 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:50:14,651 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:50:34,199 INFO [backend.app.services.bambu_mqtt] [[SERIAL]] PRINT COMPLETE detected - state: FINISH, status: completed, file: 0.2mm layer, 2 walls, 15% infill.3mf, subtask: 0.2mm layer, 2 walls, 15% infill, was_running: True, timelapse_during_print: True
+2026-05-02 16:50:34,199 INFO [backend.app.main] [CALLBACK] on_print_complete started for printer 1
+2026-05-02 16:50:34,200 INFO [backend.app.main] [TIMING] WebSocket send_print_complete: 0.000s elapsed
+2026-05-02 16:50:34,200 INFO [backend.app.main] Print complete - filename: 0.2mm layer, 2 walls, 15% infill.3mf, subtask: 0.2mm layer, 2 walls, 15% infill, status: completed
+2026-05-02 16:50:34,200 INFO [backend.app.main] Looking for archive in _active_prints, keys to try: [(1, '0.2mm layer, 2 walls, 15% infill.3mf'), (1, '0.2mm layer, 2 walls, 15% infill.gcode.3mf'), (1, '0.2mm layer, 2 walls, 15% infill'), (1, '0.2mm layer, 2 walls, 15% infill.3mf'), (1, '0.2mm layer, 2 walls, 15% infill.3mf')]...
+2026-05-02 16:50:34,200 INFO [backend.app.main] Current _active_prints: [(1, '0.2mm layer, 2 walls, 15% infill.3mf')]
+2026-05-02 16:50:34,201 INFO [backend.app.main] Found archive 2 with key (1, '0.2mm layer, 2 walls, 15% infill.3mf')
+2026-05-02 16:50:34,948 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:34,958 WARNING [backend.app.services.bambu_ftp] Failed to delete /0.2mm layer, 2 walls, 15% infill.3mf: 550 
+2026-05-02 16:50:37,717 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:37,728 WARNING [backend.app.services.bambu_ftp] Failed to delete /0.2mm layer, 2 walls, 15% infill.3mf: 550 
+2026-05-02 16:50:40,542 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:40,551 WARNING [backend.app.services.bambu_ftp] Failed to delete /0.2mm layer, 2 walls, 15% infill.3mf: 550 
+2026-05-02 16:50:40,570 WARNING [backend.app.main] SD card cleanup failed after 3 attempts for /0.2mm layer, 2 walls, 15% infill.3mf (file may linger on SD card)
+2026-05-02 16:50:41,314 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:41,323 WARNING [backend.app.services.bambu_ftp] Failed to delete /0.2mm layer, 2 walls, 15% infill.gcode: 550 
+2026-05-02 16:50:44,153 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:44,169 WARNING [backend.app.services.bambu_ftp] Failed to delete /0.2mm layer, 2 walls, 15% infill.gcode: 550 
+2026-05-02 16:50:46,933 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:46,944 WARNING [backend.app.services.bambu_ftp] Failed to delete /0.2mm layer, 2 walls, 15% infill.gcode: 550 
+2026-05-02 16:50:46,951 WARNING [backend.app.main] SD card cleanup failed after 3 attempts for /0.2mm layer, 2 walls, 15% infill.gcode (file may linger on SD card)
+2026-05-02 16:50:46,952 INFO [backend.app.main] [TIMING] SD card cleanup: 12.752s elapsed
+2026-05-02 16:50:46,954 INFO [backend.app.main] [TIMING] Queue item update: 12.754s elapsed
+2026-05-02 16:50:46,958 INFO [backend.app.main] [BED-COOL] Registered waiter for printer 1 (threshold: 35°C)
+2026-05-02 16:50:46,960 INFO [backend.app.services.usage_tracker] [UsageTracker] on_print_complete: printer=1, archive=2, session=yes, ams_mapping=None
+2026-05-02 16:50:46,961 INFO [backend.app.services.usage_tracker] [UsageTracker] PRINT COMPLETE printer 1: mapping=None, tray_now=255, last_loaded_tray=3
+2026-05-02 16:50:46,963 INFO [backend.app.services.usage_tracker] [UsageTracker] 3MF: archive 2, filament_usage=[{'slot_id': 4, 'used_g': 34.4, 'type': 'PLA', 'color': '#FFFFFF'}]
+2026-05-02 16:50:46,964 INFO [backend.app.services.usage_tracker] [UsageTracker] Color-matched slot_to_tray: [-1, -1, -1, 3]
+2026-05-02 16:50:46,964 INFO [backend.app.services.usage_tracker] [UsageTracker] 3MF: slot_to_tray=[-1, -1, -1, 3] (source: color_match)
+2026-05-02 16:50:46,964 INFO [backend.app.services.usage_tracker] [UsageTracker] 3MF: slot_id=4 -> global_tray=3 -> AMS0-T3 (used_g=34.4, tray_now_override=None)
+2026-05-02 16:50:46,968 INFO [backend.app.services.usage_tracker] [UsageTracker] Spool 5 consumed 34.4g (3MF, color_match_map) on printer 1 AMS0-T3 (completed)
+2026-05-02 16:50:46,975 INFO [backend.app.main] [TIMING] Usage tracker: 12.776s elapsed
+2026-05-02 16:50:46,977 INFO [backend.app.services.spoolman_tracking] [SPOOLMAN] No tracking data for print (printer=1, archive=2)
+2026-05-02 16:50:46,977 INFO [backend.app.main] [TIMING] Spoolman usage report: 12.778s elapsed
+2026-05-02 16:50:46,978 INFO [backend.app.main] [TIMING] Filament usage tracking: 12.778s elapsed
+2026-05-02 16:50:46,978 INFO [backend.app.main] [TIMING] Archive lookup: 12.778s elapsed
+2026-05-02 16:50:46,978 INFO [backend.app.main] [ARCHIVE] Updating archive 2 status...
+2026-05-02 16:50:46,982 INFO [backend.app.main] [ARCHIVE] Archive 2 status updated to completed, failure_reason=None
+2026-05-02 16:50:46,982 INFO [backend.app.main] [ARCHIVE] WebSocket notification sent for archive 2
+2026-05-02 16:50:46,983 INFO [backend.app.main] [TIMING] Archive status update: 12.783s elapsed
+2026-05-02 16:50:46,986 INFO [backend.app.main] [PRINT_LOG] Log entry written for archive 2
+2026-05-02 16:50:46,986 INFO [backend.app.main] [TIMING] Print log entry: 12.787s elapsed
+2026-05-02 16:50:46,986 INFO [backend.app.main] [TIMING] Background tasks scheduled (energy, photo): 12.787s elapsed
+2026-05-02 16:50:46,986 INFO [backend.app.main] [TIMING] All background tasks scheduled: 12.787s elapsed
+2026-05-02 16:50:46,986 INFO [backend.app.main] [TIMELAPSE] Timelapse was active during print, scheduling auto-scan for archive 2
+2026-05-02 16:50:46,986 INFO [backend.app.main] [TIMING] Timelapse scan scheduled: 12.787s elapsed
+2026-05-02 16:50:46,987 INFO [backend.app.main] [CALLBACK] on_print_complete finished for printer 1, archive 2
+2026-05-02 16:50:46,987 INFO [backend.app.main] [ENERGY-BG] Starting energy calculation for archive 2
+2026-05-02 16:50:46,987 INFO [backend.app.main] [PHOTO-BG] Starting finish photo capture for archive 2
+2026-05-02 16:50:46,988 INFO [backend.app.main] [AUTO-OFF-BG] Starting smart plug automation for printer 1
+2026-05-02 16:50:46,989 INFO [backend.app.main] [MAINT-BG] Starting maintenance check for printer 1
+2026-05-02 16:50:46,989 INFO [backend.app.main] [LAYER-TL] Stitching layer timelapse for printer 1
+2026-05-02 16:50:46,995 INFO [backend.app.services.smart_plug_manager] Print completed successfully on printer 1, scheduling turn-off for plug 'BL-P1S_1'
+2026-05-02 16:50:46,995 INFO [backend.app.services.smart_plug_manager] Scheduling temperature-based turn-off for plug 'BL-P1S_1' (threshold: 70°C)
+2026-05-02 16:50:46,995 INFO [backend.app.main] [AUTO-OFF-BG] Completed
+2026-05-02 16:50:46,996 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=186.59375°C, threshold=70°C
+2026-05-02 16:50:46,998 INFO [backend.app.main] [TIMELAPSE] Using print-start baseline: 21 existing video files for archive 2
+2026-05-02 16:50:46,999 INFO [backend.app.main] [ENERGY-BG] No start kWh recorded for archive 2
+2026-05-02 16:50:47,000 INFO [backend.app.main] [TIMELAPSE] Attempt 1/4: waiting 5s before scanning for archive 2
+2026-05-02 16:50:47,003 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-02 16:50:47,012 INFO [backend.app.main] [MAINT-BG] Completed (no items need attention)
+2026-05-02 16:50:49,069 INFO [backend.app.services.camera] Saved camera frame to: /app/data/archive/1/20260502_160102_0.2mm layer, 2 walls, 15% infill/photos/finish_20260502_165047_40a46c75.jpg
+2026-05-02 16:50:49,069 INFO [backend.app.services.camera] Finish photo saved: finish_20260502_165047_40a46c75.jpg
+2026-05-02 16:50:49,071 INFO [backend.app.main] [PHOTO-BG] Saved: finish_20260502_165047_40a46c75.jpg
+2026-05-02 16:50:49,071 INFO [backend.app.main] [PHOTO-NOTIFY] Photo task returned: finish_20260502_165047_40a46c75.jpg
+2026-05-02 16:50:49,071 INFO [backend.app.main] [NOTIFY-BG] Starting notifications for printer 1, photo=finish_20260502_165047_40a46c75.jpg
+2026-05-02 16:50:49,075 INFO [backend.app.main] [NOTIFY-BG] Loaded finish photo bytes: 72945 bytes
+2026-05-02 16:50:49,075 INFO [backend.app.services.notification_service] on_print_complete called for printer 1 ([PRINTER]), status=completed
+2026-05-02 16:50:49,077 INFO [backend.app.services.notification_service] Found 1 providers for on_print_complete: ['What’s App']
+2026-05-02 16:50:52,758 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:52,889 INFO [backend.app.main] [TIMELAPSE] Attempt 1: Found 22 video files in /timelapse
+2026-05-02 16:50:52,889 INFO [backend.app.main] [TIMELAPSE]   - video_2026-04-16_15-12-20.avi
+2026-05-02 16:50:52,889 INFO [backend.app.main] [TIMELAPSE]   - video_2026-04-16_15-10-48.avi
+2026-05-02 16:50:52,889 INFO [backend.app.main] [TIMELAPSE]   - video_2026-04-16_20-24-15.avi
+2026-05-02 16:50:52,889 INFO [backend.app.main] [TIMELAPSE]   - video_2026-04-16_15-28-47.avi
+2026-05-02 16:50:52,889 INFO [backend.app.main] [TIMELAPSE]   - video_2026-04-16_15-41-43.avi
+2026-05-02 16:50:52,890 INFO [backend.app.main] [TIMELAPSE] Attempt 1: New file detected: video_2026-05-02_22-07-45.avi (downloading for archive 2)
+2026-05-02 16:50:53,215 INFO [backend.app.services.notification_service] Sent notification via What’s App
+2026-05-02 16:50:53,216 INFO [backend.app.main] [NOTIFY-BG] Completed
+2026-05-02 16:50:53,625 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-02 16:50:56,996 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=182.84375°C, threshold=70°C
+2026-05-02 16:51:06,997 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=168.375°C, threshold=70°C
+2026-05-02 16:51:07,517 INFO [backend.app.main] [TIMELAPSE] Successfully attached timelapse to archive 2
+2026-05-02 16:51:11,187 INFO [backend.app.services.archive] Converted timelapse to MP4 for archive 2 (video_2026-05-02_22-07-45.avi → video_2026-05-02_22-07-45.mp4)
+2026-05-02 16:51:16,998 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=158.84375°C, threshold=70°C
+2026-05-02 16:51:26,999 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=151.21875°C, threshold=70°C
+2026-05-02 16:51:37,000 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=143.53125°C, threshold=70°C
+2026-05-02 16:51:47,001 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=138.5625°C, threshold=70°C
+2026-05-02 16:51:57,002 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=132.59375°C, threshold=70°C
+2026-05-02 16:52:07,003 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=126.4375°C, threshold=70°C
+2026-05-02 16:52:17,004 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=121.3125°C, threshold=70°C
+2026-05-02 16:52:27,005 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=117.03125°C, threshold=70°C
+2026-05-02 16:52:37,006 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=112.0625°C, threshold=70°C
+2026-05-02 16:52:47,007 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=107.875°C, threshold=70°C
+2026-05-02 16:52:57,008 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=104.84375°C, threshold=70°C
+2026-05-02 16:53:07,009 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=101.15625°C, threshold=70°C
+2026-05-02 16:53:17,011 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=98.4375°C, threshold=70°C
+2026-05-02 16:53:27,012 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=94.78125°C, threshold=70°C
+2026-05-02 16:53:37,013 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=91.65625°C, threshold=70°C
+2026-05-02 16:53:47,015 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=88.71875°C, threshold=70°C
+2026-05-02 16:53:57,016 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=85.65625°C, threshold=70°C
+2026-05-02 16:54:07,017 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=83.0625°C, threshold=70°C
+2026-05-02 16:54:17,018 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=80.34375°C, threshold=70°C
+2026-05-02 16:54:27,018 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=78.5625°C, threshold=70°C
+2026-05-02 16:54:37,020 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=76.59375°C, threshold=70°C
+2026-05-02 16:54:47,020 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=74.5°C, threshold=70°C
+2026-05-02 16:54:57,021 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=72.5625°C, threshold=70°C
+2026-05-02 16:55:07,022 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=70.53125°C, threshold=70°C
+2026-05-02 16:55:14,657 INFO [backend.app.main] Recorded 1 AMS sensor history entries
+2026-05-02 16:55:17,023 INFO [backend.app.services.smart_plug_manager] Temp check plug 1: nozzle=68.78125°C, threshold=70°C
+2026-05-02 16:55:17,147 INFO [backend.app.services.homeassistant] Turned OFF HA entity 'plug_1' (switch.bl_p1s_1)
+2026-05-02 16:55:17,148 INFO [backend.app.services.smart_plug_manager] Turned off plug 1 after nozzle temp dropped to 68.78125°C (threshold: 70°C)
+2026-05-02 16:55:17,151 INFO [backend.app.services.smart_plug_manager] Auto-off executed and disabled for plug 1
+2026-05-02 16:55:17,151 INFO [backend.app.services.printer_manager] Marking printer 1 as offline (smart plug power off)
+2026-05-02 16:55:48,242 WARNING [backend.app.services.bambu_mqtt] [[SERIAL]] MQTT disconnected: rc=Keep alive timeout, flags=DisconnectFlags(is_disconnect_packet_from_server=False)
+2026-05-02 16:55:48,242 WARNING [backend.app.services.bambu_mqtt] [[SERIAL]] MQTT disconnected: rc=Keep alive timeout, flags=DisconnectFlags(is_disconnect_packet_from_server=False)
+2026-05-02 21:00:12,125 INFO [backend.app.api.routes.cloud] get_filament_info called with 3 IDs: ['GFG99', 'GFG02', 'GFL95']
+2026-05-02 21:00:15,480 INFO [backend.app.api.routes.smart_plugs] Updated smart plug 'BL-P1S_1'
+2026-05-02 21:00:16,555 WARNING [backend.app.api.routes.cloud] Failed to get cloud preset GFG02 (API ID: GFSG02): Failed to get setting detail: 400
+2026-05-02 21:00:16,788 WARNING [backend.app.api.routes.cloud] Failed to get cloud preset GFL95 (API ID: GFSL95): Failed to get setting detail: 400
+2026-05-02 21:00:18,250 INFO [backend.app.api.routes.smart_plugs] Updated smart plug 'BL-P1S_1'
+2026-05-02 21:00:20,826 INFO [backend.app.services.firmware_check] Got Bambu Lab build ID: qlInJoEY-IkhFrtF0HKX1
+2026-05-04 08:22:59,329 INFO [backend.app.api.routes.cloud] get_filament_info called with 3 IDs: ['GFG99', 'GFG02', 'GFL95']
+2026-05-04 08:23:03,766 WARNING [backend.app.api.routes.cloud] Failed to get cloud preset GFG02 (API ID: GFSG02): Failed to get setting detail: 400
+2026-05-04 08:23:03,944 WARNING [backend.app.api.routes.cloud] Failed to get cloud preset GFL95 (API ID: GFSL95): Failed to get setting detail: 400
+2026-05-04 08:23:04,943 INFO [backend.app.services.homeassistant] Turned ON HA entity 'BL-P1S_1' (switch.bl_p1s_1)
+2026-05-04 08:23:08,171 INFO [backend.app.services.firmware_check] Got Bambu Lab build ID: qlInJoEY-IkhFrtF0HKX1
+2026-05-04 08:23:21,061 INFO [backend.app.main] [BED-COOL] Bed cooled to 23.4°C on printer 1 (threshold: 35°C)
+2026-05-04 08:23:25,205 INFO [backend.app.services.notification_service] Sent notification via What’s App
+2026-05-04 08:23:34,255 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-04 08:23:34,255 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-04 08:23:36,164 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 92250 bytes
+2026-05-04 08:24:25,453 INFO [backend.app.api.routes.camera] Using chamber image protocol for P1S
+2026-05-04 08:24:25,454 INFO [backend.app.api.routes.camera] Starting chamber image stream for [IP] (stream_id=1-1f80f936, model=P1S)
+2026-05-04 08:24:26,157 INFO [backend.app.services.camera] Chamber image: connected to [IP]:6000
+2026-05-04 08:24:34,807 INFO [backend.app.services.bambu_mqtt] [[SERIAL]] Set chamber lights off (seq=15)
+2026-05-04 08:24:43,041 INFO [backend.app.services.bambu_mqtt] [[SERIAL]] Set chamber lights on (seq=17)
+2026-05-04 08:24:49,363 INFO [backend.app.api.routes.camera] Chamber image stream cancelled (stream_id=1-1f80f936)
+2026-05-04 08:24:49,363 INFO [backend.app.api.routes.camera] Stream 1-1f80f936 cancelled
+2026-05-04 08:24:49,379 INFO [backend.app.api.routes.camera] Stopped 0 camera stream(s) for printer 1
+2026-05-04 08:24:56,233 INFO [backend.app.services.homeassistant] Turned OFF HA entity 'BL-P1S_1' (switch.bl_p1s_1)
+2026-05-04 08:24:56,233 INFO [backend.app.services.printer_manager] Marking printer 1 as offline (smart plug power off)
+2026-05-04 08:25:49,395 WARNING [backend.app.services.bambu_mqtt] [[SERIAL]] MQTT disconnected: rc=Keep alive timeout, flags=DisconnectFlags(is_disconnect_packet_from_server=False)
+2026-05-04 08:25:49,396 WARNING [backend.app.services.bambu_mqtt] [[SERIAL]] MQTT disconnected: rc=Keep alive timeout, flags=DisconnectFlags(is_disconnect_packet_from_server=False)
+2026-05-04 09:03:15,136 INFO [backend.app.api.routes.github_backup] Created GitHub backup config: https://github.com/flom89/BamBuddyConfiguration
+2026-05-04 09:03:15,861 INFO [backend.app.api.routes.github_backup] Updated GitHub backup config: https://github.com/flom89/BamBuddyConfiguration
+2026-05-04 09:03:24,289 INFO [backend.app.services.github_backup] Cloud not authenticated, skipping cloud profiles
+2026-05-04 09:03:24,295 INFO [backend.app.services.github_backup] Collected 5 spools and 1 usage records
+2026-05-04 09:03:24,297 INFO [backend.app.services.github_backup] Collected 2 print archives
+2026-05-04 09:03:28,482 INFO [backend.app.services.github_backup] Cloud not authenticated, skipping cloud profiles
+2026-05-04 09:03:28,488 INFO [backend.app.services.github_backup] Collected 5 spools and 1 usage records
+2026-05-04 09:03:28,489 INFO [backend.app.services.github_backup] Collected 2 print archives
+2026-05-04 09:03:42,815 INFO [backend.app.services.github_backup] Cloud not authenticated, skipping cloud profiles
+2026-05-04 09:03:42,818 INFO [backend.app.services.github_backup] Collected 5 spools and 1 usage records
+2026-05-04 09:03:42,820 INFO [backend.app.services.github_backup] Collected 2 print archives
+2026-05-04 09:05:38,695 INFO [backend.app.api.routes.github_backup] Updated GitHub backup config: https://github.com/flom89/BamBuddyConfiguration
+2026-05-04 09:05:39,321 INFO [backend.app.api.routes.github_backup] Updated GitHub backup config: https://github.com/flom89/BamBuddyConfiguration
+2026-05-04 09:05:45,902 INFO [backend.app.services.github_backup] Cloud not authenticated, skipping cloud profiles
+2026-05-04 09:05:45,910 INFO [backend.app.services.github_backup] Collected 5 spools and 1 usage records
+2026-05-04 09:05:45,911 INFO [backend.app.services.github_backup] Collected 2 print archives
+2026-05-04 09:05:55,855 INFO [backend.app.services.github_backup] Cloud not authenticated, skipping cloud profiles
+2026-05-04 09:05:55,859 INFO [backend.app.services.github_backup] Collected 5 spools and 1 usage records
+2026-05-04 09:05:55,860 INFO [backend.app.services.github_backup] Collected 2 print archives
+2026-05-04 09:06:02,047 INFO [backend.app.api.routes.github_backup] Deleted 5 GitHub backup logs (kept 0)
+2026-05-04 09:06:20,974 INFO [backend.app.api.routes.support] Log level changed to DEBUG
+2026-05-04 09:06:20,974 INFO [backend.app.api.routes.bug_report] Bug report: enabled debug logging
+2026-05-04 09:06:20,974 WARNING [backend.app.services.bambu_mqtt] [[SERIAL]] request_status_update: not connected
+2026-05-04 09:06:24,562 DEBUG [backend.app.main] [[PRINTER]] Runtime tracking: not connected
+2026-05-04 09:06:24,856 DEBUG [backend.app.api.routes.printers] API returning ams_mapping: [], ams_extruder_map: {'0': 0}
+2026-05-04 09:06:24,856 DEBUG [backend.app.api.routes.printers] Using tray_now directly as global ID: 255
+2026-05-04 09:06:25,501 INFO [backend.app.services.github_backup] Cloud not authenticated, skipping cloud profiles
+2026-05-04 09:06:25,505 INFO [backend.app.services.github_backup] Collected 5 spools and 1 usage records
+2026-05-04 09:06:25,506 INFO [backend.app.services.github_backup] Collected 2 print archives
