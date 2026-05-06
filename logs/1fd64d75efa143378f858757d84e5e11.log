@@ -1,0 +1,200 @@
+2026-05-07 08:13:32,420 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.6
+2026-05-07 08:13:32,420 INFO [backend.app.services.bambu_mqtt] [40435ec0] [[SERIAL]] Got 0 K-profiles for nozzle=0.6 on attempt 1
+2026-05-07 08:13:32,421 INFO [backend.app.services.bambu_mqtt] [40435ec0] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.8 (attempt 1/3)
+2026-05-07 08:13:32,432 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.8, seq_id=22, 0 profiles, expected=0.8
+2026-05-07 08:13:32,432 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.8
+2026-05-07 08:13:32,433 INFO [backend.app.services.bambu_mqtt] [40435ec0] [[SERIAL]] Got 0 K-profiles for nozzle=0.8 on attempt 1
+2026-05-07 08:13:32,434 INFO [backend.app.services.github_backup] [40435ec0] Cloud not authenticated, skipping cloud profiles
+2026-05-07 08:13:32,438 INFO [backend.app.services.github_backup] [40435ec0] Collected 5 spools and 18 usage records
+2026-05-07 08:13:32,446 INFO [backend.app.services.github_backup] [40435ec0] Collected 60 print archives
+2026-05-07 08:13:32,487 ERROR [backend.app.services.git_providers.github] [40435ec0] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:13:32,490 INFO [uvicorn.access] [-] [IP]:44928 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:13:46,409 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.2 (attempt 1/3)
+2026-05-07 08:13:46,434 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.2, seq_id=23, 0 profiles, expected=0.2
+2026-05-07 08:13:46,434 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.2
+2026-05-07 08:13:46,434 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Got 0 K-profiles for nozzle=0.2 on attempt 1
+2026-05-07 08:13:46,435 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-07 08:13:46,449 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=24, 0 profiles, expected=0.4
+2026-05-07 08:13:46,450 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-07 08:13:46,450 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-07 08:13:46,450 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.6 (attempt 1/3)
+2026-05-07 08:13:46,460 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.6, seq_id=25, 0 profiles, expected=0.6
+2026-05-07 08:13:46,460 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.6
+2026-05-07 08:13:46,460 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Got 0 K-profiles for nozzle=0.6 on attempt 1
+2026-05-07 08:13:46,461 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.8 (attempt 1/3)
+2026-05-07 08:13:46,474 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.8, seq_id=26, 0 profiles, expected=0.8
+2026-05-07 08:13:46,475 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.8
+2026-05-07 08:13:46,475 INFO [backend.app.services.bambu_mqtt] [aec0ad49] [[SERIAL]] Got 0 K-profiles for nozzle=0.8 on attempt 1
+2026-05-07 08:13:46,477 INFO [backend.app.services.github_backup] [aec0ad49] Cloud not authenticated, skipping cloud profiles
+2026-05-07 08:13:46,480 INFO [backend.app.services.github_backup] [aec0ad49] Collected 5 spools and 18 usage records
+2026-05-07 08:13:46,488 INFO [backend.app.services.github_backup] [aec0ad49] Collected 60 print archives
+2026-05-07 08:13:46,535 ERROR [backend.app.services.git_providers.github] [aec0ad49] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:13:46,538 INFO [uvicorn.access] [-] [IP]:50328 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:13:57,588 INFO [uvicorn.access] [-] [IP]:43562 - "POST /api/v1/github-backup/test-stored HTTP/1.1" 200
+2026-05-07 08:14:00,142 INFO [uvicorn.access] [-] [IP]:43620 - "POST /api/v1/github-backup/test-stored HTTP/1.1" 200
+2026-05-07 08:14:01,179 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.2 (attempt 1/3)
+2026-05-07 08:14:01,197 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.2, seq_id=27, 0 profiles, expected=0.2
+2026-05-07 08:14:01,197 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.2
+2026-05-07 08:14:01,198 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Got 0 K-profiles for nozzle=0.2 on attempt 1
+2026-05-07 08:14:01,198 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-07 08:14:01,226 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=28, 0 profiles, expected=0.4
+2026-05-07 08:14:01,226 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-07 08:14:01,226 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-07 08:14:01,227 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.6 (attempt 1/3)
+2026-05-07 08:14:01,239 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.6, seq_id=29, 0 profiles, expected=0.6
+2026-05-07 08:14:01,239 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.6
+2026-05-07 08:14:01,239 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Got 0 K-profiles for nozzle=0.6 on attempt 1
+2026-05-07 08:14:01,239 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.8 (attempt 1/3)
+2026-05-07 08:14:01,257 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.8, seq_id=30, 0 profiles, expected=0.8
+2026-05-07 08:14:01,258 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.8
+2026-05-07 08:14:01,258 INFO [backend.app.services.bambu_mqtt] [3de659e2] [[SERIAL]] Got 0 K-profiles for nozzle=0.8 on attempt 1
+2026-05-07 08:14:01,260 INFO [backend.app.services.github_backup] [3de659e2] Cloud not authenticated, skipping cloud profiles
+2026-05-07 08:14:01,264 INFO [backend.app.services.github_backup] [3de659e2] Collected 5 spools and 18 usage records
+2026-05-07 08:14:01,272 INFO [backend.app.services.github_backup] [3de659e2] Collected 60 print archives
+2026-05-07 08:14:01,293 ERROR [backend.app.services.git_providers.github] [3de659e2] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:14:01,296 INFO [uvicorn.access] [-] [IP]:43664 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:19:34,628 INFO [backend.app.api.routes.github_backup] [8119e20e] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup.
+2026-05-07 08:19:34,629 INFO [uvicorn.access] [-] [IP]:38024 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:19:35,568 INFO [backend.app.api.routes.github_backup] [9f1d163b] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:19:35,568 INFO [uvicorn.access] [-] [IP]:38042 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:19:45,317 INFO [uvicorn.access] [-] [IP]:42628 - "POST /api/v1/github-backup/test-stored HTTP/1.1" 200
+2026-05-07 08:19:46,800 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.2 (attempt 1/3)
+2026-05-07 08:19:46,819 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.2, seq_id=31, 0 profiles, expected=0.2
+2026-05-07 08:19:46,820 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.2
+2026-05-07 08:19:46,820 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Got 0 K-profiles for nozzle=0.2 on attempt 1
+2026-05-07 08:19:46,820 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-07 08:19:46,842 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=32, 0 profiles, expected=0.4
+2026-05-07 08:19:46,842 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-07 08:19:46,842 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-07 08:19:46,842 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.6 (attempt 1/3)
+2026-05-07 08:19:46,856 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.6, seq_id=33, 0 profiles, expected=0.6
+2026-05-07 08:19:46,856 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.6
+2026-05-07 08:19:46,856 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Got 0 K-profiles for nozzle=0.6 on attempt 1
+2026-05-07 08:19:46,856 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.8 (attempt 1/3)
+2026-05-07 08:19:46,875 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.8, seq_id=34, 0 profiles, expected=0.8
+2026-05-07 08:19:46,875 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.8
+2026-05-07 08:19:46,875 INFO [backend.app.services.bambu_mqtt] [64a317ee] [[SERIAL]] Got 0 K-profiles for nozzle=0.8 on attempt 1
+2026-05-07 08:19:46,877 INFO [backend.app.services.github_backup] [64a317ee] Cloud not authenticated, skipping cloud profiles
+2026-05-07 08:19:46,880 INFO [backend.app.services.github_backup] [64a317ee] Collected 5 spools and 18 usage records
+2026-05-07 08:19:46,889 INFO [backend.app.services.github_backup] [64a317ee] Collected 60 print archives
+2026-05-07 08:19:46,910 ERROR [backend.app.services.git_providers.github] [64a317ee] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:19:46,914 INFO [uvicorn.access] [-] [IP]:47744 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:19:49,714 INFO [backend.app.api.routes.github_backup] [85de5620] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:19:49,714 INFO [uvicorn.access] [-] [IP]:47782 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:19:50,379 INFO [backend.app.api.routes.github_backup] [1582f1f8] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:19:50,380 INFO [uvicorn.access] [-] [IP]:47812 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:19:51,974 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.2 (attempt 1/3)
+2026-05-07 08:19:51,992 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.2, seq_id=35, 0 profiles, expected=0.2
+2026-05-07 08:19:51,992 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.2
+2026-05-07 08:19:51,992 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Got 0 K-profiles for nozzle=0.2 on attempt 1
+2026-05-07 08:19:51,993 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-07 08:19:52,006 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=36, 0 profiles, expected=0.4
+2026-05-07 08:19:52,006 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-07 08:19:52,006 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-07 08:19:52,006 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.6 (attempt 1/3)
+2026-05-07 08:19:52,031 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.6, seq_id=37, 0 profiles, expected=0.6
+2026-05-07 08:19:52,031 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.6
+2026-05-07 08:19:52,032 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Got 0 K-profiles for nozzle=0.6 on attempt 1
+2026-05-07 08:19:52,032 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.8 (attempt 1/3)
+2026-05-07 08:19:52,062 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.8, seq_id=38, 0 profiles, expected=0.8
+2026-05-07 08:19:52,062 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.8
+2026-05-07 08:19:52,063 INFO [backend.app.services.bambu_mqtt] [023239de] [[SERIAL]] Got 0 K-profiles for nozzle=0.8 on attempt 1
+2026-05-07 08:19:52,064 INFO [backend.app.services.github_backup] [023239de] Cloud not authenticated, skipping cloud profiles
+2026-05-07 08:19:52,090 ERROR [backend.app.services.git_providers.github] [023239de] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:19:52,093 INFO [uvicorn.access] [-] [IP]:47862 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:19:54,903 INFO [backend.app.api.routes.github_backup] [b1cf0e0b] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:19:54,904 INFO [uvicorn.access] [-] [IP]:47884 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:19:55,575 INFO [backend.app.api.routes.github_backup] [f6a1de10] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:19:55,576 INFO [uvicorn.access] [-] [IP]:47906 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:19:57,101 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.2 (attempt 1/3)
+2026-05-07 08:19:57,116 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.2, seq_id=39, 0 profiles, expected=0.2
+2026-05-07 08:19:57,116 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.2
+2026-05-07 08:19:57,116 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Got 0 K-profiles for nozzle=0.2 on attempt 1
+2026-05-07 08:19:57,116 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-07 08:19:57,147 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=40, 0 profiles, expected=0.4
+2026-05-07 08:19:57,147 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-07 08:19:57,147 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-07 08:19:57,147 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.6 (attempt 1/3)
+2026-05-07 08:19:57,172 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.6, seq_id=41, 0 profiles, expected=0.6
+2026-05-07 08:19:57,173 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.6
+2026-05-07 08:19:57,173 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Got 0 K-profiles for nozzle=0.6 on attempt 1
+2026-05-07 08:19:57,173 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.8 (attempt 1/3)
+2026-05-07 08:19:57,189 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.8, seq_id=42, 0 profiles, expected=0.8
+2026-05-07 08:19:57,190 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.8
+2026-05-07 08:19:57,190 INFO [backend.app.services.bambu_mqtt] [5042d3e9] [[SERIAL]] Got 0 K-profiles for nozzle=0.8 on attempt 1
+2026-05-07 08:19:57,214 ERROR [backend.app.services.git_providers.github] [5042d3e9] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:19:57,217 INFO [uvicorn.access] [-] [IP]:43462 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:19:59,772 INFO [backend.app.api.routes.github_backup] [4909439f] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:19:59,773 INFO [uvicorn.access] [-] [IP]:43492 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:20:00,395 ERROR [backend.app.services.git_providers.github] [caa94af9] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:20:00,399 INFO [uvicorn.access] [-] [IP]:43504 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:20:30,366 INFO [backend.app.api.routes.github_backup] [15721e38] Deleted 8 GitHub backup logs (kept 0)
+2026-05-07 08:20:30,367 INFO [uvicorn.access] [-] [IP]:35160 - "DELETE /api/v1/github-backup/logs?keep_last=0 HTTP/1.1" 200
+2026-05-07 08:21:46,354 ERROR [backend.app.services.git_providers.github] [da0bf7db] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:21:46,357 INFO [uvicorn.access] [-] [IP]:51936 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:22:46,744 ERROR [backend.app.services.git_providers.github] [f78aca8a] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:22:46,747 INFO [uvicorn.access] [-] [IP]:39360 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:24:34,744 INFO [backend.app.api.routes.github_backup] [2100f4a9] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:24:34,745 INFO [uvicorn.access] [-] [IP]:33576 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:24:35,601 INFO [backend.app.api.routes.github_backup] [42e2a497] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:24:35,602 INFO [uvicorn.access] [-] [IP]:33612 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:24:58,443 INFO [backend.app.api.routes.support] [cffd3938] Log level changed to DEBUG
+2026-05-07 08:24:58,443 INFO [backend.app.api.routes.bug_report] [cffd3938] Bug report: enabled debug logging
+2026-05-07 08:24:58,443 DEBUG [backend.app.services.bambu_mqtt] [cffd3938] [[SERIAL]] Requesting status update (pushall)
+2026-05-07 08:24:58,444 INFO [uvicorn.access] [-] [IP]:58308 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-05-07 08:24:58,966 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: FINISH, gcode_file: , subtask_name: Cast_Net_Slip-ons_Breathable_3d_Printed_Shoes
+2026-05-07 08:24:58,966 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '0', 'tray_exist_bits': '0', 'tray_is_bbl_bits': '0', 'tray_tar': '255', 'tray_now': '254', 'tray_pre': '254', 'tray_read_done_bits': '0', 'tray_reading_bits': '0', 'version': 1, 'insert_flag': True, 'power_on_flag': True}
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 254
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 0 new units, 0 total
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 0 (main=0, sub=0)
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-07 08:24:58,967 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-07 08:24:58,968 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-05-07 08:24:58,968 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'enable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-07 08:24:58,968 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -34dBm
+2026-05-07 08:24:58,968 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'on'}]
+2026-05-07 08:24:58,968 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: FINISH -> FINISH, file: , subtask: Cast_Net_Slip-ons_Breathable_3d_Printed_Shoes
+2026-05-07 08:25:00,665 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.2 (attempt 1/3)
+2026-05-07 08:25:00,665 DEBUG [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] K-profile request JSON: {"print": {"command": "extrusion_cali_get", "filament_id": "", "nozzle_diameter": "0.2", "sequence_id": "43"}}
+2026-05-07 08:25:00,699 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: extrusion_cali_get
+2026-05-07 08:25:00,700 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.2, seq_id=43, 0 profiles, expected=0.2
+2026-05-07 08:25:00,700 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.2
+2026-05-07 08:25:00,700 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Got 0 K-profiles for nozzle=0.2 on attempt 1
+2026-05-07 08:25:00,700 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-07 08:25:00,700 DEBUG [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] K-profile request JSON: {"print": {"command": "extrusion_cali_get", "filament_id": "", "nozzle_diameter": "0.4", "sequence_id": "44"}}
+2026-05-07 08:25:00,715 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: extrusion_cali_get
+2026-05-07 08:25:00,715 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=44, 0 profiles, expected=0.4
+2026-05-07 08:25:00,715 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-07 08:25:00,715 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-07 08:25:00,715 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.6 (attempt 1/3)
+2026-05-07 08:25:00,715 DEBUG [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] K-profile request JSON: {"print": {"command": "extrusion_cali_get", "filament_id": "", "nozzle_diameter": "0.6", "sequence_id": "45"}}
+2026-05-07 08:25:00,728 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: extrusion_cali_get
+2026-05-07 08:25:00,728 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.6, seq_id=45, 0 profiles, expected=0.6
+2026-05-07 08:25:00,728 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.6
+2026-05-07 08:25:00,729 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Got 0 K-profiles for nozzle=0.6 on attempt 1
+2026-05-07 08:25:00,729 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.8 (attempt 1/3)
+2026-05-07 08:25:00,729 DEBUG [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] K-profile request JSON: {"print": {"command": "extrusion_cali_get", "filament_id": "", "nozzle_diameter": "0.8", "sequence_id": "46"}}
+2026-05-07 08:25:00,746 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: extrusion_cali_get
+2026-05-07 08:25:00,746 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.8, seq_id=46, 0 profiles, expected=0.8
+2026-05-07 08:25:00,746 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.8
+2026-05-07 08:25:00,747 INFO [backend.app.services.bambu_mqtt] [7ba13d25] [[SERIAL]] Got 0 K-profiles for nozzle=0.8 on attempt 1
+2026-05-07 08:25:00,748 INFO [backend.app.services.github_backup] [7ba13d25] Cloud not authenticated, skipping cloud profiles
+2026-05-07 08:25:00,772 ERROR [backend.app.services.git_providers.github] [7ba13d25] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:25:00,776 INFO [uvicorn.access] [-] [IP]:58346 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:25:00,987 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-07 08:25:00,987 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -32dBm
+2026-05-07 08:25:03,969 INFO [backend.app.api.routes.github_backup] [544703c0] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:25:03,970 INFO [uvicorn.access] [-] [IP]:58390 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:25:04,746 INFO [backend.app.api.routes.github_backup] [ee17402b] Updated GitHub backup config: http://gitea.dswebhosting.net/[USER]/Bambuddy_Backup
+2026-05-07 08:25:04,746 INFO [uvicorn.access] [-] [IP]:58428 - "PATCH /api/v1/github-backup/config HTTP/1.1" 200
+2026-05-07 08:25:04,997 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-07 08:25:04,998 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -34dBm
+2026-05-07 08:25:06,355 ERROR [backend.app.services.git_providers.github] [666ab10c] Push to Git failed: list indices must be integers or slices, not str
+2026-05-07 08:25:06,358 INFO [uvicorn.access] [-] [IP]:58460 - "POST /api/v1/github-backup/run HTTP/1.1" 200
+2026-05-07 08:25:07,015 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-07 08:25:07,015 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -30dBm
+2026-05-07 08:25:09,015 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-07 08:25:09,016 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -33dBm
