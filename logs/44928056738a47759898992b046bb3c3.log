@@ -1,0 +1,200 @@
+2026-05-08 20:07:29,297 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=H2D, prot_c=False)
+2026-05-08 20:07:29,300 WARNING [backend.app.services.bambu_ftp] Failed to delete /shawnthesheep.gcode: 550 Delete operation failed.
+2026-05-08 20:07:31,456 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=H2D, prot_c=False)
+2026-05-08 20:07:31,460 WARNING [backend.app.services.bambu_ftp] Failed to delete /shawnthesheep.gcode: 550 Delete operation failed.
+2026-05-08 20:07:33,572 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=H2D, prot_c=False)
+2026-05-08 20:07:33,579 WARNING [backend.app.services.bambu_ftp] Failed to delete /shawnthesheep.gcode: 550 Delete operation failed.
+2026-05-08 20:07:33,585 WARNING [backend.app.main] SD card cleanup failed after 3 attempts for /shawnthesheep.gcode (file may linger on SD card)
+2026-05-08 20:07:33,585 INFO [backend.app.main] [TIMING] SD card cleanup: 4.868s elapsed
+2026-05-08 20:07:33,616 INFO [backend.app.main] [TIMING] Queue item update: 4.898s elapsed
+2026-05-08 20:07:34,406 INFO [backend.app.main] [TIMING] Filament usage tracking: 5.688s elapsed
+2026-05-08 20:07:34,406 INFO [backend.app.main] [TIMING] Archive lookup: 5.688s elapsed
+2026-05-08 20:07:34,406 INFO [backend.app.main] [ARCHIVE] Updating archive 1 status...
+2026-05-08 20:07:34,407 INFO [backend.app.main] [ARCHIVE] HMS errors at failure: [{'code': '0x30001', 'attr': 50343424, 'module': 3, 'severity': 14}, {'code': '0x2001b', 'attr': 201326848, 'module': 12, 'severity': 1}, {'code': '0x2001c', 'attr': 201327360, 'module': 12, 'severity': 3}, {'code': '0x30004', 'attr': 83886336, 'module': 5, 'severity': 1}, {'code': '0x8043', 'attr': 201359427, 'module': 12, 'severity': 3}]
+2026-05-08 20:07:34,407 INFO [backend.app.main] [ARCHIVE] Detected failure_reason from HMS: Layer shift
+2026-05-08 20:07:34,487 INFO [backend.app.main] [ARCHIVE] Archive 1 status updated to failed, failure_reason=Layer shift
+2026-05-08 20:07:34,488 INFO [backend.app.main] [ARCHIVE] WebSocket notification sent for archive 1
+2026-05-08 20:07:34,488 INFO [backend.app.main] [TIMING] Archive status update: 5.771s elapsed
+2026-05-08 20:07:34,674 INFO [backend.app.main] [PRINT_LOG] Log entry written for archive 1
+2026-05-08 20:07:34,674 INFO [backend.app.main] [TIMING] Print log entry: 5.957s elapsed
+2026-05-08 20:07:34,674 INFO [backend.app.main] [TIMING] Background tasks scheduled (energy, photo): 5.957s elapsed
+2026-05-08 20:07:34,675 INFO [backend.app.main] [TIMING] All background tasks scheduled: 5.957s elapsed
+2026-05-08 20:07:34,675 INFO [backend.app.main] [CALLBACK] on_print_complete finished for printer 1, archive 1
+2026-05-08 20:07:34,675 INFO [backend.app.main] [ENERGY-BG] Starting energy calculation for archive 1
+2026-05-08 20:07:34,676 INFO [backend.app.main] [PHOTO-BG] Starting finish photo capture for archive 1
+2026-05-08 20:07:34,677 INFO [backend.app.main] [AUTO-OFF-BG] Starting smart plug automation for printer 1
+2026-05-08 20:07:34,677 INFO [backend.app.services.smart_plug_manager] Print on printer 1 ended with status 'failed', skipping auto-off to allow investigation
+2026-05-08 20:07:34,677 INFO [backend.app.main] [AUTO-OFF-BG] Completed
+2026-05-08 20:07:34,677 INFO [backend.app.main] [LAYER-TL] Cancelled layer timelapse for printer 1 (status: failed)
+2026-05-08 20:07:34,681 INFO [backend.app.main] [ENERGY-BG] No start kWh recorded for archive 1
+2026-05-08 20:07:34,685 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:07:35,952 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 157704 bytes
+2026-05-08 20:07:35,953 INFO [backend.app.services.camera] Saved camera frame to: /app/data/archive/1/20260508_190512_shawnthesheep.gcode/photos/finish_20260508_200734_9a2a937b.jpg
+2026-05-08 20:07:35,953 INFO [backend.app.services.camera] Finish photo saved: finish_20260508_200734_9a2a937b.jpg
+2026-05-08 20:07:35,956 INFO [backend.app.main] [PHOTO-BG] Saved: finish_20260508_200734_9a2a937b.jpg
+2026-05-08 20:07:35,957 INFO [backend.app.main] [PHOTO-NOTIFY] Photo task returned: finish_20260508_200734_9a2a937b.jpg
+2026-05-08 20:07:35,957 INFO [backend.app.main] [NOTIFY-BG] Starting notifications for printer 1, photo=finish_20260508_200734_9a2a937b.jpg
+2026-05-08 20:07:35,961 INFO [backend.app.main] [NOTIFY-BG] Loaded finish photo bytes: 157704 bytes
+2026-05-08 20:07:35,983 INFO [backend.app.services.notification_service] on_print_complete called for printer 1 ([PRINTER]), status=failed
+2026-05-08 20:07:35,988 INFO [backend.app.services.notification_service] No notification providers configured for on_print_failed event on printer 1
+2026-05-08 20:07:35,988 INFO [backend.app.main] [NOTIFY-BG] Completed
+2026-05-08 20:07:36,637 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:07:36,638 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:07:37,934 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 167543 bytes
+2026-05-08 20:07:37,934 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 167543 bytes
+2026-05-08 20:07:37,936 INFO [backend.app.main] [HMS] Sent notification for 1 error(s) on printer 1
+2026-05-08 20:07:54,041 INFO [backend.app.services.print_scheduler] Auto-drying: printer 1 AMS 128 — humidity 9% <= threshold 40% after 71m, stopping drying
+2026-05-08 20:07:54,041 INFO [backend.app.services.bambu_mqtt] [[SERIAL]] Sent drying command: ams_id=128, temp=0, duration=0, mode=0
+2026-05-08 20:08:00,501 INFO [backend.app.main] Recorded 2 AMS sensor history entries
+2026-05-08 20:08:28,971 INFO [backend.app.api.routes.websocket] WebSocket client disconnected normally
+2026-05-08 20:08:47,581 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:08:47,583 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:08:48,850 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 91051 bytes
+2026-05-08 20:08:48,850 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 91051 bytes
+2026-05-08 20:09:07,609 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:09:07,610 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:09:08,852 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 93832 bytes
+2026-05-08 20:09:08,852 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 93832 bytes
+2026-05-08 20:10:57,050 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:10:57,051 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:10:58,324 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 200554 bytes
+2026-05-08 20:10:58,324 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 200554 bytes
+2026-05-08 20:11:19,866 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:11:19,867 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:11:21,128 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 122926 bytes
+2026-05-08 20:11:21,128 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 122926 bytes
+2026-05-08 20:11:41,941 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:11:41,942 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:11:43,187 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 83463 bytes
+2026-05-08 20:11:43,187 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 83463 bytes
+2026-05-08 20:12:03,396 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:12:03,397 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:12:04,646 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 83652 bytes
+2026-05-08 20:12:04,646 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 83652 bytes
+2026-05-08 20:13:00,511 INFO [backend.app.main] Recorded 2 AMS sensor history entries
+2026-05-08 20:13:31,161 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:13:31,163 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:13:32,430 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 91942 bytes
+2026-05-08 20:13:32,431 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 91942 bytes
+2026-05-08 20:13:52,901 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:13:52,902 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:13:54,125 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 91389 bytes
+2026-05-08 20:13:54,125 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 91389 bytes
+2026-05-08 20:14:16,254 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:14:16,255 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:14:17,485 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 101627 bytes
+2026-05-08 20:14:17,485 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 101627 bytes
+2026-05-08 20:14:48,603 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:14:48,604 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:14:49,829 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 101850 bytes
+2026-05-08 20:14:49,829 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 101850 bytes
+2026-05-08 20:16:06,731 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:16:06,732 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:16:07,984 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 165197 bytes
+2026-05-08 20:16:07,984 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 165197 bytes
+2026-05-08 20:16:27,151 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:16:27,152 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:16:28,390 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 111946 bytes
+2026-05-08 20:16:28,390 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 111946 bytes
+2026-05-08 20:16:50,441 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:16:50,442 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:16:51,695 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 120707 bytes
+2026-05-08 20:16:51,695 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 120707 bytes
+2026-05-08 20:17:12,270 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:17:12,271 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:17:13,591 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 120253 bytes
+2026-05-08 20:17:13,591 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 120253 bytes
+2026-05-08 20:18:00,520 INFO [backend.app.main] Recorded 2 AMS sensor history entries
+2026-05-08 20:18:18,157 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:18:18,158 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:18:19,407 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 122141 bytes
+2026-05-08 20:18:19,407 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 122141 bytes
+2026-05-08 20:18:32,694 INFO [backend.app.api.routes.websocket] WebSocket client connecting...
+2026-05-08 20:18:32,694 INFO [backend.app.api.routes.websocket] WebSocket client connected
+2026-05-08 20:18:32,695 INFO [backend.app.api.routes.websocket] Sent initial status for 1 printers
+2026-05-08 20:18:38,744 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:18:38,745 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:18:40,001 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 89452 bytes
+2026-05-08 20:18:40,001 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 89452 bytes
+2026-05-08 20:19:00,855 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:19:00,856 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:19:02,096 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 108729 bytes
+2026-05-08 20:19:02,097 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 108729 bytes
+2026-05-08 20:19:35,194 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:19:35,195 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:19:36,442 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 110015 bytes
+2026-05-08 20:19:36,442 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 110015 bytes
+2026-05-08 20:19:42,759 INFO [backend.app.api.routes.websocket] WebSocket client disconnected normally
+2026-05-08 20:20:51,198 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:20:51,199 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:20:52,449 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 125763 bytes
+2026-05-08 20:20:52,449 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 125763 bytes
+2026-05-08 20:21:12,943 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:21:12,944 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:21:14,169 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 99809 bytes
+2026-05-08 20:21:14,170 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 99809 bytes
+2026-05-08 20:21:37,159 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:21:37,160 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:21:38,401 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 98953 bytes
+2026-05-08 20:21:38,401 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 98953 bytes
+2026-05-08 20:22:07,962 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:22:07,964 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:22:09,211 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 114386 bytes
+2026-05-08 20:22:09,212 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 114386 bytes
+2026-05-08 20:23:00,529 INFO [backend.app.main] Recorded 2 AMS sensor history entries
+2026-05-08 20:23:26,032 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:23:26,033 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:23:27,305 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 192994 bytes
+2026-05-08 20:23:27,306 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 192994 bytes
+2026-05-08 20:23:47,376 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:23:47,378 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:23:48,642 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 100127 bytes
+2026-05-08 20:23:48,642 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 100127 bytes
+2026-05-08 20:24:12,591 INFO [backend.app.api.routes.websocket] WebSocket client connecting...
+2026-05-08 20:24:12,591 INFO [backend.app.api.routes.websocket] WebSocket client connected
+2026-05-08 20:24:12,592 INFO [backend.app.api.routes.websocket] Sent initial status for 1 printers
+2026-05-08 20:24:16,205 INFO [backend.app.api.routes.cloud] get_filament_info called with 2 IDs: ['GFA00', 'GFG02']
+2026-05-08 20:24:17,119 WARNING [backend.app.api.routes.cloud] Failed to get cloud preset GFG02 (API ID: GFSG02): Failed to get setting detail: 400
+2026-05-08 20:24:17,470 INFO [backend.app.services.firmware_check] Got Bambu Lab build ID: qlInJoEY-IkhFrtF0HKX1
+2026-05-08 20:24:31,541 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:24:31,542 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:24:32,867 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 99471 bytes
+2026-05-08 20:24:32,867 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 99471 bytes
+2026-05-08 20:26:27,367 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:26:27,368 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:26:29,293 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 191872 bytes
+2026-05-08 20:26:29,293 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 191872 bytes
+2026-05-08 20:27:38,161 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:27:38,163 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:27:39,883 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 115667 bytes
+2026-05-08 20:27:39,883 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 115667 bytes
+2026-05-08 20:28:00,563 INFO [backend.app.main] Recorded 2 AMS sensor history entries
+2026-05-08 20:28:11,870 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:28:11,871 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:28:13,151 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 98599 bytes
+2026-05-08 20:28:13,151 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 98599 bytes
+2026-05-08 20:29:43,625 INFO [backend.app.api.routes.archives] Dispatched reprint archive 1 for printer 1 (dispatch_job_id=2, dispatch_position=1)
+2026-05-08 20:29:43,756 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=H2D, prot_c=False)
+2026-05-08 20:29:43,760 WARNING [backend.app.services.bambu_ftp] Failed to delete /shawnthesheep.3mf: 550 Delete operation failed.
+2026-05-08 20:29:43,764 INFO [backend.app.services.bambu_ftp] FTP connecting to [IP] for upload (model=H2D, mode=prot_p, socket_timeout=30.0s)...
+2026-05-08 20:29:43,862 INFO [backend.app.services.bambu_ftp] FTP connected successfully to [IP] (model=H2D, prot_c=False)
+2026-05-08 20:29:43,862 INFO [backend.app.services.bambu_ftp] FTP connected to [IP]
+2026-05-08 20:29:43,862 INFO [backend.app.services.bambu_ftp] FTP uploading /app/data/archive/1/20260508_190512_shawnthesheep.gcode/14607da6c3624ff6b3bdb1e4e78df2cc.3mf (2037489 bytes) to /shawnthesheep.3mf
+2026-05-08 20:29:43,873 INFO [backend.app.services.bambu_ftp] FTP data channel ready in 0.0s (PASV + TLS handshake)
+2026-05-08 20:29:44,311 WARNING [backend.app.services.bambu_ftp] FTP STOR confirmation not received for /shawnthesheep.3mf (proceeding): 426 Failure reading network stream. (error_temp)
+2026-05-08 20:29:44,311 INFO [backend.app.services.bambu_ftp] FTP upload complete: /shawnthesheep.3mf (2037489 bytes in 0.4s, 4435 KB/s)
+2026-05-08 20:29:44,311 INFO [backend.app.services.bambu_ftp] FTP mode cached for [IP]: prot_p
+2026-05-08 20:29:44,318 INFO [backend.app.main] Registered expected print: printer=1, file=shawnthesheep.3mf, archive=1, ams_mapping=[2]
+2026-05-08 20:29:44,318 INFO [backend.app.services.printer_manager] PRINT COMMAND: printer=1, file=shawnthesheep.3mf, caller=background_dispatch.py:539:_process_job
+2026-05-08 20:29:44,318 INFO [backend.app.services.bambu_mqtt] [[SERIAL]] Sending print command: {"print": {"sequence_id": "20000", "command": "project_file", "param": "Metadata/plate_1.gcode", "url": "ftp://shawnthesheep.3mf", "file": "shawnthesheep.3mf", "md5": "", "bed_type": "auto", "timelapse": 0, "bed_leveling": 1, "auto_bed_leveling": 1, "flow_cali": 0, "vibration_cali": 1, "layer_inspect": 1, "use_ams": true, "cfg": "0", "extrude_cali_flag": 0, "extrude_cali_manual_mode": 0, "nozzle_offset_cali": 2, "subtask_name": "shawnthesheep", "profile_id": "0", "project_id": "148524602", "subtask_id": "148524602", "task_id": "148524602", "ams_mapping": [2], "ams_mapping2": [{"ams_id": 0, "slot_id": 2}]}}
+2026-05-08 20:29:44,322 INFO [backend.app.services.bambu_mqtt] [[SERIAL]] Captured ams_mapping from print command: [2]
+2026-05-08 20:29:59,324 WARNING [backend.app.services.background_dispatch] Printer [PRINTER] (1) did not respond to print command within 15s (state still FAILED) — printer may need restart
+2026-05-08 20:29:59,325 WARNING [backend.app.services.bambu_mqtt] [[SERIAL]] Forcing MQTT reconnect: print command unacknowledged after 15s (state still FAILED)
+2026-05-08 20:29:59,329 INFO [backend.app.main] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-08 20:29:59,330 INFO [backend.app.services.camera] Capturing camera frame bytes from [IP] using RTSP (model: H2D)
+2026-05-08 20:30:00,405 INFO [backend.app.services.bambu_mqtt] [[SERIAL]] Request topic subscription accepted. ams_mapping capture enabled for slicer-initiated prints.
+2026-05-08 20:30:00,569 INFO [backend.app.services.camera] Successfully captured camera frame bytes: 105575 bytes
+2026-05-08 20:30:00,569 INFO [backend.app.main] [SNAPSHOT] Fresh camera frame: 105575 bytes
+2026-05-08 20:30:08,348 INFO [backend.app.api.routes.support] Log level changed to DEBUG
+2026-05-08 20:30:08,348 INFO [backend.app.api.routes.bug_report] Bug report: enabled debug logging
+2026-05-08 20:30:08,348 DEBUG [backend.app.services.bambu_mqtt] [[SERIAL]] Requesting status update (pushall)
