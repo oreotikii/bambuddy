@@ -3,6 +3,7 @@
  * These functions handle color normalization, slot labeling, and tray ID calculations
  * for AMS, AMS-HT, and external spool configurations.
  */
+import type { InventorySpool, LinkedSpoolInfo, SpoolAssignment } from '../api/client';
 import { parseUTCDate } from './date';
 
 /**
@@ -269,4 +270,122 @@ export function isBambuLabSpool(tray: {
   if (tray.tray_uuid && tray.tray_uuid !== '00000000000000000000000000000000') return true;
   if (tray.tag_uid && tray.tag_uid !== '0000000000000000') return true;
   return false;
+}
+
+/**
+ * Resolve a slot's effective fill level by walking the
+ * Spoolman → Inventory → AMS-remain fallback chain.
+ *
+ * Priority order:
+ *   1. Spoolman: spool linked via NFC tag (`linkedSpools[trayTag]`)
+ *   2. Spoolman: spool slot-assigned without an NFC tag
+ *      (`spoolmanSlotAssignments` → `spoolmanSpools`)
+ *   3. Bambuddy inventory: spool slot-assigned via the inventory API
+ *   4. AMS firmware-reported `tray.remain`
+ *
+ * Issue #676: if inventory says 0% but AMS reports positive remain, prefer
+ * AMS — the inventory `weight_used` may be stale or over-counted.
+ *
+ * Used identically by regular AMS slots, AMS-HT slots, and external-spool
+ * slots; before extraction this logic was duplicated three times in
+ * PrintersPage.tsx with `*`, `ht*`, and `ext*` variable prefixes.
+ */
+export interface SlotFillContext {
+  tray: { tray_uuid?: string | null; tag_uid?: string | null; remain?: number } | null | undefined;
+  printerSerial: string;
+  printerId: number;
+  amsId: number;
+  slotIdx: number;
+  hasFillLevel: boolean;
+  linkedSpools: Record<string, LinkedSpoolInfo> | undefined;
+  spoolmanEnabled: boolean;
+  spoolmanLoading: boolean;
+  spoolmanSlotAssignments:
+    | { printer_id: number; ams_id: number; tray_id: number; spoolman_spool_id: number }[]
+    | undefined;
+  spoolmanSpools: InventorySpool[] | undefined;
+  inventoryAssignment: SpoolAssignment | null | undefined;
+}
+
+export interface SlotFillResult {
+  effectiveFill: number | null;
+  fillSource: 'spoolman' | 'inventory' | 'ams' | undefined;
+  slotSpoolForFill: InventorySpool | undefined;
+  // Also returned for downstream use (FilamentHoverCard link/unlink wiring):
+  linkedSpool: LinkedSpoolInfo | undefined;
+  slotAssignmentForFill:
+    | { printer_id: number; ams_id: number; tray_id: number; spoolman_spool_id: number }
+    | undefined;
+}
+
+export function resolveSlotFill(ctx: SlotFillContext): SlotFillResult {
+  const trayTag = (
+    ctx.tray?.tray_uuid ||
+    ctx.tray?.tag_uid ||
+    getFallbackSpoolTag(ctx.printerSerial, ctx.amsId, ctx.slotIdx)
+  )?.toUpperCase();
+  const linkedSpool = trayTag ? ctx.linkedSpools?.[trayTag] : undefined;
+  const spoolmanFill = getSpoolmanFillLevel(linkedSpool);
+
+  const slotAssignmentForFill =
+    ctx.spoolmanEnabled && !ctx.spoolmanLoading
+      ? ctx.spoolmanSlotAssignments?.find(
+          (a) =>
+            a.printer_id === ctx.printerId &&
+            a.ams_id === ctx.amsId &&
+            a.tray_id === ctx.slotIdx,
+        )
+      : undefined;
+  const slotSpoolForFill = slotAssignmentForFill
+    ? ctx.spoolmanSpools?.find((s) => s.id === slotAssignmentForFill.spoolman_spool_id)
+    : undefined;
+  const slotSpoolFill =
+    slotSpoolForFill && (slotSpoolForFill.label_weight ?? 0) > 0
+      ? Math.round(
+          (Math.max(
+            0,
+            (slotSpoolForFill.label_weight ?? 0) - slotSpoolForFill.weight_used,
+          ) /
+            (slotSpoolForFill.label_weight ?? 1)) *
+            100,
+        )
+      : null;
+
+  const inventoryFill = (() => {
+    const sp = ctx.inventoryAssignment?.spool;
+    if (sp && sp.label_weight > 0 && sp.weight_used != null) {
+      return Math.round(
+        (Math.max(0, sp.label_weight - sp.weight_used) / sp.label_weight) * 100,
+      );
+    }
+    return null;
+  })();
+
+  const trayRemain = ctx.tray?.remain ?? -1;
+  // #676: inventory 0% + AMS reports positive remain → prefer AMS.
+  const resolvedInventoryFill =
+    inventoryFill === 0 && ctx.hasFillLevel && trayRemain > 0 ? null : inventoryFill;
+
+  const effectiveFill =
+    spoolmanFill ??
+    slotSpoolFill ??
+    resolvedInventoryFill ??
+    (ctx.hasFillLevel ? trayRemain : null);
+
+  const fillSource =
+    spoolmanFill !== null || slotSpoolFill !== null
+      ? ('spoolman' as const)
+      : resolvedInventoryFill !== null
+        ? ('inventory' as const)
+        : ctx.hasFillLevel
+          ? ('ams' as const)
+          : undefined;
+
+  return {
+    effectiveFill,
+    fillSource,
+    slotSpoolForFill,
+    linkedSpool,
+    slotAssignmentForFill,
+  };
 }

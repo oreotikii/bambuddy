@@ -87,7 +87,7 @@ import { SkipObjectsModal, SkipObjectsIcon } from '../components/SkipObjectsModa
 import { FileUploadModal } from '../components/FileUploadModal';
 import { PrintModal } from '../components/PrintModal';
 import { PrinterInfoModal } from '../components/PrinterInfoModal';
-import { getGlobalTrayId, getFillBarColor, getSpoolmanFillLevel, getFallbackSpoolTag, isBambuLabSpool } from '../utils/amsHelpers';
+import { getGlobalTrayId, getFillBarColor, getFallbackSpoolTag, isBambuLabSpool, resolveSlotFill } from '../utils/amsHelpers';
 import { getPrinterImage, getWifiStrength, filterCompatibleQueueItems } from '../utils/printer';
 import { FilamentSlotCircle } from '../components/FilamentSlotCircle';
 import { Collapsible } from '../components/Collapsible';
@@ -1124,26 +1124,29 @@ function classifyPrinterStatus(
  * Uses stg_cur_name for detailed calibration/preparation stages,
  * otherwise formats the gcode_state nicely.
  */
-function getStatusDisplay(state: string | null | undefined, stg_cur_name: string | null | undefined): string {
+function getStatusDisplay(
+  t: (key: string) => string,
+  state: string | null | undefined,
+  stg_cur_name: string | null | undefined,
+): string {
   // If we have a specific stage name (calibration, heating, etc.), use it
   if (stg_cur_name) {
     return stg_cur_name;
   }
 
-  // Format the gcode_state nicely
   switch (state) {
     case 'RUNNING':
-      return 'Printing';
+      return t('printers.status.printing');
     case 'PAUSE':
-      return 'Paused';
+      return t('printers.status.paused');
     case 'FINISH':
-      return 'Finished';
+      return t('printers.status.finished');
     case 'FAILED':
-      return 'Failed';
+      return t('printers.status.failed');
     case 'IDLE':
-      return 'Idle';
+      return t('printers.status.idle');
     default:
-      return state ? state.charAt(0) + state.slice(1).toLowerCase() : 'Idle';
+      return state ? state.charAt(0) + state.slice(1).toLowerCase() : t('printers.status.idle');
   }
 }
 
@@ -2727,64 +2730,40 @@ function PrinterCard({
 
         {/* Delete Confirmation */}
         {showDeleteConfirm && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <Card className="w-full max-w-md mx-4">
-              <CardContent>
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="p-2 rounded-full bg-red-500/20">
-                    <AlertTriangle className="w-5 h-5 text-red-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">{t('printers.confirm.deleteTitle')}</h3>
-                    <p className="text-sm text-bambu-gray mt-1">
-                      {t('printers.confirm.deleteMessage', { name: printer.name })}
-                    </p>
-                  </div>
+          <ConfirmModal
+            title={t('printers.confirm.deleteTitle')}
+            message={t('printers.confirm.deleteMessage', { name: printer.name })}
+            confirmText={t('common.delete')}
+            variant="danger"
+            onConfirm={() => {
+              deleteMutation.mutate({ deleteArchives });
+              setShowDeleteConfirm(false);
+              setDeleteArchives(true);
+            }}
+            onCancel={() => {
+              setShowDeleteConfirm(false);
+              setDeleteArchives(true);
+            }}
+          >
+            <div className="bg-bambu-dark rounded-lg p-3">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={deleteArchives}
+                  onChange={(e) => setDeleteArchives(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 rounded border-bambu-gray bg-bambu-dark-secondary text-bambu-green focus:ring-bambu-green focus:ring-offset-0"
+                />
+                <div>
+                  <span className="text-sm text-white">{t('printers.deleteArchives')}</span>
+                  <p className="text-xs text-bambu-gray mt-0.5">
+                    {deleteArchives
+                      ? t('printers.confirm.deleteArchivesNote')
+                      : t('printers.confirm.keepArchivesNote')}
+                  </p>
                 </div>
-
-                <div className="bg-bambu-dark rounded-lg p-3 mb-4">
-                  <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={deleteArchives}
-                      onChange={(e) => setDeleteArchives(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 rounded border-bambu-gray bg-bambu-dark-secondary text-bambu-green focus:ring-bambu-green focus:ring-offset-0"
-                    />
-                    <div>
-                      <span className="text-sm text-white">{t('printers.deleteArchives')}</span>
-                      <p className="text-xs text-bambu-gray mt-0.5">
-                        {deleteArchives
-                          ? t('printers.confirm.deleteArchivesNote')
-                          : t('printers.confirm.keepArchivesNote')}
-                      </p>
-                    </div>
-                  </label>
-                </div>
-
-                <div className="flex justify-end gap-2">
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      setShowDeleteConfirm(false);
-                      setDeleteArchives(true);
-                    }}
-                  >
-                    {t('common.cancel')}
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      deleteMutation.mutate({ deleteArchives });
-                      setShowDeleteConfirm(false);
-                      setDeleteArchives(true);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+              </label>
+            </div>
+          </ConfirmModal>
         )}
 
         {/* Status */}
@@ -2809,7 +2788,7 @@ function PrinterCard({
                 ) : (
                   <div className="flex items-center justify-between gap-2">
                     <div className="min-w-0 flex-1 flex items-center gap-1.5">
-                      <p className="min-w-0 truncate text-xs text-bambu-gray">{getStatusDisplay(status.state, status.stg_cur_name)}</p>
+                      <p className="min-w-0 truncate text-xs text-bambu-gray">{getStatusDisplay(t, status.state, status.stg_cur_name)}</p>
                       {plateStatusPill}
                     </div>
                     {showClearPlateButton && (
@@ -2874,7 +2853,7 @@ function PrinterCard({
                       {status.current_print && (status.state === 'RUNNING' || status.state === 'PAUSE') ? (
                         <>
                           <div className="mb-1 flex items-center gap-2">
-                            <p className="text-sm text-bambu-gray">{getStatusDisplay(status.state, status.stg_cur_name)}</p>
+                            <p className="text-sm text-bambu-gray">{getStatusDisplay(t, status.state, status.stg_cur_name)}</p>
                             {plateStatusPill}
                           </div>
                           <p className="text-white text-sm mb-2 truncate">
@@ -2920,7 +2899,7 @@ function PrinterCard({
                           <p className="text-sm text-bambu-gray mb-1">{t('printers.sort.status')}</p>
                           <div className="mb-2 flex items-center gap-2">
                             <p className="text-white text-sm">
-                              {getStatusDisplay(status.state, status.stg_cur_name)}
+                              {getStatusDisplay(t, status.state, status.stg_cur_name)}
                             </p>
                             {plateStatusPill}
                           </div>
@@ -3512,7 +3491,7 @@ function PrinterCard({
                                 // Find tray data for this slot (may be undefined if data incomplete)
                                 // Use array index if available, as tray.id may not always be set
                                 const tray = ams.tray[slotIdx] || ams.tray.find(t => t.id === slotIdx);
-                                const hasFillLevel = tray?.tray_type && tray.remain >= 0;
+                                const hasFillLevel = !!tray?.tray_type && tray.remain >= 0;
                                 const isEmpty = !tray?.tray_type;
                                 // Check if this is the currently loaded tray
                                 // Global tray ID = ams.id * 4 + slot index (for standard AMS)
@@ -3524,36 +3503,21 @@ function PrinterCard({
                                 const slotPreset = slotPresets?.[globalTrayId];
 
                                 // Fill level fallback chain: Spoolman → Inventory → AMS remain
-                                const trayTag = (tray?.tray_uuid || tray?.tag_uid || getFallbackSpoolTag(printer.serial_number, ams.id, slotIdx))?.toUpperCase();
-                                const linkedSpool = trayTag ? linkedSpools?.[trayTag] : undefined;
-                                const spoolmanFill = getSpoolmanFillLevel(linkedSpool);
-                                // Slot-assigned-only spool fill (no tag link required)
-                                const slotAssignmentForFill = spoolmanEnabled && !spoolmanLoading
-                                  ? spoolmanSlotAssignments?.find(a => a.printer_id === printer.id && a.ams_id === ams.id && a.tray_id === slotIdx)
-                                  : undefined;
-                                const slotSpoolForFill = slotAssignmentForFill
-                                  ? spoolmanSpools?.find(s => s.id === slotAssignmentForFill.spoolman_spool_id)
-                                  : undefined;
-                                const slotSpoolFill = (slotSpoolForFill && (slotSpoolForFill.label_weight ?? 0) > 0)
-                                  ? Math.round(Math.max(0, (slotSpoolForFill.label_weight ?? 0) - slotSpoolForFill.weight_used) / (slotSpoolForFill.label_weight ?? 1) * 100)
-                                  : null;
                                 const inventoryAssignment = onGetAssignment?.(printer.id, ams.id, slotIdx);
-                                const inventoryFill = (() => {
-                                  const sp = inventoryAssignment?.spool;
-                                  if (sp && sp.label_weight > 0 && sp.weight_used != null) {
-                                    return Math.round(Math.max(0, sp.label_weight - sp.weight_used) / sp.label_weight * 100);
-                                  }
-                                  return null;
-                                })();
-                                // If inventory says 0% but AMS reports positive remain, prefer AMS
-                                // (inventory weight_used may be stale or over-counted — #676)
-                                const resolvedInventoryFill = (inventoryFill === 0 && hasFillLevel && tray.remain > 0)
-                                  ? null : inventoryFill;
-                                const effectiveFill = spoolmanFill ?? slotSpoolFill ?? resolvedInventoryFill ?? (hasFillLevel ? tray.remain : null);
-                                const fillSource = (spoolmanFill !== null || slotSpoolFill !== null) ? 'spoolman' as const
-                                  : resolvedInventoryFill !== null ? 'inventory' as const
-                                  : hasFillLevel ? 'ams' as const
-                                  : undefined;
+                                const { effectiveFill, fillSource, slotSpoolForFill, linkedSpool, slotAssignmentForFill } = resolveSlotFill({
+                                  tray,
+                                  printerSerial: printer.serial_number,
+                                  printerId: printer.id,
+                                  amsId: ams.id,
+                                  slotIdx,
+                                  hasFillLevel,
+                                  linkedSpools,
+                                  spoolmanEnabled,
+                                  spoolmanLoading,
+                                  spoolmanSlotAssignments,
+                                  spoolmanSpools,
+                                  inventoryAssignment,
+                                });
 
                                 // Build filament data for hover card
                                 const filamentData = tray?.tray_type ? {
@@ -3702,8 +3666,7 @@ function PrinterCard({
                                         data={filamentData}
                                         spoolman={{
                                           enabled: spoolmanEnabled,
-                                          linkedSpoolId: (trayTag ? linkedSpools?.[trayTag]?.id : undefined)
-                                            ?? slotAssignmentForFill?.spoolman_spool_id,
+                                          linkedSpoolId: linkedSpool?.id ?? slotAssignmentForFill?.spoolman_spool_id,
                                           spoolmanUrl,
                                           syncMode: spoolmanSyncMode,
                                           // Suppress Link button when slot is already occupied by ANY assignment
@@ -3844,7 +3807,7 @@ function PrinterCard({
                         const isLeftNozzle = extruderId === 1;
                         const isRightNozzle = extruderId === 0;
                         const tray = ams.tray[0];
-                        const hasFillLevel = tray?.tray_type && tray.remain >= 0;
+                        const hasFillLevel = !!tray?.tray_type && tray.remain >= 0;
                         const isEmpty = !tray?.tray_type;
                         // Check if this is the currently loaded tray
                         const globalTrayId = getGlobalTrayId(ams.id, tray?.id ?? 0, false);
@@ -3856,35 +3819,21 @@ function PrinterCard({
                         const htSlotId = tray?.id ?? 0;
 
                         // Fill level fallback chain: Spoolman → Inventory → AMS remain
-                        const htTrayTag = (tray?.tray_uuid || tray?.tag_uid || getFallbackSpoolTag(printer.serial_number, ams.id, htSlotId))?.toUpperCase();
-                        const htLinkedSpool = htTrayTag ? linkedSpools?.[htTrayTag] : undefined;
-                        const htSpoolmanFill = getSpoolmanFillLevel(htLinkedSpool);
                         const htInventoryAssignment = onGetAssignment?.(printer.id, ams.id, htSlotId);
-                        const htInventoryFill = (() => {
-                          const sp = htInventoryAssignment?.spool;
-                          if (sp && sp.label_weight > 0 && sp.weight_used != null) {
-                            return Math.round(Math.max(0, sp.label_weight - sp.weight_used) / sp.label_weight * 100);
-                          }
-                          return null;
-                        })();
-                        // If inventory says 0% but AMS reports positive remain, prefer AMS (#676)
-                        const htResolvedInventoryFill = (htInventoryFill === 0 && hasFillLevel && tray.remain > 0)
-                          ? null : htInventoryFill;
-                        // Slot-assigned-only fill (when spool has no NFC tag but is slot-assigned)
-                        const htSlotAssignmentForFill = spoolmanEnabled && !spoolmanLoading
-                          ? spoolmanSlotAssignments?.find(a => a.printer_id === printer.id && a.ams_id === ams.id && a.tray_id === htSlotId)
-                          : undefined;
-                        const htSlotSpoolForFill = htSlotAssignmentForFill
-                          ? spoolmanSpools?.find(s => s.id === htSlotAssignmentForFill.spoolman_spool_id)
-                          : undefined;
-                        const htSlotSpoolFill = (htSlotSpoolForFill && (htSlotSpoolForFill.label_weight ?? 0) > 0)
-                          ? Math.round(Math.max(0, (htSlotSpoolForFill.label_weight ?? 0) - htSlotSpoolForFill.weight_used) / (htSlotSpoolForFill.label_weight ?? 1) * 100)
-                          : null;
-                        const htEffectiveFill = htSpoolmanFill ?? htSlotSpoolFill ?? htResolvedInventoryFill ?? (hasFillLevel ? tray.remain : null);
-                        const htFillSource = (htSpoolmanFill !== null || htSlotSpoolFill !== null) ? 'spoolman' as const
-                          : htResolvedInventoryFill !== null ? 'inventory' as const
-                          : hasFillLevel ? 'ams' as const
-                          : undefined;
+                        const { effectiveFill: htEffectiveFill, fillSource: htFillSource, slotSpoolForFill: htSlotSpoolForFill, linkedSpool: htLinkedSpool, slotAssignmentForFill: htSlotAssignmentForFill } = resolveSlotFill({
+                          tray,
+                          printerSerial: printer.serial_number,
+                          printerId: printer.id,
+                          amsId: ams.id,
+                          slotIdx: htSlotId,
+                          hasFillLevel,
+                          linkedSpools,
+                          spoolmanEnabled,
+                          spoolmanLoading,
+                          spoolmanSlotAssignments,
+                          spoolmanSpools,
+                          inventoryAssignment: htInventoryAssignment,
+                        });
 
                         // Build filament data for hover card
                         const filamentData = tray?.tray_type ? {
@@ -4100,8 +4049,7 @@ function PrinterCard({
                                     data={filamentData}
                                     spoolman={{
                                       enabled: spoolmanEnabled,
-                                      linkedSpoolId: (htTrayTag ? linkedSpools?.[htTrayTag]?.id : undefined)
-                                        ?? htSlotAssignmentForFill?.spoolman_spool_id,
+                                      linkedSpoolId: htLinkedSpool?.id ?? htSlotAssignmentForFill?.spoolman_spool_id,
                                       spoolmanUrl,
                                       syncMode: spoolmanSyncMode,
                                       // Suppress Link button when slot is occupied by ANY assignment (Phase 13 P13-6d)
@@ -4277,36 +4225,22 @@ function PrinterCard({
                               const extCloudInfo = extTray.tray_info_idx ? filamentInfo?.[extTray.tray_info_idx] : null;
                               const extSlotPreset = slotPresets?.[255 * 4 + slotTrayId];
 
-                              const extTrayTag = (extTray.tray_uuid || extTray.tag_uid || getFallbackSpoolTag(printer.serial_number, 255, slotTrayId))?.toUpperCase();
-                              const extLinkedSpool = extTrayTag ? linkedSpools?.[extTrayTag] : undefined;
-                              const extSpoolmanFill = getSpoolmanFillLevel(extLinkedSpool);
                               const extInventoryAssignment = onGetAssignment?.(printer.id, 255, slotTrayId);
-                              const extInventoryFill = (() => {
-                                const sp = extInventoryAssignment?.spool;
-                                if (sp && sp.label_weight > 0 && sp.weight_used != null) {
-                                  return Math.round(Math.max(0, sp.label_weight - sp.weight_used) / sp.label_weight * 100);
-                                }
-                                return null;
-                              })();
-                              const extHasFillLevel = extTray.tray_type && extTray.remain >= 0;
-                              // If inventory says 0% but AMS reports positive remain, prefer AMS (#676)
-                              const extResolvedInventoryFill = (extInventoryFill === 0 && extHasFillLevel && extTray.remain > 0)
-                                ? null : extInventoryFill;
-                              // Slot-assigned-only fill (when spool has no NFC tag but is slot-assigned)
-                              const extSlotAssignmentForFill = spoolmanEnabled && !spoolmanLoading
-                                ? spoolmanSlotAssignments?.find(a => a.printer_id === printer.id && a.ams_id === 255 && a.tray_id === slotTrayId)
-                                : undefined;
-                              const extSlotSpoolForFill = extSlotAssignmentForFill
-                                ? spoolmanSpools?.find(s => s.id === extSlotAssignmentForFill.spoolman_spool_id)
-                                : undefined;
-                              const extSlotSpoolFill = (extSlotSpoolForFill && (extSlotSpoolForFill.label_weight ?? 0) > 0)
-                                ? Math.round(Math.max(0, (extSlotSpoolForFill.label_weight ?? 0) - extSlotSpoolForFill.weight_used) / (extSlotSpoolForFill.label_weight ?? 1) * 100)
-                                : null;
-                              const extEffectiveFill = extSpoolmanFill ?? extSlotSpoolFill ?? extResolvedInventoryFill ?? (extHasFillLevel ? extTray.remain : null);
-                              const extFillSource = (extSpoolmanFill !== null || extSlotSpoolFill !== null) ? 'spoolman' as const
-                                : extResolvedInventoryFill !== null ? 'inventory' as const
-                                : extHasFillLevel ? 'ams' as const
-                                : undefined;
+                              const extHasFillLevel = !!extTray.tray_type && extTray.remain >= 0;
+                              const { effectiveFill: extEffectiveFill, fillSource: extFillSource, slotSpoolForFill: extSlotSpoolForFill, linkedSpool: extLinkedSpool, slotAssignmentForFill: extSlotAssignmentForFill } = resolveSlotFill({
+                                tray: extTray,
+                                printerSerial: printer.serial_number,
+                                printerId: printer.id,
+                                amsId: 255,
+                                slotIdx: slotTrayId,
+                                hasFillLevel: extHasFillLevel,
+                                linkedSpools,
+                                spoolmanEnabled,
+                                spoolmanLoading,
+                                spoolmanSlotAssignments,
+                                spoolmanSpools,
+                                inventoryAssignment: extInventoryAssignment,
+                              });
 
                               const extFilamentData = {
                                 vendor: (isBambuLabSpool(extTray) ? 'Bambu Lab' : 'Generic') as 'Bambu Lab' | 'Generic',
@@ -4412,8 +4346,7 @@ function PrinterCard({
                                       data={extFilamentData}
                                       spoolman={{
                                         enabled: spoolmanEnabled,
-                                        linkedSpoolId: (extTrayTag ? linkedSpools?.[extTrayTag]?.id : undefined)
-                                          ?? extSlotAssignmentForFill?.spoolman_spool_id,
+                                        linkedSpoolId: extLinkedSpool?.id ?? extSlotAssignmentForFill?.spoolman_spool_id,
                                         spoolmanUrl,
                                         syncMode: spoolmanSyncMode,
                                         // Suppress Link button when slot is occupied by ANY assignment (Phase 13 P13-6d)

@@ -142,6 +142,7 @@ export default {
       problem: '故障',
       error: '錯誤',
       finished: '已完成',
+      failed: '失敗',
       unknown: '未知',
     },
     temperatures: {

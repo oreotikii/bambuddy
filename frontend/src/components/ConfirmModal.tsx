@@ -16,6 +16,9 @@ interface ConfirmModalProps {
   loadingText?: string;
   onConfirm: () => void;
   onCancel: () => void;
+  // Optional slot rendered between the message and the buttons — for confirms
+  // that need a checkbox or extra inline form (e.g. "also delete archives").
+  children?: React.ReactNode;
 }
 
 export function ConfirmModal({
@@ -30,6 +33,7 @@ export function ConfirmModal({
   loadingText,
   onConfirm,
   onCancel,
+  children,
 }: ConfirmModalProps) {
   const { t } = useTranslation();
   const resolvedConfirmText = confirmText ?? t('common.confirm');
@@ -80,6 +84,7 @@ export function ConfirmModal({
               <p className="text-bambu-gray text-sm whitespace-pre-line">{message}</p>
             </div>
           </div>
+          {children !== undefined && <div className="mt-4">{children}</div>}
           <div className="flex gap-3 mt-6">
             <Button
               variant={cancelVariant ?? 'secondary'}

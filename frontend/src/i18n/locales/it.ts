@@ -142,6 +142,7 @@ export default {
       problem: 'Problema',
       error: 'Errore',
       finished: 'Finita',
+      failed: 'Fallita',
       unknown: 'Sconosciuto',
     },
     temperatures: {
