@@ -30,8 +30,8 @@ describe('checkPasswordComplexity', () => {
   });
 
   it('returns null for a password that meets every rule', () => {
-    expect(checkPasswordComplexity('Bambuddy1!')).toBeNull();
-    expect(checkPasswordComplexity('LongerP@ssw0rd!')).toBeNull();
+    expect(checkPasswordComplexity('Aa1!aaaa')).toBeNull();
+    expect(checkPasswordComplexity('Aa1!Aa1!Aa1!')).toBeNull();
   });
 
   it('handles a password from the #1303 user (8 digits) — the original failure mode', () => {
