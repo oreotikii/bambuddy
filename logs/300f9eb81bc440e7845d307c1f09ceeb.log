@@ -1,0 +1,200 @@
+2026-05-13 10:27:37,236 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=PAUSE, awaiting_plate_clear=False
+2026-05-13 10:28:07,242 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:28:07,255 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=PAUSE, awaiting_plate_clear=False
+2026-05-13 10:28:37,260 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:28:37,272 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:28:46,573 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-05-13 10:29:07,277 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:29:07,288 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:29:12,284 INFO [uvicorn.access] [-] [IP]:52576 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 200
+2026-05-13 10:29:12,288 INFO [backend.app.api.routes.camera] [c135f24c] Camera viewer detached from printer-1 (subscribers=0)
+2026-05-13 10:29:12,291 INFO [backend.app.api.routes.camera] [c1b8a021] Using chamber image protocol for P1S
+2026-05-13 10:29:12,291 INFO [backend.app.api.routes.camera] [c1b8a021] Camera viewer attached to printer-1 (subscribers=1)
+2026-05-13 10:29:37,292 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:29:37,306 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:30:07,312 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:30:07,326 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:30:37,340 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:30:37,368 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:31:07,382 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:31:07,422 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:31:37,429 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:31:37,442 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:32:07,455 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:32:07,507 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:32:37,525 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:32:37,578 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:33:07,595 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:33:07,637 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:33:37,643 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:33:37,653 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:33:46,599 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-05-13 10:34:07,669 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:34:07,702 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:34:37,734 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:34:37,806 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:35:07,819 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:35:07,867 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:35:37,873 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:35:37,884 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:36:07,896 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:36:07,919 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:36:37,933 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:36:37,983 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:37:08,001 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:37:08,054 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:37:38,064 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:37:38,073 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:38:08,086 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:38:08,125 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:38:38,132 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:38:38,142 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:38:46,621 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-05-13 10:39:08,151 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:39:08,174 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:39:38,179 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:39:38,188 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:40:08,196 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:40:08,213 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:40:38,218 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:40:38,229 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:40:56,413 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:01,382 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:05,022 INFO [backend.app.api.routes.printers] [fcd877ec] Cover: resolved plate 2 before download (subtask=AM4xS_v2_AMS_SLIDING_Stacking_System_Riser_(Double)_Right)
+2026-05-13 10:41:05,040 INFO [backend.app.api.routes.cloud] [d112537d] get_filament_info called with 2 IDs: ['GFA01', 'GFL99']
+2026-05-13 10:41:05,050 INFO [uvicorn.access] [-] [IP]:58068 - "POST /api/v1/cloud/filament-info HTTP/1.1" 200
+2026-05-13 10:41:06,754 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:08,240 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:41:08,301 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:41:11,817 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:16,870 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:22,036 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:27,489 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:32,454 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:37,608 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:38,306 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:41:38,318 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:41:42,579 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:47,817 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:52,843 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:41:57,812 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:03,295 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:08,330 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:42:08,362 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:42:08,453 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:13,890 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:19,129 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:24,517 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:29,686 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:35,014 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:38,376 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:42:38,423 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:42:40,349 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:45,516 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Bambuddy] MQTT TLS connection from ('[IP]', 50550) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-13 10:42:45,517 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Bambuddy] MQTT client connected: [IP]:50550
+2026-05-13 10:42:45,517 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Bambuddy] MQTT client authenticated successfully
+2026-05-13 10:42:45,517 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Bambuddy] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-13 10:42:45,518 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20011","version":1}} ...
+2026-05-13 10:42:45,518 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT pushing command: pushall
+2026-05-13 10:42:45,518 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sending status report in response to pushall
+2026-05-13 10:42:45,518 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"info":{"command":"get_version","sequence_id":"20012"}} ...
+2026-05-13 10:42:45,518 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT info command: get_version
+2026-05-13 10:42:45,518 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sent version response (product_name=P1S)
+2026-05-13 10:42:45,524 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"info":{"command":"get_version","sequence_id":"20013"}} ...
+2026-05-13 10:42:45,524 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT info command: get_version
+2026-05-13 10:42:45,524 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sent version response (product_name=P1S)
+2026-05-13 10:42:45,607 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:50,639 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:42:56,175 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:01,007 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:01,084 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"info":{"command":"get_version","sequence_id":"20014"}} ...
+2026-05-13 10:43:01,085 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT info command: get_version
+2026-05-13 10:43:01,085 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sent version response (product_name=P1S)
+2026-05-13 10:43:01,086 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20015","version":1}} ...
+2026-05-13 10:43:01,086 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT pushing command: pushall
+2026-05-13 10:43:01,086 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sending status report in response to pushall
+2026-05-13 10:43:06,270 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:08,440 INFO [backend.app.services.print_scheduler] [-] Queue check: found 16 pending items: [(7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:43:08,462 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:43:11,108 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:16,371 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:21,720 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:22,825 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"info":{"command":"get_version","sequence_id":"20016"}} ...
+2026-05-13 10:43:22,826 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT info command: get_version
+2026-05-13 10:43:22,827 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sent version response (product_name=P1S)
+2026-05-13 10:43:22,829 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20017","version":1}} ...
+2026-05-13 10:43:22,829 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT pushing command: pushall
+2026-05-13 10:43:22,830 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sending status report in response to pushall
+2026-05-13 10:43:26,573 INFO [backend.app.services.virtual_printer.ftp_server] [-] [Bambuddy] FTP connection from ('[IP]', 41258)
+2026-05-13 10:43:26,575 INFO [backend.app.services.virtual_printer.ftp_server] [-] [Bambuddy] FTP login from [IP]
+2026-05-13 10:43:26,578 INFO [backend.app.services.virtual_printer.ftp_server] [-] FTP EPSV listening on port 50062
+2026-05-13 10:43:26,581 INFO [backend.app.services.virtual_printer.ftp_server] [-] FTP receiving file: Elegoo+199mm+flat.gcode.3mf from [IP]
+2026-05-13 10:43:26,583 INFO [backend.app.services.virtual_printer.ftp_server] [-] FTP data TLS from [IP]: cipher=('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1.2', 256), version=TLSv1.2, session_reused=True
+2026-05-13 10:43:26,584 INFO [backend.app.services.virtual_printer.ftp_server] [-] FTP data connection established from [IP]
+2026-05-13 10:43:26,692 INFO [backend.app.services.virtual_printer.ftp_server] [-] FTP saved file: /app/data/virtual_printer/uploads/1/Elegoo+199mm+flat.gcode.3mf (197698 bytes)
+2026-05-13 10:43:26,693 INFO [backend.app.services.virtual_printer.manager] [-] [VP Bambuddy] Received file: Elegoo+199mm+flat.gcode.3mf from [IP]
+2026-05-13 10:43:26,741 INFO [backend.app.services.virtual_printer.manager] [-] [VP Bambuddy] Archived: 6 - ELEGOO Cardboard Spool Adapter
+2026-05-13 10:43:26,752 INFO [backend.app.services.virtual_printer.manager] [-] [VP Bambuddy] Added to queue: 25
+2026-05-13 10:43:26,889 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:29,695 INFO [backend.app.services.virtual_printer.ftp_server] [-] [Bambuddy] FTP session cancelled from [IP]
+2026-05-13 10:43:29,696 INFO [backend.app.services.virtual_printer.ftp_server] [-] [Bambuddy] FTP session ended from [IP]
+2026-05-13 10:43:31,856 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:37,009 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:38,467 INFO [backend.app.services.print_scheduler] [-] Queue check: found 17 pending items: [(25, None, 6, None), (7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:43:38,479 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:43:41,998 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:46,642 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-05-13 10:43:47,154 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:52,026 INFO [backend.app.api.routes.print_queue] [e79008ec] Updated queue item 25
+2026-05-13 10:43:52,029 INFO [uvicorn.access] [-] [IP]:33404 - "PATCH /api/v1/queue/25 HTTP/1.1" 200
+2026-05-13 10:43:52,320 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:43:57,697 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:44:02,745 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:44:03,716 INFO [uvicorn.access] [-] [IP]:52280 - "POST /api/v1/archives/6/reprint?printer_id=1 HTTP/1.1" 409
+2026-05-13 10:44:07,905 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:44:08,486 INFO [backend.app.services.print_scheduler] [-] Queue check: found 17 pending items: [(25, None, 6, None), (7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:44:08,500 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:44:12,908 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:44:18,068 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:44:23,448 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Bambuddy' (Location=[IP], USN=[SERIAL])
+2026-05-13 10:44:23,837 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Bambuddy] MQTT TLS connection from ('[IP]', 39510) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-13 10:44:23,837 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Bambuddy] MQTT client connected: [IP]:39510
+2026-05-13 10:44:23,837 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Bambuddy] MQTT client authenticated successfully
+2026-05-13 10:44:38,506 INFO [backend.app.services.print_scheduler] [-] Queue check: found 17 pending items: [(25, None, 6, None), (7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:44:38,517 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:45:08,523 INFO [backend.app.services.print_scheduler] [-] Queue check: found 17 pending items: [(25, None, 6, None), (7, None, 3, None), (9, None, 4, None), (11, None, 1, None), (12, None, 1, None), (15, None, 2, None), (19, None, 3, None), (16, None, 2, None), (20, None, 3, None), (10, None, 4, None), (13, None, 1, None), (14, None, 1, None), (17, None, 2, None), (21, None, 3, None), (18, None, 2, None), (22, None, 3, None), (24, 1, 3, None)]
+2026-05-13 10:45:08,533 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=RUNNING, awaiting_plate_clear=False
+2026-05-13 10:45:22,725 INFO [backend.app.api.routes.support] [ae3d1852] Log level changed to DEBUG
+2026-05-13 10:45:22,726 INFO [backend.app.api.routes.bug_report] [ae3d1852] Bug report: enabled debug logging
+2026-05-13 10:45:22,727 DEBUG [backend.app.services.bambu_mqtt] [ae3d1852] [[SERIAL]] Requesting status update (pushall)
+2026-05-13 10:45:22,729 INFO [uvicorn.access] [-] [IP]:58618 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-05-13 10:45:22,823 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: RUNNING, gcode_file: AM4xS_v2_AMS_SLIDING_Stacking_System_Riser_(Double)_Right.3mf, subtask_name: AM4xS_v2_AMS_SLIDING_Stacking_System_Riser_(Double)_Right
+2026-05-13 10:45:22,824 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '1', 'tray_exist_bits': 'f', 'tray_is_bbl_bits': 'f', 'tray_tar': '2', 'tray_now': '2', 'tray_pre': '2', 'tray_read_done_bits': 'f', 'tray_reading_bits': '0', 'version': 72, 'insert_flag': True, 'power_on_flag': False}
+2026-05-13 10:45:22,824 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 2
+2026-05-13 10:45:22,824 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-13 10:45:22,825 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 768 (main=3, sub=0)
+2026-05-13 10:45:22,825 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-13 10:45:22,825 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-13 10:45:22,825 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-13 10:45:22,826 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-13 10:45:22,826 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-13 10:45:22,826 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-05-13 10:45:22,827 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'enable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-13 10:45:22,827 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -54dBm
+2026-05-13 10:45:22,827 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'on'}]
+2026-05-13 10:45:22,828 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: RUNNING -> RUNNING, file: AM4xS_v2_AMS_SLIDING_Stacking_System_Riser_(Double)_Right.3mf, subtask: AM4xS_v2_AMS_SLIDING_Stacking_System_Riser_(Double)_Right
+2026-05-13 10:45:24,658 DEBUG [backend.app.api.routes.printers] [b59640e9] API returning ams_mapping: [], ams_extruder_map: {}
+2026-05-13 10:45:24,658 DEBUG [backend.app.api.routes.printers] [b59640e9] Using tray_now directly as global ID: 2
+2026-05-13 10:45:24,713 DEBUG [backend.app.api.routes.printers] [c5733c82] API returning ams_mapping: [], ams_extruder_map: {}
+2026-05-13 10:45:24,714 DEBUG [backend.app.api.routes.printers] [c5733c82] Using tray_now directly as global ID: 2
+2026-05-13 10:45:24,831 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-13 10:45:24,831 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -52dBm
+2026-05-13 10:45:28,868 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-13 10:45:28,869 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -48dBm
+2026-05-13 10:45:30,417 INFO [uvicorn.access] [-] [IP]:33032 - "POST /api/v1/archives/6/reprint?printer_id=1 HTTP/1.1" 409
+2026-05-13 10:45:30,698 DEBUG [backend.app.api.routes.printers] [15737471] API returning ams_mapping: [], ams_extruder_map: {}
+2026-05-13 10:45:30,699 DEBUG [backend.app.api.routes.printers] [15737471] Using tray_now directly as global ID: 2
+2026-05-13 10:45:30,894 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-13 10:45:30,895 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -62dBm
+2026-05-13 10:45:32,916 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-13 10:45:32,917 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -43dBm
