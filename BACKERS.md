@@ -25,11 +25,17 @@ If you sponsor and your name isn't here within 48h, please write an email to mar
 
 ## Supporters ($15/mo+)
 
-*None yet.*
+- [@rewart01](https://github.com/rewart01)
+- [@rstocks](https://github.com/rstocks)
+- [@sixfootseven](https://github.com/sixfootseven)
+- [@VREmma](https://github.com/VREmma)
 
 ## Backers ($5/mo+)
 
-*None yet.*
+- [@aneopsy](https://github.com/aneopsy)
+- [@flom89](https://github.com/flom89)
+- [@grizz0blaw](https://github.com/grizz0blaw)
+- [@NoahTingey](https://github.com/NoahTingey)
 
 ---
 
