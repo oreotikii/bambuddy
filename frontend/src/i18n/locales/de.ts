@@ -2116,7 +2116,7 @@ export default {
     cameraTypeUsb: 'USB-Kamera (V4L2)',
     cameraSnapshotUrl: 'Snapshot-URL (optional)',
     cameraSnapshotUrlPlaceholder: 'http://192.168.1.61:1984/api/frame.jpeg?src=printer',
-    cameraSnapshotUrlHelp: 'URL für Einzelbildaufnahmen — wird für Benachrichtigungs-Vorschaubilder, Abschlussfotos, Zeitraffer und Plattenerkennung verwendet. Leer lassen, um Bilder aus dem oben konfigurierten Live-Stream zu verwenden. Nützlich für go2rtc (/api/frame.jpeg) und IP-Kameras mit dediziertem Snapshot-Endpunkt.',
+    cameraSnapshotUrlHelp: 'URL für Einzelbildaufnahmen — wird für Benachrichtigungs-Vorschaubilder, Abschlussfotos, Schicht-Zeitraffer und Plattenerkennung verwendet. Zeitraffer und Plattenerkennung benötigen jeweils eigene drucker-spezifische Schalter — diese URL ist nur die Bildquelle, die sie verwenden, wenn sie aktiv sind. Leer lassen, um Bilder aus dem oben konfigurierten Live-Stream zu verwenden. Nützlich für go2rtc (/api/frame.jpeg) und IP-Kameras mit dediziertem Snapshot-Endpunkt.',
     cameraRotation: 'Drehung',
     test: 'Testen',
     connected: 'Verbunden',

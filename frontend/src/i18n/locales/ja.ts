@@ -2115,7 +2115,7 @@ export default {
     cameraTypeUsb: 'USBカメラ (V4L2)',
     cameraSnapshotUrl: 'Snapshot URL (optional)',
     cameraSnapshotUrlPlaceholder: 'http://192.168.1.61:1984/api/frame.jpeg?src=printer',
-    cameraSnapshotUrlHelp: 'Single-frame URL used for notification thumbnails, finish photos, timelapse and plate detection. Leave blank to capture from the live stream above. Useful for go2rtc (/api/frame.jpeg) and IP cameras with a dedicated snapshot endpoint.',
+    cameraSnapshotUrlHelp: 'Single-frame URL used for notification thumbnails, finish photos, layer-timelapse frames, and plate detection. Timelapse and plate detection each require their own per-printer toggle — this URL is just the image source they pull from when active. Leave blank to capture from the live stream above. Useful for go2rtc (/api/frame.jpeg) and IP cameras with a dedicated snapshot endpoint.',
     cameraRotation: '回転',
     test: 'テスト',
     connected: '接続済み',
