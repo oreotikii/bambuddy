@@ -1,0 +1,200 @@
+2026-05-16 13:31:26,438 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:31:31,561 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:31:32,824 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 41094) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:31:32,824 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:41094
+2026-05-16 13:31:32,828 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:31:32,857 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:31:36,485 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:31:41,717 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:31:46,943 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:31:51,564 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:31:56,486 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:01,716 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:06,956 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:11,883 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:16,818 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:21,639 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:26,863 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:31,490 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:34,002 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 57016) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:32:34,003 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:57016
+2026-05-16 13:32:34,007 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:32:34,034 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:32:36,728 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:41,652 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:46,880 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:51,810 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:32:56,749 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:01,588 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:06,818 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:09,545 INFO [uvicorn.access] [-] [IP]:58662 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-16 13:33:11,744 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:16,972 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:21,900 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:26,827 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:32,064 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:36,990 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:39,483 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 53966) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:33:39,484 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:53966
+2026-05-16 13:33:39,491 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:33:39,522 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:33:41,864 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:47,094 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:52,018 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:33:56,945 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:07,103 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:11,929 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:17,156 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:22,080 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:26,825 INFO [uvicorn.access] [-] [IP]:38962 - "PATCH /api/v1/inventory/spools/1 HTTP/1.1" 200
+2026-05-16 13:34:26,862 INFO [uvicorn.access] [-] [IP]:38962 - "PUT /api/v1/inventory/spools/1/k-profiles HTTP/1.1" 200
+2026-05-16 13:34:27,006 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:31,937 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:37,184 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:40,567 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 43412) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:34:40,568 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:43412
+2026-05-16 13:34:40,571 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:34:40,597 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:34:42,112 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:46,963 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:52,201 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:57,138 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:34:59,599 INFO [uvicorn.access] [-] [IP]:46160 - "PATCH /api/v1/inventory/spools/18 HTTP/1.1" 200
+2026-05-16 13:34:59,784 INFO [uvicorn.access] [-] [IP]:46160 - "PUT /api/v1/inventory/spools/18/k-profiles HTTP/1.1" 200
+2026-05-16 13:35:02,064 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:07,275 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:12,205 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:13,507 INFO [uvicorn.access] [-] [IP]:34406 - "PATCH /api/v1/inventory/spools/19 HTTP/1.1" 200
+2026-05-16 13:35:13,603 INFO [uvicorn.access] [-] [IP]:34406 - "PUT /api/v1/inventory/spools/19/k-profiles HTTP/1.1" 200
+2026-05-16 13:35:17,436 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:21,966 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:26,801 INFO [uvicorn.access] [-] [IP]:36712 - "PATCH /api/v1/inventory/spools/21 HTTP/1.1" 200
+2026-05-16 13:35:26,999 INFO [uvicorn.access] [-] [IP]:36700 - "PUT /api/v1/inventory/spools/21/k-profiles HTTP/1.1" 200
+2026-05-16 13:35:27,207 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:27,797 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20010","version":1}}...
+2026-05-16 13:35:27,798 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT pushing command: pushall
+2026-05-16 13:35:27,798 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sending status report in response to pushall
+2026-05-16 13:35:32,438 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:37,067 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:42,330 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:47,157 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:49,018 INFO [uvicorn.access] [-] [IP]:32786 - "PATCH /api/v1/inventory/spools/2 HTTP/1.1" 200
+2026-05-16 13:35:49,052 INFO [uvicorn.access] [-] [IP]:32786 - "PUT /api/v1/inventory/spools/2/k-profiles HTTP/1.1" 200
+2026-05-16 13:35:52,081 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:57,365 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:35:59,644 INFO [uvicorn.access] [-] [IP]:32806 - "PATCH /api/v1/inventory/spools/3 HTTP/1.1" 200
+2026-05-16 13:35:59,673 INFO [uvicorn.access] [-] [IP]:32806 - "PUT /api/v1/inventory/spools/3/k-profiles HTTP/1.1" 200
+2026-05-16 13:36:02,288 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:07,170 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:10,500 INFO [uvicorn.access] [-] [IP]:32806 - "PATCH /api/v1/inventory/spools/4 HTTP/1.1" 200
+2026-05-16 13:36:10,530 INFO [uvicorn.access] [-] [IP]:47070 - "PUT /api/v1/inventory/spools/4/k-profiles HTTP/1.1" 200
+2026-05-16 13:36:12,401 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:17,340 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:20,823 INFO [uvicorn.access] [-] [IP]:32806 - "PATCH /api/v1/inventory/spools/5 HTTP/1.1" 200
+2026-05-16 13:36:20,860 INFO [uvicorn.access] [-] [IP]:47070 - "PUT /api/v1/inventory/spools/5/k-profiles HTTP/1.1" 200
+2026-05-16 13:36:22,570 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:27,461 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:30,539 INFO [uvicorn.access] [-] [IP]:47070 - "PATCH /api/v1/inventory/spools/6 HTTP/1.1" 200
+2026-05-16 13:36:30,593 INFO [uvicorn.access] [-] [IP]:32806 - "PUT /api/v1/inventory/spools/6/k-profiles HTTP/1.1" 200
+2026-05-16 13:36:32,384 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:34,463 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 53892) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:36:34,464 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:53892
+2026-05-16 13:36:34,468 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:36:34,496 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:36:37,282 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:40,151 INFO [uvicorn.access] [-] [IP]:32806 - "PATCH /api/v1/inventory/spools/7 HTTP/1.1" 200
+2026-05-16 13:36:40,189 INFO [uvicorn.access] [-] [IP]:47070 - "PUT /api/v1/inventory/spools/7/k-profiles HTTP/1.1" 200
+2026-05-16 13:36:42,512 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:47,408 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:48,624 INFO [uvicorn.access] [-] [IP]:32806 - "PATCH /api/v1/inventory/spools/8 HTTP/1.1" 200
+2026-05-16 13:36:48,677 INFO [uvicorn.access] [-] [IP]:32806 - "PUT /api/v1/inventory/spools/8/k-profiles HTTP/1.1" 200
+2026-05-16 13:36:52,296 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:36:57,072 INFO [uvicorn.access] [-] [IP]:46324 - "PATCH /api/v1/inventory/spools/9 HTTP/1.1" 200
+2026-05-16 13:36:57,103 INFO [uvicorn.access] [-] [IP]:32806 - "PUT /api/v1/inventory/spools/9/k-profiles HTTP/1.1" 200
+2026-05-16 13:36:57,528 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:02,477 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:06,708 INFO [uvicorn.access] [-] [IP]:46324 - "PATCH /api/v1/inventory/spools/10 HTTP/1.1" 200
+2026-05-16 13:37:06,823 INFO [uvicorn.access] [-] [IP]:32806 - "PUT /api/v1/inventory/spools/10/k-profiles HTTP/1.1" 200
+2026-05-16 13:37:07,411 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:12,645 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:17,074 INFO [uvicorn.access] [-] [IP]:46324 - "PATCH /api/v1/inventory/spools/11 HTTP/1.1" 200
+2026-05-16 13:37:17,112 INFO [uvicorn.access] [-] [IP]:32806 - "PUT /api/v1/inventory/spools/11/k-profiles HTTP/1.1" 200
+2026-05-16 13:37:22,396 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:27,335 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:32,557 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:35,538 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 52514) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:37:35,538 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:52514
+2026-05-16 13:37:35,541 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:37:35,572 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:37:35,716 INFO [uvicorn.access] [-] [IP]:51574 - "PATCH /api/v1/inventory/spools/12 HTTP/1.1" 200
+2026-05-16 13:37:35,747 INFO [uvicorn.access] [-] [IP]:51574 - "PUT /api/v1/inventory/spools/12/k-profiles HTTP/1.1" 200
+2026-05-16 13:37:37,487 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:42,411 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:47,651 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:52,880 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:37:53,860 INFO [uvicorn.access] [-] [IP]:47026 - "PATCH /api/v1/inventory/spools/13 HTTP/1.1" 200
+2026-05-16 13:37:53,905 INFO [uvicorn.access] [-] [IP]:47026 - "PUT /api/v1/inventory/spools/13/k-profiles HTTP/1.1" 200
+2026-05-16 13:37:57,406 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:02,695 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:07,620 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:07,917 INFO [uvicorn.access] [-] [IP]:47026 - "PATCH /api/v1/inventory/spools/14 HTTP/1.1" 200
+2026-05-16 13:38:07,951 INFO [uvicorn.access] [-] [IP]:43306 - "PUT /api/v1/inventory/spools/14/k-profiles HTTP/1.1" 200
+2026-05-16 13:38:12,461 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:17,751 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:18,236 INFO [uvicorn.access] [-] [IP]:47026 - "PATCH /api/v1/inventory/spools/15 HTTP/1.1" 200
+2026-05-16 13:38:18,280 INFO [uvicorn.access] [-] [IP]:43306 - "PUT /api/v1/inventory/spools/15/k-profiles HTTP/1.1" 200
+2026-05-16 13:38:22,676 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:27,909 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:33,137 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:35,776 INFO [uvicorn.access] [-] [IP]:43306 - "PATCH /api/v1/inventory/spools/16 HTTP/1.1" 200
+2026-05-16 13:38:35,829 INFO [uvicorn.access] [-] [IP]:50490 - "PUT /api/v1/inventory/spools/16/k-profiles HTTP/1.1" 200
+2026-05-16 13:38:37,961 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:42,361 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 47668) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:38:42,362 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:47668
+2026-05-16 13:38:42,366 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:38:42,395 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:38:42,889 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:47,814 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:50,258 INFO [uvicorn.access] [-] [IP]:50490 - "PATCH /api/v1/inventory/spools/20 HTTP/1.1" 200
+2026-05-16 13:38:50,309 INFO [uvicorn.access] [-] [IP]:43306 - "PUT /api/v1/inventory/spools/20/k-profiles HTTP/1.1" 200
+2026-05-16 13:38:53,047 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:38:57,977 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:02,911 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:07,849 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:12,984 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:17,909 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:22,844 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:28,087 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:33,009 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:38,245 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:43,178 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:43,435 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT TLS connection from ('[IP]', 34014) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-05-16 13:39:43,437 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client connected: [IP]:34014
+2026-05-16 13:39:43,440 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT client authenticated successfully
+2026-05-16 13:39:43,466 INFO [backend.app.services.virtual_printer.mqtt_server] [-] [Main] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-05-16 13:39:48,003 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:53,252 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:39:58,190 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:03,121 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:08,342 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:13,269 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:18,191 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:23,113 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:28,155 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20011","version":1}}...
+2026-05-16 13:40:28,156 INFO [backend.app.services.virtual_printer.mqtt_server] [-] MQTT pushing command: pushall
+2026-05-16 13:40:28,157 INFO [backend.app.services.virtual_printer.mqtt_server] [-] Sending status report in response to pushall
+2026-05-16 13:40:28,339 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:33,471 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:38,393 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:43,617 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:48,539 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:53,473 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:40:58,710 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:41:03,643 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:41:08,580 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
+2026-05-16 13:41:10,527 INFO [backend.app.api.routes.support] [50169053] Log level changed to DEBUG
+2026-05-16 13:41:10,528 INFO [backend.app.api.routes.bug_report] [50169053] Bug report: enabled debug logging
+2026-05-16 13:41:10,528 WARNING [backend.app.services.bambu_mqtt] [50169053] [[SERIAL]] request_status_update: not connected
+2026-05-16 13:41:10,529 INFO [uvicorn.access] [-] [IP]:59864 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-05-16 13:41:13,808 DEBUG [backend.app.services.virtual_printer.ssdp_server] [-] Received M-SEARCH from [IP]
+2026-05-16 13:41:13,810 INFO [backend.app.services.virtual_printer.ssdp_server] [-] Sent SSDP response to [IP] for 'Main' (Location=[IP]4, USN=[SERIAL])
