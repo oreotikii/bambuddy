@@ -1,0 +1,200 @@
+2026-05-17 20:33:55,643 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 1 printers
+2026-05-17 20:33:55,896 INFO [backend.app.api.routes.cloud] [a7f8eb91] get_filament_info called with 3 IDs: ['GFA01', 'GFU02', 'GFS05']
+2026-05-17 20:33:55,897 INFO [uvicorn.access] [-] [IP]:62725 - "POST /api/v1/cloud/filament-info HTTP/1.1" 200
+2026-05-17 20:35:20,774 INFO [backend.app.main] [-] Recorded 3 AMS sensor history entries
+2026-05-17 20:37:27,615 INFO [backend.app.api.routes.support] [97ad88ea] Log level changed to DEBUG
+2026-05-17 20:37:27,615 INFO [backend.app.api.routes.bug_report] [97ad88ea] Bug report: enabled debug logging
+2026-05-17 20:37:27,615 DEBUG [backend.app.services.bambu_mqtt] [97ad88ea] [[SERIAL]] Requesting status update (pushall)
+2026-05-17 20:37:27,616 INFO [uvicorn.access] [-] [IP]:62784 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-05-17 20:37:28,744 DEBUG [backend.app.api.routes.printers] [2802f7a3] API returning ams_mapping: [], ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:28,744 DEBUG [backend.app.api.routes.printers] [2802f7a3] Using tray_now directly as global ID: 255
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: FINISH, gcode_file: , subtask_name: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '31', 'tray_exist_bits': '3000f', 'tray_is_bbl_bits': '3000f', 'tray_tar': '255', 'tray_now': '255', 'tray_pre': '255', 'tray_read_done_bits': '3000f', 'tray_reading_bits': '0', 'version': 103, 'insert_flag': True, 'power_on_flag': True}
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 255
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:37:28,891 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 0 (main=0, sub=0)
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'disable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -66dBm
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-05-17 20:37:28,892 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: FINISH -> FINISH, file: , subtask: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:37:30,713 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:37:30,713 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:37:30,713 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:37:30,713 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:37:30,714 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:30,714 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:32,786 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:37:32,786 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:37:32,786 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:37:32,786 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:37:32,786 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:32,787 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:33,263 INFO [backend.app.services.bambu_mqtt] [eb9ea7e3] [[SERIAL]] Triggering RFID re-read: AMS 0, slot 3
+2026-05-17 20:37:33,264 INFO [uvicorn.access] [-] [IP]:62783 - "POST /api/v1/printers/1/ams/0/slot/3/refresh HTTP/1.1" 200
+2026-05-17 20:37:33,273 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: ams_get_rfid
+2026-05-17 20:37:36,855 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:37:36,855 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:37:36,855 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:37:36,855 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:37:36,855 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:36,855 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:36,855 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: [{'attr': 83887360, 'code': 65543, 'action': 0, 'timestamp': 1779043053}]
+2026-05-17 20:37:38,271 DEBUG [backend.app.api.routes.printers] [eb9ea7e3] PA re-apply AMS0-T3: no stored or live cali_idx — skipping MQTT
+2026-05-17 20:37:40,885 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:40,885 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -65dBm
+2026-05-17 20:37:45,007 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:37:45,007 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:37:45,007 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:37:45,007 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:37:45,007 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:45,007 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:45,007 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -66dBm
+2026-05-17 20:37:47,025 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:37:47,025 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:37:47,026 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:37:47,026 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:37:47,026 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:47,026 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:48,077 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: FINISH, gcode_file: , subtask_name: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:37:48,078 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '31', 'tray_exist_bits': '3000f', 'tray_is_bbl_bits': '3000f', 'tray_tar': '255', 'tray_now': '255', 'tray_pre': '255', 'tray_read_done_bits': '3000f', 'tray_reading_bits': '0', 'version': 103, 'insert_flag': True, 'power_on_flag': True}
+2026-05-17 20:37:48,078 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 255
+2026-05-17 20:37:48,078 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:37:48,078 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:37:48,078 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:37:48,078 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:37:48,078 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 0 (main=0, sub=0)
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: [{'attr': 83887360, 'code': 65543, 'action': 0, 'timestamp': 1779043053}]
+2026-05-17 20:37:48,079 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'disable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-17 20:37:48,080 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -66dBm
+2026-05-17 20:37:48,080 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-05-17 20:37:48,080 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: FINISH -> FINISH, file: , subtask: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:37:58,765 DEBUG [backend.app.api.routes.printers] [7ae1848f] API returning ams_mapping: [], ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:37:58,765 DEBUG [backend.app.api.routes.printers] [7ae1848f] Using tray_now directly as global ID: 255
+2026-05-17 20:38:09,229 INFO [backend.app.services.bambu_mqtt] [da52409d] [[SERIAL]] Triggering RFID re-read: AMS 0, slot 1
+2026-05-17 20:38:09,233 INFO [uvicorn.access] [-] [IP]:62788 - "POST /api/v1/printers/1/ams/0/slot/1/refresh HTTP/1.1" 200
+2026-05-17 20:38:09,243 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: ams_get_rfid
+2026-05-17 20:38:14,238 DEBUG [backend.app.api.routes.printers] [da52409d] PA re-apply AMS0-T1: no stored or live cali_idx — skipping MQTT
+2026-05-17 20:38:28,781 DEBUG [backend.app.api.routes.printers] [75ea1801] API returning ams_mapping: [], ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:38:28,781 DEBUG [backend.app.api.routes.printers] [75ea1801] Using tray_now directly as global ID: 255
+2026-05-17 20:38:30,489 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:38:32,520 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:38:40,586 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:38:40,587 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -65dBm
+2026-05-17 20:38:42,328 DEBUG [backend.app.services.bambu_mqtt] [32ef34ac] [[SERIAL]] Requesting status update (pushall)
+2026-05-17 20:38:42,329 INFO [uvicorn.access] [-] [IP]:62799 - "POST /api/v1/printers/1/refresh-status HTTP/1.1" 200
+2026-05-17 20:38:42,346 DEBUG [backend.app.api.routes.printers] [4932dad2] API returning ams_mapping: [], ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:38:42,346 DEBUG [backend.app.api.routes.printers] [4932dad2] Using tray_now directly as global ID: 255
+2026-05-17 20:38:42,403 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: FINISH, gcode_file: , subtask_name: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:38:42,403 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '31', 'tray_exist_bits': '3000f', 'tray_is_bbl_bits': '3000f', 'tray_tar': '255', 'tray_now': '255', 'tray_pre': '255', 'tray_read_done_bits': '3000f', 'tray_reading_bits': '0', 'version': 103, 'insert_flag': True, 'power_on_flag': True}
+2026-05-17 20:38:42,403 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 255
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 0 (main=0, sub=0)
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-17 20:38:42,404 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-17 20:38:42,405 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-17 20:38:42,405 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-17 20:38:42,405 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: [{'attr': 83887360, 'code': 65543, 'action': 0, 'timestamp': 1779043053}]
+2026-05-17 20:38:42,405 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'disable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-17 20:38:42,405 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -66dBm
+2026-05-17 20:38:42,405 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-05-17 20:38:42,406 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: FINISH -> FINISH, file: , subtask: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:38:46,495 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:38:46,496 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:38:46,496 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:38:46,496 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:38:46,496 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:38:46,496 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:38:46,496 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -65dBm
+2026-05-17 20:38:48,550 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:38:48,551 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:38:48,551 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:38:48,551 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:38:48,551 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:38:48,551 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:38:48,551 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -66dBm
+2026-05-17 20:38:48,766 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Ignoring spurious disconnect (last message 0.2s ago)
+2026-05-17 20:38:49,557 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Requesting firmware version info
+2026-05-17 20:38:49,558 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Sending K-profile priming request
+2026-05-17 20:38:49,640 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: FINISH, gcode_file: , subtask_name: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:38:49,640 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '31', 'tray_exist_bits': '3000f', 'tray_is_bbl_bits': '3000f', 'tray_tar': '255', 'tray_now': '255', 'tray_pre': '255', 'tray_read_done_bits': '3000f', 'tray_reading_bits': '0', 'version': 103, 'insert_flag': True, 'power_on_flag': True}
+2026-05-17 20:38:49,640 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 255
+2026-05-17 20:38:49,640 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 3 new units, 3 total
+2026-05-17 20:38:49,640 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-17 20:38:49,640 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 info=0x2004 -> extruder 0
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 info=0x2004 -> extruder 0
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS data changed, triggering sync callback
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 0 (main=0, sub=0)
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Fan fields in MQTT data: {'heatbreak_fan_speed': '0', 'cooling_fan_speed': '0', 'big_fan1_speed': '0', 'big_fan2_speed': '0', 'fan_gear': 0}
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] stg_cur changed: -1 -> 255 (Unknown stage (255))
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Temperature-related fields: {'nozzle_temper': 30.0625, 'nozzle_target_temper': 0, 'bed_temper': 26.21875, 'bed_target_temper': 0, 'chamber_temper': 5}
+2026-05-17 20:38:49,641 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ALL print data keys (63): ['ams', 'ams_rfid_status', 'ams_status', 'bed_target_temper', 'bed_temper', 'big_fan1_speed', 'big_fan2_speed', 'cali_version', 'chamber_temper', 'command', 'cooling_fan_speed', 'fan_gear', 'filam_bak', 'flag3', 'force_upgrade', 'gcode_file', 'gcode_file_prepare_percent', 'gcode_state', 'heatbreak_fan_speed', 'hms', 'home_flag', 'hw_switch_state', 'ipcam', 'k', 'layer_num', 'lifecycle', 'lights_report', 'mc_percent', 'mc_print_line_number', 'mc_print_stage', 'mc_print_sub_stage', 'mc_remaining_time', 'mess_production_state', 'msg', 'net', 'nozzle_diameter', 'nozzle_target_temper', 'nozzle_temper', 'nozzle_type', 'online', 'print_error', 'print_type', 'profile_id', 'project_id', 'queue_est', 'queue_number', 'queue_sts', 'queue_total', 's_obj', 'sdcard', 'sequence_id', 'spd_lvl', 'spd_mag', 'stg', 'stg_cur', 'subtask_id', 'subtask_name', 'task_id', 'total_layer_num', 'upgrade_state', 'upload', 'vt_tray', 'wifi_signal']
+2026-05-17 20:38:49,642 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Nozzle/hardware fields in MQTT data: {'upgrade_state': {'sequence_id': 0, 'progress': '', 'status': 'IDLE', 'consistency_request': False, 'dis_state': 0, 'err_code': 0, 'force_upgrade': False, 'message': '0%, 0B/s', 'module': '', 'new_version_state': 2, 'cur_state_code': 0, 'idx2': 475180222, 'new_ver_list': []}, 'nozzle_temper': 30.0625, 'nozzle_target_temper': 0, 'hw_switch_state': 0, 'force_upgrade': False, 'nozzle_diameter': '0.4', 'nozzle_type': 'hardened_steel'}
+2026-05-17 20:38:49,642 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-17 20:38:49,642 INFO [backend.app.main] [-] [Printer 1] Broadcasting AMS change via WebSocket
+2026-05-17 20:38:49,642 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-17 20:38:49,643 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-17 20:38:49,643 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-17 20:38:49,643 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: [{'attr': 83887360, 'code': 65543, 'action': 0, 'timestamp': 1779043053}]
+2026-05-17 20:38:49,643 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'disable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-17 20:38:49,643 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -66dBm
+2026-05-17 20:38:49,643 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-05-17 20:38:49,644 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Deferring developer mode probe (0.1s since connect, need 5s)
+2026-05-17 20:38:49,644 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: None -> FINISH, file: , subtask: Modular_Pest_Trap_-_Ants,_Fruit_Fly_&_Wasp
+2026-05-17 20:38:49,644 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] State is FINISH but completion NOT triggered: prev=None, was_running=False, already_triggered=False, has_callback=True
+2026-05-17 20:38:49,644 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: extrusion_cali_get
+2026-05-17 20:38:49,644 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Deferring developer mode probe (0.1s since connect, need 5s)
+2026-05-17 20:38:49,653 INFO [backend.app.main] [-] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-17 20:38:49,653 INFO [backend.app.services.camera] [-] Capturing camera frame bytes from [IP] using chamber image protocol (model: [PRINTER])
+2026-05-17 20:38:49,666 DEBUG [backend.app.main] [-] [Printer 1] Fetching spools cache for AMS sync...
+2026-05-17 20:38:49,689 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Firmware version: 01.10.00.00
+2026-05-17 20:38:49,689 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 firmware: 01.00.06.83
+2026-05-17 20:38:49,689 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 128 firmware: 03.00.21.29
+2026-05-17 20:38:49,690 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 129 firmware: 03.00.21.29
+2026-05-17 20:38:49,701 DEBUG [backend.app.main] [-] [Printer 1] Cached 95 spools for batch sync
+2026-05-17 20:38:49,706 DEBUG [backend.app.services.spoolman] [-] Processing [PRINTER] AMS 0 tray 0: type=PLA, idx=GFA01, uuid=72A3A25143434F25, tag=C2D8986D...
+2026-05-17 20:38:49,706 DEBUG [backend.app.services.spoolman] [-] Found spool 104 matching tag 72A3A25143434F25819A0B65B0E72807
+2026-05-17 20:38:49,706 INFO [backend.app.services.spoolman] [-] Updating existing spool 104 for tag 72A3A25143434F25...
+2026-05-17 20:38:49,724 DEBUG [backend.app.services.spoolman] [-] Processing [PRINTER] AMS 0 tray 1: type=PLA, idx=GFA01, uuid=1336E8B4A30644D0, tag=7622A0CD...
+2026-05-17 20:38:49,724 DEBUG [backend.app.services.spoolman] [-] Found spool 105 matching tag 1336E8B4A30644D0929D3F385D3A69C2
+2026-05-17 20:38:49,724 INFO [backend.app.services.spoolman] [-] Updating existing spool 105 for tag 1336E8B4A30644D0...
+2026-05-17 20:38:49,734 DEBUG [backend.app.services.spoolman] [-] Processing [PRINTER] AMS 0 tray 2: type=PLA, idx=GFA01, uuid=D3900B2000D84C22, tag=3D6BBD2F...
+2026-05-17 20:38:49,734 DEBUG [backend.app.services.spoolman] [-] Found spool 108 matching tag D3900B2000D84C22876272226C6AB25A
+2026-05-17 20:38:49,734 INFO [backend.app.services.spoolman] [-] Updating existing spool 108 for tag D3900B2000D84C22...
+2026-05-17 20:38:49,744 DEBUG [backend.app.services.spoolman] [-] Processing [PRINTER] AMS 0 tray 3: type=PLA, idx=GFA01, uuid=17A3907B07034CD2, tag=0D21B33A...
+2026-05-17 20:38:49,744 DEBUG [backend.app.services.spoolman] [-] Found spool 107 matching tag 17A3907B07034CD2958EFD03A48067CF
+2026-05-17 20:38:49,745 INFO [backend.app.services.spoolman] [-] Updating existing spool 107 for tag 17A3907B07034CD2...
+2026-05-17 20:38:49,754 DEBUG [backend.app.services.spoolman] [-] Processing [PRINTER] AMS 128 tray 0: type=TPU-AMS, idx=GFU02, uuid=44FAB1CD53FA484F, tag=44239501...
+2026-05-17 20:38:49,754 DEBUG [backend.app.services.spoolman] [-] Found spool 91 matching tag 44FAB1CD53FA484FA4E55A2AC7A60B93
+2026-05-17 20:38:49,754 INFO [backend.app.services.spoolman] [-] Updating existing spool 91 for tag 44FAB1CD53FA484F...
+2026-05-17 20:38:49,762 DEBUG [backend.app.services.spoolman] [-] Processing [PRINTER] AMS 129 tray 0: type=PLA-S, idx=GFS05, uuid=4F34EC708C9E4094, tag=04D85101...
+2026-05-17 20:38:49,763 DEBUG [backend.app.services.spoolman] [-] Found spool 102 matching tag 4F34EC708C9E4094AD4D89A59E33B3BE
+2026-05-17 20:38:49,763 INFO [backend.app.services.spoolman] [-] Updating existing spool 102 for tag 4F34EC708C9E4094...
+2026-05-17 20:38:49,771 INFO [backend.app.main] [-] Auto-synced 6 AMS trays to Spoolman for printer 1
+2026-05-17 20:38:49,787 INFO [uvicorn.access] [-] [IP]:62800 - "POST /api/v1/printers/1/connect HTTP/1.1" 200
+2026-05-17 20:38:49,803 DEBUG [backend.app.api.routes.printers] [71e64d30] API returning ams_mapping: [], ams_extruder_map: {'0': 0, '128': 0, '129': 0}
+2026-05-17 20:38:49,803 DEBUG [backend.app.api.routes.printers] [71e64d30] Using tray_now directly as global ID: 255
+2026-05-17 20:38:51,238 DEBUG [backend.app.services.camera] [-] Chamber image: received 37915 bytes
+2026-05-17 20:38:51,244 INFO [backend.app.main] [-] [SNAPSHOT] Fresh camera frame: 37915 bytes
