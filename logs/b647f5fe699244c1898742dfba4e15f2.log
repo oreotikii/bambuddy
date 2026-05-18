@@ -1,0 +1,200 @@
+2026-05-17 23:44:15,082 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] PRINT COMPLETE detected - state: FINISH, status: completed, file: cottage_stuff_1.3mf, subtask: cottage_stuff_1, was_running: True, timelapse_during_print: True
+2026-05-17 23:44:15,082 INFO [backend.app.main] [-] [CALLBACK] on_print_complete started for printer 1
+2026-05-17 23:44:15,082 INFO [backend.app.main] [-] [TIMING] WebSocket send_print_complete: 0.000s elapsed
+2026-05-17 23:44:15,082 INFO [backend.app.main] [-] Print complete - filename: cottage_stuff_1.3mf, subtask: cottage_stuff_1, status: completed
+2026-05-17 23:44:15,082 INFO [backend.app.main] [-] Looking for archive in _active_prints, keys to try: [(1, 'cottage_stuff_1.3mf'), (1, 'cottage_stuff_1.gcode.3mf'), (1, 'cottage_stuff_1'), (1, 'cottage_stuff_1.3mf'), (1, 'cottage_stuff_1.3mf')]...
+2026-05-17 23:44:15,082 INFO [backend.app.main] [-] Current _active_prints: [(1, 'cottage stuff 1.gcode.3mf'), (1, 'cottage_stuff_1.3mf')]
+2026-05-17 23:44:15,082 INFO [backend.app.main] [-] Found archive 6 with key (1, 'cottage_stuff_1.3mf')
+2026-05-17 23:44:15,855 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:44:15,910 INFO [backend.app.main] [-] Deleted /cottage_stuff_1.3mf from printer [PRINTER] SD card
+2026-05-17 23:44:16,679 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:44:16,688 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /cottage_stuff_1.gcode: 550 
+2026-05-17 23:44:19,470 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:44:19,488 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /cottage_stuff_1.gcode: 550 
+2026-05-17 23:44:22,288 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:44:22,338 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /cottage_stuff_1.gcode: 550 
+2026-05-17 23:44:22,350 WARNING [backend.app.main] [-] SD card cleanup failed after 3 attempts for /cottage_stuff_1.gcode (file may linger on SD card)
+2026-05-17 23:44:22,350 INFO [backend.app.main] [-] [TIMING] SD card cleanup: 7.268s elapsed
+2026-05-17 23:44:22,352 INFO [backend.app.main] [-] [TIMING] Queue item update: 7.269s elapsed
+2026-05-17 23:44:22,354 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] on_print_complete: printer=1, archive=6, session=yes, ams_mapping=[254]
+2026-05-17 23:44:22,354 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] PRINT COMPLETE printer 1: mapping=None, tray_now=254, last_loaded_tray=254
+2026-05-17 23:44:22,354 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] 3MF: archive 6, filament_usage=[{'slot_id': 1, 'used_g': 89.42, 'type': 'PLA', 'color': '#FCECD6'}]
+2026-05-17 23:44:22,354 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] 3MF: slot_to_tray=[254] (source: print_cmd)
+2026-05-17 23:44:22,354 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] 3MF: slot_id=1 -> global_tray=254 -> AMS255-T0 (used_g=89.4, tray_now_override=None)
+2026-05-17 23:44:22,360 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] Spool 8 consumed 89.4g (3MF, print_cmd_map) on printer 1 AMS255-T0 (completed)
+2026-05-17 23:44:22,364 INFO [backend.app.main] [-] [TIMING] Usage tracker: 7.282s elapsed
+2026-05-17 23:44:22,365 INFO [backend.app.services.spoolman_tracking] [-] [SPOOLMAN] No tracking data for print (printer=1, archive=6)
+2026-05-17 23:44:22,365 INFO [backend.app.main] [-] [TIMING] Spoolman usage report: 7.283s elapsed
+2026-05-17 23:44:22,365 INFO [backend.app.main] [-] [TIMING] Filament usage tracking: 7.283s elapsed
+2026-05-17 23:44:22,365 INFO [backend.app.main] [-] [TIMING] Archive lookup: 7.283s elapsed
+2026-05-17 23:44:22,365 INFO [backend.app.main] [-] [ARCHIVE] Updating archive 6 status...
+2026-05-17 23:44:22,367 INFO [backend.app.main] [-] [ARCHIVE] Archive 6 status updated to completed, failure_reason=None
+2026-05-17 23:44:22,367 INFO [backend.app.main] [-] [ARCHIVE] WebSocket notification sent for archive 6
+2026-05-17 23:44:22,367 INFO [backend.app.main] [-] [TIMING] Archive status update: 7.285s elapsed
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [PRINT_LOG] Log entry written for archive 6
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [TIMING] Print log entry: 7.288s elapsed
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [TIMING] Background tasks scheduled (energy, photo): 7.288s elapsed
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [TIMING] All background tasks scheduled: 7.288s elapsed
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [TIMELAPSE] Timelapse was active during print, scheduling auto-scan for archive 6
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [TIMING] Timelapse scan scheduled: 7.288s elapsed
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [CALLBACK] on_print_complete finished for printer 1, archive 6
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [ENERGY-BG] Starting energy calculation for archive 6
+2026-05-17 23:44:22,370 INFO [backend.app.main] [-] [PHOTO-BG] Starting finish photo capture for archive 6
+2026-05-17 23:44:22,371 INFO [backend.app.main] [-] [AUTO-OFF-BG] Starting smart plug automation for printer 1
+2026-05-17 23:44:22,371 INFO [backend.app.main] [-] [MAINT-BG] Starting maintenance check for printer 1
+2026-05-17 23:44:22,371 INFO [backend.app.main] [-] [LAYER-TL] Stitching layer timelapse for printer 1
+2026-05-17 23:44:22,372 INFO [backend.app.main] [-] [AUTO-OFF-BG] Completed
+2026-05-17 23:44:22,372 INFO [backend.app.main] [-] [ENERGY-BG] No start kWh recorded for archive 6
+2026-05-17 23:44:22,374 INFO [backend.app.services.camera] [-] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-17 23:44:22,376 INFO [backend.app.main] [-] [MAINT-BG] Completed (no items need attention)
+2026-05-17 23:44:23,185 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:44:25,125 INFO [backend.app.services.camera] [-] Saved camera frame to: /app/data/archive/1/20260517_203742_cottage stuff 1/photos/finish_20260517_234422_1245a5ab.jpg
+2026-05-17 23:44:25,125 INFO [backend.app.services.camera] [-] Finish photo saved: finish_20260517_234422_1245a5ab.jpg
+2026-05-17 23:44:25,127 INFO [backend.app.main] [-] [PHOTO-BG] Saved: finish_20260517_234422_1245a5ab.jpg
+2026-05-17 23:44:25,127 INFO [backend.app.main] [-] [PHOTO-NOTIFY] Photo task returned: finish_20260517_234422_1245a5ab.jpg
+2026-05-17 23:44:25,127 INFO [backend.app.main] [-] [NOTIFY-BG] Starting notifications for printer 1, photo=finish_20260517_234422_1245a5ab.jpg
+2026-05-17 23:44:25,129 INFO [backend.app.main] [-] [NOTIFY-BG] Loaded finish photo bytes: 52597 bytes
+2026-05-17 23:44:25,129 INFO [backend.app.services.notification_service] [-] on_print_complete called for printer 1 ([PRINTER]), status=completed
+2026-05-17 23:44:25,130 INFO [backend.app.services.notification_service] [-] No notification providers configured for on_print_complete event on printer 1
+2026-05-17 23:44:25,130 INFO [backend.app.main] [-] [NOTIFY-BG] Completed
+2026-05-17 23:44:25,814 INFO [backend.app.main] [-] [TIMELAPSE] Baseline snapshot (fallback): 215 existing video files for archive 6
+2026-05-17 23:44:25,814 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 1/4: waiting 5s before scanning for archive 6
+2026-05-17 23:44:31,586 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:44:34,106 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 1: Found 215 video files in /timelapse
+2026-05-17 23:44:34,106 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_05-56-36.avi
+2026-05-17 23:44:34,106 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-20-31.avi
+2026-05-17 23:44:34,106 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-42-36.avi
+2026-05-17 23:44:34,106 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-52-02.avi
+2026-05-17 23:44:34,106 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_10-06-47.avi
+2026-05-17 23:44:34,106 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 1: No new files since baseline, will retry
+2026-05-17 23:44:34,107 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 2/4: waiting 10s before scanning for archive 6
+2026-05-17 23:44:44,873 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:44:47,395 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 2: Found 215 video files in /timelapse
+2026-05-17 23:44:47,395 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_05-56-36.avi
+2026-05-17 23:44:47,395 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-20-31.avi
+2026-05-17 23:44:47,395 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-42-36.avi
+2026-05-17 23:44:47,395 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-52-02.avi
+2026-05-17 23:44:47,395 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_10-06-47.avi
+2026-05-17 23:44:47,395 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 2: No new files since baseline, will retry
+2026-05-17 23:44:47,396 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 3/4: waiting 20s before scanning for archive 6
+2026-05-17 23:45:08,161 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 3: Found 215 video files in /timelapse
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_05-56-36.avi
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-20-31.avi
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-42-36.avi
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-52-02.avi
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_10-06-47.avi
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 3: No new files since baseline, will retry
+2026-05-17 23:45:10,684 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 4/4: waiting 30s before scanning for archive 6
+2026-05-17 23:45:41,448 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 4: Found 215 video files in /timelapse
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_05-56-36.avi
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-20-31.avi
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-42-36.avi
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_09-52-02.avi
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE]   - video_2025-12-11_10-06-47.avi
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE] Attempt 4: No new files since baseline, will retry
+2026-05-17 23:45:44,038 INFO [backend.app.main] [-] [TIMELAPSE] Retries exhausted, trying name-match fallback for 'cottage stuff 1'
+2026-05-17 23:45:44,808 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=P1S, prot_c=False)
+2026-05-17 23:45:47,330 WARNING [backend.app.main] [-] [TIMELAPSE] All attempts exhausted for archive 6, giving up
+2026-05-18 00:52:49,508 INFO [uvicorn.access] [-] [IP]:47344 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 200
+2026-05-18 00:52:50,049 INFO [backend.app.api.routes.cloud] [f3bdbdeb] get_filament_info called with 1 IDs: ['GFL99']
+2026-05-18 00:52:50,051 INFO [uvicorn.access] [-] [IP]:47404 - "POST /api/v1/cloud/filament-info HTTP/1.1" 200
+2026-05-18 00:52:50,108 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-18 00:52:50,108 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-18 00:52:50,109 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 1 printers
+2026-05-18 00:53:30,110 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-18 01:24:43,415 INFO [backend.app.main] [-] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-18 01:24:43,415 INFO [backend.app.services.camera] [-] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-18 01:24:45,169 INFO [backend.app.main] [-] [SNAPSHOT] Fresh camera frame: 52533 bytes
+2026-05-18 01:24:45,171 INFO [backend.app.main] [-] [HMS] Sent notification for 1 error(s) on printer 1
+2026-05-18 01:25:27,576 INFO [backend.app.main] [-] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-05-18 01:25:27,576 INFO [backend.app.services.camera] [-] Capturing camera frame bytes from [IP] using chamber image protocol (model: P1S)
+2026-05-18 01:25:29,200 INFO [backend.app.main] [-] [SNAPSHOT] Fresh camera frame: 56233 bytes
+2026-05-18 01:25:29,200 INFO [backend.app.main] [-] [HMS] Sent notification for 1 error(s) on printer 1
+2026-05-18 03:11:53,453 INFO [uvicorn.access] [-] [IP]:46670 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 200
+2026-05-18 03:11:53,678 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-18 03:11:53,678 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-18 03:11:53,678 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 1 printers
+2026-05-18 03:11:53,742 INFO [backend.app.api.routes.cloud] [334630cf] get_filament_info called with 1 IDs: ['GFL99']
+2026-05-18 03:11:53,743 INFO [uvicorn.access] [-] [IP]:46698 - "POST /api/v1/cloud/filament-info HTTP/1.1" 200
+2026-05-18 03:12:03,813 INFO [uvicorn.access] [-] [IP]:46760 - "DELETE /api/v1/inventory/assignments/1/255/0 HTTP/1.1" 200
+2026-05-18 03:12:12,907 INFO [backend.app.services.bambu_mqtt] [b9cc2a1e] [[SERIAL]] Publishing ams_filament_setting: AMS 255, tray 0, tray_info_idx=GFL99, setting_id=GFSL99
+2026-05-18 03:12:12,907 INFO [backend.app.services.bambu_mqtt] [b9cc2a1e] [[SERIAL]] Publishing extrusion_cali_sel: AMS 255, tray 0, cali_idx=-1
+2026-05-18 03:12:12,907 INFO [backend.app.api.routes.inventory] [b9cc2a1e] No stored K-profile for spool 2 — reset slot to Default K (cali_idx=-1)
+2026-05-18 03:12:12,909 INFO [backend.app.api.routes.inventory] [b9cc2a1e] Auto-configured AMS slot ams=255 tray=0 for spool 2 on printer 1
+2026-05-18 03:12:12,912 INFO [uvicorn.access] [-] [IP]:46248 - "POST /api/v1/inventory/assignments HTTP/1.1" 200
+2026-05-18 03:12:34,165 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-18 03:12:34,301 INFO [uvicorn.access] [-] [IP]:47428 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 200
+2026-05-18 03:12:34,519 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-18 03:12:34,519 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-18 03:12:34,519 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 1 printers
+2026-05-18 03:12:48,157 INFO [backend.app.services.bambu_mqtt] [ac9ea598] [[SERIAL]] Publishing ams_filament_setting: AMS 255, tray 0, tray_info_idx=GFL99, setting_id=GFSL99
+2026-05-18 03:12:48,157 INFO [backend.app.services.bambu_mqtt] [ac9ea598] [[SERIAL]] Publishing extrusion_cali_sel: AMS 255, tray 0, cali_idx=-1
+2026-05-18 03:12:48,157 INFO [backend.app.api.routes.inventory] [ac9ea598] No stored K-profile for spool 2 — reset slot to Default K (cali_idx=-1)
+2026-05-18 03:12:48,158 INFO [backend.app.api.routes.inventory] [ac9ea598] Auto-configured AMS slot ams=255 tray=0 for spool 2 on printer 1
+2026-05-18 03:12:48,160 INFO [uvicorn.access] [-] [IP]:40648 - "POST /api/v1/inventory/assignments HTTP/1.1" 200
+2026-05-18 03:13:41,153 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-18 03:13:41,328 INFO [uvicorn.access] [-] [IP]:43302 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 200
+2026-05-18 03:13:41,562 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-18 03:13:41,562 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-18 03:13:41,562 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 1 printers
+2026-05-18 03:14:12,180 INFO [backend.app.services.bambu_mqtt] [a48e0b35] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-18 03:14:12,195 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=6, 0 profiles, expected=0.4
+2026-05-18 03:14:12,195 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-18 03:14:12,195 INFO [backend.app.services.bambu_mqtt] [a48e0b35] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-18 03:14:15,775 INFO [uvicorn.access] [-] [IP]:48524 - "PATCH /api/v1/inventory/spools/2 HTTP/1.1" 200
+2026-05-18 03:14:15,871 INFO [uvicorn.access] [-] [IP]:48524 - "PUT /api/v1/inventory/spools/2/k-profiles HTTP/1.1" 200
+2026-05-18 03:14:24,176 INFO [backend.app.services.bambu_mqtt] [cf8ad901] [[SERIAL]] Requesting K-profiles for nozzle_diameter=0.4 (attempt 1/3)
+2026-05-18 03:14:24,186 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] K-profile response: nozzle=0.4, seq_id=7, 0 profiles, expected=0.4
+2026-05-18 03:14:24,186 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Got 0 K-profiles for nozzle=0.4
+2026-05-18 03:14:24,186 INFO [backend.app.services.bambu_mqtt] [cf8ad901] [[SERIAL]] Got 0 K-profiles for nozzle=0.4 on attempt 1
+2026-05-18 03:14:25,000 INFO [uvicorn.access] [-] [IP]:54562 - "DELETE /api/v1/inventory/assignments/1/255/0 HTTP/1.1" 200
+2026-05-18 03:14:30,945 INFO [backend.app.services.bambu_mqtt] [b9270723] [[SERIAL]] Publishing ams_filament_setting: AMS 255, tray 0, tray_info_idx=GFL99, setting_id=GFSL99
+2026-05-18 03:14:30,945 INFO [backend.app.services.bambu_mqtt] [b9270723] [[SERIAL]] Publishing extrusion_cali_sel: AMS 255, tray 0, cali_idx=-1
+2026-05-18 03:14:30,945 INFO [backend.app.api.routes.inventory] [b9270723] No stored K-profile for spool 2 — reset slot to Default K (cali_idx=-1)
+2026-05-18 03:14:30,946 INFO [backend.app.api.routes.inventory] [b9270723] Auto-configured AMS slot ams=255 tray=0 for spool 2 on printer 1
+2026-05-18 03:14:30,947 INFO [uvicorn.access] [-] [IP]:54562 - "POST /api/v1/inventory/assignments HTTP/1.1" 200
+2026-05-18 03:15:12,400 INFO [backend.app.api.routes.support] [23439407] Log level changed to DEBUG
+2026-05-18 03:15:12,400 INFO [backend.app.api.routes.bug_report] [23439407] Bug report: enabled debug logging
+2026-05-18 03:15:12,400 DEBUG [backend.app.services.bambu_mqtt] [23439407] [[SERIAL]] Requesting status update (pushall)
+2026-05-18 03:15:12,400 INFO [uvicorn.access] [-] [IP]:50834 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: FINISH, gcode_file: , subtask_name: cottage_stuff_1
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '0', 'tray_exist_bits': '0', 'tray_is_bbl_bits': '0', 'tray_tar': '254', 'tray_now': '254', 'tray_pre': '254', 'tray_read_done_bits': '0', 'tray_reading_bits': '0', 'version': 15, 'insert_flag': True, 'power_on_flag': False}
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 254
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 0 new units, 0 total
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 0 (main=0, sub=0)
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-18 03:15:12,435 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-18 03:15:12,436 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-18 03:15:12,436 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-18 03:15:12,436 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-05-18 03:15:12,436 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'enable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-18 03:15:12,436 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -69dBm
+2026-05-18 03:15:12,436 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'on'}]
+2026-05-18 03:15:12,436 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: FINISH -> FINISH, file: , subtask: cottage_stuff_1
+2026-05-18 03:15:12,638 INFO [backend.app.api.routes.cloud] [2e110db4] get_filament_info called with 1 IDs: ['GFL99']
+2026-05-18 03:15:12,638 INFO [uvicorn.access] [-] [IP]:50834 - "POST /api/v1/cloud/filament-info HTTP/1.1" 200
+2026-05-18 03:15:20,454 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-18 03:15:20,454 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -70dBm
+2026-05-18 03:15:22,465 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-18 03:15:22,465 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -69dBm
+2026-05-18 03:15:22,814 INFO [uvicorn.access] [-] [IP]:57488 - "DELETE /api/v1/inventory/assignments/1/255/0 HTTP/1.1" 200
+2026-05-18 03:15:26,476 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-18 03:15:26,476 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -70dBm
+2026-05-18 03:15:30,488 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-18 03:15:30,488 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -69dBm
+2026-05-18 03:15:32,480 INFO [backend.app.services.bambu_mqtt] [a69451e2] [[SERIAL]] Publishing ams_filament_setting: AMS 255, tray 0, tray_info_idx=GFL99, setting_id=GFSL99
+2026-05-18 03:15:32,480 DEBUG [backend.app.services.bambu_mqtt] [a69451e2] [[SERIAL]] ams_filament_setting command: {"print": {"command": "ams_filament_setting", "ams_id": 255, "tray_id": 254, "slot_id": 0, "tray_info_idx": "GFL99", "tray_type": "PLA", "tray_sub_brands": "Generic PLA Basic", "tray_color": "8B4513FF", "nozzle_temp_min": 190, "nozzle_temp_max": 230, "sequence_id": "0", "setting_id": "GFSL99"}}
+2026-05-18 03:15:32,480 INFO [backend.app.services.bambu_mqtt] [a69451e2] [[SERIAL]] Publishing extrusion_cali_sel: AMS 255, tray 0, cali_idx=-1
+2026-05-18 03:15:32,480 DEBUG [backend.app.services.bambu_mqtt] [a69451e2] [[SERIAL]] extrusion_cali_sel command: {"print": {"command": "extrusion_cali_sel", "cali_idx": -1, "filament_id": "GFL99", "nozzle_diameter": "0.4", "ams_id": 254, "tray_id": 254, "slot_id": 0, "sequence_id": "0"}}
+2026-05-18 03:15:32,480 INFO [backend.app.api.routes.inventory] [a69451e2] No stored K-profile for spool 2 — reset slot to Default K (cali_idx=-1)
+2026-05-18 03:15:32,480 INFO [backend.app.api.routes.inventory] [a69451e2] Auto-configured AMS slot ams=255 tray=0 for spool 2 on printer 1
+2026-05-18 03:15:32,482 INFO [uvicorn.access] [-] [IP]:35198 - "POST /api/v1/inventory/assignments HTTP/1.1" 200
+2026-05-18 03:15:32,497 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-18 03:15:32,498 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -70dBm
+2026-05-18 03:15:32,503 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: ams_filament_setting
+2026-05-18 03:15:32,503 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_filament_setting response: {'command': 'ams_filament_setting', 'ams_id': 255, 'tray_id': 254, 'slot_id': 0, 'tray_info_idx': 'GFL99', 'tray_type': 'PLA', 'tray_sub_brands': 'Generic PLA Basic', 'tray_color': '8B4513FF', 'nozzle_temp_min': 190, 'nozzle_temp_max': 230, 'sequence_id': '0', 'setting_id': 'GFSL99', 'reason': 'success', 'result': 'success'}
+2026-05-18 03:15:32,547 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: extrusion_cali_sel
+2026-05-18 03:15:32,547 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] extrusion_cali_sel response: {'command': 'extrusion_cali_sel', 'cali_idx': -1, 'filament_id': 'GFL99', 'nozzle_diameter': '0.4', 'ams_id': 254, 'tray_id': 254, 'slot_id': 0, 'sequence_id': '0', 'reason': '', 'result': 'fail'}
