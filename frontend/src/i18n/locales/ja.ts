@@ -3444,6 +3444,7 @@ export default {
     previewWithProgress: '{{name}}を分析中 – {{stage}} ({{percent}}%) – {{elapsed}}',
     notUsedByPlate: '— このプレートでは使用しない',
     noPresetsForSlot: 'プリセットなし',
+    otherPrinters: '他のプリンター',
     presetsLoadFailed: 'プリセットの読み込みに失敗。先に設定 → プロファイルからインポートしてください。',
     allPresetsRequired: 'すべてのプリセットを選択する必要があります',
     bundle: 'スライサーバンドル',

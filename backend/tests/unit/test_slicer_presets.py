@@ -642,3 +642,31 @@ class TestBundleRoutes:
         ):
             await sp.delete_slicer_bundle("missing", db=MagicMock(), _=None)
         assert exc.value.status_code == 404
+
+
+class TestParseCompatiblePrinters:
+    """``compatible_printers`` exposed for local process / filament presets so
+    the SliceModal can filter the dropdowns by the selected printer (#1325)."""
+
+    def test_parses_json_array(self):
+        raw = '["Bambu Lab X1 Carbon 0.4 nozzle", "Bambu Lab X1 0.4 nozzle"]'
+        assert sp._parse_compatible_printers(raw) == [
+            "Bambu Lab X1 Carbon 0.4 nozzle",
+            "Bambu Lab X1 0.4 nozzle",
+        ]
+
+    def test_none_and_empty_return_none(self):
+        assert sp._parse_compatible_printers(None) is None
+        assert sp._parse_compatible_printers("") is None
+        assert sp._parse_compatible_printers("[]") is None
+
+    def test_malformed_json_returns_none(self):
+        assert sp._parse_compatible_printers("not json") is None
+        # A JSON value that isn't an array is treated as absent, not an error.
+        assert sp._parse_compatible_printers('"a string"') is None
+
+    def test_drops_non_string_and_blank_entries(self):
+        assert sp._parse_compatible_printers('["X1C", 5, "", "  ", "A1"]') == [
+            "X1C",
+            "A1",
+        ]

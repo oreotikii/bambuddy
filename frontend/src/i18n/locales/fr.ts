@@ -3433,6 +3433,7 @@ export default {
     previewWithProgress: 'Analyse de {{name}} – {{stage}} ({{percent}} %) – {{elapsed}}',
     notUsedByPlate: '— non utilisé par cette plaque',
     noPresetsForSlot: 'Aucun préréglage disponible',
+    otherPrinters: 'Autres imprimantes',
     presetsLoadFailed: 'Échec du chargement des préréglages. Ouvrez Paramètres → Profils pour les importer d\'abord.',
     allPresetsRequired: 'Tous les préréglages doivent être sélectionnés',
     bundle: 'Pack de découpage',

@@ -3432,6 +3432,7 @@ export default {
     previewWithProgress: 'Analisando {{name}} – {{stage}} ({{percent}}%) – {{elapsed}}',
     notUsedByPlate: '— não usado por esta mesa',
     noPresetsForSlot: 'Nenhuma predefinição disponível',
+    otherPrinters: 'Outras impressoras',
     presetsLoadFailed: 'Falha ao carregar predefinições. Abra Configurações → Perfis para importá-las primeiro.',
     allPresetsRequired: 'Todas as predefinições devem ser selecionadas',
     bundle: 'Pacote do fatiador',

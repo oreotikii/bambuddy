@@ -3447,6 +3447,7 @@ export default {
     previewWithProgress: 'Analizando {{name}} — {{stage}} ({{percent}}%) — {{elapsed}}',
     notUsedByPlate: '— no usado por esta cama',
     noPresetsForSlot: 'No hay preajustes disponibles',
+    otherPrinters: 'Otras impresoras',
     presetsLoadFailed: 'Error al cargar los preajustes. Abra Ajustes → Perfiles para importarlos primero.',
     allPresetsRequired: 'Deben seleccionarse todos los preajustes',
     bundle: 'Paquete del laminador',

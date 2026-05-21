@@ -1321,6 +1321,12 @@ export interface UnifiedPreset {
   // responses pre-date these fields entirely.
   filament_type?: string | null;
   filament_colour?: string | null;
+  // Printer-preset names a process / filament preset declares itself
+  // compatible with. Populated for the local tier (the slicer's own
+  // `compatible_printers`); null for cloud / standard. The SliceModal filters
+  // the process / filament dropdowns by the selected printer using this when
+  // present, falling back to a name-suffix heuristic otherwise (#1325).
+  compatible_printers?: string[] | null;
 }
 export interface UnifiedPresetsBySlot {
   printer: UnifiedPreset[];

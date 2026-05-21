@@ -3432,6 +3432,7 @@ export default {
     previewWithProgress: '分析 {{name}} — {{stage}} ({{percent}}%) — {{elapsed}}',
     notUsedByPlate: '— 此打印板未使用',
     noPresetsForSlot: '无可用预设',
+    otherPrinters: '其他打印机',
     presetsLoadFailed: '加载预设失败。请先打开设置 → 配置文件以导入。',
     allPresetsRequired: '必须选择所有预设',
     bundle: '切片器套装',

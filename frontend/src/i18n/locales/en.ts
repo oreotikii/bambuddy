@@ -3447,6 +3447,7 @@ export default {
     previewWithProgress: 'Analyzing {{name}} — {{stage}} ({{percent}}%) — {{elapsed}}',
     notUsedByPlate: '— not used by this plate',
     noPresetsForSlot: 'No presets available',
+    otherPrinters: 'Other printers',
     presetsLoadFailed: 'Failed to load presets. Open Settings → Profiles to import them first.',
     allPresetsRequired: 'All presets must be selected',
     bundle: 'Slicer bundle',

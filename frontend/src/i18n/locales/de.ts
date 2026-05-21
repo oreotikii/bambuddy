@@ -3444,6 +3444,7 @@ export default {
     previewWithProgress: '{{name}} wird analysiert — {{stage}} ({{percent}}%) — {{elapsed}}',
     notUsedByPlate: '— wird von dieser Platte nicht verwendet',
     noPresetsForSlot: 'Keine Profile verfügbar',
+    otherPrinters: 'Andere Drucker',
     presetsLoadFailed: 'Profile konnten nicht geladen werden. Importiere sie zuerst unter Einstellungen → Profile.',
     allPresetsRequired: 'Alle Profile müssen ausgewählt sein',
     bundle: 'Slicer-Bundle',

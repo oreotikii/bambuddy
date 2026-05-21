@@ -20,6 +20,7 @@ import { useToast } from '../contexts/ToastContext';
 import { PlatePickerModal } from './PlatePickerModal';
 import type { PlateFilament } from '../types/plates';
 import { normalizeColorForCompare, colorsAreSimilar } from '../utils/amsHelpers';
+import { presetCompatibility, printerPresetCode } from '../utils/slicerPrinterMatch';
 
 export type SliceSource =
   | { kind: 'libraryFile'; id: number; filename: string }
@@ -50,6 +51,39 @@ function pickDefault(by: UnifiedPresetsResponse, slot: Slot): PresetRef | null {
   return null;
 }
 
+// Resolve a PresetRef back to its UnifiedPreset within the named slot, or
+// null if it no longer resolves (e.g. the preset was deleted between the
+// listing fetch and selection).
+function findPreset(
+  by: UnifiedPresetsResponse,
+  ref: PresetRef | null,
+  slot: Slot,
+): UnifiedPreset | null {
+  if (!ref) return null;
+  return by[ref.source][slot].find((p) => p.id === ref.id) ?? null;
+}
+
+// Process default (#1325): first preset compatible with the selected printer
+// in tier order, then the first whose compatibility is merely unknown, then
+// plain priority. Keeps the pre-pick honest with the printer filter instead
+// of blindly taking list[0].
+function pickProcessDefault(
+  by: UnifiedPresetsResponse,
+  printerName: string | null,
+  printerCode: string | null,
+): PresetRef | null {
+  for (const wanted of ['match', 'unknown'] as const) {
+    for (const tier of SLICE_MODAL_TIER_ORDER) {
+      for (const p of by[tier].process) {
+        if (presetCompatibility(p, printerName, printerCode) === wanted) {
+          return { source: p.source, id: p.id };
+        }
+      }
+    }
+  }
+  return pickDefault(by, 'process');
+}
+
 const TIER_BONUS: Record<PresetSource, number> = {
   local: 1.5,
   cloud: 1.0,
@@ -59,6 +93,8 @@ const TIER_BONUS: Record<PresetSource, number> = {
 function pickFilamentForSlot(
   by: UnifiedPresetsResponse,
   required: { type: string; color: string },
+  printerName: string | null,
+  printerCode: string | null,
 ): PresetRef | null {
   // Score every filament preset against the plate slot's required (type,
   // colour) and pick the highest. Mirrors the AMS slot-mapping match in the
@@ -80,6 +116,12 @@ function pickFilamentForSlot(
         else if (colorsAreSimilar(p.filament_colour ?? '', required.color)) score += 2;
       }
       score += TIER_BONUS[tier];
+      // Demote printer-incompatible filaments (#1325): a penalty rather than a
+      // hard skip so the pick still degrades gracefully if every filament
+      // mismatches the selected printer.
+      if (presetCompatibility(p, printerName, printerCode) === 'mismatch') {
+        score -= 100;
+      }
       if (best == null || score > best.score) {
         best = { ref: { source: p.source, id: p.id }, score };
       }
@@ -357,32 +399,68 @@ export function SliceModal({ source, onClose }: SliceModalProps) {
   }, [selectedBundleId, bundlesQuery.data]);
   const isBundleMode = selectedBundle != null;
 
-  // Printer / process pre-pick: see SLICE_MODAL_TIER_ORDER. Runs once when
-  // presets first arrive; subsequent re-renders preserve any manual choice.
+  // Selected-printer context for the process / filament filter (#1325).
+  const selectedPrinterName = useMemo<string | null>(() => {
+    if (!presetsQuery.data || !printerPreset) return null;
+    return findPreset(presetsQuery.data, printerPreset, 'printer')?.name ?? null;
+  }, [presetsQuery.data, printerPreset]);
+  const selectedPrinterCode = useMemo<string | null>(
+    () => (selectedPrinterName ? printerPresetCode(selectedPrinterName) : null),
+    [selectedPrinterName],
+  );
+
+  // Printer pre-pick: see SLICE_MODAL_TIER_ORDER. Runs once when presets
+  // first arrive; subsequent re-renders preserve any manual choice.
   useEffect(() => {
     if (!presetsQuery.data) return;
     if (printerPreset == null) setPrinterPreset(pickDefault(presetsQuery.data, 'printer'));
-    if (processPreset == null) setProcessPreset(pickDefault(presetsQuery.data, 'process'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presetsQuery.data]);
 
-  // Filament pre-pick: re-runs whenever the active filament-slot count
-  // changes (plate selection, single-plate metadata arriving). For each slot
-  // we score every available filament preset against the slot's required
-  // (type, colour) and keep the highest match. Slot count mismatch → reset
-  // and re-pick everything; same length → preserve any user override.
+  // Process pre-pick / re-pick (#1325): defaults to a process compatible with
+  // the selected printer, and re-defaults when a printer change leaves the
+  // current process incompatible. A compatible or unknown manual pick is kept.
   useEffect(() => {
-    if (!presetsQuery.data) return;
     const data = presetsQuery.data;
-    setFilamentPresets((current) => {
-      if (current.length === filamentSlots.length && current.every((r) => r != null)) {
-        return current;
+    if (!data) return;
+    setProcessPreset((current) => {
+      if (current) {
+        const p = findPreset(data, current, 'process');
+        if (p && presetCompatibility(p, selectedPrinterName, selectedPrinterCode) !== 'mismatch') {
+          return current;
+        }
       }
-      return filamentSlots.map((slot) =>
-        pickFilamentForSlot(data, { type: slot.type, color: slot.color }),
-      );
+      return pickProcessDefault(data, selectedPrinterName, selectedPrinterCode);
     });
-  }, [presetsQuery.data, filamentSlots]);
+  }, [presetsQuery.data, selectedPrinterName, selectedPrinterCode]);
+
+  // Filament pre-pick: re-runs when the active filament-slot count changes
+  // (plate selection, single-plate metadata arriving) or the selected printer
+  // changes. Each slot scores every available filament preset against the
+  // slot's required (type, colour); an existing pick (incl. a user override)
+  // is kept as long as it's still compatible with the selected printer, while
+  // null slots and printer-incompatible picks are re-picked (#1325).
+  useEffect(() => {
+    const data = presetsQuery.data;
+    if (!data) return;
+    setFilamentPresets((current) => {
+      return filamentSlots.map((slot, i) => {
+        const cur = current[i] ?? null;
+        if (cur) {
+          const p = findPreset(data, cur, 'filament');
+          if (p && presetCompatibility(p, selectedPrinterName, selectedPrinterCode) !== 'mismatch') {
+            return cur;
+          }
+        }
+        return pickFilamentForSlot(
+          data,
+          { type: slot.type, color: slot.color },
+          selectedPrinterName,
+          selectedPrinterCode,
+        );
+      });
+    });
+  }, [presetsQuery.data, filamentSlots, selectedPrinterName, selectedPrinterCode]);
 
   // Bundle-mode auto-pick: when the user picks a bundle (or the slot count
   // changes after the picker is open), default the process to the bundle's
@@ -603,6 +681,8 @@ export function SliceModal({ source, onClose }: SliceModalProps) {
                     value={processPreset}
                     onChange={setProcessPreset}
                     disabled={isEnqueuing}
+                    selectedPrinterName={selectedPrinterName}
+                    selectedPrinterCode={selectedPrinterCode}
                   />
                 </>
               )}
@@ -719,6 +799,8 @@ export function SliceModal({ source, onClose }: SliceModalProps) {
                       }
                       disabled={isEnqueuing || !isUsed}
                       swatchColor={filamentSlots.length > 1 ? slot.color : undefined}
+                      selectedPrinterName={selectedPrinterName}
+                      selectedPrinterCode={selectedPrinterCode}
                     />
                   );
                 })
@@ -864,29 +946,66 @@ interface PresetDropdownProps {
   // filament slots so the user can see at a glance which slot they're
   // configuring against the source 3MF's per-slot colour.
   swatchColor?: string;
+  // Selected printer context (#1325). When provided for a process / filament
+  // slot, presets that resolve to a different printer move into a trailing
+  // "Other printers" group instead of the main tier list.
+  selectedPrinterName?: string | null;
+  selectedPrinterCode?: string | null;
 }
 
-function PresetDropdown({ label, slot, data, value, onChange, disabled, swatchColor }: PresetDropdownProps) {
+function PresetDropdown({
+  label,
+  slot,
+  data,
+  value,
+  onChange,
+  disabled,
+  swatchColor,
+  selectedPrinterName,
+  selectedPrinterCode,
+}: PresetDropdownProps) {
   const { t } = useTranslation();
 
-  const sections: { tierLabel: string; entries: UnifiedPreset[] }[] = useMemo(() => {
-    // Order matches SLICE_MODAL_TIER_ORDER: imported first, then cloud, then
-    // standard fallback. Sections with no entries collapse out so a user
-    // without cloud / local presets only sees the tiers they actually have.
-    const tiers: { key: keyof UnifiedPresetsResponse; tier: 'cloud' | 'local' | 'standard'; label: string; fallback: string }[] = [
-      { key: 'local', tier: 'local', label: 'slice.tier.local', fallback: 'Imported' },
-      { key: 'cloud', tier: 'cloud', label: 'slice.tier.cloud', fallback: 'Cloud' },
-      { key: 'standard', tier: 'standard', label: 'slice.tier.standard', fallback: 'Standard' },
+  // Tier sections (imported → cloud → standard), plus — for a process /
+  // filament slot with a selected printer — a trailing group of presets that
+  // resolve to a different printer (#1325). Compatibility-unknown presets
+  // stay in their tier, so a custom / untagged preset is never hidden, and
+  // empty sections collapse out.
+  const { sections, otherEntries } = useMemo(() => {
+    const tiers: { key: keyof UnifiedPresetsResponse; label: string; fallback: string }[] = [
+      { key: 'local', label: 'slice.tier.local', fallback: 'Imported' },
+      { key: 'cloud', label: 'slice.tier.cloud', fallback: 'Cloud' },
+      { key: 'standard', label: 'slice.tier.standard', fallback: 'Standard' },
     ];
-    return tiers
-      .map(({ key, label: lk, fallback }) => ({
-        tierLabel: t(lk, fallback),
-        entries: (data[key] as UnifiedPresetsBySlot)[slot],
-      }))
-      .filter((s) => s.entries.length > 0);
-  }, [data, slot, t]);
+    const filterByPrinter = slot !== 'printer';
+    const compatSections: { tierLabel: string; entries: UnifiedPreset[] }[] = [];
+    const other: UnifiedPreset[] = [];
+    for (const { key, label: lk, fallback } of tiers) {
+      const entries = (data[key] as UnifiedPresetsBySlot)[slot];
+      if (!filterByPrinter) {
+        if (entries.length > 0) compatSections.push({ tierLabel: t(lk, fallback), entries });
+        continue;
+      }
+      const compatible: UnifiedPreset[] = [];
+      for (const p of entries) {
+        if (
+          presetCompatibility(p, selectedPrinterName ?? null, selectedPrinterCode ?? null) ===
+          'mismatch'
+        ) {
+          other.push(p);
+        } else {
+          compatible.push(p);
+        }
+      }
+      if (compatible.length > 0) {
+        compatSections.push({ tierLabel: t(lk, fallback), entries: compatible });
+      }
+    }
+    return { sections: compatSections, otherEntries: other };
+  }, [data, slot, t, selectedPrinterName, selectedPrinterCode]);
 
-  const totalEntries = sections.reduce((sum, s) => sum + s.entries.length, 0);
+  const totalEntries =
+    sections.reduce((sum, s) => sum + s.entries.length, 0) + otherEntries.length;
 
   return (
     <label className="block">
@@ -920,6 +1039,15 @@ function PresetDropdown({ label, slot, data, value, onChange, disabled, swatchCo
             ))}
           </optgroup>
         ))}
+        {otherEntries.length > 0 && (
+          <optgroup label={t('slice.otherPrinters')}>
+            {otherEntries.map((p) => (
+              <option key={`${p.source}:${p.id}`} value={`${p.source}:${p.id}`}>
+                {p.name}
+              </option>
+            ))}
+          </optgroup>
+        )}
       </select>
     </label>
   );

@@ -3432,6 +3432,7 @@ export default {
     previewWithProgress: 'Analisi di {{name}} – {{stage}} ({{percent}}%) – {{elapsed}}',
     notUsedByPlate: '— non usato da questo piano',
     noPresetsForSlot: 'Nessun preset disponibile',
+    otherPrinters: 'Altre stampanti',
     presetsLoadFailed: 'Caricamento preset fallito. Apri Impostazioni → Profili per importarli prima.',
     allPresetsRequired: 'Tutti i preset devono essere selezionati',
     bundle: 'Bundle slicer',
