@@ -1,0 +1,200 @@
+2026-05-22 13:36:14,322 WARNING [backend.app.api.routes.printers] [b2a5c0e5] FTP download attempt 2 failed: , retrying...
+2026-05-22 13:36:33,144 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:36:33,547 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /model/y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:36:34,706 WARNING [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Connection stale - no message for 71.6s, forcing reconnect
+2026-05-22 13:36:34,707 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Disconnect callback after stale reconnect (expected), rc=Normal disconnection
+2026-05-22 13:36:42,476 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:36:45,505 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:36:46,685 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:36:46,923 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:36:47,193 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:36:47,194 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /y30s-B-NEW.gcode.3mf: 550  (not on printer)
+2026-05-22 13:36:49,845 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /cache/y30s-B-NEW.gcode.3mf: 550  (not on printer)
+2026-05-22 13:36:51,276 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /model/y30s-B-NEW.gcode.3mf: 550  (not on printer)
+2026-05-22 13:36:51,353 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /data/y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:36:51,900 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /data/y30s-B-NEW.gcode.3mf: 550  (not on printer)
+2026-05-22 13:36:53,591 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:36:54,049 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:36:55,591 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /data/Metadata/y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:36:55,681 INFO [backend.app.main] [-] Direct FTP download failed, searching directories for 'y30s-b-new'
+2026-05-22 13:36:58,346 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /cache/y30s-B-NEW.3mf: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)
+2026-05-22 13:37:02,696 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:37:08,383 INFO [backend.app.services.bambu_ftp] [-] Successfully downloaded /cache/y30s-B-NEW.3mf to /app/data/archive/temp/cover_4_y30s-B-NEW.3mf (2275284 bytes)
+2026-05-22 13:37:08,407 INFO [backend.app.api.routes.printers] [daea2f30] Downloaded file size: 2275284 bytes
+2026-05-22 13:37:08,408 INFO [backend.app.api.routes.printers] [daea2f30] Cover: detected plate 1 from 3MF contents
+2026-05-22 13:37:09,584 INFO [backend.app.main] [-] Found 6 3MF files in /cache: ['徕芬I2-A-GOOD.3mf', 'U7P-A.3mf', 'Y30-C-NEW.3mf', 'Y50test.3mf', 'Y50-E-2.3mf']...
+2026-05-22 13:37:09,585 INFO [backend.app.main] [-] Found matching file in /cache: Y30S-B-NEW.3mf
+2026-05-22 13:37:09,813 INFO [backend.app.services.bambu_ftp] [-] Successfully downloaded /cache/Y30S-B-NEW.3mf to /app/data/archive/temp/Y30S-B-NEW.3mf (438272 bytes)
+2026-05-22 13:37:09,814 INFO [backend.app.services.bambu_ftp] [-] FTP mode cached for [IP]: prot_p
+2026-05-22 13:37:14,473 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:37:16,241 WARNING [backend.app.services.bambu_ftp] [-] FTP download timed out after 30.0s (plus 30.0s grace) for /cache/Y30S-B-NEW.3mf
+2026-05-22 13:37:16,241 INFO [backend.app.services.bambu_ftp] [-] Download 3MF from /cache/Y30S-B-NEW.3mf attempt 3/4 returned failure
+2026-05-22 13:37:16,242 INFO [backend.app.services.bambu_ftp] [-] Download 3MF from /cache/Y30S-B-NEW.3mf will retry in 2.0s...
+2026-05-22 13:37:28,373 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /model/y30s-B-NEW.3mf: The read operation timed out
+2026-05-22 13:37:28,374 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /data/y30s-B-NEW.3mf: cannot read from timed out object
+2026-05-22 13:37:28,408 INFO [uvicorn.access] [-] [IP]:9117 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 200
+2026-05-22 13:37:28,506 INFO [backend.app.api.routes.printers] [d33c312f] Trying to download cover for 'y30s-B-NEW.3mf' from [IP] (trying 4 paths)
+2026-05-22 13:37:39,867 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:37:40,063 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:37:42,492 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /cache/y30s-B-NEW.3mf: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)
+2026-05-22 13:37:43,988 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:37:52,932 WARNING [backend.app.api.routes.printers] [d33c312f] FTP download attempt 1 failed: , retrying...
+2026-05-22 13:38:05,299 WARNING [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Connection stale - no message for 67.2s, forcing reconnect
+2026-05-22 13:38:05,300 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Disconnect callback after stale reconnect (expected), rc=Normal disconnection
+2026-05-22 13:38:05,335 WARNING [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Connection stale - no message for 75.5s, forcing reconnect
+2026-05-22 13:38:05,337 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Disconnect callback after stale reconnect (expected), rc=Normal disconnection
+2026-05-22 13:38:09,586 WARNING [backend.app.services.bambu_ftp] [-] FTP download timed out after 30.0s (plus 30.0s grace) for /cache/Y30S-B-NEW.3mf
+2026-05-22 13:38:09,587 INFO [backend.app.services.bambu_ftp] [-] FTP download failed with prot_p for A1 model, trying prot_c fallback...
+2026-05-22 13:38:18,243 WARNING [backend.app.services.bambu_ftp] [-] FTP download timed out after 30.0s (plus 30.0s grace) for /cache/Y30S-B-NEW.3mf
+2026-05-22 13:38:18,243 INFO [backend.app.services.bambu_ftp] [-] Download 3MF from /cache/Y30S-B-NEW.3mf attempt 4/4 returned failure
+2026-05-22 13:38:18,244 ERROR [backend.app.services.bambu_ftp] [-] Download 3MF from /cache/Y30S-B-NEW.3mf failed after 4 attempts
+2026-05-22 13:38:26,817 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /cache/Y30S-B-NEW.3mf: The read operation timed out
+2026-05-22 13:38:27,406 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:28,333 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /cache/Y30S-B-NEW.3mf: [Errno 104] Connection reset by peer
+2026-05-22 13:38:34,914 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /cache/Y30S-B-NEW.3mf: [Errno 104] Connection reset by peer
+2026-05-22 13:38:35,020 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:38:35,020 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=True)
+2026-05-22 13:38:35,412 WARNING [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Connection stale - no message for 105.6s, forcing reconnect
+2026-05-22 13:38:35,413 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Disconnect callback after stale reconnect (expected), rc=Normal disconnection
+2026-05-22 13:38:36,155 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:36,385 INFO [backend.app.main] [-] Found 13 3MF files in /model: ['3DBenchy by Creative Tool.gcode.3mf', '3DBenchy_3color by Creative Tool.gcode.3mf', 'Bag Clip by squinn.gcode.3mf', 'Bed scraper by JernejP.gcode.3mf', 'Blank Elephant by Amao Chan.gcode.3mf']...
+2026-05-22 13:38:38,334 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:38,649 INFO [backend.app.services.bambu_ftp] [-] FTP list_files failed for /data: 550 
+2026-05-22 13:38:38,692 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] PRINT COMPLETE detected - state: FINISH, status: completed, file: y30s-B-NEW.3mf, subtask: y30s-B-NEW, was_running: True, timelapse_during_print: False
+2026-05-22 13:38:38,693 INFO [backend.app.main] [-] [CALLBACK] on_print_complete started for printer 7
+2026-05-22 13:38:38,694 INFO [backend.app.main] [-] [TIMING] WebSocket send_print_complete: 0.001s elapsed
+2026-05-22 13:38:38,694 INFO [backend.app.main] [-] Print complete - filename: y30s-B-NEW.3mf, subtask: y30s-B-NEW, status: completed
+2026-05-22 13:38:38,695 INFO [backend.app.main] [-] Looking for archive in _active_prints, keys to try: [(7, 'y30s-B-NEW.3mf'), (7, 'y30s-B-NEW.gcode.3mf'), (7, 'y30s-B-NEW'), (7, 'y30s-B-NEW.3mf'), (7, 'y30s-B-NEW.3mf')]...
+2026-05-22 13:38:38,695 INFO [backend.app.main] [-] Current _active_prints: [(3, 'Y30PRO-D-NEW.3mf'), (3, 'Y30PRO-D-NEW'), (2, 'y30s-B-NEW.3mf'), (2, 'y30s-B-NEW.3mf.3mf'), (8, 'y30s-B-NEW.3mf'), (8, 'y30s-B-NEW.3mf.3mf'), (6, 'y30s-B-NEW.3mf'), (6, 'y30s-B-NEW.3mf.3mf')]
+2026-05-22 13:38:41,658 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:41,814 INFO [backend.app.services.bambu_ftp] [-] FTP list_files failed for /data/Metadata: 550 
+2026-05-22 13:38:41,879 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:41,902 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /y30s-B-NEW.3mf: 550 
+2026-05-22 13:38:43,026 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:44,608 INFO [backend.app.main] [-] Found 5 3MF files in /: ['LAIFEN-P3PRO2_plate_3.gcode.3mf', 'P30_plate_4.gcode.3mf', 'c20冲牙器-4mm磁铁.gcode.3mf', '徕芬I2_plate_32.gcode.3mf', 'C10S-凹凸版_plate_2.gcode.3mf']
+2026-05-22 13:38:44,609 WARNING [backend.app.main] [-] Could not find 3MF file for print: y30s-B-NEW.3mf
+2026-05-22 13:38:44,619 INFO [backend.app.main] [-] Created fallback archive 6 for y30s-B-NEW (no 3MF available)
+2026-05-22 13:38:44,622 INFO [backend.app.main] [-] [ENERGY] No smart plug for printer 7 (archive 6)
+2026-05-22 13:38:44,631 INFO [backend.app.main] [-] [SNAPSHOT] Capturing fresh frame for printer 7
+2026-05-22 13:38:44,631 INFO [backend.app.services.camera] [-] Capturing camera frame bytes from [IP] using chamber image protocol (model: A1)
+2026-05-22 13:38:46,792 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:46,840 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /y30s-B-NEW.3mf: 550 
+2026-05-22 13:38:47,011 WARNING [backend.app.services.bambu_ftp] [-] FTP download timed out after 30.0s (plus 30.0s grace) for /cache/Y30S-B-NEW.3mf
+2026-05-22 13:38:47,011 INFO [backend.app.services.bambu_ftp] [-] Download 3MF from /cache/Y30S-B-NEW.3mf will retry in 2.0s...
+2026-05-22 13:38:49,576 INFO [backend.app.main] [-] [SNAPSHOT] Fresh camera frame: 38298 bytes
+2026-05-22 13:38:49,577 INFO [backend.app.services.notification_service] [-] on_print_start called for printer 7 ([PRINTER])
+2026-05-22 13:38:49,580 INFO [backend.app.services.notification_service] [-] No notification providers configured for print_start event on printer 7
+2026-05-22 13:38:50,587 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:50,620 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /y30s-B-NEW.3mf: 550 
+2026-05-22 13:38:50,649 WARNING [backend.app.main] [-] SD card cleanup failed after 3 attempts for /y30s-B-NEW.3mf (file may linger on SD card)
+2026-05-22 13:38:50,936 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:51,085 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /cache/Y30S-B-NEW.3mf: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)
+2026-05-22 13:38:52,371 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:38:52,409 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /y30s-B-NEW.gcode: 550 
+2026-05-22 13:38:59,254 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:39:07,394 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /y30s-B-NEW.gcode: 550 
+2026-05-22 13:39:11,730 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:39:11,875 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /y30s-B-NEW.gcode: 550 
+2026-05-22 13:39:11,934 WARNING [backend.app.main] [-] SD card cleanup failed after 3 attempts for /y30s-B-NEW.gcode (file may linger on SD card)
+2026-05-22 13:39:11,934 INFO [backend.app.main] [-] [TIMING] SD card cleanup: 33.241s elapsed
+2026-05-22 13:39:11,939 INFO [backend.app.main] [-] [TIMING] Queue item update: 33.245s elapsed
+2026-05-22 13:39:11,951 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] on_print_complete: printer=7, archive=None, session=yes, ams_mapping=None
+2026-05-22 13:39:11,952 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] PRINT COMPLETE printer 7: mapping=None, tray_now=254, last_loaded_tray=254
+2026-05-22 13:39:11,964 INFO [backend.app.main] [-] [TIMING] Filament usage tracking: 33.270s elapsed
+2026-05-22 13:39:11,964 WARNING [backend.app.main] [-] Could not find archive for print complete: filename=y30s-B-NEW.3mf, subtask=y30s-B-NEW
+2026-05-22 13:39:11,975 INFO [backend.app.main] [-] [NOTIFY-BG] Sending notification without archive: printer=7, status=completed
+2026-05-22 13:39:11,975 INFO [backend.app.services.notification_service] [-] on_print_complete called for printer 7 ([PRINTER]), status=completed
+2026-05-22 13:39:11,978 INFO [backend.app.services.notification_service] [-] No notification providers configured for on_print_complete event on printer 7
+2026-05-22 13:39:11,979 INFO [backend.app.main] [-] [NOTIFY-BG] Completed (no-archive path)
+2026-05-22 13:39:21,119 WARNING [backend.app.services.bambu_ftp] [-] FTP download timed out after 30.0s (plus 30.0s grace) for /cache/Y30S-B-NEW.3mf
+2026-05-22 13:39:21,119 INFO [backend.app.services.bambu_ftp] [-] FTP download failed with prot_p for A1 model, trying prot_c fallback...
+2026-05-22 13:39:24,920 INFO [backend.app.api.routes.cloud] [91b2aea9] get_filament_info called with 1 IDs: ['GFG00']
+2026-05-22 13:39:24,928 INFO [uvicorn.access] [-] [IP]:3108 - "POST /api/v1/cloud/filament-info HTTP/1.1" 200
+2026-05-22 13:39:25,029 WARNING [backend.app.services.bambu_ftp] [-] FTP connection failed to [IP]: [Errno 104] Connection reset by peer (type: ConnectionResetError)
+2026-05-22 13:39:25,038 INFO [backend.app.services.bambu_ftp] [-] Download 3MF from /cache/Y30S-B-NEW.3mf attempt 2/4 returned failure
+2026-05-22 13:39:25,039 INFO [backend.app.services.bambu_ftp] [-] Download 3MF from /cache/Y30S-B-NEW.3mf will retry in 2.0s...
+2026-05-22 13:39:25,056 ERROR [backend.app.api.routes.printers] [b2a5c0e5] FTP download failed after 3 attempts: 
+2026-05-22 13:39:25,463 WARNING [backend.app.api.routes.printers] [d33c312f] FTP download attempt 2 failed: , retrying...
+2026-05-22 13:39:32,463 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:39:47,436 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:39:47,556 INFO [backend.app.services.bambu_ftp] [-] FTP download failed for /y30s-B-NEW.3mf: 550  (not on printer)
+2026-05-22 13:40:04,945 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-05-22 13:40:27,042 WARNING [backend.app.services.bambu_ftp] [-] FTP download timed out after 30.0s (plus 30.0s grace) for /cache/Y30S-B-NEW.3mf
+2026-05-22 13:40:27,043 INFO [backend.app.services.bambu_ftp] [-] FTP download failed with prot_p for A1 model, trying prot_c fallback...
+2026-05-22 13:40:35,862 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=True)
+2026-05-22 13:40:48,917 INFO [backend.app.api.routes.support] [a476c493] Log level changed to DEBUG
+2026-05-22 13:40:48,917 INFO [backend.app.api.routes.bug_report] [a476c493] Bug report: enabled debug logging
+2026-05-22 13:40:48,918 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,918 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,919 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,919 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,920 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,920 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,921 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,921 DEBUG [backend.app.services.bambu_mqtt] [a476c493] [[SERIAL]] Requesting status update (pushall)
+2026-05-22 13:40:48,923 INFO [uvicorn.access] [-] [IP]:7965 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-05-22 13:40:48,952 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Found xcam inside print data: {'buildplate_marker_detector': True}
+2026-05-22 13:40:48,952 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Parsing xcam data - all fields: ['buildplate_marker_detector']
+2026-05-22 13:40:48,952 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: RUNNING, gcode_file: y30s-B-NEW.3mf, subtask_name: y30s-B-NEW.3mf
+2026-05-22 13:40:48,953 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '0', 'tray_exist_bits': '0', 'tray_is_bbl_bits': '0', 'tray_tar': '254', 'tray_now': '254', 'tray_pre': '254', 'tray_read_done_bits': '0', 'tray_reading_bits': '0', 'version': 10, 'insert_flag': True, 'power_on_flag': False}
+2026-05-22 13:40:48,953 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 254
+2026-05-22 13:40:48,953 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 0 new units, 0 total
+2026-05-22 13:40:48,953 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 1280 (main=5, sub=0)
+2026-05-22 13:40:48,954 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:48,954 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-22 13:40:48,954 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-22 13:40:48,955 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-22 13:40:48,955 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-22 13:40:48,956 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-05-22 13:40:48,956 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'disable', 'timelapse': 'disable', 'resolution': '1080p', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-22 13:40:48,956 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -60dBm
+2026-05-22 13:40:48,956 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-05-22 13:40:48,957 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: RUNNING -> RUNNING, file: y30s-B-NEW.3mf, subtask: y30s-B-NEW.3mf
+2026-05-22 13:40:49,969 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Found xcam inside print data: {'buildplate_marker_detector': True}
+2026-05-22 13:40:49,969 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Parsing xcam data - all fields: ['buildplate_marker_detector']
+2026-05-22 13:40:49,969 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: RUNNING, gcode_file: Y30PRO-D-NEW.3mf, subtask_name: Y30PRO-D-NEW
+2026-05-22 13:40:49,970 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '0', 'tray_exist_bits': '0', 'tray_is_bbl_bits': '0', 'tray_tar': '254', 'tray_now': '254', 'tray_pre': '254', 'tray_read_done_bits': '0', 'tray_reading_bits': '0', 'version': 10, 'insert_flag': True, 'power_on_flag': False}
+2026-05-22 13:40:49,970 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 254
+2026-05-22 13:40:49,970 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 0 new units, 0 total
+2026-05-22 13:40:49,970 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 1280 (main=5, sub=0)
+2026-05-22 13:40:49,971 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:49,971 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-22 13:40:49,971 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-22 13:40:49,972 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-22 13:40:49,972 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-22 13:40:49,973 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: [{'attr': 50338304, 'code': 131073, 'action': 0, 'timestamp': 1779452401}]
+2026-05-22 13:40:49,973 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'enable', 'timelapse': 'disable', 'resolution': '1080p', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-22 13:40:49,973 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -65dBm
+2026-05-22 13:40:49,973 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-05-22 13:40:49,974 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: RUNNING -> RUNNING, file: Y30PRO-D-NEW.3mf, subtask: Y30PRO-D-NEW
+2026-05-22 13:40:50,041 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:50,041 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -55dBm
+2026-05-22 13:40:50,742 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:50,743 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -60dBm
+2026-05-22 13:40:50,800 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Found xcam inside print data: {'buildplate_marker_detector': True}
+2026-05-22 13:40:50,801 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Parsing xcam data - all fields: ['buildplate_marker_detector']
+2026-05-22 13:40:50,801 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: RUNNING, gcode_file: y30s-B-NEW.3mf, subtask_name: y30s-B-NEW.3mf
+2026-05-22 13:40:50,801 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '0', 'tray_exist_bits': '0', 'tray_is_bbl_bits': '0', 'tray_tar': '254', 'tray_now': '254', 'tray_pre': '254', 'tray_read_done_bits': '0', 'tray_reading_bits': '0', 'version': 12, 'insert_flag': True, 'power_on_flag': False}
+2026-05-22 13:40:50,801 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 254
+2026-05-22 13:40:50,802 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 0 new units, 0 total
+2026-05-22 13:40:50,802 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 1280 (main=5, sub=0)
+2026-05-22 13:40:50,802 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:50,802 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-22 13:40:50,803 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-22 13:40:50,803 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-22 13:40:50,804 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-22 13:40:50,804 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-05-22 13:40:50,804 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'disable', 'timelapse': 'disable', 'resolution': '1080p', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-22 13:40:50,804 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -53dBm
+2026-05-22 13:40:50,805 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-05-22 13:40:50,805 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: RUNNING -> RUNNING, file: y30s-B-NEW.3mf, subtask: y30s-B-NEW.3mf
+2026-05-22 13:40:50,850 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:50,850 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -63dBm
+2026-05-22 13:40:50,990 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:50,990 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -56dBm
+2026-05-22 13:40:51,593 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:51,596 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -62dBm
+2026-05-22 13:40:51,596 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:51,597 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -63dBm
+2026-05-22 13:40:51,598 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-22 13:40:51,599 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -64dBm
