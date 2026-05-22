@@ -1,0 +1,200 @@
+2026-05-22 08:12:52,580 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:15:15,825 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:15:15,826 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:15:15,826 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:15:35,788 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:15:35,789 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:15:35,789 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:16:25,792 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:16:25,832 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:16:51,485 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:16:51,485 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:16:51,485 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:17:01,728 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:17:01,728 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:17:01,728 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:20:17,592 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:20:19,690 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:39:54,519 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:39:54,519 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:39:54,519 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:40:14,827 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:40:14,828 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:40:14,828 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:41:24,743 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:41:24,835 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:44:38,396 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:44:38,396 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:44:38,396 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:44:48,408 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:44:48,408 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:44:48,408 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:46:38,645 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:46:52,126 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 08:59:07,703 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:59:07,703 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:59:07,703 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 08:59:17,696 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 08:59:17,696 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 08:59:17,696 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:00:17,718 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:00:27,724 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:00:44,462 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:00:44,462 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:00:44,462 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:00:45,425 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:00:45,426 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:00:45,426 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:02:54,700 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:02:55,625 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:16:06,063 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:16:06,064 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:16:06,064 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:16:07,012 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:16:07,012 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:16:07,013 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:17:16,071 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:17:17,129 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:31:33,107 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:31:33,107 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:31:33,107 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:31:34,169 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:31:34,169 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:31:34,169 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:32:23,109 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:32:24,171 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:37:08,787 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:37:08,787 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:37:08,787 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:37:09,801 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:37:09,801 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:37:09,801 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:38:18,822 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:38:19,846 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:40:16,821 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:40:16,821 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:40:16,821 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:40:17,684 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 09:40:17,684 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 09:40:17,684 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 09:41:06,823 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 09:41:07,687 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:00:07,610 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:00:07,610 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:00:07,610 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:00:07,747 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:00:07,747 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:00:07,747 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:02:18,739 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:02:18,739 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:02:50,722 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:02:50,722 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:02:50,722 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:02:50,745 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:02:50,745 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:02:50,745 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:04:00,732 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:04:00,755 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:13:55,731 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:13:55,732 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:13:55,732 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:13:56,648 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:13:56,648 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:13:56,648 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:14:45,734 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:14:46,650 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:15:12,290 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:15:12,290 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:15:12,290 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:15:13,336 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:15:13,336 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:15:13,336 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:17:30,392 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:17:36,112 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:33:25,460 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:33:25,460 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:33:25,460 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:33:25,649 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:33:25,650 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:33:25,650 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:34:55,479 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:34:55,665 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:36:22,896 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:36:22,896 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:36:22,896 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:36:23,816 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:36:23,816 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:36:23,816 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:37:32,919 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:37:33,904 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:52:00,901 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:52:00,901 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:52:00,901 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:52:01,111 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 10:52:01,111 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 10:52:01,112 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 10:53:11,085 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 10:53:11,118 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 11:01:18,851 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 11:01:18,852 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 11:01:18,852 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 11:01:18,875 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 11:01:18,875 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 11:01:18,875 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 11:02:28,870 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 11:02:28,886 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 11:15:54,977 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 11:15:54,978 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 11:15:54,978 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 11:15:55,892 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 11:15:55,892 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 11:15:55,892 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 11:17:04,985 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 11:17:05,946 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 11:35:09,509 INFO [uvicorn.access] [-] [IP]:44112 - "POST / HTTP/1.1" 405
+2026-05-22 11:35:11,412 INFO [uvicorn.access] [-] [IP]:37088 - "POST / HTTP/1.1" 405
+2026-05-22 11:45:57,932 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 11:45:57,933 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 11:45:57,933 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 11:45:58,740 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 11:45:58,740 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 11:45:58,740 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 11:47:07,940 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 11:47:08,746 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 12:06:40,196 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 12:06:40,196 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 12:06:40,196 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 12:06:41,189 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 12:06:41,190 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 12:06:41,190 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 12:08:10,215 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 12:08:11,205 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 12:15:43,425 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 12:15:43,425 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 12:15:43,425 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 12:15:43,446 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 12:15:43,446 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 12:15:43,446 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 16:30:59,181 INFO [uvicorn.access] [-] [IP]:53652 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 401
+2026-05-22 16:31:00,196 INFO [uvicorn.access] [-] [IP]:53652 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 401
+2026-05-22 16:31:02,048 INFO [uvicorn.access] [-] [IP]:53652 - "POST /api/v1/auth/login HTTP/1.1" 200
+2026-05-22 16:31:02,216 INFO [uvicorn.access] [-] [IP]:53652 - "POST /api/v1/printers/camera/stream-token HTTP/1.1" 200
+2026-05-22 16:31:02,239 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 16:31:02,239 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 16:31:02,239 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 16:31:16,584 INFO [backend.app.api.routes.websocket] [-] WebSocket client disconnected normally
+2026-05-22 16:31:19,603 INFO [backend.app.api.routes.websocket] [-] WebSocket client connecting...
+2026-05-22 16:31:19,604 INFO [backend.app.api.routes.websocket] [-] WebSocket client connected
+2026-05-22 16:31:19,604 INFO [backend.app.api.routes.websocket] [-] Sent initial status for 0 printers
+2026-05-22 16:31:46,481 INFO [matplotlib.font_manager] [b146a137] generated new fontManager
+2026-05-22 16:31:47,060 INFO [backend.app.services.stl_thumbnail] [b146a137] Generated STL thumbnail: /opt/[user]/archive/library/thumbnails/2b0969ec11c74c20b93acf5c40e23315.png
+2026-05-22 16:31:47,065 INFO [uvicorn.access] [-] [IP]:53695 - "POST /api/v1/library/files?generate_stl_thumbnails=true HTTP/1.1" 200
+2026-05-22 16:31:47,487 INFO [backend.app.services.stl_thumbnail] [5d19e2b2] Generated STL thumbnail: /opt/[user]/archive/library/thumbnails/6ccd4508dba04478a8d1c183d5d9b602.png
+2026-05-22 16:31:47,493 INFO [uvicorn.access] [-] [IP]:53695 - "POST /api/v1/library/files?generate_stl_thumbnails=true HTTP/1.1" 200
+2026-05-22 16:33:49,074 INFO [uvicorn.access] [-] [IP]:53747 - "PUT /api/v1/library/files/2 HTTP/1.1" 200
+2026-05-22 16:34:10,968 INFO [uvicorn.access] [-] [IP]:53756 - "PUT /api/v1/library/files/3 HTTP/1.1" 200
+2026-05-22 16:35:03,449 INFO [uvicorn.access] [-] [IP]:53773 - "POST /api/v1/library/folders HTTP/1.1" 200
+2026-05-22 16:35:10,817 INFO [uvicorn.access] [-] [IP]:53773 - "POST /api/v1/library/files/move HTTP/1.1" 200
+2026-05-22 16:36:59,339 INFO [backend.app.api.routes.support] [b6dcd3ed] Log level changed to DEBUG
+2026-05-22 16:36:59,339 INFO [backend.app.api.routes.bug_report] [b6dcd3ed] Bug report: enabled debug logging
+2026-05-22 16:36:59,340 INFO [uvicorn.access] [-] [IP]:53823 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
