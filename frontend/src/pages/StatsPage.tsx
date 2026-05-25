@@ -253,7 +253,7 @@ function SuccessRateWidget({
             <span className="text-sm text-white font-medium">{stats?.failed_prints || 0}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Ban className="w-4 h-4 text-bambu-gray flex-shrink-0" />
+            <Ban className="w-4 h-4 text-status-warning flex-shrink-0" />
             <span className="text-sm text-bambu-gray">{t('stats.cancelled')}</span>
             <span className="text-sm text-white font-medium">{stats?.cancelled_prints || 0}</span>
           </div>
