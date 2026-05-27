@@ -1,0 +1,200 @@
+2026-05-27 14:30:27,521 WARNING [backend.app.services.orca_profiles] [e04a0b18] Cannot resolve inherits='PolyLite PLA @base' — base profile not found
+2026-05-27 14:30:27,524 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:27,897 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:28,293 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:28,646 WARNING [backend.app.services.orca_profiles] [cabf3c8e] Could not fetch base profile 'Overture Matte PLA @base' from GitHub
+2026-05-27 14:30:28,646 WARNING [backend.app.services.orca_profiles] [cabf3c8e] Cannot resolve inherits='Overture Matte PLA @base' — base profile not found
+2026-05-27 14:30:28,650 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:28,976 WARNING [backend.app.services.orca_profiles] [9a93ad4d] Could not fetch base profile 'PolyLite PLA @BBL X1C' from GitHub
+2026-05-27 14:30:28,976 WARNING [backend.app.services.orca_profiles] [9a93ad4d] Cannot resolve inherits='PolyLite PLA @BBL X1C' — base profile not found
+2026-05-27 14:30:28,980 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:29,037 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:29,423 WARNING [backend.app.services.orca_profiles] [414d270e] Could not fetch base profile 'Overture Matte PLA @BBL X1C' from GitHub
+2026-05-27 14:30:29,423 WARNING [backend.app.services.orca_profiles] [414d270e] Cannot resolve inherits='Overture Matte PLA @BBL X1C' — base profile not found
+2026-05-27 14:30:29,426 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:29,487 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:29,548 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:30,030 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:30,084 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:30,419 WARNING [backend.app.services.orca_profiles] [b0998509] Could not fetch base profile 'PolyLite PETG @base' from GitHub
+2026-05-27 14:30:30,420 WARNING [backend.app.services.orca_profiles] [b0998509] Cannot resolve inherits='PolyLite PETG @base' — base profile not found
+2026-05-27 14:30:30,423 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:30,807 WARNING [backend.app.services.orca_profiles] [f2d85981] Could not fetch base profile 'PolyLite PETG @BBL X1C' from GitHub
+2026-05-27 14:30:30,807 WARNING [backend.app.services.orca_profiles] [f2d85981] Cannot resolve inherits='PolyLite PETG @BBL X1C' — base profile not found
+2026-05-27 14:30:30,810 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:31,162 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:31,610 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:31,662 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:31,718 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:31,789 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:31,851 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,188 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,251 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,324 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,389 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,718 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,774 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,854 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:32,910 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:33,304 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:33,367 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:33,656 WARNING [backend.app.services.orca_profiles] [d368050f] Could not fetch base profile 'PolyLite ASA @base' from GitHub
+2026-05-27 14:30:33,656 WARNING [backend.app.services.orca_profiles] [d368050f] Cannot resolve inherits='PolyLite ASA @base' — base profile not found
+2026-05-27 14:30:33,660 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:33,990 WARNING [backend.app.services.orca_profiles] [b64c9b52] Could not fetch base profile 'PolyLite ASA @BBL X1C' from GitHub
+2026-05-27 14:30:33,991 WARNING [backend.app.services.orca_profiles] [b64c9b52] Cannot resolve inherits='PolyLite ASA @BBL X1C' — base profile not found
+2026-05-27 14:30:33,994 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:37,971 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:30:37,974 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:30:55,127 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:55,571 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:55,681 INFO [uvicorn.access] [-] [IP]:53104 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:56,097 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:56,447 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:56,864 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:57,188 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:57,244 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:57,312 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:57,664 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:58,012 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:58,068 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:58,517 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:59,112 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:59,166 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:59,221 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:59,744 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:30:59,827 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:00,164 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:00,570 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:00,626 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:00,846 INFO [uvicorn.access] [-] [IP]:53104 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:01,184 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:01,239 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:01,554 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:01,907 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:02,327 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:02,765 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:03,103 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:07,989 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:31:07,992 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:31:38,007 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:31:38,011 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:31:42,759 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:42,817 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:42,876 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:42,929 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:42,994 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,045 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,104 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,169 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,224 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,277 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,330 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,383 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:31:43,437 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/local-presets/import HTTP/1.1" 200
+2026-05-27 14:32:08,025 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:32:08,028 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:32:38,044 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:32:38,049 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:32:43,709 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/library/files/1122/slice HTTP/1.1" 202
+2026-05-27 14:32:43,729 INFO [backend.app.api.routes.library] [312d2fa0] 3MF sanitiser: removed sentinel '-1' for keys ['raft_first_layer_expansion', 'tree_support_wall_count'] — slicer will use --load-settings defaults
+2026-05-27 14:33:08,064 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:33:08,067 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:33:14,460 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-05-27 14:33:38,082 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:33:38,085 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:33:47,380 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Tray change during print: tray=1 at layer=73
+2026-05-27 14:34:08,099 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:34:08,102 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:34:38,116 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:34:38,119 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:35:08,132 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:35:08,135 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:35:38,150 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:35:38,156 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:36:08,172 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:36:08,175 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:36:38,189 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:36:38,192 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:37:08,208 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:37:08,212 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:37:08,387 INFO [backend.app.api.routes.support] [ac4269e3] Log level changed to DEBUG
+2026-05-27 14:37:08,388 INFO [backend.app.api.routes.bug_report] [ac4269e3] Bug report: enabled debug logging
+2026-05-27 14:37:08,388 DEBUG [backend.app.services.bambu_mqtt] [ac4269e3] [[SERIAL]] Requesting status update (pushall)
+2026-05-27 14:37:08,390 INFO [uvicorn.access] [-] [IP]:62455 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-05-27 14:37:08,419 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:08,420 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:08,420 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:08,420 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:08,421 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -48dBm
+2026-05-27 14:37:09,498 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: RUNNING, gcode_file: Planetary_Gears_Finger_Fidget_Spinners_6h18m.3mf, subtask_name: Planetary_Gears_Finger_Fidget_Spinners_6h18m
+2026-05-27 14:37:09,499 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '1', 'tray_exist_bits': 'f', 'tray_is_bbl_bits': 'f', 'tray_tar': '1', 'tray_now': '1', 'tray_pre': '1', 'tray_read_done_bits': 'f', 'tray_reading_bits': '0', 'version': 146, 'insert_flag': True, 'power_on_flag': False}
+2026-05-27 14:37:09,499 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 1
+2026-05-27 14:37:09,499 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:09,500 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:09,500 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:09,501 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 768 (main=3, sub=0)
+2026-05-27 14:37:09,502 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:09,502 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-05-27 14:37:09,503 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-05-27 14:37:09,503 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-05-27 14:37:09,504 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-05-27 14:37:09,504 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-05-27 14:37:09,505 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'disable', 'timelapse': 'disable', 'resolution': '', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-05-27 14:37:09,505 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -50dBm
+2026-05-27 14:37:09,506 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'on'}]
+2026-05-27 14:37:09,506 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: RUNNING -> RUNNING, file: Planetary_Gears_Finger_Fidget_Spinners_6h18m.3mf, subtask: Planetary_Gears_Finger_Fidget_Spinners_6h18m
+2026-05-27 14:37:13,584 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:13,584 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -49dBm
+2026-05-27 14:37:15,611 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:17,680 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:17,681 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:17,681 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:17,681 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:17,682 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -47dBm
+2026-05-27 14:37:21,765 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'tray_tar': '0'}
+2026-05-27 14:37:21,766 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:21,766 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:21,768 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:21,768 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 258 (main=1, sub=2)
+2026-05-27 14:37:21,771 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:21,772 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] mc_print_sub_stage changed: 0 -> 4
+2026-05-27 14:37:21,773 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -46dBm
+2026-05-27 14:37:21,950 DEBUG [backend.app.main] [-] [[PRINTER]] Runtime tracking: added 30s, total=65200s (18.11h)
+2026-05-27 14:37:21,958 DEBUG [backend.app.main] [-] Updated runtime for 1 printer(s)
+2026-05-27 14:37:23,824 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 259 (main=1, sub=3)
+2026-05-27 14:37:23,825 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:23,825 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -58dBm
+2026-05-27 14:37:25,881 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:25,882 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:25,882 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:25,882 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:25,883 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -47dBm
+2026-05-27 14:37:29,968 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:29,968 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:29,969 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:29,969 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:29,969 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -46dBm
+2026-05-27 14:37:32,008 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 260 (main=1, sub=4)
+2026-05-27 14:37:32,008 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:32,008 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -48dBm
+2026-05-27 14:37:34,047 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:34,047 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -47dBm
+2026-05-27 14:37:36,157 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:36,157 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:36,157 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:36,158 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:36,158 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -48dBm
+2026-05-27 14:37:38,227 INFO [backend.app.services.print_scheduler] [-] Queue check: found 2 pending items: [(1, 1, None, 1157), (2, 1, None, 1158)]
+2026-05-27 14:37:38,231 INFO [backend.app.services.print_scheduler] [-] Queue skip summary: {'manual_start': 2}
+2026-05-27 14:37:40,227 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:40,228 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:40,228 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:40,228 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-05-27 14:37:42,327 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'tray_now': '255', 'version': 147}
+2026-05-27 14:37:42,328 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 255
+2026-05-27 14:37:42,328 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-05-27 14:37:42,328 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1001 -> extruder 0
+2026-05-27 14:37:42,329 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-05-27 14:37:42,329 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 261 (main=1, sub=5)
+2026-05-27 14:37:42,329 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
