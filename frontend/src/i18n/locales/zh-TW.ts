@@ -4405,6 +4405,10 @@ export default {
       placeholderChange: '輸入新程式碼以更改',
       hint: '必須恰好 8 個字元。切片軟體使用此程式碼進行認證。',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: '繼承自目標印表機',
+      derivedFromTargetHint: '使用目標印表機的存取碼。橋接會將切片軟體的認證轉發到實際印表機，因此兩個存取碼必須相符 — 如需變更，請在印表機設定中編輯存取碼。',
+      reveal: '顯示存取碼',
+      hide: '隱藏存取碼',
     },
     targetPrinter: {
       title: '目標印表機',
@@ -4491,6 +4495,7 @@ export default {
       bindIpRequired: '請先設定繫結 IP',
       accessCodeEmpty: '存取碼不能為空',
       accessCodeLength: '存取碼必須恰好 8 個字元',
+      targetCodeChangedRebind: '存取碼已同步到新的目標印表機。請在切片軟體中重新加入此裝置以使用新的存取碼。',
       created: '虛擬印表機已建立',
       failedToCreate: '建立虛擬印表機失敗',
       deleted: '虛擬印表機已刪除',

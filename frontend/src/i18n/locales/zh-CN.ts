@@ -4405,6 +4405,10 @@ export default {
       placeholderChange: '输入新代码以更改',
       hint: '必须恰好 8 个字符。切片软件使用此代码进行认证。',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: '继承自目标打印机',
+      derivedFromTargetHint: '使用目标打印机的访问码。桥接会将切片软件的认证转发到实际打印机，因此两个访问码必须匹配 — 如需更改，请在打印机设置中编辑访问码。',
+      reveal: '显示访问码',
+      hide: '隐藏访问码',
     },
     targetPrinter: {
       title: '目标打印机',
@@ -4491,6 +4495,7 @@ export default {
       bindIpRequired: '请先设置绑定 IP',
       accessCodeEmpty: '访问码不能为空',
       accessCodeLength: '访问码必须恰好 8 个字符',
+      targetCodeChangedRebind: '访问码已同步到新的目标打印机。请在切片软件中重新添加此设备以使用新的访问码。',
       created: '虚拟打印机已创建',
       failedToCreate: '创建虚拟打印机失败',
       deleted: '虚拟打印机已删除',

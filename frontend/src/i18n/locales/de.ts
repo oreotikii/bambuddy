@@ -4416,6 +4416,10 @@ export default {
       placeholderChange: 'Neuen Code eingeben zum Ändern',
       hint: 'Muss genau 8 Zeichen lang sein. Wird von Slicern zur Authentifizierung verwendet.',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: 'Vom Zieldrucker übernommen',
+      derivedFromTargetHint: 'Verwendet den Zugangscode des Zieldruckers. Die Brücke leitet die Slicer-Authentifizierung an den echten Drucker weiter, daher müssen die Codes übereinstimmen — den Druckercode in dessen Einstellungen ändern.',
+      reveal: 'Zugangscode anzeigen',
+      hide: 'Zugangscode verbergen',
     },
     targetPrinter: {
       title: 'Zieldrucker',
@@ -4502,6 +4506,7 @@ export default {
       bindIpRequired: 'Bitte zuerst eine Bind-IP setzen',
       accessCodeEmpty: 'Zugangscode darf nicht leer sein',
       accessCodeLength: 'Zugangscode muss genau 8 Zeichen lang sein',
+      targetCodeChangedRebind: 'Zugangscode wurde an den neuen Zieldrucker angepasst. Bitte dieses Gerät im Slicer neu hinzufügen, damit der neue Code übernommen wird.',
       created: 'Virtueller Drucker erstellt',
       failedToCreate: 'Virtueller Drucker konnte nicht erstellt werden',
       deleted: 'Virtueller Drucker gelöscht',

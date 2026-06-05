@@ -4417,6 +4417,10 @@ export default {
       placeholderChange: '新しいコードを入力して変更',
       hint: '正確に8文字必要です。スライサーの認証に使用されます。',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: 'ターゲットプリンターから継承',
+      derivedFromTargetHint: 'ターゲットプリンターのアクセスコードを使用します。ブリッジはスライサーの認証情報を実機プリンターに転送するため、コードが一致している必要があります。変更するにはプリンターの設定でアクセスコードを編集してください。',
+      reveal: 'アクセスコードを表示',
+      hide: 'アクセスコードを隠す',
     },
     targetPrinter: {
       title: 'ターゲットプリンター',
@@ -4489,6 +4493,7 @@ export default {
       bindIpRequired: '先にバインドIPを設定してください',
       accessCodeEmpty: 'アクセスコードは空にできません',
       accessCodeLength: 'アクセスコードは8文字である必要があります',
+      targetCodeChangedRebind: 'アクセスコードが新しいターゲットプリンターに同期されました。新しいコードを反映するには、スライサーでこのデバイスを再登録してください。',
       created: '仮想プリンターを作成しました',
       failedToCreate: '仮想プリンターの作成に失敗しました',
       deleted: '仮想プリンターを削除しました',

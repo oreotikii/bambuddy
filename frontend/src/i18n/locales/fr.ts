@@ -4406,6 +4406,10 @@ export default {
       placeholderChange: 'Entrez nouveau code',
       hint: 'Exactement 8 caractères. Sert à l\'auth du Slicer.',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: 'Hérité de l\'imprimante cible',
+      derivedFromTargetHint: 'Utilise le code d\'accès de l\'imprimante cible. Le pont transmet l\'authentification du slicer à l\'imprimante réelle, donc les codes doivent correspondre — modifiez le code dans les paramètres de l\'imprimante.',
+      reveal: 'Afficher le code d\'accès',
+      hide: 'Masquer le code d\'accès',
     },
     targetPrinter: {
       title: 'Imprimante cible',
@@ -4478,6 +4482,7 @@ export default {
       bindIpRequired: 'Veuillez d\'abord définir une adresse IP',
       accessCodeEmpty: 'Le code ne peut pas être vide',
       accessCodeLength: 'Le code doit faire 8 caractères',
+      targetCodeChangedRebind: 'Le code d\'accès correspond désormais à la nouvelle imprimante cible. Réajoutez cet appareil dans votre slicer pour récupérer le nouveau code.',
       created: 'Imprimante virtuelle créée',
       failedToCreate: 'Échec de la création de l\'imprimante virtuelle',
       deleted: 'Imprimante virtuelle supprimée',

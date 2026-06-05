@@ -4380,6 +4380,10 @@ export default {
       placeholderChange: 'Değiştirmek için yeni kodu girin',
       hint: 'Tam olarak 8 karakter olmalı. Dilimleyiciler tarafından kimlik doğrulama için kullanılır.',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: 'Hedef yazıcıdan devralındı',
+      derivedFromTargetHint: 'Hedef yazıcının erişim kodunu kullanır. Köprü, dilimleyicinin kimlik doğrulamasını gerçek yazıcıya iletir, bu nedenle kodlar eşleşmelidir — değiştirmek için yazıcının ayarlarında erişim kodunu düzenleyin.',
+      reveal: 'Erişim kodunu göster',
+      hide: 'Erişim kodunu gizle',
     },
     targetPrinter: {
       title: 'Hedef Yazıcı',
@@ -4466,6 +4470,7 @@ export default {
       bindIpRequired: 'Lütfen önce bir bind IP\'si ayarlayın',
       accessCodeEmpty: 'Erişim kodu boş olamaz',
       accessCodeLength: 'Erişim kodu tam olarak 8 karakter olmalı',
+      targetCodeChangedRebind: 'Erişim kodu artık yeni hedef yazıcıyla eşleşiyor. Yeni kodu almak için bu cihazı dilimleyicinizde yeniden ekleyin.',
       created: 'Sanal yazıcı oluşturuldu',
       failedToCreate: 'Sanal yazıcı oluşturulamadı',
       deleted: 'Sanal yazıcı silindi',

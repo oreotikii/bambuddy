@@ -4405,6 +4405,10 @@ export default {
       placeholderChange: 'Digite um novo código para alterar',
       hint: 'Deve ter exatamente 8 caracteres. Usado pelos slicers para autenticação.',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: 'Herdado da impressora alvo',
+      derivedFromTargetHint: 'Usa o código de acesso da impressora alvo. A ponte encaminha a autenticação do slicer para a impressora real, então os códigos precisam corresponder — edite o código nas configurações da impressora para alterá-lo.',
+      reveal: 'Mostrar código de acesso',
+      hide: 'Ocultar código de acesso',
     },
     targetPrinter: {
       title: 'Impressora Alvo',
@@ -4477,6 +4481,7 @@ export default {
       bindIpRequired: 'Defina um IP de ligação primeiro',
       accessCodeEmpty: 'O código de acesso não pode estar vazio',
       accessCodeLength: 'O código de acesso deve ter exatamente 8 caracteres',
+      targetCodeChangedRebind: 'O código de acesso agora corresponde à nova impressora alvo. Adicione este dispositivo novamente no seu slicer para usar o novo código.',
       created: 'Impressora virtual criada',
       failedToCreate: 'Falha ao criar impressora virtual',
       deleted: 'Impressora virtual excluída',

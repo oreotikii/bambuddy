@@ -4155,7 +4155,11 @@ export default {
       placeholder: '8자리 코드 입력',
       placeholderChange: '변경하려면 새 코드 입력',
       hint: '정확히 8자여야 합니다. 슬라이서가 인증하는 데 사용됩니다.',
-      charCount: '({{count}}/8)'
+      charCount: '({{count}}/8)',
+      inheritedFromTarget: '대상 프린터에서 상속됨',
+      derivedFromTargetHint: '대상 프린터의 액세스 코드를 사용합니다. 브리지는 슬라이서 인증을 실제 프린터로 전달하므로 코드가 일치해야 합니다 — 변경하려면 프린터 설정에서 액세스 코드를 편집하세요.',
+      reveal: '액세스 코드 표시',
+      hide: '액세스 코드 숨기기'
     },
     targetPrinter: {
       title: '대상 프린터',
@@ -4234,6 +4238,7 @@ export default {
       bindIpRequired: '먼저 바인드 IP를 설정해 주세요',
       accessCodeEmpty: '액세스 코드는 비워둘 수 없습니다',
       accessCodeLength: '액세스 코드는 정확히 8자여야 합니다',
+      targetCodeChangedRebind: '액세스 코드가 새 대상 프린터에 동기화되었습니다. 새 코드를 적용하려면 슬라이서에서 이 장치를 다시 추가하세요.',
       created: '가상 프린터 생성됨',
       failedToCreate: '가상 프린터 생성 실패',
       deleted: '가상 프린터 삭제됨',

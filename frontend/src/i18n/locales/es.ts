@@ -4425,6 +4425,10 @@ export default {
       placeholderChange: 'Introduzca un nuevo código para cambiarlo',
       hint: 'Debe tener exactamente 8 caracteres. Los laminadores lo usan para autenticarse.',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: 'Heredado de la impresora de destino',
+      derivedFromTargetHint: 'Usa el código de acceso de la impresora de destino. El puente reenvía la autenticación del laminador a la impresora real, por lo que los códigos deben coincidir — edita el código en los ajustes de la impresora para cambiarlo.',
+      reveal: 'Mostrar código de acceso',
+      hide: 'Ocultar código de acceso',
     },
     targetPrinter: {
       title: 'Impresora de destino',
@@ -4511,6 +4515,7 @@ export default {
       bindIpRequired: 'Establezca primero una IP de enlace',
       accessCodeEmpty: 'El código de acceso no puede estar vacío',
       accessCodeLength: 'El código de acceso debe tener exactamente 8 caracteres',
+      targetCodeChangedRebind: 'El código de acceso ahora coincide con la nueva impresora de destino. Vuelve a añadir este dispositivo en tu laminador para usar el nuevo código.',
       created: 'Impresora virtual creada',
       failedToCreate: 'Error al crear la impresora virtual',
       deleted: 'Impresora virtual eliminada',

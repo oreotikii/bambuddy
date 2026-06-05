@@ -4405,6 +4405,10 @@ export default {
       placeholderChange: 'Inserisci nuovo codice per cambiare',
       hint: 'Deve essere esattamente 8 caratteri. Usato dagli slicer per autenticarsi.',
       charCount: '({{count}}/8)',
+      inheritedFromTarget: 'Ereditato dalla stampante target',
+      derivedFromTargetHint: 'Usa il codice di accesso della stampante target. Il bridge inoltra l\'autenticazione dello slicer alla stampante reale, quindi i codici devono corrispondere — modifica il codice nelle impostazioni della stampante per cambiarlo.',
+      reveal: 'Mostra codice accesso',
+      hide: 'Nascondi codice accesso',
     },
     targetPrinter: {
       title: 'Stampante target',
@@ -4477,6 +4481,7 @@ export default {
       bindIpRequired: 'Impostare prima un indirizzo IP',
       accessCodeEmpty: 'Il codice accesso non può essere vuoto',
       accessCodeLength: 'Il codice accesso deve essere esattamente 8 caratteri',
+      targetCodeChangedRebind: 'Il codice di accesso ora corrisponde alla nuova stampante target. Ri-aggiungi questo dispositivo nel tuo slicer per acquisire il nuovo codice.',
       created: 'Stampante virtuale creata',
       failedToCreate: 'Impossibile creare la stampante virtuale',
       deleted: 'Stampante virtuale eliminata',
