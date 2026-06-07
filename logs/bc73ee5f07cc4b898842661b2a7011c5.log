@@ -1,0 +1,200 @@
+2026-06-07 19:20:07,215 INFO [backend.app.services.virtual_printer.manager] [f048a053] Started server-mode VP: [PRINTER]_VP on [IP]
+2026-06-07 19:20:07,216 INFO [uvicorn.access] [-] [IP]:10336 - "PUT /api/v1/virtual-printers/1 HTTP/1.1" 200
+2026-06-07 19:20:10,405 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT TLS connection from ('[IP]', 9094) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-06-07 19:20:10,406 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT client connected: [IP]:9094
+2026-06-07 19:20:10,407 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT client authenticated successfully
+2026-06-07 19:20:10,416 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-06-07 19:20:10,417 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT client subscribed with serial [SERIAL] (VP serial is [SERIAL]) — adapting responses
+2026-06-07 19:20:10,636 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"info":{"command":"get_version","sequence_id":"20018"}}...
+2026-06-07 19:20:10,636 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT info command: get_version
+2026-06-07 19:20:10,638 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sent version response (product_name=A1)
+2026-06-07 19:20:10,639 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20019","version":1}}...
+2026-06-07 19:20:10,639 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT pushing command: pushall
+2026-06-07 19:20:10,640 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sending status report in response to pushall
+2026-06-07 19:20:16,172 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP connection from ('[IP]', 9088)
+2026-06-07 19:20:16,174 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP login from [IP]
+2026-06-07 19:20:16,176 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP EPSV listening on port 50539
+2026-06-07 19:20:16,178 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP receiving file: verify_job from [IP]
+2026-06-07 19:20:16,180 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP data TLS from [IP]: cipher=('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1.2', 256), version=TLSv1.2, session_reused=True
+2026-06-07 19:20:16,180 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP data connection established from [IP]
+2026-06-07 19:20:16,285 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP saved file: /app/data/virtual_printer/uploads/1/verify_job (16 bytes)
+2026-06-07 19:20:16,286 INFO [backend.app.services.virtual_printer.manager] [f048a053] [VP [PRINTER]_VP] Received file: verify_job from [IP]
+2026-06-07 19:20:16,290 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP session cancelled from [IP]
+2026-06-07 19:20:16,291 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP session ended from [IP]
+2026-06-07 19:20:16,308 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP connection from ('[IP]', 9078)
+2026-06-07 19:20:16,310 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP login from [IP]
+2026-06-07 19:20:16,314 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP EPSV listening on port 50461
+2026-06-07 19:20:16,316 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP receiving file: Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf from [IP]
+2026-06-07 19:20:16,318 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP data TLS from [IP]: cipher=('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1.2', 256), version=TLSv1.2, session_reused=True
+2026-06-07 19:20:16,318 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP data connection established from [IP]
+2026-06-07 19:20:16,443 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] FTP saved file: /app/data/virtual_printer/uploads/1/Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf (1555987 bytes)
+2026-06-07 19:20:16,444 INFO [backend.app.services.virtual_printer.manager] [f048a053] [VP [PRINTER]_VP] Received file: Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf from [IP]
+2026-06-07 19:20:18,541 INFO [backend.app.services.virtual_printer.manager] [f048a053] [VP [PRINTER]_VP] Archived: 8 - Ultimate Filament Spool Enclosure - TYPE 01 - Plate 7
+2026-06-07 19:20:18,554 INFO [backend.app.services.virtual_printer.manager] [f048a053] [VP [PRINTER]_VP] Added to queue: 8
+2026-06-07 19:20:18,557 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP session cancelled from [IP]
+2026-06-07 19:20:18,558 INFO [backend.app.services.virtual_printer.ftp_server] [f048a053] [[PRINTER]_VP] FTP session ended from [IP]
+2026-06-07 19:20:18,583 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"print":{"ams_mapping":[1,-1,-1,-1],"ams_mapping2":[{"ams_id":0,"slot_id":1},{"ams_id":255,"slot_id...
+2026-06-07 19:20:18,584 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT print command: project_file for Ultimate_Filament_Spool_Enclosure_-_TYPE_01
+2026-06-07 19:20:18,585 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sent project_file acknowledgment for Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf
+2026-06-07 19:20:18,585 INFO [backend.app.services.virtual_printer.manager] [f048a053] [VP [PRINTER]_VP] Print command for: Ultimate_Filament_Spool_Enclosure_-_TYPE_01
+2026-06-07 19:20:21,908 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT TLS connection from ('[IP]', 9114) - cipher=('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256), version=TLSv1.3
+2026-06-07 19:20:21,908 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT client connected: [IP]:9114
+2026-06-07 19:20:21,909 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT client authenticated successfully
+2026-06-07 19:20:21,920 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT subscribe: device/[SERIAL]/report QoS=0
+2026-06-07 19:20:21,920 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] MQTT client subscribed with serial [SERIAL] (VP serial is [SERIAL]) — adapting responses
+2026-06-07 19:20:21,940 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20020","version":1}}...
+2026-06-07 19:20:21,941 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT pushing command: pushall
+2026-06-07 19:20:21,942 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sending status report in response to pushall
+2026-06-07 19:20:21,974 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20021","version":1}}...
+2026-06-07 19:20:21,975 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT pushing command: pushall
+2026-06-07 19:20:21,975 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sending status report in response to pushall
+2026-06-07 19:20:21,977 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"info":{"command":"get_version","sequence_id":"20022"}}...
+2026-06-07 19:20:21,977 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT info command: get_version
+2026-06-07 19:20:21,978 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sent version response (product_name=A1)
+2026-06-07 19:20:33,656 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:20:33,658 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:21:03,667 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:21:03,669 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:21:07,345 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 11 pushes/min to [IP]:9094
+2026-06-07 19:21:07,346 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 46 pushes/min to [IP]:9114
+2026-06-07 19:21:33,680 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:21:33,682 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:22:03,693 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:22:03,695 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:22:07,480 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:22:33,704 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:22:33,705 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:23:03,715 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:23:03,717 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:23:07,615 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:23:26,873 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-06-07 19:23:33,728 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:23:33,730 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:24:03,740 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:24:03,743 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:24:07,741 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:24:33,752 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:24:33,754 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:25:03,768 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:25:03,770 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:25:07,870 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:25:22,004 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20023","version":1}}...
+2026-06-07 19:25:22,005 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT pushing command: pushall
+2026-06-07 19:25:22,005 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sending status report in response to pushall
+2026-06-07 19:25:33,782 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:25:33,784 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:26:03,793 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:26:03,795 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:26:08,005 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:26:33,805 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:26:33,807 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:27:03,861 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:27:03,886 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:27:08,137 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:27:16,201 INFO [backend.app.api.routes.print_queue] [fcfb6d91] Updated queue item 8
+2026-06-07 19:27:16,213 INFO [uvicorn.access] [-] [IP]:10416 - "PATCH /api/v1/queue/8 HTTP/1.1" 200
+2026-06-07 19:27:22,656 INFO [uvicorn.access] [-] [IP]:10431 - "PUT /api/v1/settings/ HTTP/1.1" 200
+2026-06-07 19:27:29,184 INFO [uvicorn.access] [-] [IP]:10427 - "PUT /api/v1/settings/ HTTP/1.1" 200
+2026-06-07 19:27:33,913 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:27:33,915 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=True
+2026-06-07 19:27:34,040 INFO [backend.app.api.routes.cloud] [9e9b403f] get_filament_info called with 2 IDs: ['GFL99', 'GFL04']
+2026-06-07 19:27:34,265 WARNING [backend.app.api.routes.cloud] [9e9b403f] Failed to get cloud preset GFL04 (API ID: GFSL04): Failed to get setting detail: 400
+2026-06-07 19:27:34,268 INFO [uvicorn.access] [-] [IP]:10431 - "POST /api/v1/cloud/filament-info HTTP/1.1" 200
+2026-06-07 19:27:41,974 INFO [uvicorn.access] [-] [IP]:10416 - "POST /api/v1/printers/1/clear-plate HTTP/1.1" 200
+2026-06-07 19:28:03,924 INFO [backend.app.services.print_scheduler] [-] Queue check: found 1 pending items: [(8, 1, 8, None)]
+2026-06-07 19:28:03,937 INFO [backend.app.services.print_scheduler] [-] Starting queue item 8
+2026-06-07 19:28:03,944 INFO [backend.app.services.print_scheduler] [-] Queue item 8: FTP upload starting - printer=[PRINTER] (A1), ip=[IP], file=Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf, local_path=/app/data/archive/unassigned/20260607_192018_Ultimate_Filament_Spool_Enclosure_-_TYPE_01/Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf, retry_enabled=True, retry_count=3, timeout=30.0
+2026-06-07 19:28:04,718 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-06-07 19:28:04,729 WARNING [backend.app.services.bambu_ftp] [-] Failed to delete /Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf: 550 
+2026-06-07 19:28:04,738 INFO [backend.app.services.bambu_ftp] [-] FTP connecting to [IP] for upload (model=A1, mode=prot_p, socket_timeout=30.0s)...
+2026-06-07 19:28:05,533 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-06-07 19:28:05,534 INFO [backend.app.services.bambu_ftp] [-] FTP connected to [IP]
+2026-06-07 19:28:05,538 INFO [backend.app.services.bambu_ftp] [-] FTP uploading /app/data/archive/unassigned/20260607_192018_Ultimate_Filament_Spool_Enclosure_-_TYPE_01/Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf (1555987 bytes) to /Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf
+2026-06-07 19:28:05,589 INFO [backend.app.services.bambu_ftp] [-] FTP data channel ready in 0.0s (PASV + TLS handshake)
+2026-06-07 19:28:08,274 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:28:14,454 INFO [backend.app.services.bambu_ftp] [-] FTP STOR confirmed for /Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf: 226
+2026-06-07 19:28:14,455 INFO [backend.app.services.bambu_ftp] [-] FTP upload complete: /Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf (1555987 bytes in 8.9s, 170 KB/s)
+2026-06-07 19:28:14,456 INFO [backend.app.services.bambu_ftp] [-] FTP mode cached for [IP]: prot_p
+2026-06-07 19:28:14,473 INFO [backend.app.main] [-] Registered expected print: printer=1, file=Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf, archive=8, ams_mapping=[1]
+2026-06-07 19:28:14,477 INFO [backend.app.services.print_scheduler] [-] Queue item 8: Status set to 'printing', sending print command...
+2026-06-07 19:28:14,478 INFO [backend.app.services.printer_manager] [-] PRINT COMMAND: printer=1, file=Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf, caller=print_scheduler.py:316:check_queue
+2026-06-07 19:28:14,479 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Sending print command: {"print": {"sequence_id": "20000", "command": "project_file", "param": "Metadata/plate_7.gcode", "url": "ftp://Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf", "file": "Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf", "md5": "", "bed_type": "auto", "timelapse": false, "bed_leveling": true, "auto_bed_leveling": 1, "flow_cali": false, "vibration_cali": true, "layer_inspect": false, "use_ams": true, "cfg": "0", "extrude_cali_flag": 2, "extrude_cali_manual_mode": 0, "nozzle_offset_cali": 2, "subtask_name": "Ultimate_Filament_Spool_Enclosure_-_TYPE_01", "profile_id": "0", "project_id": "610951116", "subtask_id": "610951116", "task_id": "610951116", "ams_mapping": [1], "ams_mapping2": [{"ams_id": 0, "slot_id": 1}]}}
+2026-06-07 19:28:14,479 INFO [backend.app.services.print_scheduler] [-] Queue item 8: Print started successfully - Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf
+2026-06-07 19:28:14,484 INFO [backend.app.services.print_scheduler] [-] Queue: printer 1 not available — connected=True, state=FINISH, awaiting_plate_clear=False
+2026-06-07 19:28:23,350 INFO [backend.app.services.bambu_mqtt] [-] [[SERIAL]] PRINT START detected - file: Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf, subtask: Ultimate_Filament_Spool_Enclosure_-_TYPE_01, is_new: True, is_file_change: False
+2026-06-07 19:28:23,351 INFO [backend.app.main] [-] [CALLBACK] on_print_start called for printer 1, data keys: ['filename', 'subtask_name', 'remaining_time', 'raw_data', 'ams_mapping']
+2026-06-07 19:28:23,356 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] PRINT START printer 1: mapping=None, tray_now=255, last_loaded_tray=1
+2026-06-07 19:28:23,357 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] PRINT START printer 1: mapping-related keys: {'ams_extruder_map': {'0': 0}}
+2026-06-07 19:28:23,357 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] PRINT START printer 1 AMS 0: T0(type=PLA, color=5A657BFF, now=?, tar=?), T1(type=PLA, color=FFFFFFFF, now=?, tar=?), T2(type=PLA, color=AC95D5FF, now=?, tar=?), T3(type=PLA, color=FF6910FF, now=?, tar=?)
+2026-06-07 19:28:23,360 INFO [backend.app.services.usage_tracker] [-] [UsageTracker] Captured start remain% for printer 1 (5 trays): {'0-0': 100, '0-1': 100, '0-2': 100, '0-3': 100, '255-0': 0}
+2026-06-07 19:28:23,367 INFO [backend.app.main] [-] [PLATE CHECK] printer_id=1, plate_detection_enabled=False
+2026-06-07 19:28:23,367 INFO [backend.app.main] [-] [CALLBACK] Print start detected - filename: Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf, subtask: Ultimate_Filament_Spool_Enclosure_-_TYPE_01
+2026-06-07 19:28:23,368 INFO [backend.app.main] [-] Using expected archive 8 for print (skipping duplicate)
+2026-06-07 19:28:23,375 INFO [backend.app.main] [-] [CALLBACK] Injected ams_mapping into usage tracker session: [1]
+2026-06-07 19:28:23,378 INFO [backend.app.main] [-] [ENERGY] No smart plug for printer 1 (archive 8)
+2026-06-07 19:28:23,388 INFO [backend.app.main] [-] [SNAPSHOT] Capturing fresh frame for printer 1
+2026-06-07 19:28:23,389 INFO [backend.app.services.camera] [-] Capturing camera frame bytes from [IP] using chamber image protocol (model: A1)
+2026-06-07 19:28:25,914 INFO [backend.app.main] [-] [SNAPSHOT] Fresh camera frame: 179646 bytes
+2026-06-07 19:28:25,915 INFO [backend.app.services.notification_service] [-] on_print_start called for printer 1 ([PRINTER])
+2026-06-07 19:28:25,922 INFO [backend.app.services.notification_service] [-] Found 1 providers for print_start: ['stubert_office_printer']
+2026-06-07 19:28:29,665 INFO [backend.app.services.notification_service] [-] Sent notification via stubert_office_printer
+2026-06-07 19:28:29,676 INFO [backend.app.main] [-] Loaded 3 printable objects for printer 1
+2026-06-07 19:28:29,721 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-06-07 19:28:30,479 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-06-07 19:28:31,425 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-06-07 19:28:31,439 INFO [backend.app.services.bambu_ftp] [-] FTP list_files failed for /timelapse/video: 550 
+2026-06-07 19:28:32,236 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-06-07 19:28:32,262 INFO [backend.app.services.bambu_ftp] [-] FTP list_files failed for /record: 550 
+2026-06-07 19:28:33,095 INFO [backend.app.services.bambu_ftp] [-] FTP connected successfully to [IP] (model=A1, prot_c=False)
+2026-06-07 19:28:33,110 INFO [backend.app.services.bambu_ftp] [-] FTP list_files failed for /recording: 550 
+2026-06-07 19:28:33,121 INFO [backend.app.main] [-] [TIMELAPSE] Baseline at print start: 0 video files for printer 1
+2026-06-07 19:29:08,404 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:29:39,460 INFO [backend.app.api.routes.printers] [99402b2d] Cover: resolved plate 7 before download (subtask=Ultimate_Filament_Spool_Enclosure_-_TYPE_01)
+2026-06-07 19:29:39,468 INFO [backend.app.api.routes.printers] [99402b2d] Cover using cached 3MF from /app/data/archive/unassigned/20260607_192018_Ultimate_Filament_Spool_Enclosure_-_TYPE_01/Ultimate_Filament_Spool_Enclosure_-_TYPE_01.gcode.3mf (avoided duplicate FTP)
+2026-06-07 19:29:39,471 INFO [backend.app.api.routes.printers] [99402b2d] Downloaded file size: 1555987 bytes
+2026-06-07 19:30:08,541 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:30:22,036 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20024","version":1}}...
+2026-06-07 19:30:22,037 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT pushing command: pushall
+2026-06-07 19:30:22,037 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sending status report in response to pushall
+2026-06-07 19:31:08,668 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:32:00,602 INFO [backend.app.api.routes.printers] [a90f04a0] Cover: resolved plate 7 before download (subtask=Ultimate_Filament_Spool_Enclosure_-_TYPE_01)
+2026-06-07 19:32:08,796 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:33:07,786 INFO [backend.app.services.virtual_printer.certificate] [a1fba099] Using existing CA certificate (expires in 7291 days)
+2026-06-07 19:33:08,919 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:33:29,739 INFO [backend.app.main] [-] Recorded 1 AMS sensor history entries
+2026-06-07 19:34:09,045 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:35:09,170 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:35:22,097 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"pushing":{"command":"pushall","push_target":1,"sequence_id":"20025","version":1}}...
+2026-06-07 19:35:22,098 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT pushing command: pushall
+2026-06-07 19:35:22,099 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] Sending status report in response to pushall
+2026-06-07 19:36:09,305 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:37:09,423 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:38:09,551 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] [[PRINTER]_VP] 1Hz status push: 60 pushes/min to [IP]:9114
+2026-06-07 19:38:11,872 INFO [backend.app.api.routes.support] [466e5ece] Log level changed to DEBUG
+2026-06-07 19:38:11,873 INFO [backend.app.api.routes.bug_report] [466e5ece] Bug report: enabled debug logging
+2026-06-07 19:38:11,873 DEBUG [backend.app.services.bambu_mqtt] [466e5ece] [[SERIAL]] Requesting status update (pushall)
+2026-06-07 19:38:11,875 INFO [uvicorn.access] [-] [IP]:12699 - "POST /api/v1/bug-report/start-logging HTTP/1.1" 200
+2026-06-07 19:38:12,789 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Found xcam inside print data: {'buildplate_marker_detector': True}
+2026-06-07 19:38:12,790 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Parsing xcam data - all fields: ['buildplate_marker_detector']
+2026-06-07 19:38:12,790 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received gcode_state: RUNNING, gcode_file: Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf, subtask_name: Ultimate_Filament_Spool_Enclosure_-_TYPE_01
+2026-06-07 19:38:12,791 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS dict fields: {'ams_exist_bits': '1', 'tray_exist_bits': 'f', 'tray_is_bbl_bits': 'f', 'tray_tar': '1', 'tray_now': '1', 'tray_pre': '1', 'tray_read_done_bits': 'f', 'tray_reading_bits': '0', 'version': 137, 'insert_flag': True, 'power_on_flag': True}
+2026-06-07 19:38:12,792 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] tray_now updated: 1
+2026-06-07 19:38:12,792 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Merged AMS data: 1 new units, 1 total
+2026-06-07 19:38:12,793 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] AMS 0 info=0x1002 -> extruder 0
+2026-06-07 19:38:12,794 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_extruder_map: {'0': 0}
+2026-06-07 19:38:12,794 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ams_status: 768 (main=3, sub=0)
+2026-06-07 19:38:12,795 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-06-07 19:38:12,795 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper raw value: 5.0
+2026-06-07 19:38:12,796 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] chamber_temper direct value: 5.0°C (heater OFF)
+2026-06-07 19:38:12,797 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber heating calculated: target=0.0, current=5.0, heating=False, respect_local=False
+2026-06-07 19:38:12,797 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Chamber temp updated to: 5.0, target: 0.0, heating: False
+2026-06-07 19:38:12,798 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] HMS data received: []
+2026-06-07 19:38:12,798 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] ipcam field: {'ipcam_dev': '1', 'ipcam_record': 'enable', 'timelapse': 'disable', 'resolution': '1080p', 'tutk_server': 'disable', 'mode_bits': 3}
+2026-06-07 19:38:12,799 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -58dBm
+2026-06-07 19:38:12,799 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] lights_report: [{'node': 'chamber_light', 'mode': 'off'}]
+2026-06-07 19:38:12,800 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] gcode_state: RUNNING -> RUNNING, file: Ultimate_Filament_Spool_Enclosure_-_TYPE_01.3mf, subtask: Ultimate_Filament_Spool_Enclosure_-_TYPE_01
+2026-06-07 19:38:14,028 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT publish to device/[SERIAL]/request: {"print":{"command":"extrusion_cali_get","filament_id":"","nozzle_diameter":"0.4","sequence_id":"200...
+2026-06-07 19:38:14,028 INFO [backend.app.services.virtual_printer.mqtt_server] [f048a053] MQTT print command: extrusion_cali_get for 
+2026-06-07 19:38:14,048 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: extrusion_cali_get
+2026-06-07 19:38:14,835 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] Received command response: push_status
+2026-06-07 19:38:14,836 DEBUG [backend.app.services.bambu_mqtt] [-] [[SERIAL]] wifi_signal received: -52dBm
