@@ -635,6 +635,12 @@ export default {
   // Archives page
   archives: {
     title: 'Print Archives',
+    no3mfBanner: {
+      title: 'Some recent prints couldn\'t be archived with thumbnails',
+      body: 'The slicer didn\'t leave the .gcode.3mf on the printer\'s SD card, so Bambuddy couldn\'t pull the thumbnail or slicer metadata. This is usually because "Store sent files on external storage" is off in the slicer (Bambu Studio / OrcaSlicer Device tab).',
+      docsLink: 'See install step 4',
+      dismissLabel: 'Dismiss this notice',
+    },
     searchPlaceholder: 'Search archives...',
     filterByPrinter: 'Filter by printer',
     filterByStatus: 'Filter by status',

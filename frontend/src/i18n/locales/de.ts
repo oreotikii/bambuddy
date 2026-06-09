@@ -635,6 +635,12 @@ export default {
   // Archives page
   archives: {
     title: 'Druckarchiv',
+    no3mfBanner: {
+      title: 'Einige kürzliche Drucke konnten nicht mit Vorschaubild archiviert werden',
+      body: 'Der Slicer hat die .gcode.3mf-Datei nicht auf der SD-Karte des Druckers hinterlegt, daher konnte Bambuddy weder Vorschaubild noch Slicer-Metadaten abrufen. Üblicherweise liegt das daran, dass "Gesendete Dateien auf externem Speicher speichern" im Slicer (Geräte-Tab in Bambu Studio / OrcaSlicer) deaktiviert ist.',
+      docsLink: 'Installationsschritt 4 anzeigen',
+      dismissLabel: 'Hinweis schließen',
+    },
     searchPlaceholder: 'Archiv durchsuchen...',
     filterByPrinter: 'Nach Drucker filtern',
     filterByStatus: 'Nach Status filtern',

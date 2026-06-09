@@ -635,6 +635,12 @@ export default {
   // Arşivler sayfası
   archives: {
     title: 'Baskı Arşivleri',
+    no3mfBanner: {
+      title: 'Bazı son baskılar küçük resimlerle birlikte arşivlenemedi',
+      body: 'Dilimleyici yazıcının SD kartına .gcode.3mf dosyasını bırakmadı, bu nedenle Bambuddy küçük resmi veya dilimleyici meta verilerini alamadı. Bu genellikle dilimleyicide (Bambu Studio / OrcaSlicer\'in Cihaz sekmesi) "Gönderilen dosyaları harici depolamada sakla" seçeneğinin kapalı olmasından kaynaklanır.',
+      docsLink: 'Kurulum adımı 4\'ü görüntüle',
+      dismissLabel: 'Bu bildirimi kapat',
+    },
     searchPlaceholder: 'Arşivlerde ara...',
     filterByPrinter: 'Yazıcıya göre filtrele',
     filterByStatus: 'Duruma göre filtrele',

@@ -635,6 +635,12 @@ export default {
   // Archives page
   archives: {
     title: '列印歸檔',
+    no3mfBanner: {
+      title: '最近的一些列印未能附帶縮圖封存',
+      body: '切片機沒有在印表機的 SD 卡上留下 .gcode.3mf 檔案，因此 Bambuddy 無法取得縮圖或切片機中繼資料。這通常是因為切片機 (Bambu Studio / OrcaSlicer 的裝置分頁) 中「將傳送的檔案儲存在外部儲存中」已關閉。',
+      docsLink: '檢視安裝步驟 4',
+      dismissLabel: '關閉此通知',
+    },
     searchPlaceholder: '搜尋歸檔...',
     filterByPrinter: '按印表機篩選',
     filterByStatus: '按狀態篩選',

@@ -3771,6 +3771,7 @@ export const api = {
     return request<Archive[]>(`/archives/search?${params}`);
   },
   rebuildSearchIndex: () => request<{ message: string }>('/archives/search/rebuild-index', { method: 'POST' }),
+  getNo3MFWarning: () => request<{ has_fallback: boolean }>('/archives/no-3mf-warning'),
   updateArchive: (id: number, data: {
     printer_id?: number | null;
     project_id?: number | null;

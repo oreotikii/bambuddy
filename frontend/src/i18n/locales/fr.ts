@@ -635,6 +635,12 @@ export default {
   // Archives page
   archives: {
     title: 'Archives d\'impression',
+    no3mfBanner: {
+      title: 'Certaines impressions récentes n\'ont pas pu être archivées avec leur miniature',
+      body: 'Le slicer n\'a pas laissé le fichier .gcode.3mf sur la carte SD de l\'imprimante, donc Bambuddy n\'a pas pu récupérer la miniature ni les métadonnées slicer. C\'est généralement parce que « Stocker les fichiers envoyés sur stockage externe » est désactivé dans le slicer (onglet Périphérique de Bambu Studio / OrcaSlicer).',
+      docsLink: 'Voir l\'étape 4 de l\'installation',
+      dismissLabel: 'Ignorer ce message',
+    },
     searchPlaceholder: 'Chercher dans les archives...',
     filterByPrinter: 'Par imprimante',
     filterByStatus: 'Par statut',

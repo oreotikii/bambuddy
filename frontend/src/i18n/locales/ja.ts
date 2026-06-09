@@ -634,6 +634,12 @@ export default {
   // Archives page
   archives: {
     title: '印刷アーカイブ',
+    no3mfBanner: {
+      title: '最近の一部の印刷でサムネイル付きのアーカイブができませんでした',
+      body: 'スライサーがプリンターのSDカードに.gcode.3mfファイルを残さなかったため、Bambuddyはサムネイルもスライサーメタデータも取得できませんでした。これは通常、スライサー (Bambu Studio / OrcaSlicer のデバイスタブ) で「送信ファイルを外部ストレージに保存」がオフになっていることが原因です。',
+      docsLink: 'インストール手順4を参照',
+      dismissLabel: 'この通知を閉じる',
+    },
     searchPlaceholder: 'アーカイブを検索...',
     filterByPrinter: 'プリンターで絞り込み',
     filterByStatus: 'ステータスで絞り込み',

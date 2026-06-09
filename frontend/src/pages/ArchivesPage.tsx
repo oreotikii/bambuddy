@@ -2563,6 +2563,23 @@ export function ArchivesPage() {
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  // Install-step-4 nudge — covers the slicer-side variant of "Store sent files
+  // on external storage" that the connection diagnostic can't detect (printer
+  // never hears about it). Symptom: archive created via no-3MF fallback. Once
+  // dismissed, never shown again — fixing step 4 stops new fallbacks anyway.
+  const [no3MFWarningDismissed, setNo3MFWarningDismissed] = useState(
+    () => localStorage.getItem('archiveNo3MFWarningDismissed') === 'true',
+  );
+  const { data: no3MFWarning } = useQuery({
+    queryKey: ['archives', 'no-3mf-warning'],
+    queryFn: api.getNo3MFWarning,
+    staleTime: 5 * 60 * 1000,
+    enabled: !no3MFWarningDismissed,
+  });
+  const dismissNo3MFWarning = () => {
+    localStorage.setItem('archiveNo3MFWarningDismissed', 'true');
+    setNo3MFWarningDismissed(true);
+  };
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [showBulkDeleteConfirm, setShowBulkDeleteConfirm] = useState(false);
   const [showBatchTag, setShowBatchTag] = useState(false);
@@ -3197,6 +3214,37 @@ export function ArchivesPage() {
             <Trash2 className="w-4 h-4" />
             Delete
           </Button>
+        </div>
+      )}
+
+      {no3MFWarning?.has_fallback && !no3MFWarningDismissed && (
+        <div className="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium text-amber-200">
+              {t('archives.no3mfBanner.title')}
+            </div>
+            <div className="text-xs text-amber-200/80 mt-1">
+              {t('archives.no3mfBanner.body')}{' '}
+              <a
+                href="https://bambuddy.cool/wiki/getting-started/#step-4-enable-store-sent-files-on-external-storage"
+                target="_blank"
+                rel="noreferrer"
+                className="underline hover:text-amber-100 inline-flex items-center gap-1"
+              >
+                {t('archives.no3mfBanner.docsLink')}
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
+          <button
+            onClick={dismissNo3MFWarning}
+            className="text-amber-200/60 hover:text-amber-200 flex-shrink-0 p-1 -m-1"
+            title={t('archives.no3mfBanner.dismissLabel')}
+            aria-label={t('archives.no3mfBanner.dismissLabel')}
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
       )}
 

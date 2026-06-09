@@ -592,6 +592,12 @@ export default {
   },
   archives: {
     title: '인쇄 아카이브',
+    no3mfBanner: {
+      title: '최근 일부 인쇄가 썸네일과 함께 아카이브되지 않았습니다',
+      body: '슬라이서가 프린터의 SD 카드에 .gcode.3mf 파일을 남기지 않아서 Bambuddy가 썸네일이나 슬라이서 메타데이터를 가져올 수 없었습니다. 일반적으로 슬라이서 (Bambu Studio / OrcaSlicer 장치 탭)에서 "전송된 파일을 외부 저장소에 저장"이 꺼져 있을 때 발생합니다.',
+      docsLink: '설치 단계 4 보기',
+      dismissLabel: '이 알림 닫기'
+    },
     searchPlaceholder: '아카이브 검색...',
     filterByPrinter: '프린터별 필터',
     filterByStatus: '상태별 필터',

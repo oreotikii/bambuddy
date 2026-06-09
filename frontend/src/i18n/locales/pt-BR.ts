@@ -635,6 +635,12 @@ export default {
   // Archives page
   archives: {
     title: 'Arquivos de Impressão',
+    no3mfBanner: {
+      title: 'Algumas impressões recentes não puderam ser arquivadas com miniaturas',
+      body: 'O fatiador não deixou o arquivo .gcode.3mf no cartão SD da impressora, então o Bambuddy não conseguiu obter nem a miniatura nem os metadados do fatiador. Normalmente isso acontece porque "Armazenar arquivos enviados no armazenamento externo" está desligado no fatiador (aba Dispositivo do Bambu Studio / OrcaSlicer).',
+      docsLink: 'Ver passo 4 da instalação',
+      dismissLabel: 'Dispensar este aviso',
+    },
     searchPlaceholder: 'Pesquisar arquivos...',
     filterByPrinter: 'Filtrar por impressora',
     filterByStatus: 'Filtrar por status',
