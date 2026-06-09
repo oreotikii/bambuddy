@@ -5,6 +5,7 @@ import { X, Loader2, Settings2, ChevronDown, CheckCircle2, RotateCcw } from 'luc
 import { api } from '../api/client';
 import type { KProfile } from '../api/client';
 import { matchesPrinterModelSuffix } from '../utils/slicerPrinterMatch';
+import { toFilamentId, isGenericFilamentId } from './spool-form/utils';
 import { Button } from './Button';
 
 interface SlotInfo {
@@ -656,15 +657,21 @@ export function ConfigureAmsSlotModal({
     // Resolve the name from orca, cloud, local, or builtin presets. The
     // Orca branch tolerates both ``orca_<UUID>`` and a bare UUID — see the
     // configure-mutation comment for why the raw UUID also reaches us.
+    // ``filamentId`` is the bare Bambu filament_id (e.g. "GFG98") when the
+    // preset has one — used to id-match K-profiles directly without name
+    // parsing (#1688). Empty string for paths with no usable filament_id
+    // (orca presets, local presets), which makes the id-match branch skip.
     let presetName: string | null = null;
+    let filamentId = '';
     if (selectedPresetId.startsWith('local_')) {
       const localId = parseInt(selectedPresetId.replace('local_', ''), 10);
       const lp = localPresets?.filament.find(p => p.id === localId);
       presetName = lp?.name || null;
     } else if (selectedPresetId.startsWith('builtin_')) {
-      const filamentId = selectedPresetId.replace('builtin_', '');
-      const bf = builtinFilaments?.find(b => b.filament_id === filamentId);
+      const builtinFilamentId = selectedPresetId.replace('builtin_', '');
+      const bf = builtinFilaments?.find(b => b.filament_id === builtinFilamentId);
       presetName = bf?.name || null;
+      filamentId = toFilamentId(builtinFilamentId);
     } else {
       const orcaCandidateId = selectedPresetId.startsWith('orca_')
         ? selectedPresetId.replace('orca_', '')
@@ -675,6 +682,11 @@ export function ConfigureAmsSlotModal({
       } else if (cloudSettings?.filament) {
         const cp = cloudSettings.filament.find(p => p.setting_id === selectedPresetId);
         presetName = cp?.name || null;
+        if (cp) {
+          // SlicerSetting only carries setting_id ("GFSG98_09"); toFilamentId
+          // drops the variant suffix and the "S" infix to yield "GFG98".
+          filamentId = toFilamentId(cp.setting_id);
+        }
       }
     }
     if (!presetName) {
@@ -693,6 +705,7 @@ export function ConfigureAmsSlotModal({
       fullName: nameWithoutSuffix,
       material: parsed.material,
       brand: parsed.brand,
+      filamentId,
     };
   }, [selectedPresetId, cloudSettings?.filament, localPresets?.filament, builtinFilaments, orcaCloudList?.filament]);
 
@@ -737,16 +750,28 @@ export function ConfigureAmsSlotModal({
   const matchingKProfiles = useMemo(() => {
     if (!kprofilesData?.profiles || !selectedPresetInfo) return [];
 
-    const { fullName, material, brand } = selectedPresetInfo;
+    const { fullName, material, brand, filamentId } = selectedPresetInfo;
     const upperFullName = fullName.toUpperCase();
     const upperMaterial = material.toUpperCase();
     const upperBrand = brand.toUpperCase();
+    const presetFid = filamentId; // already normalised via toFilamentId
 
     // Material must be at least 2 chars to avoid false positives
     if (!upperMaterial || upperMaterial.length < 2) return [];
 
     // Filter profiles - require brand match if brand is present in selected preset
     const filtered = kprofilesData.profiles.filter(p => {
+      // Preferred: exact filament_id match (#1688). A user's custom K-profile
+      // whose name doesn't agree with the slicer preset still surfaces when
+      // both sides agree on filament_id. Generic GFx99 IDs are excluded —
+      // they're shared across many filaments and over-match if id-compared.
+      if (presetFid) {
+        const calFid = toFilamentId(p.filament_id);
+        if (calFid && calFid === presetFid && !isGenericFilamentId(calFid)) {
+          return true;
+        }
+      }
+
       const profileName = p.name.toUpperCase();
 
       // If the selected preset has a brand (e.g., "Azurefilm PLA Wood"),
@@ -803,8 +828,26 @@ export function ConfigureAmsSlotModal({
         seen.set(key, profile);
       }
     }
-    return Array.from(seen.values());
-  }, [kprofilesData?.profiles, selectedPresetInfo, slotInfo.extruderId]);
+
+    const result = Array.from(seen.values());
+
+    // Always include the slot's currently-active K-profile (by cali_idx / slot_id),
+    // even if its name and filament_id didn't match the selected preset (#1689).
+    // A spool assigned under "Generic PLA" can have a K-profile actively bound on
+    // the printer whose filament_id differs from "Generic PLA"; without this
+    // safety net the modal shows "not assigned, default 0.020" while the printer
+    // card's hover-card correctly shows the active profile.
+    const activeIdx = slotInfo.caliIdx;
+    if (activeIdx != null && activeIdx > 0 && !result.some(p => p.slot_id === activeIdx)) {
+      const active = kprofilesData.profiles.find(
+        p => p.slot_id === activeIdx
+          && (slotInfo.extruderId === undefined || p.extruder_id === slotInfo.extruderId),
+      );
+      if (active) result.unshift(active);
+    }
+
+    return result;
+  }, [kprofilesData?.profiles, selectedPresetInfo, slotInfo.extruderId, slotInfo.caliIdx]);
 
   // Pre-select current profile when modal opens, reset when closes
   useEffect(() => {
