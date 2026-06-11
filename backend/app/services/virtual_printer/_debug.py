@@ -10,12 +10,15 @@ Set ``BAMBUDDY_VP_DUMP_WIRE=1`` to enable two complementary capture modes:
    ``*_in.json`` and ``*_out.json`` for the failing VP against a known-good
    one (e.g. H2D vs P1S).
 
-2. ``append_event``: time-ordered JSONL log of every slicer↔printer command
-   payload that flows through the VP (excludes the cached-as-base 1Hz push,
-   which dump_wire already covers). Triages command-flow bugs (e.g. #1622
-   round 2) where the cached state looks right but a slicer-initiated
-   write (ams_filament_setting / extrusion_cali_set / xcam / system) ends
-   up corrupting state. One line per event with wall-clock timestamp.
+2. ``append_event``: time-ordered JSONL log of every slicer↔bridge↔printer
+   command payload that flows through the VP (excludes the cached-as-base
+   1Hz push, which dump_wire already covers). Triages command-flow bugs
+   (e.g. #1622 round 2 / round 3) where the cached state looks right but a
+   slicer-initiated write (ams_filament_setting / extrusion_cali_set /
+   xcam / system) ends up corrupting state, or where the slicer's choice
+   of command flow depends on what the bridge replies to its initial
+   info.get_version / pushall probe. One line per event with wall-clock
+   timestamp.
 
 Layout:
 - snapshot: ``<log_dir>/vp_wire/<sanitized_vp_name>_<direction>.json``
@@ -100,10 +103,14 @@ def append_event(vp_name: str, direction: str, topic: str, payload: dict | bytes
     """Append one event line to ``<log_dir>/vp_wire/<vp_name>_cmd.jsonl``.
 
     No-op when the env flag is unset. ``direction`` should be one of
-    ``"slicer_to_bridge"`` or ``"printer_to_slicer"`` so a diff between
-    a working VP and a broken VP can be read top-to-bottom in causal order.
-    Bytes payloads are utf-8 decoded then json-parsed best-effort; un-parseable
-    payloads are logged as ``{"raw": "<text>"}`` so the line is still valid JSON.
+    ``"slicer_to_bridge"`` (slicer-originated publish reaching the bridge),
+    ``"printer_to_slicer"`` (real-printer response fanned out to the slicer),
+    or ``"bridge_to_slicer"`` (bridge-synthesised reply: info.get_version
+    answer, project_file ack, on-demand pushall response). A diff between
+    a working VP and a broken VP can then be read top-to-bottom in causal
+    order. Bytes payloads are utf-8 decoded then json-parsed best-effort;
+    un-parseable payloads are logged as ``{"raw": "<text>"}`` so the line
+    is still valid JSON.
     """
     if not _enabled():
         return

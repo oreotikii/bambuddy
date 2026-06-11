@@ -743,7 +743,7 @@ class TestStatusReportCachedAsBase:
         """Wrap _publish_to_report to capture (topic, payload_dict)."""
         published: list = []
 
-        async def _capture(writer, payload, serial=""):
+        async def _capture(writer, payload, serial="", log_event=True):
             published.append((serial or server.serial, payload))
 
         server._publish_to_report = _capture  # type: ignore[assignment]
@@ -938,6 +938,52 @@ class TestWireFormat:
 
         body = b"".join(captured)
         assert b'\n    "print"' in body, "publish_to_report must use indent=4 JSON"
+
+    @pytest.mark.asyncio
+    async def test_publish_records_bridge_to_slicer_event_by_default(self, monkeypatch):
+        """#1622 round 3: every bridge-synthesised reply (info.get_version answer,
+        project_file ack, on-demand pushall response) must show up in the
+        cmd.jsonl trace under the ``bridge_to_slicer`` direction so a P1S↔H2D
+        diff captures the fingerprint the slicer reads back from us."""
+        server = _make_server()
+        writer = MagicMock()
+        writer.write = lambda data: None
+        writer.drain = AsyncMock()
+
+        recorded: list = []
+        monkeypatch.setattr(
+            "backend.app.services.virtual_printer.mqtt_server.append_event",
+            lambda vp_name, direction, topic, payload: recorded.append((vp_name, direction, topic, payload)),
+        )
+
+        payload = {"info": {"command": "get_version", "sequence_id": "0"}}
+        await server._publish_to_report(writer, payload)
+
+        assert len(recorded) == 1
+        vp_name, direction, topic, recorded_payload = recorded[0]
+        assert direction == "bridge_to_slicer"
+        assert topic.endswith("/report")
+        assert recorded_payload == payload
+
+    @pytest.mark.asyncio
+    async def test_publish_skips_event_when_log_event_false(self, monkeypatch):
+        """The 1Hz periodic-push path passes ``log_event=False`` so dump_wire's
+        snapshot stays the canonical record of cache shape and the cmd.jsonl
+        isn't flooded with ~60 lines/min per VP."""
+        server = _make_server()
+        writer = MagicMock()
+        writer.write = lambda data: None
+        writer.drain = AsyncMock()
+
+        recorded: list = []
+        monkeypatch.setattr(
+            "backend.app.services.virtual_printer.mqtt_server.append_event",
+            lambda *args, **kwargs: recorded.append(args),
+        )
+
+        await server._publish_to_report(writer, {"print": {"command": "push_status"}}, log_event=False)
+
+        assert recorded == []
 
 
 # ---------------------------------------------------------------------------
