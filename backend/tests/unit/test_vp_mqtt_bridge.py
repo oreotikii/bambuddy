@@ -403,6 +403,73 @@ class TestPushStatusCache:
         await bridge.stop()
 
     @pytest.mark.asyncio
+    async def test_incremental_push_preserves_non_allowlisted_capability_fields(self):
+        """Regression for #1622: BambuStudio gates Device-tab UIs (manage
+        calibration, AMS-slot filament dropdown, ...) on capability /
+        lifecycle fields (cali_version, print_type, mc_print_stage,
+        device, ...) it reads off the cached push_status. Before the fix
+        these fields were not in the allowlist and drained out of the
+        bridge cache on the first 1 Hz incremental tick, so the slicer's
+        Device tab would grey out the gated UIs once the cache thinned.
+        After the fix the cache accumulates everything the printer has
+        ever sent, dropped only when explicitly overwritten.
+        """
+        server = _make_server()
+        bridge = _make_bridge(server)
+        await bridge.start()
+
+        full_push = json.dumps(
+            {
+                "print": {
+                    "command": "push_status",
+                    "cali_version": 2,
+                    "print_type": "idle",
+                    "gcode_state": "IDLE",
+                    "mc_print_stage": "0",
+                    "mc_stage": 0,
+                    "device": {"ext_tool": {"info": []}},
+                    "cfg": "",
+                    "home_flag": 256,
+                    "wifi_signal": "-50dBm",
+                }
+            }
+        ).encode()
+        bridge._on_printer_raw(f"device/{H2D_SERIAL}/report", full_push)
+        await asyncio.sleep(0.01)
+
+        # Incremental push carrying only temps + wifi — none of the
+        # capability/lifecycle fields above are mentioned.
+        incremental_push = json.dumps(
+            {
+                "print": {
+                    "command": "push_status",
+                    "wifi_signal": "-55dBm",
+                    "nozzle_temper": 24.5,
+                }
+            }
+        ).encode()
+        bridge._on_printer_raw(f"device/{H2D_SERIAL}/report", incremental_push)
+        await asyncio.sleep(0.01)
+
+        cached = bridge.get_latest_print_state()
+        # Incremental values applied.
+        assert cached["wifi_signal"] == "-55dBm"
+        assert cached["nozzle_temper"] == 24.5
+        # Capability / lifecycle fields preserved from the prior pushall
+        # — the symptoms in #1622 (Device-tab UIs disabled) trace to these
+        # exact keys missing.
+        assert cached["cali_version"] == 2
+        assert cached["print_type"] == "idle"
+        assert cached["gcode_state"] == "IDLE"
+        assert cached["mc_print_stage"] == "0"
+        assert cached["mc_stage"] == 0
+        assert cached["device"] == {"ext_tool": {"info": []}}
+        assert cached["cfg"] == ""
+        assert cached["home_flag"] == 256
+
+        await bridge.stop()
+
+    @pytest.mark.asyncio
     async def test_partial_ams_status_update_preserves_unit_list(self):
         """#1387: Bambu firmware also sends `ams` updates where the key is
         present but the inner `ams` array is missing — e.g. just
