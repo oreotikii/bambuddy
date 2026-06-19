@@ -92,3 +92,6 @@ gitleaks-report.json
 scripts/pip-audit.sh
 
 security/
+
+# Agent design-skill working cache
+.impeccable/
