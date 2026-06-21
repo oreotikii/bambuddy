@@ -1,5 +1,10 @@
 # Product
 
+> **Scope note (read this):** This documents the **upstream Bambuddy WEB app**. It is
+> **brand/product reference only** for this team's actual target — the Android app at
+> `apps/filament-assignment-android/`. It is **not** an Android spec, and `frontend/` is
+> read-only. See `/AGENTS.md`.
+
 ## Register
 
 product

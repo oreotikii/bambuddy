@@ -1,97 +1,58 @@
-# Claude
-.claude/
-CLAUDE.md
-
-# macOS
+# ---- OS ----
 .DS_Store
 **/.DS_Store
-**/._.DS_Store
+Thumbs.db
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-venv/
-.venv/
-env/
-.env
-docker-compose.override.yml
-*.egg-info/
-dist/
-build/
-
-# Node
-frontend/node_modules/
-frontend/coverage/
-npm-debug.log*
-
-# Database
-*.db
-*.db-journal
-*.db-wal
-*.db-shm
-
-# Archive files (user data)
-archive/
-
-# Firmware cache (downloaded firmware files)
-firmware/
-
-# Virtual printer (auto-generated certs and uploads at repo root)
-/virtual_printer/
-
-# IDE
+# ---- IDE / editors ----
 .idea/
 .vscode/
 *.swp
 *.swo
+.claude/
+CLAUDE.md
 
-# Screenshots (development - root folder only)
-/screenshots/
+# ---- Flutter / Dart ----
+**/dart_tool/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+**/build/
+coverage/
+**/coverage/
+**/doc/api/
+*.symbols
+app.*.symbols
+app.*.map.json
 
-# Logs
+# Flutter platform build artifacts
+**/ios/Flutter/.last_build_id
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# ---- Secrets (NEVER commit) ----
+# Android signing + baked config
+**/local.properties
+local.properties
+key.properties
+*.keystore
+*.jks
+# Build-time baked credentials (--dart-define values live in CI/runner env)
+.env
+.env.*
+
+# ---- Logs / runtime ----
 *.log
 logs/
 *.log*
-bambutrack.log.*
-firmware/
 
-# Node modules
-node_modules/
-
-data/
-
-# Local-dev runtime caches (matplotlib MPLCONFIGDIR lands here when DATA_DIR
-# is unset, so base_dir resolves to the repo root). In Docker this sits
-# inside the /app/data volume and is already covered.
-.cache/
-
-# JWT secret file (should be in data dir, but protect project root too)
-.jwt_secret
-
-# MFA encryption key file (#1219) — same protection as .jwt_secret
-.mfa_encryption_key
-
-# SpoolBuddy SSH keys (generated at runtime for remote updates)
-spoolbuddy/ssh/
-
-# Security scan output
+# ---- Misc ----
+.history
+*.iml
+*.ipr
+*.iws
 *.sarif
-
-debug_logs/
-db_backup/
-support-packages/
-backups/
-bin/
-advertisements/
-
-# gitleaks reports
-gitleaks-report.json
-
-scripts/pip-audit.sh
-
-security/
-
-# Agent design-skill working cache
-.impeccable/
