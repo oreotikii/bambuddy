@@ -1,0 +1,1511 @@
+{
+  "version": "2.13",
+  "children": [
+    {
+      "type": "frame",
+      "id": "STdg5",
+      "x": 0,
+      "y": 0,
+      "name": "Home Screen - Status",
+      "clip": true,
+      "width": 390,
+      "fill": "$bg",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "JOtai",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "height": 62,
+          "fill": "$bar",
+          "padding": [
+            18,
+            18,
+            8,
+            18
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "s9zTH",
+              "name": "Status Time",
+              "fill": "$ink",
+              "content": "9:41",
+              "lineHeight": 1.2,
+              "fontFamily": "$font-app",
+              "fontSize": 14,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "D6Ozij",
+              "name": "System Indicators",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 2,
+                  "id": "efmQP",
+                  "name": "Signal One",
+                  "fill": "$ink",
+                  "width": 4,
+                  "height": 8
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 2,
+                  "id": "G06vg",
+                  "name": "Signal Two",
+                  "fill": "$ink",
+                  "width": 4,
+                  "height": 11
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 2,
+                  "id": "fi1zh",
+                  "name": "Signal Three",
+                  "fill": "$ink",
+                  "width": 4,
+                  "height": 14
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 5,
+                  "id": "RfkFH",
+                  "name": "Wifi Dot",
+                  "fill": "$ink",
+                  "width": 14,
+                  "height": 10
+                },
+                {
+                  "type": "frame",
+                  "id": "o0heS",
+                  "name": "Battery",
+                  "width": 26,
+                  "height": 12,
+                  "fill": "#00000000",
+                  "cornerRadius": 3,
+                  "stroke": "$ink",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 2,
+                      "id": "bKim3",
+                      "x": 2,
+                      "y": 2,
+                      "name": "Battery Fill",
+                      "fill": "$ink",
+                      "width": 18,
+                      "height": 8
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 1,
+                  "id": "OIbjq",
+                  "name": "Battery Cap",
+                  "fill": "$ink",
+                  "width": 2,
+                  "height": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "vv9Bp",
+          "name": "Bambuddy App Bar",
+          "width": "fill_container",
+          "height": 56,
+          "fill": "$bar",
+          "gap": 8,
+          "padding": [
+            0,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "u9JNN",
+              "name": "B Logo",
+              "width": 28,
+              "height": 28,
+              "fill": "$green",
+              "cornerRadius": 6,
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "iwost",
+                  "name": "B Logo Letter",
+                  "fill": "#000000",
+                  "content": "B",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-app",
+                  "fontSize": 13,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "ObxN6",
+              "name": "Bambuddy Title",
+              "fill": "$ink",
+              "content": "Bambuddy",
+              "lineHeight": 1.2,
+              "fontFamily": "$font-app",
+              "fontSize": 18,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Ecm8L",
+          "name": "Metrics Row",
+          "width": "fill_container",
+          "fill": "$bar",
+          "gap": 8,
+          "padding": [
+            4,
+            16,
+            10,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "XnceL",
+              "name": "Metric Printing",
+              "fill": "$card",
+              "cornerRadius": 999,
+              "gap": 4,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "jjguV",
+                  "name": "Metric Printing Label",
+                  "fill": "$green",
+                  "content": "1 printing",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-app",
+                  "fontSize": 12,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k71Xl",
+              "name": "Metric Idle",
+              "fill": "$card",
+              "cornerRadius": 999,
+              "gap": 4,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "At67V",
+                  "name": "Metric Idle Label",
+                  "fill": "$dim",
+                  "content": "2 idle",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-app",
+                  "fontSize": 12,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ve4GP",
+              "name": "Metric Plate",
+              "fill": "$card",
+              "cornerRadius": 999,
+              "gap": 4,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "qoIph",
+                  "name": "Metric Plate Label",
+                  "fill": "$amber",
+                  "content": "1 plate",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-app",
+                  "fontSize": 12,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZzZ7E",
+          "name": "Status Content",
+          "width": "fill_container",
+          "fill": "$bg",
+          "layout": "vertical",
+          "gap": 14,
+          "padding": [
+            14,
+            14,
+            12,
+            14
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "a86HL",
+              "name": "Workshop Header",
+              "width": "fill_container",
+              "padding": [
+                6,
+                0,
+                0,
+                0
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "u7lpm",
+                  "name": "Workshop Printers Title",
+                  "fill": "$ink",
+                  "content": "Workshop printers",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-app",
+                  "fontSize": 13,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "YK4yy",
+                  "name": "Pull To Refresh Hint",
+                  "fill": "$dim",
+                  "content": "pull to refresh",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-mono",
+                  "fontSize": 11
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "OqEZo",
+              "name": "P1S 03 Printer Card",
+              "width": "fill_container",
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "$stroke",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 10,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "j7bTQL",
+                  "name": "P1S 03 Summary Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Y4Auz4",
+                      "name": "P1S 03 Printer Icon Tile",
+                      "width": 70,
+                      "height": 70,
+                      "fill": "$bar",
+                      "cornerRadius": 6,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "NonOw",
+                          "name": "P1S 03 Printer Icon",
+                          "width": 34,
+                          "height": 34,
+                          "icon": "print",
+                          "library": "Material Symbols Rounded",
+                          "fill": "$dim"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DnyOc",
+                      "name": "P1S 03 Info",
+                      "width": 256,
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QZLIO",
+                          "name": "P1S 03 Name",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 256,
+                          "content": "P1S 03",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "i9YHT",
+                          "name": "P1S 03 Chips",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "OBjJy",
+                              "name": "P1S Model Chip",
+                              "fill": "$bar",
+                              "cornerRadius": 999,
+                              "stroke": "$stroke",
+                              "strokeWidth": 1,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "dIEOA",
+                                  "name": "P1S Model Text",
+                                  "fill": "$dim",
+                                  "content": "P1S",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "jpZGZ",
+                              "name": "Finished Status Chip",
+                              "fill": "#00C85321",
+                              "cornerRadius": 999,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "g6p3OV",
+                                  "name": "Finished Status Text",
+                                  "fill": "$green",
+                                  "content": "Finished",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "SOyrE",
+                          "name": "P1S 03 Temperatures",
+                          "gap": 6,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "t42GC",
+                              "name": "P1S 03 Nozzle Temp",
+                              "fill": "#EA580C21",
+                              "cornerRadius": 999,
+                              "gap": 5,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "SrEKi",
+                                  "name": "P1S 03 Nozzle Temp Icon",
+                                  "width": 13,
+                                  "height": 13,
+                                  "icon": "local_fire_department",
+                                  "library": "Material Symbols Rounded",
+                                  "fill": "#EA580C"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "sUTIM",
+                                  "name": "P1S 03 Nozzle Temp Text",
+                                  "fill": "#EA580C",
+                                  "content": "Nozzle 212°C",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "qnNkp",
+                              "name": "P1S 03 Bed Temp",
+                              "fill": "#2563EB21",
+                              "cornerRadius": 999,
+                              "gap": 5,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "wMftG",
+                                  "name": "P1S 03 Bed Temp Icon",
+                                  "width": 13,
+                                  "height": 13,
+                                  "icon": "layers",
+                                  "library": "Material Symbols Rounded",
+                                  "fill": "#2563EB"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "d6Ansl",
+                                  "name": "P1S 03 Bed Temp Text",
+                                  "fill": "#2563EB",
+                                  "content": "Bed 64°C",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "YXc2M",
+                  "name": "P1S 03 Progress Group",
+                  "clip": true,
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$bar",
+                  "cornerRadius": 999,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 999,
+                      "id": "PONDw",
+                      "x": 0,
+                      "y": 0,
+                      "name": "P1S 03 Progress Fill",
+                      "fill": "$green",
+                      "width": 338,
+                      "height": 6
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "I9FwR",
+                  "name": "Loaded Filaments",
+                  "width": "fill_container",
+                  "fill": "$bar",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "gap": 6,
+                  "padding": 10,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "T34Bp",
+                      "name": "Loaded Filaments Label",
+                      "fill": "$dim",
+                      "content": "Loaded filaments",
+                      "lineHeight": 1.2,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.3
+                    },
+                    {
+                      "type": "frame",
+                      "id": "x2WtS",
+                      "name": "AMS1 · T2 Filament Row",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        2
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "dzqgr",
+                          "name": "AMS1 · T2 Slot Label",
+                          "fill": "$dim",
+                          "textGrowth": "fixed-width",
+                          "width": 72,
+                          "content": "AMS1 · T2",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-mono",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 4,
+                          "id": "KGaC3",
+                          "name": "#42 Swatch",
+                          "fill": "#FF5500",
+                          "width": 16,
+                          "height": 16,
+                          "stroke": "$stroke",
+                          "strokeWidth": 1
+                        },
+                        {
+                          "type": "text",
+                          "id": "n3npQ",
+                          "name": "#42 Spool Id",
+                          "fill": "$ink",
+                          "content": "#42",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Mg9Iz",
+                          "name": "PLA Material",
+                          "fill": "$dim",
+                          "textGrowth": "fixed-width",
+                          "width": 78,
+                          "content": "PLA",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "IG2Re",
+                          "name": "875 g Amount",
+                          "fill": "$dim",
+                          "content": "875 g",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "o245c",
+              "name": "X1 Carbon Printer Card",
+              "width": "fill_container",
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "$stroke",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 10,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "KsrDp",
+                  "name": "X1 Carbon Summary Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "TIhGQ",
+                      "name": "X1 Carbon Printer Icon Tile",
+                      "width": 70,
+                      "height": 70,
+                      "fill": "$bar",
+                      "cornerRadius": 6,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "tXiEc",
+                          "name": "X1 Carbon Printer Icon",
+                          "width": 34,
+                          "height": 34,
+                          "icon": "print",
+                          "library": "Material Symbols Rounded",
+                          "fill": "$dim"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CYifr",
+                      "name": "X1 Carbon Info",
+                      "width": 256,
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "zkrRB",
+                          "name": "X1 Carbon Name",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 256,
+                          "content": "X1 Carbon",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "jQ1j0",
+                          "name": "X1 Carbon Chips",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "mQURU",
+                              "name": "X1C Model Chip",
+                              "fill": "$bar",
+                              "cornerRadius": 999,
+                              "stroke": "$stroke",
+                              "strokeWidth": 1,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "H39bn",
+                                  "name": "X1C Model Text",
+                                  "fill": "$dim",
+                                  "content": "X1C",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hgFgX",
+                              "name": "Printing Status Chip",
+                              "fill": "#00C85321",
+                              "cornerRadius": 999,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "MCFrL",
+                                  "name": "Printing Status Text",
+                                  "fill": "$green",
+                                  "content": "Printing",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Tqx1P",
+                          "name": "X1 Carbon Temperatures",
+                          "gap": 6,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "QVUBV",
+                              "name": "X1 Carbon Nozzle Temp",
+                              "fill": "#EA580C21",
+                              "cornerRadius": 999,
+                              "gap": 5,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "mOtca",
+                                  "name": "X1 Carbon Nozzle Temp Icon",
+                                  "width": 13,
+                                  "height": 13,
+                                  "icon": "local_fire_department",
+                                  "library": "Material Symbols Rounded",
+                                  "fill": "#EA580C"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "syk3F",
+                                  "name": "X1 Carbon Nozzle Temp Text",
+                                  "fill": "#EA580C",
+                                  "content": "Nozzle 238°C",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "S0vXd",
+                              "name": "X1 Carbon Bed Temp",
+                              "fill": "#2563EB21",
+                              "cornerRadius": 999,
+                              "gap": 5,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "jrITm",
+                                  "name": "X1 Carbon Bed Temp Icon",
+                                  "width": 13,
+                                  "height": 13,
+                                  "icon": "layers",
+                                  "library": "Material Symbols Rounded",
+                                  "fill": "#2563EB"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "cObcu",
+                                  "name": "X1 Carbon Bed Temp Text",
+                                  "fill": "#2563EB",
+                                  "content": "Bed 80°C",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "WxMrx",
+                  "name": "X1 Carbon Progress Group",
+                  "clip": true,
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$bar",
+                  "cornerRadius": 999,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 999,
+                      "id": "eDwdy",
+                      "x": 0,
+                      "y": 0,
+                      "name": "X1 Carbon Progress Fill",
+                      "fill": "$green",
+                      "width": 210,
+                      "height": 6
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "SS0RP",
+                  "name": "Loaded Filaments",
+                  "width": "fill_container",
+                  "fill": "$bar",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "gap": 6,
+                  "padding": 10,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "htzNY",
+                      "name": "Loaded Filaments Label",
+                      "fill": "$dim",
+                      "content": "Loaded filaments",
+                      "lineHeight": 1.2,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.3
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Gv7WD",
+                      "name": "AMS1 · T1 Filament Row",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        2
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "N8yIY",
+                          "name": "AMS1 · T1 Slot Label",
+                          "fill": "$dim",
+                          "textGrowth": "fixed-width",
+                          "width": 72,
+                          "content": "AMS1 · T1",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-mono",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 4,
+                          "id": "cK0ny",
+                          "name": "#104 Swatch",
+                          "fill": "#111827",
+                          "width": 16,
+                          "height": 16,
+                          "stroke": "$stroke",
+                          "strokeWidth": 1
+                        },
+                        {
+                          "type": "text",
+                          "id": "u1UheY",
+                          "name": "#104 Spool Id",
+                          "fill": "$ink",
+                          "content": "#104",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "S5ryPJ",
+                          "name": "ABS Material",
+                          "fill": "$dim",
+                          "textGrowth": "fixed-width",
+                          "width": 78,
+                          "content": "ABS",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "DmC5r",
+                          "name": "432 g Amount",
+                          "fill": "$dim",
+                          "content": "432 g",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QsTtw",
+                      "name": "AMS1 · T3 Filament Row",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        2
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "T1XYW",
+                          "name": "AMS1 · T3 Slot Label",
+                          "fill": "$dim",
+                          "textGrowth": "fixed-width",
+                          "width": 72,
+                          "content": "AMS1 · T3",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-mono",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 4,
+                          "id": "favCg",
+                          "name": "#126 Swatch",
+                          "fill": "#00FF00",
+                          "width": 16,
+                          "height": 16,
+                          "stroke": "$stroke",
+                          "strokeWidth": 1
+                        },
+                        {
+                          "type": "text",
+                          "id": "OHMW3",
+                          "name": "#126 Spool Id",
+                          "fill": "$ink",
+                          "content": "#126",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "g6yf1U",
+                          "name": "PETG Material",
+                          "fill": "$dim",
+                          "textGrowth": "fixed-width",
+                          "width": 78,
+                          "content": "PETG",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "WoSJy",
+                          "name": "685 g Amount",
+                          "fill": "$dim",
+                          "content": "685 g",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 12
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "M9xZF",
+              "name": "A1 Mini Printer Card",
+              "width": "fill_container",
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "$stroke",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 10,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "K1QM5",
+                  "name": "A1 Mini Summary Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "QYGZV",
+                      "name": "A1 Mini Printer Icon Tile",
+                      "width": 70,
+                      "height": 70,
+                      "fill": "$bar",
+                      "cornerRadius": 6,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "Zuuny",
+                          "name": "A1 Mini Printer Icon",
+                          "width": 34,
+                          "height": 34,
+                          "icon": "view_in_ar",
+                          "library": "Material Symbols Rounded",
+                          "fill": "$dim"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ufHeP",
+                      "name": "A1 Mini Info",
+                      "width": 256,
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "wNIWv",
+                          "name": "A1 Mini Name",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 256,
+                          "content": "A1 Mini",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font-app",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "krJER",
+                          "name": "A1 Mini Chips",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "w4QjAI",
+                              "name": "A1 Model Chip",
+                              "fill": "$bar",
+                              "cornerRadius": 999,
+                              "stroke": "$stroke",
+                              "strokeWidth": 1,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "rVAiC",
+                                  "name": "A1 Model Text",
+                                  "fill": "$dim",
+                                  "content": "A1",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "eQdD3",
+                              "name": "Idle Status Chip",
+                              "fill": "#00C85321",
+                              "cornerRadius": 999,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "t02zoi",
+                                  "name": "Idle Status Text",
+                                  "fill": "$green",
+                                  "content": "Idle",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gNdMS",
+                          "name": "A1 Mini Temperatures",
+                          "gap": 6,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "Be0B6",
+                              "name": "A1 Mini Nozzle Temp",
+                              "fill": "#EA580C21",
+                              "cornerRadius": 999,
+                              "gap": 5,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "D6HYQ5",
+                                  "name": "A1 Mini Nozzle Temp Icon",
+                                  "width": 13,
+                                  "height": 13,
+                                  "icon": "local_fire_department",
+                                  "library": "Material Symbols Rounded",
+                                  "fill": "#EA580C"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "GiCBh",
+                                  "name": "A1 Mini Nozzle Temp Text",
+                                  "fill": "#EA580C",
+                                  "content": "Nozzle 25°C",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "MSLxb",
+                              "name": "A1 Mini Bed Temp",
+                              "fill": "#2563EB21",
+                              "cornerRadius": 999,
+                              "gap": 5,
+                              "padding": [
+                                3,
+                                10
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "pmTsT",
+                                  "name": "A1 Mini Bed Temp Icon",
+                                  "width": 13,
+                                  "height": 13,
+                                  "icon": "layers",
+                                  "library": "Material Symbols Rounded",
+                                  "fill": "#2563EB"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "a9Yr94",
+                                  "name": "A1 Mini Bed Temp Text",
+                                  "fill": "#2563EB",
+                                  "content": "Bed 24°C",
+                                  "lineHeight": 1.2,
+                                  "fontFamily": "$font-app",
+                                  "fontSize": 12
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "toGAJ",
+                  "name": "A1 Mini No Spools",
+                  "fill": "$dim",
+                  "textGrowth": "fixed-width",
+                  "width": 338,
+                  "content": "No spools loaded",
+                  "lineHeight": 1.2,
+                  "fontFamily": "$font-app",
+                  "fontSize": 13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DMvmj",
+          "name": "Bottom Navigation Wrapper",
+          "width": "fill_container",
+          "padding": [
+            0,
+            0,
+            18,
+            0
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "muOXf",
+              "name": "Floaty Bottom Navigation",
+              "fill": "#131316F0",
+              "cornerRadius": 999,
+              "stroke": "#3F3F46B8",
+              "strokeWidth": 1,
+              "effect": [
+                {
+                  "type": "shadow",
+                  "shadowType": "outer",
+                  "color": "#0000008F",
+                  "offset": {
+                    "x": 0,
+                    "y": 16
+                  },
+                  "blur": 30,
+                  "spread": 2
+                },
+                {
+                  "type": "shadow",
+                  "shadowType": "outer",
+                  "color": "#00C85329",
+                  "offset": {
+                    "x": 0,
+                    "y": 4
+                  },
+                  "blur": 28,
+                  "spread": -6
+                }
+              ],
+              "gap": 8,
+              "padding": 4,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yaqLx",
+                  "name": "Status Tab",
+                  "width": 70,
+                  "height": 54,
+                  "fill": "$green",
+                  "cornerRadius": 999,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "oRdMB",
+                      "name": "Status Icon",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "dashboard",
+                      "library": "Material Symbols Rounded",
+                      "fill": "#000000"
+                    },
+                    {
+                      "type": "text",
+                      "id": "J9DiP",
+                      "name": "Status Label",
+                      "fill": "#000000",
+                      "content": "Status",
+                      "lineHeight": 1.2,
+                      "fontFamily": "$font-app",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "aLuWx",
+                  "name": "Weigh Tab",
+                  "width": 70,
+                  "height": 54,
+                  "fill": "#27272A",
+                  "cornerRadius": 999,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "XPAcr",
+                      "name": "Weigh Icon",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "scale",
+                      "library": "Material Symbols Rounded",
+                      "fill": "$dim"
+                    },
+                    {
+                      "type": "text",
+                      "id": "IpyjJ",
+                      "name": "Weigh Label",
+                      "fill": "$dim",
+                      "content": "Weigh",
+                      "lineHeight": 1.2,
+                      "fontFamily": "$font-app",
+                      "fontSize": 10
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zjAsp",
+                  "name": "Assign Tab",
+                  "width": 70,
+                  "height": 54,
+                  "fill": "#27272A",
+                  "cornerRadius": 999,
+                  "layout": "vertical",
+                  "gap": 2,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "rjciZ",
+                      "name": "Assign Icon",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "assignment_turned_in",
+                      "library": "Material Symbols Rounded",
+                      "fill": "$dim"
+                    },
+                    {
+                      "type": "text",
+                      "id": "w627N",
+                      "name": "Assign Label",
+                      "fill": "$dim",
+                      "content": "Assign",
+                      "lineHeight": 1.2,
+                      "fontFamily": "$font-app",
+                      "fontSize": 10
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "amber": {
+      "type": "color",
+      "value": "#F59E0B"
+    },
+    "bar": {
+      "type": "color",
+      "value": "#202027"
+    },
+    "bg": {
+      "type": "color",
+      "value": "#18181B"
+    },
+    "blue": {
+      "type": "color",
+      "value": "#2563EB"
+    },
+    "card": {
+      "type": "color",
+      "value": "#27272A"
+    },
+    "dim": {
+      "type": "color",
+      "value": "#A1A1AA"
+    },
+    "field": {
+      "type": "color",
+      "value": "#323238"
+    },
+    "font-app": {
+      "type": "string",
+      "value": "Plus Jakarta Sans"
+    },
+    "font-mono": {
+      "type": "string",
+      "value": "IBM Plex Mono"
+    },
+    "green": {
+      "type": "color",
+      "value": "#00C853"
+    },
+    "green-dark": {
+      "type": "color",
+      "value": "#064E2D"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#FAFAFA"
+    },
+    "orange": {
+      "type": "color",
+      "value": "#EA580C"
+    },
+    "radius-card": {
+      "type": "number",
+      "value": 14
+    },
+    "radius-control": {
+      "type": "number",
+      "value": 10
+    },
+    "red": {
+      "type": "color",
+      "value": "#EF4444"
+    },
+    "stroke": {
+      "type": "color",
+      "value": "#3F3F46"
+    }
+  }
+}
