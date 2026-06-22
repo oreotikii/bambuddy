@@ -1,0 +1,91 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="greenGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feFlood flood-color="#00C853" flood-opacity="0.36"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="redGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#EF4444" flood-opacity="0.24"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .font { font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif; }
+      .muted { fill: #A1A1AA; }
+      .ink { fill: #FAFAFA; }
+      .label { fill: #A1A1AA; font-size: 17px; font-weight: 750; }
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="#050505"/>
+  <text x="80" y="88" class="font ink" font-size="30" font-weight="850">Direction B / Operational Stepper</text>
+  <text x="80" y="124" class="font muted" font-size="18" font-weight="600">Clear first-run progression: connect server, then secure app.</text>
+
+  <g transform="translate(186 155)">
+    <rect x="0" y="0" width="430" height="790" rx="46" fill="#0B0B0D" stroke="#3F3F46" stroke-width="3"/>
+    <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
+    <path d="M45 110C120 84 168 134 238 104C292 82 333 90 388 126" stroke="#27272A" stroke-width="2"/>
+    <text x="42" y="78" class="font ink" font-size="24" font-weight="850">CRAV3D</text>
+    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">Bambuddy Assign</text>
+
+    <g transform="translate(42 140)">
+      <circle cx="18" cy="18" r="18" fill="#00C853"/>
+      <text x="18" y="24" class="font" fill="#050505" font-size="16" font-weight="900" text-anchor="middle">1</text>
+      <rect x="46" y="16" width="116" height="4" rx="2" fill="#064E2D"/>
+      <circle cx="188" cy="18" r="18" fill="#27272A" stroke="#3F3F46"/>
+      <text x="188" y="24" class="font muted" font-size="16" font-weight="900" text-anchor="middle">2</text>
+      <text x="0" y="58" class="font ink" font-size="13" font-weight="800">Connect server</text>
+      <text x="155" y="58" class="font muted" font-size="13" font-weight="750">Secure app</text>
+    </g>
+
+    <text x="42" y="250" class="font ink" font-size="27" font-weight="850">Connect Bambuddy</text>
+    <rect x="42" y="278" width="122" height="32" rx="999" fill="#064E2D" stroke="#00C853"/>
+    <text x="103" y="300" class="font" fill="#B7F4C8" font-size="12" font-weight="850" text-anchor="middle">Internal build</text>
+
+    <text x="42" y="357" class="font label">Server URL</text>
+    <rect x="42" y="374" width="346" height="58" rx="14" fill="#323238" stroke="#3F3F46" stroke-width="2"/>
+    <text x="62" y="410" class="font muted" font-size="15" font-weight="650">https://bambuddy.local</text>
+
+    <text x="42" y="467" class="font label">API key</text>
+    <rect x="42" y="484" width="346" height="58" rx="14" fill="#323238" stroke="#00C853" stroke-width="2.5" filter="url(#greenGlow)"/>
+    <text x="62" y="520" class="font ink" font-size="15" font-weight="650">bb_****************</text>
+    <text x="42" y="571" class="font muted" font-size="13" font-weight="600">Read, inventory write, printer control.</text>
+
+    <rect x="42" y="628" width="346" height="58" rx="14" fill="#00C853"/>
+    <text x="215" y="664" class="font" fill="#050505" font-size="17" font-weight="850" text-anchor="middle">Connect</text>
+  </g>
+
+  <g transform="translate(982 155)">
+    <rect x="0" y="0" width="430" height="790" rx="46" fill="#0B0B0D" stroke="#3F3F46" stroke-width="3"/>
+    <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
+    <path d="M42 110C117 80 172 143 236 104C303 63 337 97 392 128" stroke="#27272A" stroke-width="2"/>
+    <text x="42" y="78" class="font ink" font-size="24" font-weight="850">CRAV3D</text>
+    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">Bambuddy Assign</text>
+
+    <g transform="translate(42 140)">
+      <circle cx="18" cy="18" r="18" fill="#064E2D" stroke="#00C853"/>
+      <text x="18" y="24" class="font" fill="#B7F4C8" font-size="16" font-weight="900" text-anchor="middle">1</text>
+      <rect x="46" y="16" width="116" height="4" rx="2" fill="#064E2D"/>
+      <circle cx="188" cy="18" r="18" fill="#00C853"/>
+      <text x="188" y="24" class="font" fill="#050505" font-size="16" font-weight="900" text-anchor="middle">2</text>
+      <text x="0" y="58" class="font muted" font-size="13" font-weight="750">Connect server</text>
+      <text x="155" y="58" class="font ink" font-size="13" font-weight="800">Secure app</text>
+    </g>
+
+    <text x="215" y="300" class="font ink" font-size="27" font-weight="850" text-anchor="middle">Create PIN</text>
+    <text x="215" y="333" class="font muted" font-size="15" font-weight="650" text-anchor="middle">Stored only on this device.</text>
+    <g transform="translate(53 393)">
+      <rect x="0" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#00C853" stroke-width="3" filter="url(#greenGlow)"/>
+      <rect x="85" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <rect x="170" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <rect x="255" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+    </g>
+    <rect x="53" y="535" width="324" height="52" rx="14" fill="#451A1A" stroke="#EF4444" filter="url(#redGlow)"/>
+    <text x="215" y="568" class="font" fill="#FCA5A5" font-size="14" font-weight="750" text-anchor="middle">PINs do not match. Start again.</text>
+    <text x="215" y="694" class="font muted" font-size="15" font-weight="700" text-anchor="middle">Change server / API key</text>
+  </g>
+
+  <text x="800" y="942" class="font muted" font-size="16" font-weight="650" text-anchor="middle">Carry forward: step clarity only if it earns its space; avoid onboarding ceremony in the final app.</text>
+</svg>

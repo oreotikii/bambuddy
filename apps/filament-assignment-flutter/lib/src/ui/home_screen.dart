@@ -1,15 +1,19 @@
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../app/app_model.dart';
 import '../core/api_exception.dart';
 import '../data/api_client.dart';
-import '../data/session_store.dart';
+import 'crav3d_logo.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.apiClientFactory});
+
+  final Future<ApiClient> Function()? apiClientFactory;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -48,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _refresh(bool fromUser) async {
     try {
-      _api ??= await ApiClient.create();
+      _api ??= await (widget.apiClientFactory?.call() ?? ApiClient.create());
       final cards = await _fetchCards(_api!);
       if (!mounted) return;
       setState(() {
@@ -59,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
     } on ApiException catch (e) {
       if (!mounted) return;
       if (e.isUnauthorized) {
-        await SessionStore.clearCredentials();
-        if (mounted) context.read<AppModel>().logoutToSetup();
+        final model = context.read<AppModel>();
+        await model.signOut();
         return;
       }
       setState(() {
@@ -79,31 +83,50 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<List<PrinterCard>> _fetchCards(ApiClient api) async {
-    final printers =
-        (await api.getArray('/printers/')).cast<Map<String, dynamic>>();
+    final printers = (await api.getArray(
+      '/printers/',
+    )).cast<Map<String, dynamic>>();
 
-    final statuses = await Future.wait(printers.map((p) async {
-      final id = (p['id'] as num?)?.toInt() ?? -1;
-      if (id < 0) return null;
-      try {
-        return await api.get('/printers/$id/status');
-      } catch (_) {
-        return null;
-      }
-    }));
+    final statuses = await Future.wait(
+      printers.map((p) async {
+        final id = (p['id'] as num?)?.toInt() ?? -1;
+        if (id < 0) return null;
+        try {
+          return await api.get('/printers/$id/status');
+        } catch (_) {
+          return null;
+        }
+      }),
+    );
 
     final slotToSpool = <String, int>{};
+    final slotAssignments = <_SlotAssignment>[];
     final spoolById = <int, Map<String, dynamic>>{};
     try {
-      final slots = (await api.getArray('/spoolman/inventory/slot-assignments/all'))
-          .cast<Map<String, dynamic>>();
+      final slots = (await api.getArray(
+        '/spoolman/inventory/slot-assignments/all',
+      )).cast<Map<String, dynamic>>();
       for (final s in slots) {
-        final key = _slotKey((s['printer_id'] as num?)?.toInt() ?? 0,
-            (s['ams_id'] as num?)?.toInt() ?? 0, (s['tray_id'] as num?)?.toInt() ?? 0);
-        slotToSpool[key] = (s['spoolman_spool_id'] as num?)?.toInt() ?? 0;
+        final printerId = _toInt(s['printer_id']) ?? 0;
+        final amsId = _toInt(s['ams_id']) ?? 0;
+        final trayId = _toInt(s['tray_id']) ?? _toInt(s['slot']) ?? 0;
+        final spoolId =
+            _toInt(s['spoolman_spool_id']) ?? _toInt(s['spool_id']) ?? 0;
+        if (printerId == 0 || spoolId == 0) continue;
+        final key = _slotKey(printerId, amsId, trayId);
+        slotToSpool[key] = spoolId;
+        slotAssignments.add(
+          _SlotAssignment(
+            printerId: printerId,
+            amsId: amsId,
+            trayId: trayId,
+            spoolId: spoolId,
+          ),
+        );
       }
-      final spools = (await api.getArray('/spoolman/inventory/spools'))
-          .cast<Map<String, dynamic>>();
+      final spools = (await api.getArray(
+        '/spoolman/inventory/spools',
+      )).cast<Map<String, dynamic>>();
       for (final sp in spools) {
         final id = (sp['id'] as num?)?.toInt() ?? 0;
         if (id != 0) spoolById[id] = sp;
@@ -114,15 +137,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final cards = <PrinterCard>[];
     for (var i = 0; i < printers.length; i++) {
-      cards.add(_buildCard(printers[i], statuses[i], slotToSpool, spoolById));
+      cards.add(
+        _buildCard(
+          printers[i],
+          statuses[i],
+          slotToSpool,
+          slotAssignments,
+          spoolById,
+        ),
+      );
     }
+    cards.sort((a, b) {
+      final byTier = _attentionTier(a).compareTo(_attentionTier(b));
+      if (byTier != 0) return byTier;
+      return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+    });
     return cards;
+  }
+
+  /// Sort priority: 0 = needs attention (plate clear / fault / failed),
+  /// 1 = printing, 2 = idle/standby, 3 = offline.
+  static int _attentionTier(PrinterCard c) {
+    if (c.awaitingClear || c.hasFault) return 0;
+    if (c.stateLabel == 'Printing') return 1;
+    if (c.online) return 2;
+    return 3;
   }
 
   PrinterCard _buildCard(
     Map<String, dynamic> printer,
     Map<String, dynamic>? status,
     Map<String, int> slotToSpool,
+    List<_SlotAssignment> slotAssignments,
     Map<int, Map<String, dynamic>> spoolById,
   ) {
     final card = PrinterCard()
@@ -139,6 +185,11 @@ class _HomeScreenState extends State<HomeScreen> {
     card.online = card.connected;
     card.rawState = status['state'] as String?;
     card.stateLabel = _stateLabel(card.connected, card.rawState);
+    card.awaitingClear = status['awaiting_plate_clear'] == true;
+    final hms = status['hms_errors'];
+    card.hasFault =
+        (hms is List && hms.isNotEmpty) ||
+        (card.rawState != null && card.rawState!.toUpperCase() == 'FAILED');
     final progress = status['progress'];
     card.progress = progress is num ? progress.toDouble() : -1.0;
     card.subtaskName = status['subtask_name'] as String?;
@@ -162,8 +213,16 @@ class _HomeScreenState extends State<HomeScreen> {
         for (var t = 0; t < trays.length; t++) {
           final tray = trays[t] as Map<String, dynamic>?;
           if (tray == null) continue;
-          card.slots.add(_buildSlot(printerId, amsId,
-              (tray['id'] as num?)?.toInt() ?? t, isAmsHt, tray, slotToSpool, spoolById));
+          final slot = _buildSlot(
+            printerId,
+            amsId,
+            (tray['id'] as num?)?.toInt() ?? t,
+            isAmsHt,
+            tray,
+            slotToSpool,
+            spoolById,
+          );
+          if (slot.hasAssignedSpool) card.slots.add(slot);
         }
       }
     }
@@ -171,9 +230,41 @@ class _HomeScreenState extends State<HomeScreen> {
     if (vt != null) {
       for (final raw in vt) {
         if (raw is! Map<String, dynamic>) continue;
-        card.slots.add(_buildSlot(printerId, 255,
-            (raw['id'] as num?)?.toInt() ?? 0, false, raw, slotToSpool, spoolById));
+        final slot = _buildSlot(
+          printerId,
+          255,
+          (raw['id'] as num?)?.toInt() ?? 0,
+          false,
+          raw,
+          slotToSpool,
+          spoolById,
+        );
+        if (slot.hasAssignedSpool) card.slots.add(slot);
       }
+    }
+    final renderedKeys = card.slots
+        .map((slot) => _slotKey(printerId, slot.amsId, slot.trayId))
+        .toSet();
+    for (final assignment in slotAssignments) {
+      if (assignment.printerId != printerId || assignment.amsId != 255) {
+        continue;
+      }
+      final key = _slotKey(
+        assignment.printerId,
+        assignment.amsId,
+        assignment.trayId,
+      );
+      if (renderedKeys.contains(key)) continue;
+      final slot = _buildSlot(
+        printerId,
+        assignment.amsId,
+        assignment.trayId,
+        false,
+        const <String, dynamic>{},
+        slotToSpool,
+        spoolById,
+      );
+      if (slot.hasAssignedSpool) card.slots.add(slot);
     }
     return card;
   }
@@ -191,25 +282,27 @@ class _HomeScreenState extends State<HomeScreen> {
       ..amsId = amsId
       ..trayId = trayId
       ..label = amsId == 255
-          ? 'External'
+          ? 'External Spool'
           : '${isAmsHt ? 'AMS-HT' : 'AMS${amsId + 1}'} · T${trayId + 1}'
       ..colorHex = tray['tray_color'] as String?
-      ..material = _firstNonEmpty(
-          [tray['tray_sub_brands'] as String?, tray['tray_type'] as String?])
+      ..material = _firstNonEmpty([
+        tray['tray_sub_brands'] as String?,
+        tray['tray_type'] as String?,
+      ])
       ..remainPercent = _toDouble(tray['remain'])
-      ..trayState = _toInt(tray['state'])
-      ..occupied = _toInt(tray['state']) != null
-          ? _toInt(tray['state']) != 9
-          : (tray['tray_sub_brands'] != null || tray['tray_type'] != null);
+      ..trayState = _toInt(tray['state']);
 
     final spoolId = slotToSpool[_slotKey(printerId, amsId, trayId)];
     if (spoolId != null) {
+      slot
+        ..spoolId = spoolId
+        ..occupied = true;
       final spool = spoolById[spoolId];
       if (spool != null) {
         slot
-          ..spoolId = spoolId
           ..spoolBrand = spool['brand'] as String?
           ..spoolMaterial = spool['material'] as String?
+          ..spoolSubtype = spool['subtype'] as String?
           ..spoolColorName = spool['color_name'] as String?
           ..spoolRgba = spool['rgba'] as String?
           ..spoolRemaining = _remainingGrams(spool)
@@ -242,7 +335,9 @@ class _HomeScreenState extends State<HomeScreen> {
       case 'PAUSE':
         return 'Paused';
       case 'FINISH':
-        return 'Finishing';
+      case 'FINISHING':
+      case 'FINISHED':
+        return 'Finished';
       case 'IDLE':
         return 'Idle';
       case 'SLICING':
@@ -265,12 +360,6 @@ class _HomeScreenState extends State<HomeScreen> {
   static int? _toInt(dynamic v) =>
       v is num ? v.toInt() : (v == null ? null : int.tryParse('$v'));
 
-  static bool _isAwaitingClear(String? raw) {
-    if (raw == null) return false;
-    final s = raw.toUpperCase();
-    return s == 'FINISH' || s == 'FAILED';
-  }
-
   int _parseColorHex(String? hex) {
     if (hex == null) return 0xFF52525B;
     var h = hex.replaceAll('#', '').trim().toUpperCase();
@@ -290,42 +379,27 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: cs.surfaceContainer,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
+        toolbarHeight: 72,
         titleSpacing: 16,
-        title: Row(children: [
-          Container(
-            width: 28,
-            height: 28,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: cs.primary, borderRadius: BorderRadius.circular(6)),
-            child: Text('B',
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13)),
-          ),
-          const SizedBox(width: 8),
-          Text('Bambuddy',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        ]),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: TextButton(
-              onPressed: () => context.read<AppModel>().lockNow(),
-              style: TextButton.styleFrom(
-                foregroundColor: cs.onSurface,
-                backgroundColor: cs.surfaceContainerHighest,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(999)),
-                minimumSize: const Size(0, 32),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        centerTitle: false,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Crav3dLogo(width: 168, color: Colors.white),
+            const SizedBox(height: 3),
+            Text(
+              'BAMBUDDY',
+              style: TextStyle(
+                color: cs.onSurface,
+                fontSize: 10,
+                fontWeight: FontWeight.w200,
+                letterSpacing: 2,
+                height: 1,
               ),
-              child: const Text('Lock', style: TextStyle(fontSize: 12)),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       body: Column(
         children: [
@@ -334,8 +408,10 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               color: _bannerColor?.withValues(alpha: 0.12),
-              child: Text(_banner!,
-                  style: TextStyle(color: _bannerColor ?? cs.error, fontSize: 13)),
+              child: Text(
+                _banner!,
+                style: TextStyle(color: _bannerColor ?? cs.error, fontSize: 13),
+              ),
             ),
           if (_cards.isNotEmpty) _metricsRow(cs),
           Expanded(
@@ -353,20 +429,30 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (i == 0) {
                                 return Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 6, bottom: 10),
-                                  child: Row(children: [
-                                    Text('Workshop printers',
+                                    top: 6,
+                                    bottom: 10,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Workshop printers',
                                         style: TextStyle(
-                                            color: cs.onSurface,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 13)),
-                                    const Spacer(),
-                                    Text('pull to refresh',
+                                          color: cs.onSurface,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        'pull to refresh',
                                         style: TextStyle(
-                                            color: cs.onSurfaceVariant,
-                                            fontSize: 11,
-                                            fontFamily: 'monospace')),
-                                  ]),
+                                          color: cs.onSurfaceVariant,
+                                          fontSize: 11,
+                                          fontFamily: 'monospace',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               }
                               return Padding(
@@ -383,9 +469,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _metricsRow(ColorScheme cs) {
-    int printing = 0, idle = 0, plate = 0;
+    int printing = 0, idle = 0, plate = 0, fault = 0;
     for (final c in _cards) {
-      if (_isAwaitingClear(c.rawState)) {
+      if (c.hasFault) {
+        fault++;
+      } else if (c.awaitingClear) {
         plate++;
       } else if (c.stateLabel == 'Printing') {
         printing++;
@@ -401,9 +489,10 @@ class _HomeScreenState extends State<HomeScreen> {
         spacing: 8,
         runSpacing: 4,
         children: [
+          if (fault > 0) _metric('$fault fault', cs.error),
+          if (plate > 0) _metric('$plate plate', cs.tertiary),
           _metric('$printing printing', cs.primary),
           _metric('$idle idle', cs.onSurfaceVariant),
-          _metric('$plate plate', cs.tertiary),
         ],
       ),
     );
@@ -416,80 +505,104 @@ class _HomeScreenState extends State<HomeScreen> {
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(label,
-          style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
     );
   }
 
   Widget _buildCardWidget(ColorScheme cs, PrinterCard card) {
     final isA1 = (card.model ?? '').toUpperCase().contains('A1');
+    final modelName = _firstNonEmpty([card.model]);
+    final subtitle =
+        _firstNonEmpty([
+          card.subtaskName,
+          card.online ? 'Ready for spool assignment' : 'No connection',
+        ]) ??
+        '';
     return Card(
       color: cs.surfaceContainerHighest,
       elevation: 0,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-          side: BorderSide(color: cs.outline)),
+        borderRadius: BorderRadius.circular(14),
+        side: BorderSide(color: cs.outline),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Container(
-                width: 70,
-                height: 70,
-                margin: const EdgeInsets.only(right: 12),
-                decoration: BoxDecoration(
-                  color: cs.surfaceContainerLow,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Icon(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 70,
+                  height: 70,
+                  margin: const EdgeInsets.only(right: 12),
+                  decoration: BoxDecoration(
+                    color: cs.surfaceContainerLow,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Icon(
                     isA1 ? Icons.view_in_ar_outlined : Icons.print_outlined,
                     size: 34,
-                    color: cs.onSurfaceVariant),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(card.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                    const SizedBox(height: 3),
-                    Text(
-                      _firstNonEmpty([
-                              card.model,
-                              card.subtaskName,
-                              card.online
-                                  ? 'Ready for spool assignment'
-                                  : 'No connection'
-                            ]) ??
-                          '',
-                      style: TextStyle(color: cs.onSurfaceVariant, fontSize: 12),
-                    ),
-                    if (_tempLine(card).isNotEmpty) ...[
+                    color: cs.onSurfaceVariant,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 20,
+                        child: AutoSizeText(
+                          card.name,
+                          maxLines: 1,
+                          minFontSize: 12,
+                          overflow: TextOverflow.ellipsis,
+                          wrapWords: false,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            height: 1.2,
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 3),
-                      Text(_tempLine(card),
-                          style: TextStyle(
-                              color: cs.onSurfaceVariant, fontSize: 12)),
+                      Row(
+                        children: [
+                          if (modelName != null)
+                            Flexible(child: _modelChip(cs, card.id, modelName))
+                          else
+                            Flexible(
+                              child: Text(
+                                subtitle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: cs.onSurfaceVariant,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          const SizedBox(width: 8),
+                          _statusChip(cs, card),
+                        ],
+                      ),
+                      if (card.nozzleTemp != null || card.bedTemp != null) ...[
+                        const SizedBox(height: 8),
+                        _temperatureBanners(card),
+                      ],
                     ],
-                  ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                decoration: BoxDecoration(
-                  color: card.online
-                      ? cs.primary.withValues(alpha: 0.13)
-                      : cs.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-                child: Text(card.stateLabel,
-                    style: TextStyle(
-                        color: card.online ? cs.primary : cs.onSurfaceVariant,
-                        fontSize: 12)),
-              ),
-            ]),
+              ],
+            ),
             if (card.progress >= 0) ...[
               const SizedBox(height: 10),
               ClipRRect(
@@ -501,21 +614,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-            if (card.online && card.id > 0 && _isAwaitingClear(card.rawState)) ...[
+            if (card.online && card.id > 0 && card.awaitingClear) ...[
               const SizedBox(height: 10),
-              FilledButton.icon(
-                onPressed: () => _clearPlate(card.id),
-                icon: const Icon(Icons.check_circle_outline, size: 18),
-                label: const Text('Mark plate cleared'),
-              ),
+              _GlassClearPlateButton(onPressed: () => _clearPlate(card.id)),
             ],
             if (card.slots.isNotEmpty) ...[
               const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.only(left: 4, bottom: 6),
+                child: Text(
+                  'LOADED FILAMENTS',
+                  style: TextStyle(
+                    color: cs.onSurfaceVariant,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+              ),
               _slotList(cs, card),
-            ] else if (card.online) ...[
-              const SizedBox(height: 8),
-              Text('No AMS loaded',
-                  style: TextStyle(color: cs.onSurfaceVariant, fontSize: 13)),
             ],
           ],
         ),
@@ -523,118 +640,446 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _modelChip(ColorScheme cs, int printerId, String modelName) {
+    return Container(
+      key: ValueKey('model-chip-$printerId'),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: cs.outline),
+      ),
+      child: Text(
+        modelName,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          color: cs.onSurfaceVariant,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _statusChip(ColorScheme cs, PrinterCard card) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      decoration: BoxDecoration(
+        color: card.online
+            ? cs.primary.withValues(alpha: 0.13)
+            : cs.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        card.stateLabel,
+        style: TextStyle(
+          color: card.online ? cs.primary : cs.onSurfaceVariant,
+          fontSize: 12,
+        ),
+      ),
+    );
+  }
+
   Widget _slotList(ColorScheme cs, PrinterCard card) {
     return Container(
-      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: cs.surfaceContainerLow,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-              (card.model ?? '').toUpperCase().contains('A1')
-                  ? 'AMS Lite slots'
-                  : 'AMS slots',
-              style: TextStyle(
-                  color: cs.onSurfaceVariant,
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          ...card.slots.where((s) => s.amsId != 255).map((s) => _slotRow(cs, s)),
+          for (var i = 0; i < card.slots.length; i++) ...[
+            if (i > 0)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: cs.outline.withValues(alpha: 0.4),
+                ),
+              ),
+            _slotRow(cs, card.slots[i]),
+          ],
         ],
       ),
     );
   }
 
   Widget _slotRow(ColorScheme cs, SlotInfo s) {
-    final swatch = Color(_parseColorHex(
-        _firstNonEmpty([s.spoolRgba, s.colorHex]) ?? '0xFF52525B'));
-    final label = !s.occupied
-        ? 'Empty'
-        : _firstNonEmpty([s.spoolMaterial, s.material, s.spoolBrand, 'Loaded'])!;
-    String? sub;
-    if (s.occupied) {
-      final parts = <String>[];
-      if (s.remainPercent != null) parts.add('${s.remainPercent!.round()}%');
-      if (s.spoolRemaining != null) parts.add('~${s.spoolRemaining!.round()} g');
-      sub = parts.join('  ·  ');
-    }
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(children: [
-        Container(
-          width: 14,
-          height: 14,
-          margin: const EdgeInsets.only(right: 8),
-          decoration: BoxDecoration(
-            color: swatch,
-            borderRadius: BorderRadius.circular(3),
-            border: Border.all(color: cs.outline, width: 1),
-          ),
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    final swatch = Color(
+      _parseColorHex(_firstNonEmpty([s.spoolRgba, s.colorHex]) ?? '0xFF52525B'),
+    );
+
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        key: ValueKey('slot-row-${s.spoolId}'),
+        onTap: s.hasAssignedSpool ? () => _showFilamentDetails(s) : null,
+        borderRadius: BorderRadius.circular(10),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          child: Row(
             children: [
-              Text(label,
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: cs.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: cs.outline),
+                ),
+                child: Text(
+                  s.label,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: s.occupied ? cs.onSurface : cs.onSurfaceVariant)),
-              if (sub != null)
-                Text(sub,
-                    style: TextStyle(
-                        color: cs.onSurfaceVariant, fontSize: 11)),
+                    color: cs.onSurfaceVariant,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Container(
+                key: ValueKey('slot-swatch-${s.spoolId}'),
+                width: 14,
+                height: 14,
+                decoration: BoxDecoration(
+                  color: swatch,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: cs.outline),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _filamentTypeLabel(s),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: cs.onSurface,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    Text(
+                      '#${s.spoolId}',
+                      style: TextStyle(
+                        color: cs.onSurfaceVariant,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                _amountLeftLabel(s),
+                style: TextStyle(
+                  color: cs.onSurfaceVariant,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
         ),
-      ]),
+      ),
+    );
+  }
+
+  Future<void> _showFilamentDetails(SlotInfo slot) async {
+    final spoolId = slot.spoolId;
+    if (spoolId == null) return;
+    final swatch = Color(
+      _parseColorHex(
+        _firstNonEmpty([slot.spoolRgba, slot.colorHex]) ?? '0xFF52525B',
+      ),
+    );
+    final brand = _firstNonEmpty([slot.spoolBrand, 'Unknown brand'])!;
+    final type = _filamentTypeLabel(slot);
+    final subtype = _firstNonEmpty([slot.spoolSubtype, slot.spoolColorName]);
+
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (sheetContext) {
+        final cs = Theme.of(sheetContext).colorScheme;
+        return SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        key: ValueKey('filament-detail-swatch-$spoolId'),
+                        width: 24,
+                        height: 24,
+                        margin: const EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          color: swatch,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: cs.outline),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Filament details',
+                          style: TextStyle(
+                            color: cs.onSurface,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  _detailLine(cs, 'Filament ID', spoolId.toString()),
+                  _detailLine(cs, 'Amount left', _amountLeftLabel(slot)),
+                  _detailLine(cs, 'Slot', slot.label),
+                  _detailLine(cs, 'Brand', brand),
+                  _detailLine(cs, 'Type', type),
+                  if (subtype != null) _detailLine(cs, 'Subtype', subtype),
+                  if (slot.spoolColorName != null)
+                    _detailLine(cs, 'Color', slot.spoolColorName!),
+                  const SizedBox(height: 14),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.of(sheetContext).pop(),
+                          child: const Text('Close'),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: () {
+                            Navigator.of(sheetContext).pop();
+                            unawaited(_confirmUnassign(slot));
+                          },
+                          icon: const Icon(Icons.link_off_outlined, size: 17),
+                          label: const Text('Unassign filament'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _detailLine(ColorScheme cs, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 92,
+            child: Text(
+              label,
+              style: TextStyle(color: cs.onSurfaceVariant, fontSize: 12),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                color: cs.onSurface,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _filamentTypeLabel(SlotInfo slot) =>
+      _firstNonEmpty([slot.spoolMaterial, slot.material, 'Unknown type'])!;
+
+  String _amountLeftLabel(SlotInfo slot) {
+    if (slot.spoolRemaining != null) {
+      return '${slot.spoolRemaining!.round()} g';
+    }
+    if (slot.remainPercent != null) {
+      return '${slot.remainPercent!.round()}%';
+    }
+    return 'Amount unknown';
+  }
+
+  Widget _temperatureBanners(PrinterCard card) {
+    return Wrap(
+      spacing: 6,
+      runSpacing: 6,
+      children: [
+        if (card.nozzleTemp != null)
+          _temperatureChip(
+            key: const ValueKey('nozzle-temperature-chip'),
+            icon: Icons.local_fire_department_outlined,
+            label: 'Nozzle ${card.nozzleTemp!.round()}°C',
+            color: const Color(0xFFEA580C),
+          ),
+        if (card.bedTemp != null)
+          _temperatureChip(
+            key: const ValueKey('bed-temperature-chip'),
+            icon: Icons.layers_outlined,
+            label: 'Bed ${card.bedTemp!.round()}°C',
+            color: const Color(0xFF2563EB),
+          ),
+      ],
+    );
+  }
+
+  Widget _temperatureChip({
+    required Key key,
+    required IconData icon,
+    required String label,
+    required Color color,
+  }) {
+    return Container(
+      key: key,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.13),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 13, color: color),
+          const SizedBox(width: 5),
+          Text(label, style: TextStyle(color: color, fontSize: 12)),
+        ],
+      ),
     );
   }
 
   Widget _emptyState(ColorScheme cs) {
-    return ListView(children: [
-      const SizedBox(height: 80),
-      Center(
-        child: Column(children: [
-          Icon(Icons.print_disabled_outlined,
-              size: 72, color: cs.onSurfaceVariant),
-          const SizedBox(height: 16),
-          Text('No printers connected',
-              style: TextStyle(
+    return ListView(
+      children: [
+        const SizedBox(height: 80),
+        Center(
+          child: Column(
+            children: [
+              Icon(
+                Icons.print_disabled_outlined,
+                size: 72,
+                color: cs.onSurfaceVariant,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'No printers connected',
+                style: TextStyle(
                   color: cs.onSurface,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          SizedBox(
-            width: 280,
-            child: Text(
-              'No printers configured. Add printers in the Bambuddy web UI.',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: cs.onSurfaceVariant, fontSize: 14),
-            ),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 6),
+              SizedBox(
+                width: 280,
+                child: Text(
+                  'No printers configured. Add printers in the Bambuddy web UI.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: cs.onSurfaceVariant, fontSize: 14),
+                ),
+              ),
+            ],
           ),
-        ]),
-      ),
-    ]);
+        ),
+      ],
+    );
   }
 
-  String _tempLine(PrinterCard card) {
-    final parts = <String>[];
-    if (card.nozzleTemp != null) parts.add('${card.nozzleTemp!.round()}°C');
-    if (card.bedTemp != null) {
-      parts.add('${parts.isNotEmpty ? '/ ' : ''}${card.bedTemp!.round()}°C');
+  Future<void> _confirmUnassign(SlotInfo slot) async {
+    final spoolId = slot.spoolId;
+    if (spoolId == null) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Unassign filament?'),
+        content: Text('Remove spool #$spoolId from ${slot.label}.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Unassign'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) {
+      await _unassignSlot(slot);
     }
-    return parts.join(' ');
+  }
+
+  Future<void> _unassignSlot(SlotInfo slot) async {
+    final spoolId = slot.spoolId;
+    if (spoolId == null) return;
+    AppModel? model;
+    try {
+      model = context.read<AppModel>();
+    } catch (_) {
+      model = null;
+    }
+    try {
+      _api ??= await (widget.apiClientFactory?.call() ?? ApiClient.create());
+      await _api!.delete('/spoolman/inventory/slot-assignments/$spoolId');
+      final cards = await _fetchCards(_api!);
+      if (!mounted) return;
+      setState(() {
+        _cards = cards;
+        _loading = false;
+        _banner = 'Unassigned spool #$spoolId from ${slot.label}.';
+        _bannerColor = Theme.of(context).colorScheme.primary;
+      });
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      if (e.isUnauthorized) {
+        if (model != null) {
+          await model.signOut();
+          return;
+        }
+      }
+      setState(() {
+        _banner = 'Could not unassign spool #$spoolId: ${e.detailMessage()}';
+        _bannerColor = Theme.of(context).colorScheme.error;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _banner = 'Could not unassign spool #$spoolId: $e';
+        _bannerColor = Theme.of(context).colorScheme.error;
+      });
+    }
   }
 
   Future<void> _clearPlate(int printerId) async {
     final model = context.read<AppModel>();
     try {
-      _api ??= await ApiClient.create();
+      _api ??= await (widget.apiClientFactory?.call() ?? ApiClient.create());
       await _api!.post('/printers/$printerId/clear-plate');
       if (!mounted) return;
       setState(() {
@@ -645,11 +1090,13 @@ class _HomeScreenState extends State<HomeScreen> {
     } on ApiException catch (e) {
       if (!mounted) return;
       if (e.isUnauthorized) {
-        await SessionStore.clearCredentials();
-        model.logoutToSetup();
+        await model.signOut();
         return;
       }
-      final msg = e.statusCode == 400
+      final msg = e.isForbidden
+          ? 'This account cannot control the printer. Ask an admin to grant '
+                'printer control permission.'
+          : e.statusCode == 400
           ? 'Printer is not awaiting plate-clear.'
           : 'Could not clear plate: ${e.detailMessage()}';
       setState(() {
@@ -668,6 +1115,8 @@ class PrinterCard {
   bool connected = false;
   String? rawState;
   String stateLabel = '';
+  bool awaitingClear = false;
+  bool hasFault = false;
   double progress = -1;
   String? subtaskName;
   double? nozzleTemp;
@@ -687,9 +1136,86 @@ class SlotInfo {
   int? spoolId;
   String? spoolBrand;
   String? spoolMaterial;
+  String? spoolSubtype;
   String? spoolColorName;
   String? spoolRgba;
   double? spoolRemaining;
   int? spoolLabelWeight;
+
+  bool get hasAssignedSpool => spoolId != null;
 }
 
+class _SlotAssignment {
+  const _SlotAssignment({
+    required this.printerId,
+    required this.amsId,
+    required this.trayId,
+    required this.spoolId,
+  });
+
+  final int printerId;
+  final int amsId;
+  final int trayId;
+  final int spoolId;
+}
+
+/// Subtle "clear plate" action rendered as a frosted yellow glass pill so the
+/// warning tone reads without dominating the card. The [BackdropFilter] frosts
+/// whatever sits behind it; the translucent yellow gradient + edge give it the
+/// glass sheen.
+class _GlassClearPlateButton extends StatelessWidget {
+  const _GlassClearPlateButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  static const Color _yellow = Color(0xFFFACC15);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                _yellow.withValues(alpha: 0.30),
+                _yellow.withValues(alpha: 0.12),
+              ],
+            ),
+            border: Border.all(color: _yellow.withValues(alpha: 0.45)),
+          ),
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              onTap: onPressed,
+              child: const SizedBox(
+                height: 48,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(Icons.check_circle_outline, size: 18, color: _yellow),
+                    SizedBox(width: 8),
+                    Text(
+                      'Mark plate cleared',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

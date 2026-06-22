@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Baked build secrets (API key / base URL / PIN) — never commit the real file.
+# Copy baked-config.example.json → baked-config.json and fill in real values.
+baked-config.json

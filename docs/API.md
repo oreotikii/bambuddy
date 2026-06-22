@@ -12,18 +12,26 @@ concrete call sites.
 ## Conventions
 
 - **Base path:** every endpoint is prefixed with `/api/v1`. The client builds
-  URLs as `{base_url}/api/v1{path}` where `base_url` is the user-configured
-  Bambuddy instance URL (no trailing slash, no query/fragment — see
+  URLs as `{base_url}/api/v1{path}` where `base_url` is the baked Bambuddy
+  instance URL (no trailing slash, no query/fragment — see
   `UrlValidator`).
-- **Auth:** every request carries `X-API-Key: <key>`. The key is provisioned in
-  Bambuddy → Settings → API Keys and stored locally by the app (or baked into
-  the build via `--dart-define=BAMBUDDY_API_KEY`).
+- **Auth:** the user signs in once with `POST /auth/login` (username +
+  password). The returned `access_token` (a ~24h, **non-refreshable** bearer) is
+  sent as `Authorization: Bearer <token>`. To avoid daily re-login, the app also
+  stores the username + password in `flutter_secure_storage` and **silently
+  re-logs in on a 401** (token expired), retrying the request once. Requires 2FA
+  **off** for the account. This client does not use `X-API-Key` fallback.
 - **Headers:** `Accept: application/json`; `Content-Type: application/json` on
   requests with a body.
 - **Transport:** 12 s connect/read timeout; redirects are **not** followed.
-- **Auth errors:** HTTP `401` / `403` are treated as "unauthorized" and surface
-  a re-auth / reconfigure prompt in the app. All other non-2xx raise a generic
-  API error carrying the status code and raw body.
+- **Auth errors:** HTTP `401` (missing/invalid bearer, or credentials that could
+  not be refreshed) is treated as "unauthorized"; the app clears the stored
+  credentials and returns to login. HTTP `403` means the session is **valid but
+  lacks the required permission/scope** (e.g.
+  `can_control_printer` for `POST /printers/{id}/clear-plate`) — the app keeps
+  the session and shows an actionable permission error instead of forcing
+  re-login. All other non-2xx raise a generic API error carrying the status
+  code and raw body.
 - **Errors:** failures return a JSON `detail` object of the shape
   `{ "ok": false, "code": "<CODE>", "message": "...", ... }`. See
   [Error codes](#error-codes).
@@ -81,11 +89,28 @@ depending on `inventory_mode`).
 
 ## Endpoints
 
-### `GET /auth/status`
+### `POST /auth/login`
 
-Instance validation / health probe used during setup. Returns the instance
-auth configuration (whether auth is enabled, etc.). A 2xx means the base URL is
-a reachable Bambuddy instance.
+Credentials sign-in (B+). Body `{ "username", "password" }`. **200** returns:
+
+```json
+{
+  "access_token": "<jwt>",
+  "token_type": "bearer",
+  "user": { /* UserResponse */ },
+  "requires_2fa": false,
+  "pre_auth_token": null,
+  "two_fa_methods": []
+}
+```
+
+- `access_token` is a ~24h, **non-refreshable** bearer (claims: `sub`, `exp`,
+  `iat`, `jti`). There is **no** refresh endpoint, so the app stores the
+  credentials and re-logs in on expiry rather than refreshing.
+- `requires_2fa == true` → the account has 2FA on; silent sign-in can't
+  complete (use an account without 2FA, or disable 2FA for the account). The
+  client surfaces this as a login error.
+- Bad credentials → HTTP 401.
 
 ### `GET /mobile-assignment/resolve-printer?code=<code>`
 
@@ -127,7 +152,7 @@ mode). Includes the spool's current assignment, if any.
   "brand": "Polymaker",
   "vendor": "Polymaker",
   "color_name": "Black",
-  "rgba": "000000",
+  "rgba": "000000FF",
   "remaining_grams": 870.5,
   "label_weight": 1000.0,
   "weight_used": 129.5,
@@ -144,7 +169,13 @@ mode). Includes the spool's current assignment, if any.
 ```
 
 `remaining_grams = max(0, label_weight - weight_used)`. `current_assignment` is
-`null` when the spool is not assigned anywhere.
+`null` when the spool is not assigned anywhere. `rgba` is an **8-hex
+`RRGGBBAA`** string (alpha last); the client tolerates a 6-hex `RRGGBB` too.
+
+This mobile summary is intentionally small. The weigh screen additionally calls
+`GET /spoolman/inventory/spools/{id}` (below) for the fields the summary omits:
+the empty spool weight (`core_weight`), `subtype`, and the multi-color / effect
+metadata (`extra_colors`, `effect_type`).
 
 Errors: `400` (bad code), `404` `SPOOL_NOT_FOUND`, `400` `SPOOL_ARCHIVED`,
 `502` (Spoolman returned malformed data).
@@ -256,35 +287,96 @@ Printer list used by the home/status screen. Returns the printers and their
 live status (connected, state). Used to render printer status before the
 operator scans a code.
 
+### `GET /printers/{id}/status`
+
+Live status for one printer. Selected fields consumed by the home screen:
+
+```json
+{
+  "id": 3,
+  "name": "Farmloop A1 AMS - White",
+  "connected": true,
+  "state": "FINISH",
+  "progress": 100.0,
+  "subtask_name": "Individual_Awards_Names_List",
+  "awaiting_plate_clear": true,
+  "temperatures": { "bed": 32.25, "nozzle": 32.15625 },
+  "ams": [ /* { id, is_ams_ht, tray: [ { id, tray_color, tray_type, remain, state } ] } */ ],
+  "vt_tray": []
+}
+```
+
+- **`state`** — the printer's `gcode_state` (`IDLE`, `RUNNING`/`PRINTING`,
+  `PAUSE`, `FINISH`, `FAILED`, `SLICING`, …). **Do not** infer "needs plate
+  clear" from this: BambuLab printers linger on `FINISH` long after the plate
+  has been cleared.
+- **`awaiting_plate_clear`** — the authoritative boolean the home screen keys
+  off (and what the web UI shows). The clear-plate action / metric must use
+  this field, not `state`. Several printers can report `state == "FINISH"` with
+  `awaiting_plate_clear == false`.
+
+### `POST /printers/{id}/clear-plate` (and equivalents)
+
+Clear-plate / tray actions surfaced from the home screen. Sent as a POST with
+no body. Surface the trigger only when the printer's status reports
+`awaiting_plate_clear == true`; the server returns `400` if the printer is not
+awaiting a clear.
+
 ### Spoolman inventory (Spoolman mode)
 
-- `GET /spoolman/inventory/spools` — list spools.
-- `GET /spoolman/inventory/spools/{id}` — single spool detail.
+- `GET /spoolman/inventory/spools` — list spools (`SpoolResponse[]`). The weigh
+  screen derives the **Location** dropdown from the distinct non-empty
+  `storage_location` values across the list.
+- `GET /spoolman/inventory/spools/{id}` — single spool detail
+  (`SpoolResponse`). The weigh screen fetches this for the fields the mobile
+  resolve-spool summary omits: `core_weight` (empty spool weight), `subtype`,
+  `extra_colors` (a string of additional color hexes, split client-side on
+  commas/semicolons/spaces), `effect_type` (e.g. "Silk", "Matte"), and
+  `storage_location`.
 - `GET /spoolman/inventory/slot-assignments/all` — all current slot → spool
   assignments across printers.
+- `DELETE /spoolman/inventory/slot-assignments/{spoolman_spool_id}` —
+  unassign the given Spoolman spool from whichever printer slot currently owns
+  it. The status screen uses this when an operator taps a loaded filament row
+  and confirms removal.
 - `GET /spoolman/status` — `{ enabled, connected, url }`; useful to show whether
   Spoolman is reachable.
 
 ### `PATCH /spoolman/inventory/spools/{id}/weigh`
 
-Record a weighing. The client computes the remaining filament locally with
-`WeighMath.remainingWeight(measured, tare) = max(0, measured - tare)` and submits
-the measured/remaining values; the server applies the same formula and updates
-`weight_used` / remaining. `measured` is the full scale reading, `tare` is the
-empty-spool weight for that spool's material/brand.
+The weigh screen's save action. Records a weigh in a single call: the scale
+reading (`measured_weight`, filament + spool), the empty spool weight
+(`empty_spool_weight`), and/or the storage `location`. Only the changed fields
+are sent — none are required:
 
-### `POST /printers/{id}/clear-plate` (and equivalents)
+```json
+{
+  "measured_weight": 1050.5,
+  "empty_spool_weight": 200,
+  "location": "Shelf 3"
+}
+```
 
-Clear-plate / tray actions surfaced from the home screen. Sent as a POST with
-no body.
+The server derives the remaining filament weight from `measured_weight -
+empty_spool_weight`. (A separate `PATCH /spoolman/inventory/spools/{id}/weight`
+accepts `{ "weight_grams": ... }` to set the remaining weight directly; the app
+uses the purpose-built `/weigh` endpoint above for the operator weigh flow.)
+
+### Locations dropdown
+
+The **Location** dropdown is populated from `GET /spoolman/inventory/spools`:
+distinct non-empty `storage_location` values, sorted. The resolved spool's own
+`storage_location` / `current_location` is always selectable even before the
+list loads. When Spoolman is unavailable the dropdown degrades to the single
+current value.
 
 ## Error codes
 
 | HTTP | `code`                  | Meaning                                                  | Confirmable via       |
 | ---- | ----------------------- | -------------------------------------------------------- | --------------------- |
 | 400  | _(various)_             | Malformed code / archived spool (`SPOOL_ARCHIVED`).      | —                     |
-| 401  | —                       | Missing/invalid API key.                                 | —                     |
-| 403  | —                       | API key lacks the required permission.                   | —                     |
+| 401  | —                       | Missing/invalid bearer token.                            | —                     |
+| 403  | —                       | Signed-in account lacks the required permission.         | —                     |
 | 404  | `PRINTER_NOT_FOUND`     | No printer matches the code/id.                          | —                     |
 | 404  | `SPOOL_NOT_FOUND`       | No spool matches the code/id.                            | —                     |
 | 404  | `TARGET_SLOT_NOT_FOUND` | The chosen AMS/slot is not available for this printer.   | —                     |

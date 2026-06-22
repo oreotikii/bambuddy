@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 /// Raised by [ApiClient] on a non-2xx response or network failure.
-/// [isUnauthorized] is true for HTTP 401/403, which the UI uses to bounce the
-/// user back to setup (bad API key). Ported from ApiException.java.
+/// Ported from ApiException.java.
 class ApiException implements Exception {
   final String message;
   final int statusCode;
@@ -10,7 +9,15 @@ class ApiException implements Exception {
 
   ApiException(this.message, this.statusCode, [this.responseBody]);
 
-  bool get isUnauthorized => statusCode == 401 || statusCode == 403;
+  /// True for a genuine authentication failure (HTTP 401) — the bearer token is
+  /// missing, expired, or invalid. The UI should prompt for re-login.
+  bool get isUnauthorized => statusCode == 401;
+
+  /// True when the session is valid but lacks the required permission/scope
+  /// (HTTP 403, e.g. `can_control_printer`). The session is still
+  /// authenticated, so the UI should surface a permission error rather than
+  /// wiping credentials and forcing re-login.
+  bool get isForbidden => statusCode == 403;
 
   /// Best-effort extraction of a FastAPI "detail" message from the body.
   String detailMessage() {

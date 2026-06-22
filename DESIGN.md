@@ -100,11 +100,6 @@ components:
     width: "44px"
 ---
 
-> **Scope note (read this):** This documents the **upstream Bambuddy WEB app's** design
-> language. It is **brand/design reference only** for the Android app
-> (`apps/filament-assignment-android/`) — not an Android implementation spec. `frontend/`
-> is read-only. See `/AGENTS.md`.
-
 # Design System: Bambuddy
 
 ## 1. Overview

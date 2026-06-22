@@ -1,0 +1,107 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="greenGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#00C853" flood-opacity="0.38"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="redGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feFlood flood-color="#EF4444" flood-opacity="0.28"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .font { font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif; }
+      .label { fill: #A1A1AA; font-size: 24px; font-weight: 600; }
+      .small { fill: #A1A1AA; font-size: 18px; font-weight: 500; }
+      .swatchLabel { fill: #FAFAFA; font-size: 18px; font-weight: 700; }
+      .hex { fill: #A1A1AA; font-size: 15px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#050505"/>
+  <path d="M80 176C228 96 337 288 484 203C631 118 723 118 882 198C1041 278 1147 136 1327 186C1438 217 1492 274 1532 324" stroke="#27272A" stroke-width="2"/>
+  <path d="M102 740C257 628 366 777 516 688C656 605 773 594 920 702C1088 825 1231 600 1490 690" stroke="#202027" stroke-width="2"/>
+
+  <text x="80" y="92" class="font" fill="#FFFFFF" font-size="30" font-weight="700" letter-spacing="0">CRAV3D</text>
+  <text x="80" y="134" class="font" fill="#A1A1AA" font-size="22" font-weight="600">Bambuddy Assign setup/PIN palette</text>
+  <text x="1254" y="92" class="font" fill="#FFFFFF" font-size="24" font-weight="800">Plus Jakarta Sans</text>
+  <text x="1254" y="124" class="font" fill="#A1A1AA" font-size="16" font-weight="600">mobile app UI type direction</text>
+
+  <g transform="translate(80 190)">
+    <rect x="0" y="0" width="650" height="440" rx="28" fill="#18181B" stroke="#3F3F46"/>
+    <rect x="42" y="46" width="566" height="348" rx="24" fill="#27272A" stroke="#3F3F46"/>
+    <text x="78" y="101" class="font" fill="#FFFFFF" font-size="24" font-weight="800">Material stack</text>
+    <text x="78" y="134" class="font" fill="#A1A1AA" font-size="16" font-weight="600">background / panel / input / focus / error</text>
+
+    <rect x="78" y="176" width="492" height="66" rx="14" fill="#323238" stroke="#3F3F46" stroke-width="2"/>
+    <text x="102" y="216" class="font" fill="#A1A1AA" font-size="18" font-weight="600">Idle recessed input</text>
+
+    <rect x="78" y="268" width="492" height="66" rx="14" fill="#323238" stroke="#00C853" stroke-width="2.5" filter="url(#greenGlow)"/>
+    <text x="102" y="309" class="font" fill="#FAFAFA" font-size="18" font-weight="700">Focused input with active border glow</text>
+
+    <rect x="78" y="360" width="492" height="66" rx="14" fill="#451A1A" stroke="#EF4444" stroke-width="2" filter="url(#redGlow)"/>
+    <text x="102" y="401" class="font" fill="#FCA5A5" font-size="18" font-weight="700">Error state uses same structure</text>
+  </g>
+
+  <g transform="translate(815 190)">
+    <text x="0" y="0" class="font" fill="#FFFFFF" font-size="44" font-weight="800">Bambuddy Assign</text>
+    <text x="0" y="58" class="font" fill="#FAFAFA" font-size="25" font-weight="750">Connect to your Bambuddy server</text>
+    <text x="0" y="104" class="font" fill="#A1A1AA" font-size="19" font-weight="600">Server URL</text>
+    <rect x="0" y="126" width="600" height="64" rx="14" fill="#323238" stroke="#00C853" stroke-width="2.5" filter="url(#greenGlow)"/>
+    <text x="24" y="166" class="font" fill="#FAFAFA" font-size="20" font-weight="650">https://bambuddy.local</text>
+    <text x="0" y="230" class="font" fill="#A1A1AA" font-size="17" font-weight="600">API key: read, inventory write, and printer control.</text>
+    <rect x="0" y="266" width="600" height="58" rx="14" fill="#00C853"/>
+    <text x="270" y="302" class="font" fill="#050505" font-size="18" font-weight="850" text-anchor="middle">Connect</text>
+
+    <text x="0" y="392" class="font" fill="#FAFAFA" font-size="23" font-weight="800">Enter PIN to continue</text>
+    <g transform="translate(0 427)">
+      <rect x="0" y="0" width="82" height="104" rx="18" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <circle cx="41" cy="52" r="8" fill="#FFFFFF"/>
+      <rect x="110" y="0" width="82" height="104" rx="18" fill="#171717" stroke="#00C853" stroke-width="3" filter="url(#greenGlow)"/>
+      <rect x="220" y="0" width="82" height="104" rx="18" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <rect x="330" y="0" width="82" height="104" rx="18" fill="#171717" stroke="#384255" stroke-width="3"/>
+    </g>
+  </g>
+
+  <g transform="translate(80 710)">
+    <g>
+      <rect width="130" height="74" rx="14" fill="#FFFFFF"/><text x="0" y="104" class="font swatchLabel">CRAV3D White</text><text x="0" y="128" class="font hex">#FFFFFF</text>
+    </g>
+    <g transform="translate(154 0)">
+      <rect width="130" height="74" rx="14" fill="#18181B" stroke="#3F3F46"/><text x="0" y="104" class="font swatchLabel">App Bg</text><text x="0" y="128" class="font hex">#18181B</text>
+    </g>
+    <g transform="translate(308 0)">
+      <rect width="130" height="74" rx="14" fill="#27272A" stroke="#3F3F46"/><text x="0" y="104" class="font swatchLabel">Panel</text><text x="0" y="128" class="font hex">#27272A</text>
+    </g>
+    <g transform="translate(462 0)">
+      <rect width="130" height="74" rx="14" fill="#323238" stroke="#3F3F46"/><text x="0" y="104" class="font swatchLabel">Input</text><text x="0" y="128" class="font hex">#323238</text>
+    </g>
+    <g transform="translate(616 0)">
+      <rect width="130" height="74" rx="14" fill="#3F3F46"/><text x="0" y="104" class="font swatchLabel">Hairline</text><text x="0" y="128" class="font hex">#3F3F46</text>
+    </g>
+    <g transform="translate(770 0)">
+      <rect width="130" height="74" rx="14" fill="#A1A1AA"/><text x="0" y="104" class="font swatchLabel">Muted Copy</text><text x="0" y="128" class="font hex">#A1A1AA</text>
+    </g>
+    <g transform="translate(924 0)">
+      <rect width="130" height="74" rx="14" fill="#00C853"/><text x="0" y="104" class="font swatchLabel">Active Green</text><text x="0" y="128" class="font hex">#00C853</text>
+    </g>
+    <g transform="translate(1078 0)">
+      <rect width="130" height="74" rx="14" fill="#064E2D"/><text x="0" y="104" class="font swatchLabel">Deep Green</text><text x="0" y="128" class="font hex">#064E2D</text>
+    </g>
+    <g transform="translate(1232 0)">
+      <rect width="130" height="74" rx="14" fill="#EF4444"/><text x="0" y="104" class="font swatchLabel">Error Red</text><text x="0" y="128" class="font hex">#EF4444</text>
+    </g>
+    <g transform="translate(1386 0)">
+      <rect width="130" height="74" rx="14" fill="#F59E0B"/><text x="0" y="104" class="font swatchLabel">Warning</text><text x="0" y="128" class="font hex">#F59E0B</text>
+    </g>
+  </g>
+</svg>

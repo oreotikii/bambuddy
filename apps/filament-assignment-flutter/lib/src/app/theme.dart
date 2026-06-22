@@ -11,6 +11,7 @@ const Color _kInk = Color(0xFFFAFAFA);
 const Color _kDim = Color(0xFFA1A1AA);
 const Color _kRed = Color(0xFFEF4444);
 const Color _kAmber = Color(0xFFF59E0B);
+const String _kFontFamily = 'Plus Jakarta Sans';
 
 ColorScheme _colorScheme(Brightness brightness) {
   final base = ColorScheme.fromSeed(seedColor: _kGreen, brightness: brightness);
@@ -42,58 +43,62 @@ ColorScheme _colorScheme(Brightness brightness) {
 }
 
 InputDecorationTheme _inputTheme(ColorScheme cs) => InputDecorationTheme(
-      filled: true,
-      fillColor: _kField,
-      hintStyle: const TextStyle(color: _kDim),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: _kStroke),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: _kStroke),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: _kGreen, width: 1.5),
-      ),
-    );
+  filled: true,
+  fillColor: _kField,
+  hintStyle: const TextStyle(color: _kDim),
+  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10),
+    borderSide: const BorderSide(color: _kStroke),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10),
+    borderSide: const BorderSide(color: _kStroke),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10),
+    borderSide: const BorderSide(color: _kGreen, width: 1.5),
+  ),
+);
 
 ButtonStyle _filledStyle() => FilledButton.styleFrom(
-      backgroundColor: _kGreen,
-      foregroundColor: Colors.black,
-      disabledBackgroundColor: _kGreen.withValues(alpha: 0.4),
-      minimumSize: const Size.fromHeight(48),
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-    );
+  backgroundColor: _kGreen,
+  foregroundColor: Colors.black,
+  disabledBackgroundColor: _kGreen.withValues(alpha: 0.4),
+  minimumSize: const Size.fromHeight(48),
+  padding: const EdgeInsets.symmetric(horizontal: 14),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+);
 
 ButtonStyle _outlinedStyle(ColorScheme cs) => OutlinedButton.styleFrom(
-      foregroundColor: _kInk,
-      minimumSize: const Size.fromHeight(44),
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      side: const BorderSide(color: _kStroke),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      textStyle: const TextStyle(fontSize: 14),
-    );
+  foregroundColor: _kInk,
+  minimumSize: const Size.fromHeight(44),
+  padding: const EdgeInsets.symmetric(horizontal: 14),
+  side: const BorderSide(color: _kStroke),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  textStyle: const TextStyle(fontSize: 14),
+);
 
 ThemeData bambuddyTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
+  fontFamily: _kFontFamily,
   colorScheme: _colorScheme(Brightness.dark),
   scaffoldBackgroundColor: _kBg,
   splashFactory: NoSplash.splashFactory,
   inputDecorationTheme: _inputTheme(_colorScheme(Brightness.dark)),
   filledButtonTheme: FilledButtonThemeData(style: _filledStyle()),
-  outlinedButtonTheme:
-      OutlinedButtonThemeData(style: _outlinedStyle(_colorScheme(Brightness.dark))),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: _outlinedStyle(_colorScheme(Brightness.dark)),
+  ),
   navigationBarTheme: NavigationBarThemeData(
     backgroundColor: _kBar,
     surfaceTintColor: Colors.transparent,
     indicatorColor: _kGreenDark,
-    indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    indicatorShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
     labelTextStyle: WidgetStateProperty.resolveWith((states) {
       final active = states.contains(WidgetState.selected);
       return TextStyle(

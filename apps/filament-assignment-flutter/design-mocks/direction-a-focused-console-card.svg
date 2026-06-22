@@ -1,0 +1,64 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="greenGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feFlood flood-color="#00C853" flood-opacity="0.38"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .font { font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif; }
+      .muted { fill: #A1A1AA; }
+      .ink { fill: #FAFAFA; }
+      .label { fill: #A1A1AA; font-size: 18px; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="#050505"/>
+  <text x="80" y="88" class="font ink" font-size="30" font-weight="850">Direction A / Focused Console Card</text>
+  <text x="80" y="124" class="font muted" font-size="18" font-weight="600">Contained, polished, safest app-like setup and lock flow.</text>
+
+  <g transform="translate(186 155)">
+    <rect x="0" y="0" width="430" height="790" rx="46" fill="#0B0B0D" stroke="#3F3F46" stroke-width="3"/>
+    <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
+    <path d="M45 180C108 129 157 220 221 177C277 140 320 144 382 188" stroke="#27272A" stroke-width="2"/>
+    <text x="50" y="82" class="font ink" font-size="28" font-weight="850">CRAV3D</text>
+    <text x="50" y="111" class="font muted" font-size="14" font-weight="700">Bambuddy Assign</text>
+
+    <rect x="38" y="148" width="354" height="500" rx="26" fill="#27272A" stroke="#3F3F46"/>
+    <text x="68" y="202" class="font ink" font-size="26" font-weight="850">Connect server</text>
+    <text x="68" y="232" class="font muted" font-size="15" font-weight="600">Enter your Bambuddy details.</text>
+
+    <text x="68" y="286" class="font label">Server URL</text>
+    <rect x="68" y="303" width="294" height="62" rx="14" fill="#323238" stroke="#00C853" stroke-width="2.5" filter="url(#greenGlow)"/>
+    <text x="88" y="342" class="font ink" font-size="16" font-weight="650">https://bambuddy.local</text>
+
+    <text x="68" y="398" class="font label">API key</text>
+    <rect x="68" y="415" width="294" height="62" rx="14" fill="#323238" stroke="#3F3F46" stroke-width="2"/>
+    <text x="88" y="454" class="font muted" font-size="16" font-weight="650">bb_****************</text>
+    <text x="68" y="510" class="font muted" font-size="13" font-weight="600">Requires read, inventory write, and printer control.</text>
+
+    <rect x="68" y="552" width="294" height="58" rx="14" fill="#00C853"/>
+    <text x="215" y="588" class="font" fill="#050505" font-size="17" font-weight="850" text-anchor="middle">Connect</text>
+    <text x="215" y="700" class="font muted" font-size="12" font-weight="700" text-anchor="middle">v1.0 / internal build</text>
+  </g>
+
+  <g transform="translate(982 155)">
+    <rect x="0" y="0" width="430" height="790" rx="46" fill="#0B0B0D" stroke="#3F3F46" stroke-width="3"/>
+    <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
+    <path d="M44 206C126 144 178 242 244 184C306 130 336 160 386 206" stroke="#27272A" stroke-width="2"/>
+    <text x="215" y="126" class="font ink" font-size="31" font-weight="850" text-anchor="middle">CRAV3D</text>
+    <text x="215" y="157" class="font muted" font-size="14" font-weight="700" text-anchor="middle">Bambuddy Assign</text>
+    <text x="215" y="286" class="font muted" font-size="19" font-weight="750" text-anchor="middle">Enter PIN to continue</text>
+
+    <g transform="translate(53 350)">
+      <rect x="0" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <circle cx="34" cy="43" r="7" fill="#FFFFFF"/>
+      <rect x="85" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#00C853" stroke-width="3" filter="url(#greenGlow)"/>
+      <rect x="170" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <rect x="255" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+    </g>
+    <text x="215" y="694" class="font muted" font-size="15" font-weight="700" text-anchor="middle">Change server / API key</text>
+  </g>
+
+  <text x="800" y="942" class="font muted" font-size="16" font-weight="650" text-anchor="middle">Carry forward: shared panel language, CRAV3D identity, focused green border glow, tactile PIN boxes.</text>
+</svg>

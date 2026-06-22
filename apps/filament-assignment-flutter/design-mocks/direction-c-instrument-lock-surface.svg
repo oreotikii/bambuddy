@@ -1,0 +1,82 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="greenGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#00C853" flood-opacity="0.38"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
+    <style>
+      .font { font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif; }
+      .muted { fill: #A1A1AA; }
+      .ink { fill: #FAFAFA; }
+      .label { fill: #A1A1AA; font-size: 17px; font-weight: 750; }
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="#050505"/>
+  <text x="80" y="88" class="font ink" font-size="30" font-weight="850">Direction C / Instrument Lock Surface</text>
+  <text x="80" y="124" class="font muted" font-size="18" font-weight="600">Less carded, more app-native; CRAV3D identity plus strong input focus states.</text>
+
+  <g transform="translate(186 155)">
+    <rect x="0" y="0" width="430" height="790" rx="46" fill="#0B0B0D" stroke="#3F3F46" stroke-width="3"/>
+    <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
+    <path d="M31 180C110 106 173 212 248 154C309 107 343 140 400 166" stroke="#27272A" stroke-width="2"/>
+    <path d="M40 651C129 603 191 688 271 625C331 578 360 606 392 626" stroke="#202027" stroke-width="2"/>
+    <text x="42" y="78" class="font ink" font-size="25" font-weight="850">CRAV3D</text>
+    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">Bambuddy Assign</text>
+
+    <g transform="translate(42 152)">
+      <rect x="0" y="0" width="158" height="34" rx="999" fill="#27272A" stroke="#3F3F46"/>
+      <text x="79" y="23" class="font ink" font-size="12" font-weight="800" text-anchor="middle">Internal connection</text>
+      <rect x="170" y="0" width="142" height="34" rx="999" fill="#27272A" stroke="#3F3F46"/>
+      <text x="241" y="23" class="font muted" font-size="12" font-weight="800" text-anchor="middle">Stored on device</text>
+    </g>
+
+    <text x="42" y="248" class="font ink" font-size="29" font-weight="850">Connect to Bambuddy</text>
+    <text x="42" y="279" class="font muted" font-size="15" font-weight="650">Use the local server and API key for this app.</text>
+
+    <text x="42" y="345" class="font label">Server URL</text>
+    <rect x="42" y="362" width="346" height="64" rx="16" fill="#323238" stroke="#00C853" stroke-width="2.5" filter="url(#greenGlow)"/>
+    <text x="64" y="402" class="font ink" font-size="16" font-weight="700">https://bambuddy.local</text>
+
+    <text x="42" y="471" class="font label">API key</text>
+    <rect x="42" y="488" width="346" height="64" rx="16" fill="#323238" stroke="#3F3F46" stroke-width="2"/>
+    <text x="64" y="528" class="font muted" font-size="16" font-weight="650">bb_****************</text>
+
+    <rect x="42" y="580" width="346" height="48" rx="14" fill="#451A1A" stroke="#EF4444"/>
+    <text x="62" y="611" class="font" fill="#FCA5A5" font-size="13" font-weight="750">Could not reach Bambuddy at this URL.</text>
+
+    <rect x="42" y="674" width="346" height="58" rx="15" fill="#00C853" filter="url(#softShadow)"/>
+    <text x="215" y="710" class="font" fill="#050505" font-size="17" font-weight="900" text-anchor="middle">Connect</text>
+  </g>
+
+  <g transform="translate(982 155)">
+    <rect x="0" y="0" width="430" height="790" rx="46" fill="#0B0B0D" stroke="#3F3F46" stroke-width="3"/>
+    <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
+    <path d="M32 174C117 95 188 235 271 143C326 83 354 123 399 153" stroke="#27272A" stroke-width="2"/>
+    <path d="M45 646C122 592 194 678 257 621C315 569 355 600 391 630" stroke="#202027" stroke-width="2"/>
+    <text x="215" y="136" class="font ink" font-size="34" font-weight="850" text-anchor="middle">CRAV3D</text>
+    <rect x="150" y="164" width="130" height="34" rx="999" fill="#064E2D" stroke="#00C853"/>
+    <text x="215" y="186" class="font" fill="#B7F4C8" font-size="12" font-weight="850" text-anchor="middle">App locked</text>
+
+    <text x="215" y="300" class="font ink" font-size="28" font-weight="850" text-anchor="middle">Enter PIN to continue</text>
+    <text x="215" y="329" class="font muted" font-size="14" font-weight="650" text-anchor="middle">Bambuddy Assign</text>
+
+    <g transform="translate(53 396)">
+      <rect x="0" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <circle cx="34" cy="43" r="7" fill="#FFFFFF"/>
+      <rect x="85" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+      <circle cx="119" cy="43" r="7" fill="#FFFFFF"/>
+      <rect x="170" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#00C853" stroke-width="3" filter="url(#greenGlow)"/>
+      <rect x="255" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>
+    </g>
+
+    <text x="215" y="570" class="font" fill="#EF4444" font-size="15" font-weight="800" text-anchor="middle">Incorrect PIN.</text>
+    <text x="215" y="694" class="font muted" font-size="15" font-weight="750" text-anchor="middle">Change server / API key</text>
+  </g>
+
+  <text x="800" y="942" class="font muted" font-size="16" font-weight="650" text-anchor="middle">Recommended: use this direction, but keep only real fields and states from the existing Setup/PIN flow.</text>
+</svg>

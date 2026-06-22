@@ -7,7 +7,7 @@ Guide for AI coding agents working in this repository. **Read this first.**
 This repository owns and maintains exactly **one** thing:
 
 > ✅ `apps/filament-assignment-flutter/` — the **Bambuddy Assign** Flutter app
-> (package `assignfilament`), an internal client for the SpoolBuddy
+> (package `assignfilament`), an internal iOS and Android client for the SpoolBuddy
 > filament-assignment workflow.
 
 Everything else in the repo is **reference material**, not the product:
@@ -33,10 +33,31 @@ Everything else in the repo is **reference material**, not the product:
   **independent internal tool** following this company's own process, not a
   wrapper around any web UI.
 
+## Repository history & remotes
+
+This repo is a **trimmed fork of upstream Bambuddy**. On 2026-06-21 all upstream
+server/web content (Python `backend/`, React `frontend/`, `static/` build,
+`gcode_viewer/`, `spoolbuddy/`, `slicer-api/`, docker/python tooling, upstream
+docs/meta) **and the deprecated Java Android app** were deleted and purged from
+git history. That source is intentionally absent — `.git` is small by design —
+and the REST contract the app depends on is captured in `docs/API.md`.
+
+- **`origin`** → `github.com/oreotikii/bambuddy` (our fork). This is the **only**
+  remote you may push or force-push to.
+- **`upstream`** → `github.com/maziggy/bambuddy` (the original project).
+  **Reference only — fetch only. Never push to `upstream`.**
+- **History was rewritten once, so every commit hash changed.** Do **not**
+  `merge`, `pull`, or `rebase` from `upstream` into this repo — it would
+  re-introduce the removed, unrelated history. To adopt an upstream change, read
+  it from upstream and reimplement it, or cherry-pick the specific diff by hand.
+- Because of the rewrite, **any existing clone is stale**; contributors must
+  re-clone. Publishing the rewritten branch requires
+  `git push --force-with-lease origin main` (normal pushes are rejected).
+
 ## The Flutter app
 
 - **Stack:** Flutter / Dart (`sdk: ^3.10.0`), Material. Key deps: `http`,
-  `crypto`, `flutter_secure_storage`, `provider`.
+  `crypto`, `flutter_secure_storage`, `provider`, `mobile_scanner`.
 - **Build/verify** (from `apps/filament-assignment-flutter/`):
   ```bash
   flutter pub get
@@ -44,40 +65,43 @@ Everything else in the repo is **reference material**, not the product:
   flutter analyze                 # static analysis
   flutter test                    # unit tests
   ```
-- **Configuration:** base URL + API key + optional PIN. Either stored locally
-  (`flutter_secure_storage`, Android Keystore) or **baked** at build time:
+- **Configuration:** the server base URL is **baked** at build time. Operators
+  sign in with Bambuddy username/password; credentials and the bearer token are
+  stored locally in `flutter_secure_storage` (Android Keystore / iOS Keychain).
+  The recommended pattern is a gitignored `baked-config.json` applied with
+  `--dart-define-from-file` (there are `tool/run.sh` and `tool/build.sh`
+  wrappers, and a VS Code "Bambuddy Assign (baked config)" launch config):
   ```bash
-  flutter run \
-    --dart-define=BAMBUDDY_BASE_URL=https://bambuddy.local \
-    --dart-define=BAMBUDDY_API_KEY=bb_... \
-    --dart-define=BAMBUDDY_PIN=1234
+  cp baked-config.example.json baked-config.json   # fill in real values
+  tool/run.sh        # == flutter run  --dart-define-from-file=baked-config.json
+  tool/build.sh      # == flutter build apk --release --dart-define-from-file=...
+  tool/build.sh ios  # == flutter build ios --release --dart-define-from-file=...
   ```
-  Empty define = "not baked"; the app prompts the operator instead. See
-  `lib/src/config/app_config.dart`.
+  See `lib/src/config/app_config.dart` and `baked-config.example.json`.
 - **App structure** under `apps/filament-assignment-flutter/lib/`:
   - `main.dart` — entry; `MaterialApp` + `provider` `AppModel`, routes via an
-    `AppGate` (splash → setup → pin → main).
+    `AppGate` (splash → login → locked → main).
   - `src/data/api_client.dart` — async HTTP client for `/api/v1`; attaches
-    `X-API-Key`; 401/403 → `ApiException.isUnauthorized`.
-  - `src/data/session_store.dart` — secure storage of base URL, API key, and the
-    PIN (stored as a salted SHA-256 hash).
+    `Authorization: Bearer <token>`; 401 refreshes by re-login once.
+  - `src/data/session_store.dart` — secure storage of username, password, and
+    the cached access token.
   - `src/core/` — `url_validator.dart`, `weigh_math.dart`, `api_exception.dart`.
   - `src/app/`, `src/ui/` — theme, app model, screens.
 - **API reference:** [`docs/API.md`](docs/API.md). Read it before touching any
-  network call. The endpoints actually used: `auth/status`,
+  network call. The endpoints actually used: `auth/login`,
   `mobile-assignment/{resolve-printer,resolve-spool,printer-slots,assign}`,
-  `printers/`, `spoolman/inventory/{spools,spools/{id}/weigh,slot-assignments/all}`.
+  `printers/`, `spoolman/inventory/{spools,spools/{id},spools/{id}/weigh,slot-assignments/all}`.
 
 ## Security
 
-- Secrets (API key, base URL, PIN) live in `flutter_secure_storage` or are baked
-  via `--dart-define`. **Never commit** `local.properties`, `*.keystore`,
-  `*.jks`, `key.properties`, or `.env*` (all gitignored).
+- Secrets (username/password/access token) live in `flutter_secure_storage`; the
+  base URL is baked via `--dart-define-from-file=baked-config.json`. **Never commit** the real
+  `baked-config.json`, `local.properties`, `*.keystore`, `*.jks`,
+  `key.properties`, or `.env*` (all gitignored — only `baked-config.example.json`
+  is tracked).
 - **Never echo secret values into output or transcripts.** If a secret was
-  exposed in a transcript, recommend rotating the API key in Bambuddy → Settings
-  → API Keys.
-- The PIN is stored only as a salted SHA-256 hash; never store or log the raw
-  digits.
+  exposed in a transcript, recommend rotating the affected Bambuddy account
+  credentials.
 
 ## Working conventions
 

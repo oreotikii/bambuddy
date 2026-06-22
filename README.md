@@ -2,7 +2,7 @@
 
 **Bambuddy Assign** is the internal Flutter app for the SpoolBuddy
 filament-assignment workflow: it lets an operator scan a printer, scan a spool,
-and assign that spool to an AMS or external-sool slot on a Bambuddy instance.
+and assign that spool to an AMS or external-spool slot on a Bambuddy instance.
 
 This repository contains **only the Flutter client** (`apps/filament-assignment-flutter/`).
 The Bambuddy server it talks to is deployed separately. The REST contract the
@@ -28,20 +28,30 @@ flutter pub get
 flutter run
 ```
 
-### Baked configuration (optional)
+### Baked configuration
 
-A build can bake the base URL, API key, and/or PIN so a single build works
-across shared devices without first-run entry:
+A build bakes the Bambuddy base URL so a single build targets the correct
+internal instance. The recommended way to override the default URL is a
+gitignored `baked-config.json` applied with `--dart-define-from-file`:
 
 ```bash
-flutter run \
-  --dart-define=BAMBUDDY_BASE_URL=https://bambuddy.local \
-  --dart-define=BAMBUDDY_API_KEY=bb_... \
-  --dart-define=BAMBUDDY_PIN=1234
+cd apps/filament-assignment-flutter
+cp baked-config.example.json baked-config.json   # then fill in real values
+flutter run   --dart-define-from-file=baked-config.json
 ```
 
-When a value is omitted, the app asks the operator at first run. **Never commit
-real secrets** — see [Security](#security).
+Wrappers inside the app apply the file automatically (and fail fast if it's
+missing):
+
+```bash
+tool/run.sh      # == flutter run --dart-define-from-file=baked-config.json
+tool/build.sh        # == flutter build apk --release --dart-define-from-file=...
+tool/build.sh ios    # == flutter build ios --release --dart-define-from-file=...
+```
+
+In VS Code, the **"Bambuddy Assign (baked config)"** launch config applies the
+file automatically. You can also pass `--dart-define=BAMBUDDY_BASE_URL=...`
+inline if you prefer.
 
 ### Analyze & test
 
@@ -52,11 +62,14 @@ flutter test
 
 ## Security
 
-- API keys, the base URL, and the PIN are stored in `flutter_secure_storage`
-  (Android Keystore) — or baked at build time via `--dart-define`.
-- `**/local.properties`, `*.keystore`, `*.jks`, `key.properties`, and `.env*`
-  are gitignored. Treat the API key like a password; if one is exposed, rotate
-  it in Bambuddy → Settings → API Keys.
+- The Bambuddy username, password, and bearer token are stored in
+  `flutter_secure_storage` (Android Keystore / iOS Keychain). The base URL is
+  baked at build time via `--dart-define-from-file=baked-config.json` (wrappers:
+  `tool/run.sh`, `tool/build.sh`).
+- `baked-config.json`, `**/local.properties`, `*.keystore`, `*.jks`,
+  `key.properties`, and `.env*` are gitignored (only `baked-config.example.json`
+  is tracked). Treat stored credentials like passwords; if one is exposed,
+  rotate the affected Bambuddy account credentials.
 
 ## License
 

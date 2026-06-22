@@ -22,8 +22,10 @@ This repo owns and maintains **only** the Flutter app at
   `flutter_secure_storage`, `provider`.
 - **Build/run:** `cd apps/filament-assignment-flutter && flutter pub get && flutter run`
 - **Verify:** `flutter analyze` (clean) and `flutter test`.
-- Config (base URL / API key / PIN) is stored in `flutter_secure_storage` or
-  baked via `--dart-define=BAMBUDDY_*`. Never commit/echo secrets; rotate any
-  exposed API key in Bambuddy → Settings → API Keys.
+- The base URL is baked via `--dart-define-from-file=baked-config.json`
+  (wrappers: `tool/run.sh`, `tool/build.sh`). Operators sign in with Bambuddy
+  username/password; credentials and bearer tokens are stored in
+  `flutter_secure_storage`. Never commit/echo secrets (real `baked-config.json`
+  is gitignored); rotate any exposed Bambuddy account credentials.
 
 See `/AGENTS.md` for the full guide.

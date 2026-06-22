@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_villains/villain.dart';
 import 'package:provider/provider.dart';
 
 import 'src/app/app_model.dart';
 import 'src/app/theme.dart';
+import 'src/ui/lock_screen.dart';
+import 'src/ui/login_screen.dart';
 import 'src/ui/main_scaffold.dart';
-import 'src/ui/pin_screen.dart';
-import 'src/ui/setup_screen.dart';
 import 'src/ui/splash_screen.dart';
 
 void main() {
@@ -24,6 +25,7 @@ class BambuddyAssignApp extends StatelessWidget {
         title: 'Bambuddy Assign',
         debugShowCheckedModeBanner: false,
         theme: bambuddyTheme,
+        navigatorObservers: [VillainTransitionObserver()],
         home: Consumer<AppModel>(
           builder: (_, model, _) {
             return AnimatedSwitcher(
@@ -43,10 +45,10 @@ class BambuddyAssignApp extends StatelessWidget {
     switch (gate) {
       case AppGate.splash:
         return const SplashScreen();
-      case AppGate.setup:
-        return const SetupScreen();
-      case AppGate.pin:
-        return const PinScreen();
+      case AppGate.login:
+        return const LoginScreen();
+      case AppGate.locked:
+        return const LockScreen();
       case AppGate.main:
         return const MainScaffold();
     }

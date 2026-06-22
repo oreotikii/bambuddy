@@ -1,77 +1,103 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 
 import '../data/session_store.dart';
 
-/// Which screen the app should show. Computed from [configured] + [locked],
-/// mirroring the original activity flow: setup → pin → home.
-enum AppGate { splash, setup, pin, main }
+/// Which screen the app should show, computed from the sign-in + lock state:
+/// splash → login → (biometric) locked → main.
+enum AppGate { splash, login, locked, main }
 
-/// Reactive app state: configuration status + the 4-digit PIN app-lock.
+/// Reactive app state: whether the user is signed in, plus a biometric
+/// app-lock.
 ///
-/// The lock re-arms when the app is backgrounded (AppLifecycleState.paused),
-/// matching AppLock + ProcessLifecycleOwner in the original Java app.
+/// The lock re-arms when the app is backgrounded (AppLifecycleState.paused —
+/// "minimised") OR after [_idleTimeout] (10 min) of inactivity. Resuming then
+/// shows the biometric [LockScreen]. User activity is reported via
+/// [pingActivity] from a top-level input listener. Auth itself is credentials
+/// sign-in (no PIN, no API key); the bearer token is refreshed transparently
+/// by [ApiClient] when it expires.
 class AppModel extends ChangeNotifier with WidgetsBindingObserver {
-  bool _initialized = false;
-  bool _configured = false;
-  bool _locked = true;
+  static const Duration _idleTimeout = Duration(minutes: 10);
 
-  bool get initialized => _initialized;
-  bool get configured => _configured;
+  bool _initialized = false;
+  bool _signedIn = false;
+  bool _locked = true;
+  Timer? _idleTimer;
+
+  bool get signedIn => _signedIn;
   bool get locked => _locked;
 
   AppGate get gate {
     if (!_initialized) return AppGate.splash;
-    if (!_configured) return AppGate.setup;
-    if (_locked) return AppGate.pin;
+    if (!_signedIn) return AppGate.login;
+    if (_locked) return AppGate.locked;
     return AppGate.main;
   }
 
   Future<void> init() async {
     WidgetsBinding.instance.addObserver(this);
-    _configured = await SessionStore.isConfigured();
+    _signedIn = await SessionStore.isConfigured();
     _initialized = true;
     notifyListeners();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // App moved fully to background → require the PIN on next entry.
-    if (state == AppLifecycleState.paused && _configured && !_locked) {
+    // Backgrounded → require biometric unlock on next entry.
+    if (state == AppLifecycleState.paused && _signedIn && !_locked) {
+      _idleTimer?.cancel();
       _locked = true;
       notifyListeners();
+    } else if (state == AppLifecycleState.resumed && _signedIn && !_locked) {
+      _startIdleTimer();
     }
   }
 
-  /// Called after a successful setup/connect — require the PIN gate next.
-  Future<void> completeSetup() async {
-    _configured = await SessionStore.isConfigured();
-    _locked = true;
+  /// Called after a successful sign-in — go straight to the app (the user just
+  /// authenticated with their password, so no biometric gate is needed).
+  Future<void> completeLogin() async {
+    _idleTimer?.cancel();
+    _signedIn = await SessionStore.isConfigured();
+    _locked = false;
+    _startIdleTimer();
     notifyListeners();
   }
 
+  /// Biometric unlock succeeded — dismiss the lock gate.
   void unlock() {
     _locked = false;
+    _startIdleTimer();
     notifyListeners();
   }
 
-  /// Re-arm the PIN gate immediately (the in-app "Lock" button).
-  void lockNow() {
-    _locked = true;
-    notifyListeners();
+  /// Report user activity; resets the inactivity auto-lock window.
+  void pingActivity() {
+    if (_signedIn && !_locked) _startIdleTimer();
   }
 
-  /// Clears user-entered base URL + API key (baked values are untouched) and
-  /// returns the user to setup.
-  Future<void> logoutToSetup() async {
+  void _startIdleTimer() {
+    _idleTimer?.cancel();
+    _idleTimer = Timer(_idleTimeout, () {
+      if (_signedIn && !_locked) {
+        _locked = true;
+        notifyListeners();
+      }
+    });
+  }
+
+  /// Sign out — clear stored credentials and return to the login screen.
+  Future<void> signOut() async {
+    _idleTimer?.cancel();
     await SessionStore.clearCredentials();
-    await SessionStore.clearBaseUrl();
-    _configured = false;
+    _signedIn = false;
     _locked = true;
     notifyListeners();
   }
 
   @override
   void dispose() {
+    _idleTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

@@ -1,9 +1,11 @@
-/// Pure, testable maths for the weigh flow. Mirrors WeighMath.java so the
-/// backend PATCH /spools/{id}/weigh calc stays identical: remaining = max(0, measured - tare).
+/// Pure, testable helpers for the weigh flow.
 class WeighMath {
   WeighMath._();
 
-  static double remainingWeight(double measuredWeight, double emptySpoolWeight) {
+  static double remainingWeight(
+    double measuredWeight,
+    double emptySpoolWeight,
+  ) {
     if (measuredWeight.isNaN || emptySpoolWeight.isNaN) return 0;
     final r = measuredWeight - emptySpoolWeight;
     return r < 0 ? 0 : r;
