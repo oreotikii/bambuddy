@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../core/api_exception.dart';
 import '../data/api_client.dart';
 import '../data/assignment_repository.dart';
-import 'app_notifications.dart';
 import 'scanner_sheet.dart';
 
 class AssignScreen extends StatefulWidget {
@@ -71,8 +70,7 @@ class AssignScreenState extends State<AssignScreen> {
       setState(() {
         _printers = printers;
         _printersLoading = false;
-        if (selected != null &&
-            !printers.any((p) => p.id == selected.id)) {
+        if (selected != null && !printers.any((p) => p.id == selected.id)) {
           _printers = [...printers, selected];
         }
       });
@@ -224,12 +222,6 @@ class AssignScreenState extends State<AssignScreen> {
         _success = success;
         _warnings = result.warnings;
       });
-      showAppNotification(
-        context,
-        kind: AppNotificationKind.success,
-        title: 'Assignment saved',
-        message: success,
-      );
       _scrollToFeedback();
     } on AssignmentConflictException catch (e) {
       if (mounted) setState(() => _busy = false);
@@ -291,6 +283,19 @@ class AssignScreenState extends State<AssignScreen> {
     });
   }
 
+  void _reset() {
+    _spoolController.clear();
+    setState(() {
+      _printer = null;
+      _selectedSlot = null;
+      _slots = const [];
+      _spool = null;
+      _error = null;
+      _success = null;
+      _warnings = const [];
+    });
+  }
+
   bool get _canAssign =>
       _printer != null && _spool != null && _selectedSlot != null && !_busy;
 
@@ -311,17 +316,27 @@ class AssignScreenState extends State<AssignScreen> {
         surfaceTintColor: Colors.transparent,
         centerTitle: false,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: _reset,
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Reset',
+          ),
+        ],
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: ElevatedButton.icon(
+          child: FilledButton.icon(
             onPressed: _canAssign ? _assign : null,
             icon: _busy
                 ? const SizedBox(
                     width: 18,
                     height: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Color(0xFFFFFFFF),
+                    ),
                   )
                 : const Icon(Icons.assignment_turned_in_outlined),
             label: const Text('Assign spool'),
@@ -346,137 +361,91 @@ class AssignScreenState extends State<AssignScreen> {
               _MessageBanner(message: warning, kind: _MessageKind.warning),
               const SizedBox(height: 8),
             ],
-            _Section(
-              title: 'Printer',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: DropdownButtonFormField<MobilePrinter>(
-                          key: ValueKey('printer-dropdown-${_printer?.id}'),
-                          initialValue: _printer,
-                          decoration: InputDecoration(
-                            labelText: 'Printer',
-                            prefixIcon: const Icon(Icons.print_outlined),
-                            suffixIcon: _printersLoading
-                                ? const Padding(
-                                    padding: EdgeInsetsDirectional.all(14),
-                                    child: SizedBox(
-                                      width: 18,
-                                      height: 18,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      ),
-                                    ),
-                                  )
-                                : null,
-                          ),
-                          items: [
-                            for (final p in _printers)
-                              DropdownMenuItem(
-                                value: p,
-                                child: Text(p.name),
-                              ),
-                          ],
-                          hint: Text(_printerHint),
-                          onChanged:
-                              _busy || _printersLoading ? null : _onPrinterSelected,
+            DropdownButtonFormField<MobilePrinter>(
+              key: ValueKey('printer-dropdown-${_printer?.id}'),
+              initialValue: _printer,
+              decoration: InputDecoration(
+                labelText: 'Printer',
+                prefixIcon: const Icon(Icons.print_outlined),
+                suffixIcon: _printersLoading
+                    ? const Padding(
+                        padding: EdgeInsetsDirectional.all(14),
+                        child: SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      OutlinedButton.icon(
-                        onPressed: _busy ? null : _scanPrinter,
-                        icon: const Icon(Icons.qr_code_scanner),
-                        label: const Text('Scan'),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(0, 56),
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (_printersError != null) ...[
-                    const SizedBox(height: 10),
-                    _MessageBanner(
-                      message: _printersError!,
-                      kind: _MessageKind.error,
-                    ),
-                    const SizedBox(height: 8),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton.icon(
-                        onPressed: _busy ? null : _loadPrinters,
-                        icon: const Icon(Icons.refresh),
-                        label: const Text('Retry'),
-                      ),
-                    ),
-                  ],
-                  if (_printer != null) ...[
-                    const SizedBox(height: 12),
-                    _SummaryLine(
-                      title: _printer!.name,
-                      subtitle: [
-                        if (_printer!.model != null) _printer!.model!,
-                        if (_printer!.serialNumber != null)
-                          _printer!.serialNumber!,
-                      ].join(' | '),
-                    ),
-                  ],
-                ],
+                      )
+                    : null,
               ),
+              items: [
+                for (final p in _printers)
+                  DropdownMenuItem(value: p, child: Text(p.name)),
+              ],
+              hint: Text(_printerHint),
+              onChanged: _busy || _printersLoading ? null : _onPrinterSelected,
             ),
+            if (_printersError != null) ...[
+              const SizedBox(height: 10),
+              _MessageBanner(
+                message: _printersError!,
+                kind: _MessageKind.error,
+              ),
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton.icon(
+                  onPressed: _busy ? null : _loadPrinters,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Retry'),
+                ),
+              ),
+            ],
+            if (_printer != null) ...[
+              const SizedBox(height: 12),
+              _SummaryLine(
+                title: _printer!.name,
+                subtitle: [
+                  if (_printer!.model != null) _printer!.model!,
+                  if (_printer!.serialNumber != null) _printer!.serialNumber!,
+                ].join(' | '),
+              ),
+            ],
             const SizedBox(height: 16),
-            _Section(
-              title: 'Spool',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextField(
-                    key: const ValueKey('assign-spool-code-field'),
-                    controller: _spoolController,
-                    decoration: const InputDecoration(
-                      labelText: 'Spool code',
-                      prefixIcon: Icon(Icons.qr_code_2),
-                    ),
-                    textInputAction: TextInputAction.done,
-                    onSubmitted: (_) => _resolveSpool(),
-                  ),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      FilledButton.icon(
-                        onPressed: _busy ? null : _resolveSpool,
-                        icon: const Icon(Icons.search),
-                        label: const Text('Resolve spool'),
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _busy ? null : _scanSpool,
-                        icon: const Icon(Icons.qr_code_scanner),
-                        label: const Text('Scan spool'),
-                      ),
-                    ],
-                  ),
-                  if (_spool != null) ...[
-                    const SizedBox(height: 12),
-                    _SummaryLine(
-                      title: _spool!.displayName,
-                      subtitle: [
-                        'Spool #${_spool!.id}',
-                        if (_spool!.remainingGrams != null)
-                          '${_spool!.remainingGrams!.toStringAsFixed(1)} g remaining',
-                        if (_spool!.currentLocation != null)
-                          _spool!.currentLocation!,
-                      ].join(' | '),
-                    ),
-                  ],
-                ],
+            TextField(
+              key: const ValueKey('assign-spool-code-field'),
+              controller: _spoolController,
+              decoration: const InputDecoration(
+                labelText: 'Spool code',
+                prefixIcon: Icon(Icons.qr_code_2),
               ),
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => _resolveSpool(),
             ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                FilledButton.icon(
+                  onPressed: _busy ? null : _resolveSpool,
+                  icon: const Icon(Icons.search),
+                  label: const Text('Resolve spool'),
+                ),
+              ],
+            ),
+            if (_spool != null) ...[
+              const SizedBox(height: 12),
+              _SummaryLine(
+                title: _spool!.displayName,
+                subtitle: [
+                  'Spool #${_spool!.id}',
+                  if (_spool!.remainingGrams != null)
+                    '${_spool!.remainingGrams!.toStringAsFixed(1)} g remaining',
+                  if (_spool!.currentLocation != null) _spool!.currentLocation!,
+                ].join(' | '),
+              ),
+            ],
             const SizedBox(height: 16),
             _Section(
               title: 'Target slot',

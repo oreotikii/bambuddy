@@ -4,7 +4,6 @@ import '../core/api_exception.dart';
 import '../core/weigh_math.dart';
 import '../data/api_client.dart';
 import '../data/assignment_repository.dart';
-import 'app_notifications.dart';
 import 'design_effects.dart';
 import 'scanner_sheet.dart';
 
@@ -172,12 +171,6 @@ class WeighScreenState extends State<WeighScreen> {
           ? 'Updated'
           : 'Updated ${messages.join(', ')}';
       setState(() => _success = '$summary for spool #${spool.id}');
-      showAppNotification(
-        context,
-        kind: AppNotificationKind.success,
-        title: 'Spool updated',
-        message: '$summary for spool #${spool.id}',
-      );
     } on ApiException catch (e) {
       _setError(e.detailMessage());
     } catch (e) {
@@ -185,6 +178,20 @@ class WeighScreenState extends State<WeighScreen> {
     } finally {
       if (mounted) setState(() => _busy = false);
     }
+  }
+
+  void _reset() {
+    _spoolController.clear();
+    _weightController.clear();
+    _emptySpoolController.clear();
+    setState(() {
+      _spool = null;
+      _detail = null;
+      _location = null;
+      _locations = const [];
+      _error = null;
+      _success = null;
+    });
   }
 
   void _setError(String message) {
@@ -226,6 +233,13 @@ class WeighScreenState extends State<WeighScreen> {
         backgroundColor: cs.surfaceContainer,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: _reset,
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Reset',
+          ),
+        ],
       ),
       body: SafeArea(
         child: ListView(
@@ -287,7 +301,6 @@ class WeighScreenState extends State<WeighScreen> {
                       onChanged: (_) => setState(() {}),
                       decoration: const InputDecoration(
                         labelText: 'Measured weight (g)',
-                        helperText: 'Scale reading: filament + spool',
                         prefixIcon: Icon(Icons.scale_outlined),
                       ),
                     ),
@@ -320,13 +333,19 @@ class WeighScreenState extends State<WeighScreen> {
                       onChanged: (v) => setState(() => _location = v),
                     ),
                     const SizedBox(height: 16),
-                    ElevatedButton.icon(
+                    FilledButton.icon(
+                      style: FilledButton.styleFrom(
+                        minimumSize: const Size.fromHeight(48),
+                      ),
                       onPressed: _hasChanges && !_busy ? _save : null,
                       icon: _busy
                           ? const SizedBox(
                               width: 18,
                               height: 18,
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Color(0xFFFFFFFF),
+                              ),
                             )
                           : const Icon(Icons.save_outlined),
                       label: const Text('Update spool'),
@@ -397,73 +416,68 @@ class _SpoolCard extends StatelessWidget {
     final swatches = _filamentSwatches(spool, detail);
     final displayColorName = _firstNonEmpty(detail?.subtype, spool.colorName);
 
-    return FrostedPanel(
-      radius: 14,
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        (spool.brand != null && spool.brand!.trim().isNotEmpty)
-                            ? spool.brand!
-                            : 'Spool #${spool.id}',
-                        style: theme.textTheme.labelMedium?.copyWith(
-                          color: cs.onSurfaceVariant,
-                          letterSpacing: 1.1,
-                          fontWeight: FontWeight.w600,
-                        ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      (spool.brand != null && spool.brand!.trim().isNotEmpty)
+                          ? spool.brand!
+                          : 'Spool #${spool.id}',
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: cs.onSurfaceVariant,
+                        letterSpacing: 1.1,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    _PercentBadge(percent: pct),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  (spool.material != null && spool.material!.trim().isNotEmpty)
-                      ? spool.material!
-                      : 'Unknown',
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
                   ),
+                  _PercentBadge(percent: pct),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Text(
+                (spool.material != null && spool.material!.trim().isNotEmpty)
+                    ? spool.material!
+                    : 'Unknown',
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
-                const SizedBox(height: 10),
-                _ColorRow(
-                  colorName: displayColorName,
-                  swatches: swatches,
-                  effect: detail?.effectType,
+              ),
+              const SizedBox(height: 10),
+              _ColorRow(
+                colorName: displayColorName,
+                swatches: swatches,
+                effect: detail?.effectType,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                [
+                  if (spool.remainingGrams != null)
+                    '${spool.remainingGrams!.toStringAsFixed(0)} g left',
+                  if (spool.currentLocation != null) spool.currentLocation!,
+                ].join('  ·  '),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: cs.onSurfaceVariant,
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  [
-                    'Spool #${spool.id}',
-                    if (spool.remainingGrams != null)
-                      '${spool.remainingGrams!.toStringAsFixed(0)} g left',
-                    if (spool.currentLocation != null) spool.currentLocation!,
-                  ].join('  ·  '),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: cs.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const SizedBox(width: 12),
-          _SpoolSideView(
-            color: primary,
-            fill: pct ?? 1.0,
-            surface: cs.surfaceContainerHigh,
-            track: cs.outline,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(width: 12),
+        _SpoolSideView(
+          color: primary,
+          fill: pct ?? 1.0,
+          surface: cs.surfaceContainerHigh,
+          track: cs.outline,
+        ),
+      ],
     );
   }
 }
@@ -593,8 +607,8 @@ class _SpoolSideView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 104,
-      height: 104,
+      width: 150,
+      height: 150,
       child: CustomPaint(
         painter: _SpoolSidePainter(
           color: color,
