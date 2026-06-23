@@ -33,6 +33,10 @@ abstract class AssignmentRepository {
     double? emptySpoolWeight,
     String? location,
   });
+
+  Future<void> resetSlot(int printerId, int amsId, int trayId);
+
+  Future<void> unassignSpool(int spoolmanSpoolId);
 }
 
 class AssignmentApi implements AssignmentRepository {
@@ -150,6 +154,16 @@ class AssignmentApi implements AssignmentRepository {
     if (location != null) body['location'] = location;
     if (body.isEmpty) return;
     await _api.patch('/spoolman/inventory/spools/$spoolId/weigh', body);
+  }
+
+  @override
+  Future<void> resetSlot(int printerId, int amsId, int trayId) async {
+    await _api.post('/printers/$printerId/ams/$amsId/tray/$trayId/reset');
+  }
+
+  @override
+  Future<void> unassignSpool(int spoolmanSpoolId) async {
+    await _api.delete('/spoolman/inventory/slot-assignments/$spoolmanSpoolId');
   }
 }
 
@@ -279,6 +293,7 @@ class MobileSpoolDetail {
     this.extraColors,
     this.effectType,
     this.storageLocation,
+    this.archivedAt,
   });
 
   factory MobileSpoolDetail.fromJson(Map<String, dynamic> json) {
@@ -288,6 +303,7 @@ class MobileSpoolDetail {
       extraColors: _string(json['extra_colors']),
       effectType: _string(json['effect_type']),
       storageLocation: _string(json['storage_location']),
+      archivedAt: _string(json['archived_at']),
     );
   }
 
@@ -305,6 +321,11 @@ class MobileSpoolDetail {
   final String? effectType;
 
   final String? storageLocation;
+
+  /// ISO timestamp when the spool was soft-deleted; non-null means archived.
+  final String? archivedAt;
+
+  bool get archived => archivedAt != null;
 
   /// `extraColors` parsed into individual hex tokens (empty when absent).
   List<String> get extraColorHexes {

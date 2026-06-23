@@ -1,11 +1,34 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_villains/villain.dart';
 import 'package:glass_kit/glass_kit.dart';
 
-const _tabMotionDuration = Duration(milliseconds: 800);
+const appMotionDuration = Duration(milliseconds: 400);
 const _tabMotionOffset = Offset(0, 0.012);
-const _tabMotionCurve = Curves.easeInOutCubic;
+const _tabMotionCurve = Curves.easeOutCubic;
+
+class CravVillainScreenTransition extends StatelessWidget {
+  const CravVillainScreenTransition({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Villain(
+      villainAnimation: VillainAnimation.fromBottom(
+        relativeOffset: 0.035,
+        to: appMotionDuration,
+        curve: Curves.easeOutCubic,
+      ),
+      secondaryVillainAnimation: VillainAnimation.fade(
+        to: appMotionDuration,
+        curve: Curves.easeOutCubic,
+      ),
+      child: child,
+    );
+  }
+}
 
 class ConsoleGlassNavigation extends StatelessWidget {
   const ConsoleGlassNavigation({super.key, required this.child});
@@ -159,11 +182,11 @@ class _SmoothTabPane extends StatelessWidget {
             enabled: active,
             child: AnimatedOpacity(
               opacity: active ? 1 : 0,
-              duration: _tabMotionDuration,
+              duration: appMotionDuration,
               curve: _tabMotionCurve,
               child: AnimatedSlide(
                 offset: active ? Offset.zero : _tabMotionOffset,
-                duration: _tabMotionDuration,
+                duration: appMotionDuration,
                 curve: _tabMotionCurve,
                 child: child,
               ),

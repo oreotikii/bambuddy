@@ -28,7 +28,7 @@
     <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
     <path d="M45 110C120 84 168 134 238 104C292 82 333 90 388 126" stroke="#27272A" stroke-width="2"/>
     <text x="42" y="78" class="font ink" font-size="24" font-weight="850">CRAV3D</text>
-    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">Bambuddy Assign</text>
+    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">CRAV3D Assist</text>
 
     <g transform="translate(42 140)">
       <circle cx="18" cy="18" r="18" fill="#00C853"/>
@@ -62,7 +62,7 @@
     <rect x="16" y="16" width="398" height="758" rx="36" fill="#18181B"/>
     <path d="M42 110C117 80 172 143 236 104C303 63 337 97 392 128" stroke="#27272A" stroke-width="2"/>
     <text x="42" y="78" class="font ink" font-size="24" font-weight="850">CRAV3D</text>
-    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">Bambuddy Assign</text>
+    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">CRAV3D Assist</text>
 
     <g transform="translate(42 140)">
       <circle cx="18" cy="18" r="18" fill="#064E2D" stroke="#00C853"/>

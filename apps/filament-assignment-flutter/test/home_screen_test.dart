@@ -242,6 +242,49 @@ void main() {
     expect(titleRect.right, greaterThan(statusRect.right));
     expect((statusRect.center.dy - modelRect.center.dy).abs(), lessThan(6));
   });
+
+  testWidgets('Status page refreshes when refresh nonce changes', (
+    tester,
+  ) async {
+    final client = _StatusClient(
+      status: {
+        'id': 3,
+        'name': 'P1S 03',
+        'connected': true,
+        'state': 'IDLE',
+        'temperatures': {'nozzle': 25, 'bed': 24},
+        'ams': [],
+        'vt_tray': [],
+      },
+      assignments: const [],
+      spools: const [],
+    );
+
+    await tester.pumpWidget(_testApp(HomeScreen(apiClientFactory: client.api)));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 1));
+    await tester.pumpAndSettle();
+
+    final initialPrinterRequests = client.requests
+        .where(
+          (request) => request == 'GET https://bambuddy.test/api/v1/printers/',
+        )
+        .length;
+
+    await tester.pumpWidget(
+      _testApp(HomeScreen(apiClientFactory: client.api, refreshNonce: 1)),
+    );
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 1));
+    await tester.pumpAndSettle();
+
+    final refreshedPrinterRequests = client.requests
+        .where(
+          (request) => request == 'GET https://bambuddy.test/api/v1/printers/',
+        )
+        .length;
+    expect(refreshedPrinterRequests, initialPrinterRequests + 1);
+  });
 }
 
 Widget _testApp(Widget home) {

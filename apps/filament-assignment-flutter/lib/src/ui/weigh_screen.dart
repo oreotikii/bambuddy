@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../core/api_exception.dart';
@@ -8,10 +10,16 @@ import 'design_effects.dart';
 import 'scanner_sheet.dart';
 
 class WeighScreen extends StatefulWidget {
-  const WeighScreen({super.key, this.repository, this.scannerLauncher});
+  const WeighScreen({
+    super.key,
+    this.repository,
+    this.scannerLauncher,
+    this.refreshNonce = 0,
+  });
 
   final AssignmentRepository? repository;
   final CodeScannerLauncher? scannerLauncher;
+  final int refreshNonce;
 
   @override
   State<WeighScreen> createState() => WeighScreenState();
@@ -29,6 +37,14 @@ class WeighScreenState extends State<WeighScreen> {
   bool _busy = false;
   String? _error;
   String? _success;
+
+  @override
+  void didUpdateWidget(covariant WeighScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.refreshNonce != oldWidget.refreshNonce) {
+      unawaited(_refreshForPageSwitch());
+    }
+  }
 
   @override
   void dispose() {
@@ -49,6 +65,20 @@ class WeighScreenState extends State<WeighScreen> {
   }
 
   Future<void> scanQr() => _scanSpool();
+
+  Future<void> _refreshForPageSwitch() async {
+    if (_busy) return;
+    final code = _spoolController.text.trim();
+    if (code.isNotEmpty) {
+      _weightController.clear();
+      await _resolveSpool();
+      return;
+    }
+    setState(() {
+      _error = null;
+      _success = null;
+    });
+  }
 
   Future<void> _scanSpool() async {
     final launcher = widget.scannerLauncher ?? showCodeScanner;
@@ -223,20 +253,43 @@ class WeighScreenState extends State<WeighScreen> {
     return loc != null && loc.trim().isNotEmpty && loc != stored;
   }
 
+  bool get _weightBelowEmpty {
+    if (!WeighMath.isValidWeight(_weightController.text)) return false;
+    if (!WeighMath.isValidWeight(_emptySpoolController.text)) return false;
+    final grams = WeighMath.parseWeight(_weightController.text, double.nan);
+    final emptyGrams = WeighMath.parseWeight(
+      _emptySpoolController.text,
+      double.nan,
+    );
+    return grams < emptyGrams;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
     return Scaffold(
+      backgroundColor: const Color(0xFF18181B),
       appBar: AppBar(
-        title: const Text('Weigh spool'),
+        title: const Text(
+          'Weigh spool',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            letterSpacing: -0.5,
+          ),
+        ),
         centerTitle: false,
-        backgroundColor: cs.surfaceContainer,
+        backgroundColor: const Color(0xFF18181B),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(height: 1, color: const Color(0xFF27272A)),
+        ),
         actions: [
           IconButton(
             onPressed: _reset,
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh, color: Color(0xFF71717A)),
             tooltip: 'Reset',
           ),
         ],
@@ -273,6 +326,48 @@ class WeighScreenState extends State<WeighScreen> {
                       : const Icon(Icons.search),
                   onPressed: _busy ? null : _resolveSpool,
                 ),
+                filled: true,
+                fillColor: const Color(0xFF1F1F23),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF2E2E34)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF2E2E34)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: Color(0xFF00C853),
+                    width: 1.5,
+                  ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF27272A)),
+                ),
+                labelStyle: const TextStyle(
+                  color: Color(0xFF71717A),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+                floatingLabelStyle: const TextStyle(
+                  color: Color(0xFF00C853),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+                hintStyle: const TextStyle(
+                  color: Color(0xFF52525B),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+                prefixIconColor: const Color(0xFF52525B),
+                suffixIconColor: const Color(0xFF52525B),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 16,
+                ),
               ),
             ),
             if (_spool != null) ...[
@@ -302,8 +397,59 @@ class WeighScreenState extends State<WeighScreen> {
                       decoration: const InputDecoration(
                         labelText: 'Measured weight (g)',
                         prefixIcon: Icon(Icons.scale_outlined),
+                        filled: true,
+                        fillColor: Color(0xFF1F1F23),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(color: Color(0xFF2E2E34)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(color: Color(0xFF2E2E34)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            color: Color(0xFF00C853),
+                            width: 1.5,
+                          ),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(color: Color(0xFF27272A)),
+                        ),
+                        labelStyle: TextStyle(
+                          color: Color(0xFF71717A),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        floatingLabelStyle: TextStyle(
+                          color: Color(0xFF00C853),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF52525B),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        prefixIconColor: Color(0xFF52525B),
+                        suffixIconColor: Color(0xFF52525B),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 16,
+                        ),
                       ),
                     ),
+                    if (_weightBelowEmpty) ...[
+                      const SizedBox(height: 8),
+                      const _MessageBanner(
+                        message:
+                            'Measured weight is below the empty spool weight. '
+                            'Bambuddy will not save this value.',
+                        isError: true,
+                      ),
+                    ],
                     const SizedBox(height: 12),
                     TextField(
                       key: const ValueKey('empty-spool-field'),
@@ -314,14 +460,52 @@ class WeighScreenState extends State<WeighScreen> {
                       ),
                       textInputAction: TextInputAction.next,
                       onChanged: (_) => setState(() {}),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Empty spool weight (g)',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         floatingLabelStyle: TextStyle(
-                          color: cs.onSurfaceVariant,
-                          backgroundColor: cs.secondary,
+                          color: Color(0xFF00C853),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
                         ),
-                        prefixIcon: const Icon(Icons.inventory_2_outlined),
+                        prefixIcon: Icon(Icons.inventory_2_outlined),
+                        filled: true,
+                        fillColor: Color(0xFF1F1F23),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(color: Color(0xFF2E2E34)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(color: Color(0xFF2E2E34)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            color: Color(0xFF00C853),
+                            width: 1.5,
+                          ),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(color: Color(0xFF27272A)),
+                        ),
+                        labelStyle: TextStyle(
+                          color: Color(0xFF71717A),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF52525B),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        prefixIconColor: Color(0xFF52525B),
+                        suffixIconColor: Color(0xFF52525B),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 16,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -335,9 +519,19 @@ class WeighScreenState extends State<WeighScreen> {
                     const SizedBox(height: 16),
                     FilledButton.icon(
                       style: FilledButton.styleFrom(
-                        minimumSize: const Size.fromHeight(48),
+                        minimumSize: const Size.fromHeight(54),
+                        backgroundColor: const Color(0xFF00C853),
+                        foregroundColor: Colors.black,
+                        disabledBackgroundColor: const Color(
+                          0xFF00C853,
+                        ).withValues(alpha: 0.35),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
                       ),
-                      onPressed: _hasChanges && !_busy ? _save : null,
+                      onPressed: _hasChanges && !_busy && !_weightBelowEmpty
+                          ? _save
+                          : null,
                       icon: _busy
                           ? const SizedBox(
                               width: 18,
@@ -396,6 +590,42 @@ class _LocationField extends StatelessWidget {
       decoration: const InputDecoration(
         labelText: 'Location',
         prefixIcon: Icon(Icons.place_outlined),
+        filled: true,
+        fillColor: Color(0xFF1F1F23),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Color(0xFF2E2E34)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Color(0xFF2E2E34)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Color(0xFF00C853), width: 1.5),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Color(0xFF27272A)),
+        ),
+        labelStyle: TextStyle(
+          color: Color(0xFF71717A),
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+        floatingLabelStyle: TextStyle(
+          color: Color(0xFF00C853),
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
+        hintStyle: TextStyle(
+          color: Color(0xFF52525B),
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        prefixIconColor: Color(0xFF52525B),
+        suffixIconColor: Color(0xFF52525B),
+        contentPadding: EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       ),
     );
   }
@@ -432,7 +662,7 @@ class _SpoolCard extends StatelessWidget {
                           ? spool.brand!
                           : 'Spool #${spool.id}',
                       style: theme.textTheme.labelMedium?.copyWith(
-                        color: cs.onSurfaceVariant,
+                        color: const Color(0xFF71717A),
                         letterSpacing: 1.1,
                         fontWeight: FontWeight.w600,
                       ),
@@ -447,6 +677,7 @@ class _SpoolCard extends StatelessWidget {
                     ? spool.material!
                     : 'Unknown',
                 style: theme.textTheme.headlineSmall?.copyWith(
+                  color: Colors.white,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -464,7 +695,7 @@ class _SpoolCard extends StatelessWidget {
                   if (spool.currentLocation != null) spool.currentLocation!,
                 ].join('  ·  '),
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: cs.onSurfaceVariant,
+                  color: const Color(0xFF52525B),
                 ),
               ),
             ],
@@ -549,7 +780,7 @@ class _Swatch extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+        border: Border.all(color: const Color(0xFF2E2E34)),
       ),
     );
   }
@@ -568,7 +799,7 @@ class _PercentBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: Color.lerp(color, cs.surface, 0.84),
+        color: Color.lerp(color, const Color(0xFF18181B), 0.82),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
@@ -753,20 +984,49 @@ class _MessageBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return DecoratedBox(
+    final background = isError
+        ? const Color(0xFF2C1414)
+        : const Color(0xFF0D2818);
+    final borderColor = isError
+        ? const Color(0xFF7F1D1D)
+        : const Color(0xFF166534);
+    final textColor = isError
+        ? const Color(0xFFFCA5A5)
+        : const Color(0xFF86EFAC);
+    final icon = isError
+        ? Icons.error_outline_rounded
+        : Icons.check_circle_outline_rounded;
+    final iconColor = isError
+        ? const Color(0xFFF87171)
+        : const Color(0xFF4ADE80);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
       decoration: BoxDecoration(
-        color: isError ? cs.errorContainer : cs.primaryContainer,
-        borderRadius: BorderRadius.circular(8),
+        color: background,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: borderColor),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Text(
-          message,
-          style: TextStyle(
-            color: isError ? cs.onErrorContainer : cs.onPrimaryContainer,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 1),
+            child: Icon(icon, color: iconColor, size: 15),
           ),
-        ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              message,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

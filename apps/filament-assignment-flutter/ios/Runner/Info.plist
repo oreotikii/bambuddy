@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Bambuddy Assign</string>
+	<string>CRAV3D Assist</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>assignfilament</string>
+	<string>CRAV3D Assist</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -32,11 +32,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Bambuddy Assign uses the camera to scan printer and spool codes.</string>
+	<string>CRAV3D Assist uses the camera to scan printer and spool codes.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>Bambuddy Assign uses Face ID to quickly unlock the app.</string>
+	<string>CRAV3D Assist uses Face ID to quickly unlock the app.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Bambuddy Assign connects to your local Bambuddy server.</string>
+	<string>CRAV3D Assist connects to your local Bambuddy server.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

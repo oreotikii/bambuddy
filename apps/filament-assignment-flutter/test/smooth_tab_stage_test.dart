@@ -3,19 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('smooth tab stage animates every tab pane for 800ms', (
+  testWidgets('smooth tab stage animates every tab pane for 400ms', (
     tester,
   ) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: false);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
-          body: SmoothTabStage(
-            index: 1,
-            children: [
-              Text('Status content'),
-              Text('Weigh content'),
-              Text('Assign content'),
-            ],
+          body: MediaQuery(
+            data: MediaQueryData(disableAnimations: false),
+            child: SmoothTabStage(
+              index: 1,
+              children: [
+                Text('Status content'),
+                Text('Weigh content'),
+                Text('Assign content'),
+              ],
+            ),
           ),
         ),
       ),
@@ -37,10 +44,10 @@ void main() {
       Offset.zero,
     ]);
     expect(opacityAnimations.map((animation) => animation.duration).toSet(), {
-      const Duration(milliseconds: 800),
+      const Duration(milliseconds: 400),
     });
     expect(slideAnimations.map((animation) => animation.duration).toSet(), {
-      const Duration(milliseconds: 800),
+      const Duration(milliseconds: 400),
     });
 
     await tester.pumpAndSettle();

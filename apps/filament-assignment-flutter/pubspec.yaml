@@ -1,5 +1,5 @@
 name: assignfilament
-description: "Bambuddy Assign — internal iOS and Android app for the SpoolBuddy filament-assignment workflow."
+description: "CRAV3D Assist — internal iOS and Android app for the SpoolBuddy filament-assignment workflow."
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -34,6 +34,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/brand/CRAV3D.svg
+    - assets/ui/ams_body.png
+    - assets/ui/ams_spool.png
+    - assets/ui/ams_frame.png
   fonts:
     - family: Plus Jakarta Sans
       fonts:

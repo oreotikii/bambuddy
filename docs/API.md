@@ -1,6 +1,6 @@
 # Bambuddy REST API — Mobile / Flutter Client Reference
 
-This document captures the **REST API surface that the Bambuddy Assign Flutter
+This document captures the **REST API surface that the CRAV3D Assist Flutter
 app** (`apps/filament-assignment-flutter/`) depends on. It is the authoritative
 contract reference now that the upstream Python backend has been removed from
 this repo. The app is a client only; the Bambuddy server is deployed separately.
@@ -322,6 +322,14 @@ no body. Surface the trigger only when the printer's status reports
 `awaiting_plate_clear == true`; the server returns `400` if the printer is not
 awaiting a clear.
 
+### `POST /printers/{printer_id}/ams/{ams_id}/tray/{tray_id}/reset`
+
+Reset a single AMS slot to empty/unconfigured state, clearing the filament
+configuration from that slot. All three path parameters are integers.
+The assign screen uses this for the "Unassign all" action — called once per
+occupied slot using the slot's `printer_id`, `ams_id`, and `tray_id`.
+Returns `{}` on success.
+
 ### Spoolman inventory (Spoolman mode)
 
 - `GET /spoolman/inventory/spools` — list spools (`SpoolResponse[]`). The weigh
@@ -332,13 +340,17 @@ awaiting a clear.
   resolve-spool summary omits: `core_weight` (empty spool weight), `subtype`,
   `extra_colors` (a string of additional color hexes, split client-side on
   commas/semicolons/spaces), `effect_type` (e.g. "Silk", "Matte"), and
-  `storage_location`.
+  `storage_location`. The **assign screen** also fetches this right after a
+  resolve to read `archived_at` — the summary carries no archived flag, so
+  `archived_at != null` (a soft-deleted spool) is what the client uses to refuse
+  assignment.
 - `GET /spoolman/inventory/slot-assignments/all` — all current slot → spool
   assignments across printers.
 - `DELETE /spoolman/inventory/slot-assignments/{spoolman_spool_id}` —
   unassign the given Spoolman spool from whichever printer slot currently owns
-  it. The status screen uses this when an operator taps a loaded filament row
-  and confirms removal.
+  it. Used by the status screen (tap a loaded filament row) and by the assign
+  screen's "Unassign all" action (called after `resetSlot` for slots that carry
+  an `assigned_spool_id`, to clear the inventory record from Spoolman).
 - `GET /spoolman/status` — `{ enabled, connected, url }`; useful to show whether
   Spoolman is reachable.
 

@@ -1,4 +1,4 @@
-# Bambuddy Assign
+# CRAV3D Assist
 
 Flutter client (`assignfilament`) for the SpoolBuddy filament-assignment
 workflow: scan a printer → scan a spool → assign the spool to an AMS or
@@ -39,7 +39,7 @@ tool/build.sh ios           # flutter build ios --release --dart-define-from-fil
 username and password; credentials are stored in platform secure storage for
 silent token renewal (`lib/src/config/app_config.dart`).
 
-In VS Code, the **"Bambuddy Assign (baked config)"** launch config applies the
+In VS Code, the **"CRAV3D Assist (baked config)"** launch config applies the
 file automatically. Individual `--dart-define=BAMBUDDY_*` flags also work inline.
 
 ## Verify

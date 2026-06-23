@@ -1,4 +1,4 @@
-# AGENTS.md — Bambuddy Assign (Flutter)
+# AGENTS.md — CRAV3D Assist (Flutter)
 
 Guide for AI coding agents working in this repository. **Read this first.**
 
@@ -6,7 +6,7 @@ Guide for AI coding agents working in this repository. **Read this first.**
 
 This repository owns and maintains exactly **one** thing:
 
-> ✅ `apps/filament-assignment-flutter/` — the **Bambuddy Assign** Flutter app
+> ✅ `apps/filament-assignment-flutter/` — the **CRAV3D Assist** Flutter app
 > (package `assignfilament`), an internal iOS and Android client for the SpoolBuddy
 > filament-assignment workflow.
 
@@ -70,7 +70,7 @@ and the REST contract the app depends on is captured in `docs/API.md`.
   stored locally in `flutter_secure_storage` (Android Keystore / iOS Keychain).
   The recommended pattern is a gitignored `baked-config.json` applied with
   `--dart-define-from-file` (there are `tool/run.sh` and `tool/build.sh`
-  wrappers, and a VS Code "Bambuddy Assign (baked config)" launch config):
+  wrappers, and a VS Code "CRAV3D Assist (baked config)" launch config):
   ```bash
   cp baked-config.example.json baked-config.json   # fill in real values
   tool/run.sh        # == flutter run  --dart-define-from-file=baked-config.json

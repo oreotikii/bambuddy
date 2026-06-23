@@ -72,6 +72,38 @@ void main() {
     expect(find.text('PLA'), findsOneWidget);
   });
 
+  testWidgets('Weight page switch refreshes the current spool', (tester) async {
+    final repo = _FakeAssignmentRepository();
+
+    await tester.pumpWidget(_testApp(WeighScreen(repository: repo)));
+
+    await tester.enterText(
+      find.byKey(const ValueKey('spool-code-field')),
+      'spool:42',
+    );
+    await tester.tap(find.widgetWithIcon(IconButton, Icons.search));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.byKey(const ValueKey('weight-grams-field')),
+      '870.5',
+    );
+
+    await tester.pumpWidget(
+      _testApp(WeighScreen(repository: repo, refreshNonce: 1)),
+    );
+    await tester.pumpAndSettle();
+
+    expect(repo.resolvedSpoolCodes, ['spool:42', 'spool:42']);
+    expect(
+      tester
+          .widget<TextField>(find.byKey(const ValueKey('weight-grams-field')))
+          .controller
+          ?.text,
+      isEmpty,
+    );
+    expect(find.text('Polymaker'), findsOneWidget);
+  });
+
   testWidgets(
     'Assign flow resolves printer and spool, chooses a slot, and shows warnings',
     (tester) async {
@@ -99,8 +131,19 @@ void main() {
 
       expect(repo.resolvedPrinterCodes, isEmpty);
       expect(repo.resolvedSpoolCodes, ['spool:42']);
-      expect(repo.slotFetches, [3]);
+      expect(repo.slotFetches, [3, 3]);
       expect(repo.assignCalls.single.slot, 1);
+      expect(find.byKey(const ValueKey('printer-dropdown-3')), findsOneWidget);
+      expect(
+        tester
+            .widget<TextField>(
+              find.byKey(const ValueKey('assign-spool-code-field')),
+            )
+            .controller
+            ?.text,
+        isEmpty,
+      );
+      expect(find.textContaining('AMS A | spool #42'), findsOneWidget);
       expect(find.text('Assigned spool #42 to A2'), findsNWidgets(2));
       _expectSuccessNotification(
         tester,
@@ -166,6 +209,8 @@ void main() {
       expect(repo.assignCalls, hasLength(2));
       expect(repo.assignCalls.last.replaceExisting, isTrue);
       expect(repo.assignCalls.last.moveExisting, isFalse);
+      expect(repo.slotFetches, [3, 3]);
+      expect(find.byKey(const ValueKey('printer-dropdown-3')), findsOneWidget);
       expect(find.text('Assigned spool #42 to A2'), findsNWidgets(2));
       _expectSuccessNotification(
         tester,
@@ -175,6 +220,146 @@ void main() {
       expect(find.text('Material mismatch'), findsOneWidget);
     },
   );
+
+  testWidgets('Assign success refreshes page and keeps printer selected', (
+    tester,
+  ) async {
+    final repo = _FakeAssignmentRepository();
+
+    await tester.pumpWidget(_testApp(AssignScreen(repository: repo)));
+
+    await tester.pumpAndSettle();
+    await _selectPrinter(tester, 'p1s-03');
+    await tester.enterText(
+      find.byKey(const ValueKey('assign-spool-code-field')),
+      'spool:42',
+    );
+    await _ensureVisibleAndTap(tester, find.text('Resolve spool'));
+    await tester.pumpAndSettle();
+    await _scrollAssignTo(tester, find.text('A2'));
+    await tester.tap(find.text('A2'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Assign spool'));
+    await tester.pumpAndSettle();
+
+    expect(repo.slotFetches, [3, 3]);
+    expect(
+      find.byKey(const ValueKey('printer-dropdown-3'), skipOffstage: false),
+      findsOneWidget,
+    );
+    expect(
+      tester
+          .widget<TextField>(
+            find.byKey(
+              const ValueKey('assign-spool-code-field'),
+              skipOffstage: false,
+            ),
+          )
+          .controller
+          ?.text,
+      isEmpty,
+    );
+    expect(find.text('Polymaker PLA Black'), findsNothing);
+    expect(find.textContaining('AMS A | spool #42'), findsOneWidget);
+    expect(find.text('Assigned spool #42 to A2'), findsOneWidget);
+    expect(find.text('Material mismatch'), findsOneWidget);
+  });
+
+  testWidgets(
+    'Unassign all confirms, calls unassignSpool for each occupied slot, and refreshes',
+    (tester) async {
+      final repo = _FakeAssignmentRepository();
+
+      await tester.pumpWidget(_testApp(AssignScreen(repository: repo)));
+      await tester.pumpAndSettle();
+      await _selectPrinter(tester, 'p1s-03');
+
+      expect(find.byTooltip('Unassign all'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('Unassign all'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Unassign all spools'), findsOneWidget);
+      expect(find.textContaining('p1s-03'), findsWidgets);
+
+      await tester.tap(find.text('Unassign all'));
+      await tester.pumpAndSettle();
+
+      expect(repo.resetCalls, [(3, 0, 1)]);
+      expect(repo.unassignCalls, [21]);
+      expect(repo.slotFetches, [3, 3]);
+      expect(
+        find.textContaining('Unassigned 1 spool from p1s-03'),
+        findsOneWidget,
+      );
+    },
+  );
+
+  testWidgets('Unassign all cancel does nothing', (tester) async {
+    final repo = _FakeAssignmentRepository();
+
+    await tester.pumpWidget(_testApp(AssignScreen(repository: repo)));
+    await tester.pumpAndSettle();
+    await _selectPrinter(tester, 'p1s-03');
+
+    await tester.tap(find.byTooltip('Unassign all'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    expect(repo.resetCalls, isEmpty);
+  });
+
+  testWidgets('Assign page switch refreshes slots and keeps printer selected', (
+    tester,
+  ) async {
+    final repo = _FakeAssignmentRepository();
+    final refreshNonce = ValueNotifier(0);
+
+    await tester.pumpWidget(
+      _testApp(
+        ValueListenableBuilder<int>(
+          valueListenable: refreshNonce,
+          builder: (_, nonce, _) {
+            return AssignScreen(repository: repo, refreshNonce: nonce);
+          },
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    await _selectPrinter(tester, 'p1s-03');
+    await tester.enterText(
+      find.byKey(const ValueKey('assign-spool-code-field')),
+      'spool:42',
+    );
+    await _ensureVisibleAndTap(tester, find.text('Resolve spool'));
+    await tester.pumpAndSettle();
+
+    refreshNonce.value = 1;
+    await tester.pumpAndSettle();
+
+    expect(repo.slotFetches, [3, 3]);
+    expect(
+      find.byKey(const ValueKey('printer-dropdown-3'), skipOffstage: false),
+      findsOneWidget,
+    );
+    expect(
+      tester
+          .widget<TextField>(
+            find.byKey(
+              const ValueKey('assign-spool-code-field'),
+              skipOffstage: false,
+            ),
+          )
+          .controller
+          ?.text,
+      isEmpty,
+    );
+    expect(find.text('Polymaker PLA Black'), findsNothing);
+    expect(repo.assignCalls, isEmpty);
+  });
 }
 
 Widget _testApp(Widget home) {
@@ -228,6 +413,8 @@ class _FakeAssignmentRepository implements AssignmentRepository {
   final slotFetches = <int>[];
   final assignCalls = <_AssignCall>[];
   final weighCalls = <_WeighCall>[];
+  final resetCalls = <(int, int, int)>[];
+  final unassignCalls = <int>[];
 
   bool conflictOnFirstAssign = false;
 
@@ -274,7 +461,8 @@ class _FakeAssignmentRepository implements AssignmentRepository {
   @override
   Future<List<MobileSlot>> fetchPrinterSlots(int printerId) async {
     slotFetches.add(printerId);
-    return const [
+    final assignedSpoolId = assignCalls.isEmpty ? 21 : 42;
+    return [
       MobileSlot(
         printerId: 3,
         amsId: 0,
@@ -291,7 +479,7 @@ class _FakeAssignmentRepository implements AssignmentRepository {
         label: 'A2',
         unitName: 'AMS A',
         occupied: true,
-        assignedSpoolId: 21,
+        assignedSpoolId: assignedSpoolId,
       ),
     ];
   }
@@ -338,6 +526,16 @@ class _FakeAssignmentRepository implements AssignmentRepository {
       ),
       warnings: ['Material mismatch'],
     );
+  }
+
+  @override
+  Future<void> resetSlot(int printerId, int amsId, int trayId) async {
+    resetCalls.add((printerId, amsId, trayId));
+  }
+
+  @override
+  Future<void> unassignSpool(int spoolmanSpoolId) async {
+    unassignCalls.add(spoolmanSpoolId);
   }
 
   @override

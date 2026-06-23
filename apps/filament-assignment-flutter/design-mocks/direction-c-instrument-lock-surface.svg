@@ -26,7 +26,7 @@
     <path d="M31 180C110 106 173 212 248 154C309 107 343 140 400 166" stroke="#27272A" stroke-width="2"/>
     <path d="M40 651C129 603 191 688 271 625C331 578 360 606 392 626" stroke="#202027" stroke-width="2"/>
     <text x="42" y="78" class="font ink" font-size="25" font-weight="850">CRAV3D</text>
-    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">Bambuddy Assign</text>
+    <text x="42" y="106" class="font muted" font-size="13" font-weight="700">CRAV3D Assist</text>
 
     <g transform="translate(42 152)">
       <rect x="0" y="0" width="158" height="34" rx="999" fill="#27272A" stroke="#3F3F46"/>
@@ -63,7 +63,7 @@
     <text x="215" y="186" class="font" fill="#B7F4C8" font-size="12" font-weight="850" text-anchor="middle">App locked</text>
 
     <text x="215" y="300" class="font ink" font-size="28" font-weight="850" text-anchor="middle">Enter PIN to continue</text>
-    <text x="215" y="329" class="font muted" font-size="14" font-weight="650" text-anchor="middle">Bambuddy Assign</text>
+    <text x="215" y="329" class="font muted" font-size="14" font-weight="650" text-anchor="middle">CRAV3D Assist</text>
 
     <g transform="translate(53 396)">
       <rect x="0" y="0" width="68" height="86" rx="16" fill="#171717" stroke="#384255" stroke-width="3"/>

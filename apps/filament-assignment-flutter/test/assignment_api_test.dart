@@ -246,6 +246,50 @@ void main() {
     },
   );
 
+  test('unassignSpool sends DELETE to the spoolman slot-assignment endpoint', () async {
+    late http.Request request;
+    final api = AssignmentApi(
+      ApiClient(
+        'https://bambuddy.test',
+        'secret-key',
+        MockClient((req) async {
+          request = req;
+          return http.Response(jsonEncode({'ok': true}), 200);
+        }),
+      ),
+    );
+
+    await api.unassignSpool(42);
+
+    expect(request.method, 'DELETE');
+    expect(
+      request.url.toString(),
+      'https://bambuddy.test/api/v1/spoolman/inventory/slot-assignments/42',
+    );
+  });
+
+  test('resetSlot sends POST to the correct printer/ams/tray/reset endpoint', () async {
+    late http.Request request;
+    final api = AssignmentApi(
+      ApiClient(
+        'https://bambuddy.test',
+        'secret-key',
+        MockClient((req) async {
+          request = req;
+          return http.Response(jsonEncode({}), 200);
+        }),
+      ),
+    );
+
+    await api.resetSlot(3, 0, 1);
+
+    expect(request.method, 'POST');
+    expect(
+      request.url.toString(),
+      'https://bambuddy.test/api/v1/printers/3/ams/0/tray/1/reset',
+    );
+  });
+
   test('resolveSpool preserves unauthorized API exceptions', () async {
     final api = AssignmentApi(
       ApiClient(

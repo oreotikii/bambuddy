@@ -1,6 +1,6 @@
-# Bambuddy Assign (Flutter)
+# CRAV3D Assist (Flutter)
 
-**Bambuddy Assign** is the internal Flutter app for the SpoolBuddy
+**CRAV3D Assist** is the internal Flutter app for the SpoolBuddy
 filament-assignment workflow: it lets an operator scan a printer, scan a spool,
 and assign that spool to an AMS or external-spool slot on a Bambuddy instance.
 
@@ -49,7 +49,7 @@ tool/build.sh        # == flutter build apk --release --dart-define-from-file=..
 tool/build.sh ios    # == flutter build ios --release --dart-define-from-file=...
 ```
 
-In VS Code, the **"Bambuddy Assign (baked config)"** launch config applies the
+In VS Code, the **"CRAV3D Assist (baked config)"** launch config applies the
 file automatically. You can also pass `--dart-define=BAMBUDDY_BASE_URL=...`
 inline if you prefer.
 

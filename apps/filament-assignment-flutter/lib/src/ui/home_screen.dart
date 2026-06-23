@@ -11,9 +11,10 @@ import '../data/api_client.dart';
 import 'crav3d_logo.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, this.apiClientFactory});
+  const HomeScreen({super.key, this.apiClientFactory, this.refreshNonce = 0});
 
   final Future<ApiClient> Function()? apiClientFactory;
+  final int refreshNonce;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -33,6 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _bootstrap();
+  }
+
+  @override
+  void didUpdateWidget(covariant HomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.refreshNonce != oldWidget.refreshNonce) {
+      unawaited(_refresh(false));
+    }
   }
 
   Future<void> _bootstrap() async {
@@ -360,6 +369,22 @@ class _HomeScreenState extends State<HomeScreen> {
   static int? _toInt(dynamic v) =>
       v is num ? v.toInt() : (v == null ? null : int.tryParse('$v'));
 
+  static Color _stateAccentColor(PrinterCard card) {
+    if (card.hasFault) return const Color(0xFF7F1D1D);
+    if (card.awaitingClear) return const Color(0xFF78350F);
+    if (card.stateLabel == 'Printing') return const Color(0xFF166534);
+    if (card.online) return const Color(0xFF3F3F46);
+    return const Color(0xFF252529);
+  }
+
+  static Color _stateDotColor(PrinterCard card) {
+    if (card.hasFault) return const Color(0xFFF87171);
+    if (card.awaitingClear) return const Color(0xFFFBBF24);
+    if (card.stateLabel == 'Printing') return const Color(0xFF4ADE80);
+    if (card.online) return const Color(0xFF71717A);
+    return const Color(0xFF3F3F46);
+  }
+
   int _parseColorHex(String? hex) {
     if (hex == null) return 0xFF52525B;
     var h = hex.replaceAll('#', '').trim().toUpperCase();
@@ -373,20 +398,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final isSuccessBanner =
+        _bannerColor == Theme.of(context).colorScheme.primary;
     return Scaffold(
-      backgroundColor: cs.surface,
+      backgroundColor: const Color(0xFF18181B),
       appBar: AppBar(
-        backgroundColor: cs.surfaceContainer,
+        backgroundColor: const Color(0xFF18181B),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: 72,
+        shadowColor: Colors.transparent,
+        toolbarHeight: 64,
         titleSpacing: 16,
         centerTitle: false,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Crav3dLogo(width: 168, color: Colors.white),
+            const Crav3dLogo(width: 200, color: Colors.white),
             const SizedBox(height: 3),
             Text(
               'BAMBUDDY',
@@ -394,11 +422,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: cs.onSurface,
                 fontSize: 10,
                 fontWeight: FontWeight.w200,
-                letterSpacing: 2,
+                letterSpacing: 5,
                 height: 1,
               ),
             ),
           ],
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(height: 1, color: const Color(0xFF27272A)),
         ),
       ),
       body: Column(
@@ -406,11 +438,27 @@ class _HomeScreenState extends State<HomeScreen> {
           if (_banner != null)
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              color: _bannerColor?.withValues(alpha: 0.12),
+              margin: const EdgeInsets.fromLTRB(14, 10, 14, 0),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: isSuccessBanner
+                    ? const Color(0xFF0D2818)
+                    : const Color(0xFF2C1414),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: isSuccessBanner
+                      ? const Color(0xFF166534)
+                      : const Color(0xFF7F1D1D),
+                ),
+              ),
               child: Text(
                 _banner!,
-                style: TextStyle(color: _bannerColor ?? cs.error, fontSize: 13),
+                style: TextStyle(
+                  color: isSuccessBanner
+                      ? const Color(0xFF86EFAC)
+                      : const Color(0xFFFCA5A5),
+                  fontSize: 13,
+                ),
               ),
             ),
           if (_cards.isNotEmpty) _metricsRow(cs),
@@ -418,12 +466,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: _loading
                 ? const Center(child: CircularProgressIndicator())
                 : RefreshIndicator(
-                    color: cs.primary,
+                    color: const Color(0xFF00C853),
                     onRefresh: () => _refresh(true),
                     child: _cards.isEmpty
                         ? _emptyState(cs)
                         : ListView.builder(
-                            padding: const EdgeInsets.fromLTRB(14, 8, 14, 24),
+                            padding: const EdgeInsets.fromLTRB(14, 8, 14, 120),
                             itemCount: _cards.length + 1,
                             itemBuilder: (_, i) {
                               if (i == 0) {
@@ -434,19 +482,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   child: Row(
                                     children: [
-                                      Text(
-                                        'Workshop printers',
+                                      const Text(
+                                        'WORKSHOP PRINTERS',
                                         style: TextStyle(
-                                          color: cs.onSurface,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
+                                          color: Color(0xFF71717A),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 11,
+                                          letterSpacing: 1.1,
                                         ),
                                       ),
                                       const Spacer(),
-                                      Text(
+                                      const Text(
                                         'pull to refresh',
                                         style: TextStyle(
-                                          color: cs.onSurfaceVariant,
+                                          color: Color(0xFF3F3F46),
                                           fontSize: 11,
                                           fontFamily: 'monospace',
                                         ),
@@ -456,7 +505,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               }
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 14),
+                                padding: const EdgeInsets.only(bottom: 10),
                                 child: _buildCardWidget(cs, _cards[i - 1]),
                               );
                             },
@@ -483,32 +532,55 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return Container(
       width: double.infinity,
-      color: cs.surfaceContainer,
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 10),
+      padding: const EdgeInsets.fromLTRB(16, 6, 16, 10),
+      decoration: const BoxDecoration(
+        color: Color(0xFF1A1A1E),
+        border: Border(bottom: BorderSide(color: Color(0xFF27272A))),
+      ),
       child: Wrap(
         spacing: 8,
         runSpacing: 4,
         children: [
-          if (fault > 0) _metric('$fault fault', cs.error),
-          if (plate > 0) _metric('$plate plate', cs.tertiary),
-          _metric('$printing printing', cs.primary),
-          _metric('$idle idle', cs.onSurfaceVariant),
+          if (fault > 0) _metric('$fault fault', _MetricStyle.fault),
+          if (plate > 0) _metric('$plate plate', _MetricStyle.warn),
+          _metric('$printing printing', _MetricStyle.printing),
+          _metric('$idle idle', _MetricStyle.idle),
         ],
       ),
     );
   }
 
-  Widget _metric(String label, Color color) {
+  Widget _metric(String label, _MetricStyle style) {
+    final Color bg;
+    final Color textColor;
+    switch (style) {
+      case _MetricStyle.fault:
+        bg = const Color(0xFF1A0A0A);
+        textColor = const Color(0xFFD87171);
+        break;
+      case _MetricStyle.warn:
+        bg = const Color(0xFF130F00);
+        textColor = const Color(0xFFCB9C1A);
+        break;
+      case _MetricStyle.printing:
+        bg = const Color(0xFF0A160D);
+        textColor = const Color(0xFF4ADE80);
+        break;
+      case _MetricStyle.idle:
+        bg = Colors.transparent;
+        textColor = const Color(0xFF52525B);
+        break;
+    }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        color: bg,
         borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
         label,
         style: TextStyle(
-          color: color,
+          color: textColor,
           fontWeight: FontWeight.bold,
           fontSize: 12,
         ),
@@ -525,182 +597,251 @@ class _HomeScreenState extends State<HomeScreen> {
           card.online ? 'Ready for spool assignment' : 'No connection',
         ]) ??
         '';
-    return Card(
-      color: cs.surfaceContainerHighest,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
+    final amsSlots = card.slots.where((s) => s.amsId != 255).toList();
+    final externalSlots = card.slots.where((s) => s.amsId == 255).toList();
+    final showAmsDiagram = isA1 && amsSlots.isNotEmpty;
+    final listSlots = showAmsDiagram ? externalSlots : card.slots;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF1C1C20),
         borderRadius: BorderRadius.circular(14),
-        side: BorderSide(color: cs.outline),
+        border: Border.all(color: const Color(0xFF2A2A30)),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 70,
-                  height: 70,
-                  margin: const EdgeInsets.only(right: 12),
-                  decoration: BoxDecoration(
-                    color: cs.surfaceContainerLow,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Icon(
-                    isA1 ? Icons.view_in_ar_outlined : Icons.print_outlined,
-                    size: 34,
-                    color: cs.onSurfaceVariant,
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                        child: AutoSizeText(
-                          card.name,
-                          maxLines: 1,
-                          minFontSize: 12,
-                          overflow: TextOverflow.ellipsis,
-                          wrapWords: false,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            height: 1.2,
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            child: Container(width: 3, color: _stateAccentColor(card)),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 12, 12, 12),
+            child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 52,
+                          height: 52,
+                          margin: const EdgeInsets.only(right: 12),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF252528),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: const Color(0xFF2E2E34)),
+                          ),
+                          child: Icon(
+                            isA1
+                                ? Icons.view_in_ar_outlined
+                                : Icons.print_outlined,
+                            size: 24,
+                            color: _stateDotColor(card).withValues(
+                              alpha:
+                                  card.online || card.hasFault ? 0.85 : 0.35,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 3),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 20,
+                                child: AutoSizeText(
+                                  card.name,
+                                  maxLines: 1,
+                                  minFontSize: 12,
+                                  overflow: TextOverflow.ellipsis,
+                                  wrapWords: false,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                    height: 1.2,
+                                    letterSpacing: -0.3,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  if (modelName != null)
+                                    Flexible(
+                                      child: _modelChip(
+                                        cs,
+                                        card.id,
+                                        modelName,
+                                      ),
+                                    )
+                                  else
+                                    Flexible(
+                                      child: Text(
+                                        subtitle,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: Color(0xFF52525B),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  const SizedBox(width: 8),
+                                  _statusChip(cs, card),
+                                ],
+                              ),
+                              if (card.nozzleTemp != null ||
+                                  card.bedTemp != null) ...[
+                                const SizedBox(height: 6),
+                                _temperatureRow(card),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (card.stateLabel == 'Printing' &&
+                        card.progress >= 0) ...[
+                      const SizedBox(height: 10),
                       Row(
                         children: [
-                          if (modelName != null)
-                            Flexible(child: _modelChip(cs, card.id, modelName))
-                          else
-                            Flexible(
-                              child: Text(
-                                subtitle,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: cs.onSurfaceVariant,
-                                  fontSize: 12,
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(999),
+                              child: LinearProgressIndicator(
+                                value: (card.progress / 100).clamp(0.02, 1.0),
+                                minHeight: 4,
+                                backgroundColor: const Color(0xFF252529),
+                                valueColor:
+                                    const AlwaysStoppedAnimation<Color>(
+                                  Color(0xFF22C55E),
                                 ),
                               ),
                             ),
-                          const SizedBox(width: 8),
-                          _statusChip(cs, card),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            '${card.progress.round()}%',
+                            style: const TextStyle(
+                              color: Color(0xFF22C55E),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ],
                       ),
-                      if (card.nozzleTemp != null || card.bedTemp != null) ...[
-                        const SizedBox(height: 8),
-                        _temperatureBanners(card),
-                      ],
                     ],
-                  ),
-                ),
-              ],
-            ),
-            if (card.progress >= 0) ...[
-              const SizedBox(height: 10),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(999),
-                child: LinearProgressIndicator(
-                  value: (card.progress / 100).clamp(0.02, 1.0),
-                  minHeight: 6,
-                  backgroundColor: cs.surfaceContainerLow,
+                    if (card.online && card.id > 0 && card.awaitingClear) ...[
+                      const SizedBox(height: 10),
+                      _GlassClearPlateButton(
+                        onPressed: () => _clearPlate(card.id),
+                      ),
+                    ],
+                    if (showAmsDiagram) ...[
+                      const SizedBox(height: 14),
+                      _HomeAmsDiagram(
+                        slots: amsSlots,
+                        onSlotTap: _showFilamentDetails,
+                      ),
+                    ],
+                    if (listSlots.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4, bottom: 6),
+                        child: Text(
+                          showAmsDiagram
+                              ? 'EXTERNAL SPOOLS'
+                              : 'LOADED FILAMENTS',
+                          style: const TextStyle(
+                            color: Color(0xFF3F3F46),
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                      ),
+                      _slotList(cs, listSlots),
+                    ],
+                  ],
                 ),
               ),
-            ],
-            if (card.online && card.id > 0 && card.awaitingClear) ...[
-              const SizedBox(height: 10),
-              _GlassClearPlateButton(onPressed: () => _clearPlate(card.id)),
-            ],
-            if (card.slots.isNotEmpty) ...[
-              const SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.only(left: 4, bottom: 6),
-                child: Text(
-                  'LOADED FILAMENTS',
-                  style: TextStyle(
-                    color: cs.onSurfaceVariant,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ),
-              _slotList(cs, card),
-            ],
           ],
         ),
-      ),
     );
   }
 
   Widget _modelChip(ColorScheme cs, int printerId, String modelName) {
     return Container(
       key: ValueKey('model-chip-$printerId'),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
       decoration: BoxDecoration(
-        color: cs.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: cs.outline),
+        color: const Color(0xFF252529),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
         modelName,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          color: cs.onSurfaceVariant,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
+        style: const TextStyle(
+          color: Color(0xFF52525B),
+          fontSize: 11,
+          fontWeight: FontWeight.w500,
+          fontFamily: 'monospace',
         ),
       ),
     );
   }
 
   Widget _statusChip(ColorScheme cs, PrinterCard card) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-      decoration: BoxDecoration(
-        color: card.online
-            ? cs.primary.withValues(alpha: 0.13)
-            : cs.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Text(
-        card.stateLabel,
-        style: TextStyle(
-          color: card.online ? cs.primary : cs.onSurfaceVariant,
-          fontSize: 12,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 5,
+          height: 5,
+          decoration: BoxDecoration(
+            color: _stateDotColor(card),
+            shape: BoxShape.circle,
+          ),
         ),
-      ),
+        const SizedBox(width: 5),
+        Text(
+          card.stateLabel,
+          style: const TextStyle(
+            color: Color(0xFF71717A),
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _slotList(ColorScheme cs, PrinterCard card) {
+  Widget _slotList(ColorScheme cs, List<SlotInfo> slots) {
     return Container(
       decoration: BoxDecoration(
-        color: cs.surfaceContainerLow,
+        color: const Color(0xFF16161A),
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color(0xFF2E2E34)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          for (var i = 0; i < card.slots.length; i++) ...[
+          for (var i = 0; i < slots.length; i++) ...[
             if (i > 0)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Divider(
                   height: 1,
                   thickness: 1,
-                  color: cs.outline.withValues(alpha: 0.4),
+                  color: Color(0xFF27272A),
                 ),
               ),
-            _slotRow(cs, card.slots[i]),
+            _slotRow(cs, slots[i]),
           ],
         ],
       ),
@@ -723,20 +864,19 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: cs.surfaceContainerHighest,
+                  color: const Color(0xFF27272A),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: cs.outline),
+                  border: Border.all(color: const Color(0xFF3F3F46)),
                 ),
                 child: Text(
                   s.label,
-                  style: TextStyle(
-                    color: cs.onSurfaceVariant,
+                  style: const TextStyle(
+                    color: Color(0xFF71717A),
                     fontSize: 10,
                     fontFamily: 'monospace',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                     letterSpacing: 0.4,
                   ),
                 ),
@@ -749,7 +889,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   color: swatch,
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: cs.outline),
+                  border: Border.all(color: const Color(0xFF2E2E34)),
                 ),
               ),
               const SizedBox(width: 10),
@@ -762,16 +902,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       _filamentTypeLabel(s),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: cs.onSurface,
+                      style: const TextStyle(
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 13,
                       ),
                     ),
                     Text(
                       '#${s.spoolId}',
-                      style: TextStyle(
-                        color: cs.onSurfaceVariant,
+                      style: const TextStyle(
+                        color: Color(0xFF52525B),
                         fontSize: 11,
                       ),
                     ),
@@ -781,8 +921,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(width: 8),
               Text(
                 _amountLeftLabel(s),
-                style: TextStyle(
-                  color: cs.onSurfaceVariant,
+                style: const TextStyle(
+                  color: Color(0xFF71717A),
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                 ),
@@ -926,49 +1066,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return 'Amount unknown';
   }
 
-  Widget _temperatureBanners(PrinterCard card) {
-    return Wrap(
-      spacing: 6,
-      runSpacing: 6,
-      children: [
-        if (card.nozzleTemp != null)
-          _temperatureChip(
-            key: const ValueKey('nozzle-temperature-chip'),
-            icon: Icons.local_fire_department_outlined,
-            label: 'Nozzle ${card.nozzleTemp!.round()}°C',
-            color: const Color(0xFFEA580C),
-          ),
-        if (card.bedTemp != null)
-          _temperatureChip(
-            key: const ValueKey('bed-temperature-chip'),
-            icon: Icons.layers_outlined,
-            label: 'Bed ${card.bedTemp!.round()}°C',
-            color: const Color(0xFF2563EB),
-          ),
-      ],
-    );
-  }
-
-  Widget _temperatureChip({
-    required Key key,
-    required IconData icon,
-    required String label,
-    required Color color,
-  }) {
-    return Container(
-      key: key,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.13),
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 13, color: color),
-          const SizedBox(width: 5),
-          Text(label, style: TextStyle(color: color, fontSize: 12)),
-        ],
+  Widget _temperatureRow(PrinterCard card) {
+    final parts = <String>[];
+    if (card.nozzleTemp != null) parts.add('N ${card.nozzleTemp!.round()}°C');
+    if (card.bedTemp != null) parts.add('B ${card.bedTemp!.round()}°C');
+    return Text(
+      parts.join('  ·  '),
+      style: const TextStyle(
+        color: Color(0xFF52525B),
+        fontSize: 11,
+        fontFamily: 'monospace',
       ),
     );
   }
@@ -980,16 +1087,16 @@ class _HomeScreenState extends State<HomeScreen> {
         Center(
           child: Column(
             children: [
-              Icon(
+              const Icon(
                 Icons.print_disabled_outlined,
                 size: 72,
-                color: cs.onSurfaceVariant,
+                color: Color(0xFF52525B),
               ),
               const SizedBox(height: 16),
-              Text(
+              const Text(
                 'No printers connected',
                 style: TextStyle(
-                  color: cs.onSurface,
+                  color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -997,10 +1104,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 6),
               SizedBox(
                 width: 280,
-                child: Text(
+                child: const Text(
                   'No printers configured. Add printers in the Bambuddy web UI.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: cs.onSurfaceVariant, fontSize: 14),
+                  style: TextStyle(color: Color(0xFF71717A), fontSize: 14),
                 ),
               ),
             ],
@@ -1107,6 +1214,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+enum _MetricStyle { fault, warn, printing, idle }
+
 class PrinterCard {
   String name = 'Printer';
   int id = -1;
@@ -1157,6 +1266,244 @@ class _SlotAssignment {
   final int amsId;
   final int trayId;
   final int spoolId;
+}
+
+// Mount positions match assign_screen.dart — trayId maps directly to index.
+const _kHomeMounts = [
+  (0.79, 0.20), // trayId 0 – T1 upper right
+  (0.20, 0.20), // trayId 1 – T2 upper left
+  (0.20, 0.80), // trayId 2 – T3 lower left
+  (0.79, 0.80), // trayId 3 – T4 lower right
+];
+
+class _HomeAmsDiagram extends StatelessWidget {
+  const _HomeAmsDiagram({required this.slots, this.onSlotTap});
+  final List<SlotInfo> slots;
+  final ValueChanged<SlotInfo>? onSlotTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        const imageAspect = 979.5 / 452.97;
+        final w = constraints.maxWidth;
+        final h = w / imageAspect;
+        return GestureDetector(
+          onTapUp: onSlotTap == null
+              ? null
+              : (details) {
+                  final pos = details.localPosition;
+                  SlotInfo? nearest;
+                  double? bestSq;
+                  for (var trayId = 0; trayId < _kHomeMounts.length; trayId++) {
+                    SlotInfo? slot;
+                    for (final s in slots) {
+                      if (s.trayId == trayId) {
+                        slot = s;
+                        break;
+                      }
+                    }
+                    if (slot == null) continue;
+                    final cx = _kHomeMounts[trayId].$1 * w;
+                    final cy = _kHomeMounts[trayId].$2 * h;
+                    final dx = pos.dx - cx;
+                    final dy = pos.dy - cy;
+                    final d = dx * dx + dy * dy;
+                    if (bestSq == null || d < bestSq) {
+                      bestSq = d;
+                      nearest = slot;
+                    }
+                  }
+                  if (nearest != null) onSlotTap!(nearest);
+                },
+          child: SizedBox(
+            width: w,
+            height: h,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/ui/ams_body.png',
+                    fit: BoxFit.fill,
+                    color: const Color.fromARGB(255, 209, 209, 209),
+                    colorBlendMode: BlendMode.modulate,
+                  ),
+                ),
+                Positioned.fill(
+                  child: CustomPaint(
+                    painter: _HomeAmsSpoolsPainter(slots: slots),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  height: h,
+                  left: (w - h * 375.0 / 526.0) / 2,
+                  width: h * 375.0 / 526.0,
+                  child: IgnorePointer(
+                    child: Image.asset(
+                      'assets/ui/ams_frame.png',
+                      fit: BoxFit.fill,
+                      color: const Color.fromARGB(255, 144, 144, 144),
+                      colorBlendMode: BlendMode.modulate,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _HomeAmsSpoolsPainter extends CustomPainter {
+  const _HomeAmsSpoolsPainter({required this.slots});
+  final List<SlotInfo> slots;
+
+  static const _sw = 390.0 / 979.5;
+  static const _sh = 170.0 / 452.97;
+  static const _fh = 11.49 / 170.0;
+  static const _flangeColor = Color(0xFF181818);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final spoolW = size.width * _sw;
+    final spoolH = size.height * _sh;
+    final flangeH = spoolH * _fh;
+
+    for (var trayId = 0; trayId < 4; trayId++) {
+      SlotInfo? slot;
+      for (final s in slots) {
+        if (s.trayId == trayId) {
+          slot = s;
+          break;
+        }
+      }
+      if (slot == null) continue;
+
+      final mount = _kHomeMounts[trayId];
+      final cx = mount.$1 * size.width;
+      final cy = mount.$2 * size.height;
+      final left = cx - spoolW / 2;
+      final top = cy - spoolH / 2;
+      final bodyTop = top + flangeH;
+      final bodyH = spoolH - flangeH * 2;
+
+      // Hub background — visible as the dark centre when spool is not full.
+      canvas.drawRect(
+        Rect.fromLTWH(left, bodyTop, spoolW, bodyH),
+        Paint()..color = const Color(0xFF1C1C1C),
+      );
+
+      // Filament fill width scales with remaining amount (centred on spool).
+      final frac = _remainFraction(slot);
+      final fillW = (spoolW * frac).clamp(0.0, spoolW);
+      if (fillW > 0) {
+        final fillLeft = cx - fillW / 2;
+        final color = _slotColor(slot);
+        canvas.drawRect(
+          Rect.fromLTWH(fillLeft, bodyTop, fillW, bodyH),
+          Paint()..color = color,
+        );
+
+        final gp = Paint()
+          ..color = Colors.black.withValues(alpha: 0.13)
+          ..strokeWidth = 0.6
+          ..style = PaintingStyle.stroke;
+        for (var j = 1; j < 5; j++) {
+          final y = bodyTop + bodyH * j / 5;
+          canvas.drawLine(Offset(fillLeft, y), Offset(fillLeft + fillW, y), gp);
+        }
+
+        canvas.drawRect(
+          Rect.fromLTWH(fillLeft, bodyTop, fillW, bodyH * 0.25),
+          Paint()..color = Colors.white.withValues(alpha: 0.07),
+        );
+      }
+
+      canvas.drawRect(
+        Rect.fromLTWH(left, top, spoolW, flangeH),
+        Paint()..color = _flangeColor,
+      );
+      canvas.drawRect(
+        Rect.fromLTWH(left, top + spoolH - flangeH, spoolW, flangeH),
+        Paint()..color = _flangeColor,
+      );
+
+      // Spool ID + material label inside spool body.
+      final spoolNum = slot.spoolId;
+      TextPainter? numPainter;
+      if (spoolNum != null) {
+        numPainter = TextPainter(
+          text: TextSpan(
+            text: '#$spoolNum',
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.88),
+              fontSize: 9,
+              fontWeight: FontWeight.w800,
+              height: 1,
+            ),
+          ),
+          textDirection: TextDirection.ltr,
+        )..layout();
+      }
+
+      final mat = slot.spoolMaterial ?? slot.material;
+      TextPainter? matPainter;
+      if (mat != null && mat.isNotEmpty) {
+        matPainter = TextPainter(
+          text: TextSpan(
+            text: mat.toUpperCase(),
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.58),
+              fontSize: 6,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.5,
+              height: 1,
+            ),
+          ),
+          textDirection: TextDirection.ltr,
+        )..layout(maxWidth: spoolW * 0.85);
+      }
+
+      if (numPainter != null || matPainter != null) {
+        final numH = numPainter?.height ?? 0;
+        final totalH = numH + (matPainter != null ? 2 + matPainter.height : 0);
+        final textY = bodyTop + (bodyH - totalH) / 2;
+        numPainter?.paint(canvas, Offset(cx - numPainter.width / 2, textY));
+        if (matPainter != null) {
+          matPainter.paint(
+            canvas,
+            Offset(cx - matPainter.width / 2, textY + numH + 2),
+          );
+        }
+      }
+    }
+  }
+
+  double _remainFraction(SlotInfo slot) {
+    final remaining = slot.spoolRemaining;
+    final total = slot.spoolLabelWeight;
+    if (remaining != null && total != null && total > 0) {
+      return (remaining / total).clamp(0.0, 1.0);
+    }
+    final pct = slot.remainPercent;
+    if (pct != null) return (pct / 100.0).clamp(0.0, 1.0);
+    return 1.0; // Unknown → assume full.
+  }
+
+  Color _slotColor(SlotInfo slot) {
+    final raw = (slot.spoolRgba ?? slot.colorHex)?.trim().replaceAll('#', '');
+    if (raw != null && raw.length >= 6) {
+      final v = int.tryParse(raw.substring(0, 6), radix: 16);
+      if (v != null) return Color(0xFF000000 | v);
+    }
+    return const Color(0xFF6B6B6B);
+  }
+
+  @override
+  bool shouldRepaint(covariant _HomeAmsSpoolsPainter old) => old.slots != slots;
 }
 
 /// Subtle "clear plate" action rendered as a frosted yellow glass pill so the

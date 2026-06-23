@@ -32,7 +32,7 @@
   <path d="M102 740C257 628 366 777 516 688C656 605 773 594 920 702C1088 825 1231 600 1490 690" stroke="#202027" stroke-width="2"/>
 
   <text x="80" y="92" class="font" fill="#FFFFFF" font-size="30" font-weight="700" letter-spacing="0">CRAV3D</text>
-  <text x="80" y="134" class="font" fill="#A1A1AA" font-size="22" font-weight="600">Bambuddy Assign setup/PIN palette</text>
+  <text x="80" y="134" class="font" fill="#A1A1AA" font-size="22" font-weight="600">CRAV3D Assist setup/PIN palette</text>
   <text x="1254" y="92" class="font" fill="#FFFFFF" font-size="24" font-weight="800">Plus Jakarta Sans</text>
   <text x="1254" y="124" class="font" fill="#A1A1AA" font-size="16" font-weight="600">mobile app UI type direction</text>
 
@@ -53,7 +53,7 @@
   </g>
 
   <g transform="translate(815 190)">
-    <text x="0" y="0" class="font" fill="#FFFFFF" font-size="44" font-weight="800">Bambuddy Assign</text>
+    <text x="0" y="0" class="font" fill="#FFFFFF" font-size="44" font-weight="800">CRAV3D Assist</text>
     <text x="0" y="58" class="font" fill="#FAFAFA" font-size="25" font-weight="750">Connect to your Bambuddy server</text>
     <text x="0" y="104" class="font" fill="#A1A1AA" font-size="19" font-weight="600">Server URL</text>
     <rect x="0" y="126" width="600" height="64" rx="14" fill="#323238" stroke="#00C853" stroke-width="2.5" filter="url(#greenGlow)"/>

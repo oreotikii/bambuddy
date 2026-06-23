@@ -1,4 +1,4 @@
-# Bambuddy Assign (Flutter) — agent instructions
+# CRAV3D Assist (Flutter) — agent instructions
 
 Full guide: **read `/AGENTS.md` first.**
 

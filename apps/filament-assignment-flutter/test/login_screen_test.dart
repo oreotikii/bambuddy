@@ -22,7 +22,7 @@ void main() {
 
     expect(find.bySemanticsLabel('CRAV3D logo'), findsOneWidget);
     expect(find.text('CRAV3D'), findsNothing);
-    expect(find.text('Bambuddy Assign'), findsOneWidget);
+    expect(find.text('CRAV3D Assist'), findsOneWidget);
     expect(find.text('Internal connection'), findsOneWidget);
     expect(find.text('Stored on device'), findsOneWidget);
     expect(find.text('Sign in'), findsNWidgets(2));
