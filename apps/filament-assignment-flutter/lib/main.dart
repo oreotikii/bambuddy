@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_villains/villain.dart';
 import 'package:provider/provider.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'src/app/app_model.dart';
 import 'src/app/theme.dart';
@@ -12,6 +13,7 @@ import 'src/ui/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  WakelockPlus.enable();
   runApp(const BambuddyAssignApp());
 }
 

@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../core/api_exception.dart';
 import '../core/weigh_math.dart';
 import '../data/api_client.dart';
 import '../data/assignment_repository.dart';
+import 'camera_color_picker.dart';
 import 'design_effects.dart';
 import 'scanner_sheet.dart';
 
@@ -37,6 +40,7 @@ class WeighScreenState extends State<WeighScreen> {
   bool _busy = false;
   String? _error;
   String? _success;
+  Color? _pickedColor;
 
   @override
   void didUpdateWidget(covariant WeighScreen oldWidget) {
@@ -178,7 +182,7 @@ class WeighScreenState extends State<WeighScreen> {
         location.trim().isNotEmpty &&
         location != storedLocation;
 
-    if (!hasWeight && !emptyChanged && !locationChanged) return;
+    if (!hasWeight && !emptyChanged && !locationChanged && !_colorChanged) return;
 
     setState(() {
       _busy = true;
@@ -186,21 +190,33 @@ class WeighScreenState extends State<WeighScreen> {
       _success = null;
     });
     final messages = <String>[];
+    bool saved = false;
     try {
-      await repo.updateSpoolWeigh(
-        spool.id,
-        measuredWeight: hasWeight ? grams : null,
-        emptySpoolWeight: emptyChanged ? emptyGrams : null,
-        location: locationChanged ? location.trim() : null,
-      );
-      if (hasWeight) messages.add('weight');
-      if (emptyChanged) messages.add('empty spool weight');
-      if (locationChanged) messages.add('location');
+      if (hasWeight || emptyChanged || locationChanged) {
+        await repo.updateSpoolWeigh(
+          spool.id,
+          measuredWeight: hasWeight ? grams : null,
+          emptySpoolWeight: emptyChanged ? emptyGrams : null,
+          location: locationChanged ? location.trim() : null,
+        );
+        if (hasWeight) messages.add('weight');
+        if (emptyChanged) messages.add('empty spool weight');
+        if (locationChanged) messages.add('location');
+      }
+      if (_colorChanged) {
+        final hex = _colorToHex(_pickedColor!);
+        await repo.updateSpoolColor(spool.id, hex);
+        messages.add('color');
+      }
       if (!mounted) return;
       final summary = messages.isEmpty
           ? 'Updated'
           : 'Updated ${messages.join(', ')}';
-      setState(() => _success = '$summary for spool #${spool.id}');
+      setState(() {
+        _success = '$summary for spool #${spool.id}';
+        _pickedColor = null;
+      });
+      saved = true;
     } on ApiException catch (e) {
       _setError(e.detailMessage());
     } catch (e) {
@@ -208,6 +224,17 @@ class WeighScreenState extends State<WeighScreen> {
     } finally {
       if (mounted) setState(() => _busy = false);
     }
+    if (saved) await _resolveSpool();
+  }
+
+  Future<void> _pickColorFromCamera() async {
+    final photo = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      imageQuality: 85,
+    );
+    if (photo == null || !mounted) return;
+    final color = await showCameraColorPicker(context, File(photo.path));
+    if (color != null && mounted) setState(() => _pickedColor = color);
   }
 
   void _reset() {
@@ -221,6 +248,7 @@ class WeighScreenState extends State<WeighScreen> {
       _locations = const [];
       _error = null;
       _success = null;
+      _pickedColor = null;
     });
   }
 
@@ -250,7 +278,21 @@ class WeighScreenState extends State<WeighScreen> {
         _detail?.storageLocation ??
         spool.storageLocation ??
         spool.currentLocation;
-    return loc != null && loc.trim().isNotEmpty && loc != stored;
+    if (loc != null && loc.trim().isNotEmpty && loc != stored) return true;
+
+    if (_colorChanged) return true;
+
+    return false;
+  }
+
+  bool get _colorChanged {
+    final picked = _pickedColor;
+    if (picked == null) return false;
+    final current = _parseHexColor(_spool?.rgba);
+    if (current == null) return true;
+    return (picked.r * 255).round() != (current.r * 255).round() ||
+        (picked.g * 255).round() != (current.g * 255).round() ||
+        (picked.b * 255).round() != (current.b * 255).round();
   }
 
   bool get _weightBelowEmpty {
@@ -507,6 +549,14 @@ class WeighScreenState extends State<WeighScreen> {
                           vertical: 16,
                         ),
                       ),
+                    ),
+                    const SizedBox(height: 12),
+                    _SwatchColorRow(
+                      currentHex: _spool?.rgba,
+                      pickedColor: _pickedColor,
+                      enabled: !_busy,
+                      onPick: _pickColorFromCamera,
+                      onClear: () => setState(() => _pickedColor = null),
                     ),
                     const SizedBox(height: 12),
                     _LocationField(
@@ -975,6 +1025,94 @@ String? _firstNonEmpty(String? preferred, String? fallback) {
   if (second != null && second.isNotEmpty) return second;
   return null;
 }
+
+class _SwatchColorRow extends StatelessWidget {
+  const _SwatchColorRow({
+    required this.currentHex,
+    required this.pickedColor,
+    required this.enabled,
+    required this.onPick,
+    required this.onClear,
+  });
+
+  final String? currentHex;
+  final Color? pickedColor;
+  final bool enabled;
+  final VoidCallback onPick;
+  final VoidCallback onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    final currentColor = _parseHexColor(currentHex);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F1F23),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFF2E2E34)),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.palette_outlined,
+            color: Color(0xFF52525B),
+            size: 20,
+          ),
+          const SizedBox(width: 12),
+          if (currentColor != null)
+            _Swatch(color: currentColor)
+          else
+            const Text(
+              'No color',
+              style: TextStyle(color: Color(0xFF52525B), fontSize: 13),
+            ),
+          if (pickedColor != null) ...[
+            const SizedBox(width: 6),
+            const Icon(
+              Icons.arrow_forward,
+              size: 14,
+              color: Color(0xFF52525B),
+            ),
+            const SizedBox(width: 6),
+            _Swatch(color: pickedColor!),
+            const SizedBox(width: 2),
+            GestureDetector(
+              onTap: enabled ? onClear : null,
+              child: const Padding(
+                padding: EdgeInsets.all(4),
+                child: Icon(
+                  Icons.close,
+                  size: 14,
+                  color: Color(0xFF71717A),
+                ),
+              ),
+            ),
+          ],
+          const Spacer(),
+          TextButton.icon(
+            onPressed: enabled ? onPick : null,
+            style: TextButton.styleFrom(
+              foregroundColor: const Color(0xFF00C853),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            icon: const Icon(Icons.camera_alt_outlined, size: 16),
+            label: const Text(
+              'Pick',
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+String _colorToHex(Color c) =>
+    (c.r * 255).round().toRadixString(16).padLeft(2, '0') +
+    (c.g * 255).round().toRadixString(16).padLeft(2, '0') +
+    (c.b * 255).round().toRadixString(16).padLeft(2, '0');
 
 class _MessageBanner extends StatelessWidget {
   const _MessageBanner({required this.message, required this.isError});

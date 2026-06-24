@@ -34,6 +34,10 @@ abstract class AssignmentRepository {
     String? location,
   });
 
+  /// Update the swatch color of a spool. [rgbaHex] is a 6-char lowercase hex
+  /// string without a leading `#` (e.g. `"e63946"`).
+  Future<void> updateSpoolColor(int spoolId, String rgbaHex);
+
   Future<void> resetSlot(int printerId, int amsId, int trayId);
 
   Future<void> unassignSpool(int spoolmanSpoolId);
@@ -154,6 +158,14 @@ class AssignmentApi implements AssignmentRepository {
     if (location != null) body['location'] = location;
     if (body.isEmpty) return;
     await _api.patch('/spoolman/inventory/spools/$spoolId/weigh', body);
+  }
+
+  @override
+  Future<void> updateSpoolColor(int spoolId, String rgbaHex) async {
+    await _api.patch(
+      '/spoolman/inventory/spools/$spoolId/color',
+      {'rgba': rgbaHex},
+    );
   }
 
   @override
