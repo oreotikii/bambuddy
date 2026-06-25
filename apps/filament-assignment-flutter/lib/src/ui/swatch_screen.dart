@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -250,6 +251,135 @@ class _SwatchScreenState extends State<SwatchScreen> {
   }
 }
 
+class _SwatchPainter extends CustomPainter {
+  const _SwatchPainter({
+    required this.primaryColor,
+    required this.extraColors,
+    required this.series,
+  });
+
+  final Color primaryColor;
+  final List<Color> extraColors;
+  final _SpoolSeries series;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+    final rect = Rect.fromCircle(center: center, radius: radius);
+    final clip = Path()..addOval(rect);
+
+    canvas.save();
+    canvas.clipPath(clip);
+
+    final allColors = [primaryColor, ...extraColors];
+
+    if (series == _SpoolSeries.galaxy) {
+      // Galaxy always uses a near-black base regardless of stored color.
+      canvas.drawOval(rect, Paint()..color = const Color(0xFF0A0A0F));
+      _drawGalaxy(canvas, center, radius);
+    } else if (allColors.length >= 2) {
+      _drawSectors(canvas, center, radius, allColors);
+    } else {
+      canvas.drawOval(rect, Paint()..color = primaryColor);
+    }
+
+    if (series == _SpoolSeries.silk || series == _SpoolSeries.metallic) {
+      _drawSheen(canvas, rect);
+    }
+
+    canvas.restore();
+
+    // Outer zinc border — drawn outside the clip for a clean edge.
+    canvas.drawCircle(
+      center,
+      radius - 0.75,
+      Paint()
+        ..color = const Color(0xFF3F3F46)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.5,
+    );
+    // Inset highlight ring — 0.5px white at 8% opacity just inside the border.
+    // Gives the chip a physical "mounted disc" quality without any color glow.
+    canvas.drawCircle(
+      center,
+      radius - 1.75,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.08)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.5,
+    );
+  }
+
+  void _drawSectors(Canvas canvas, Offset center, double radius, List<Color> colors) {
+    final n = colors.length;
+    final sweep = 2 * math.pi / n;
+    const startAngle = -math.pi / 2;
+    for (var i = 0; i < n; i++) {
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        startAngle + i * sweep,
+        sweep,
+        true,
+        Paint()..color = colors[i],
+      );
+    }
+  }
+
+  void _drawSheen(Canvas canvas, Rect rect) {
+    final isSilk = series == _SpoolSeries.silk;
+    final alpha = isSilk ? 0.45 : 0.28;
+    final stops = isSilk
+        ? const <double>[0.25, 0.50, 0.75]
+        : const <double>[0.20, 0.50, 0.80];
+    final shader = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Colors.transparent,
+        Colors.white.withValues(alpha: alpha),
+        Colors.transparent,
+      ],
+      stops: stops,
+    ).createShader(rect);
+    canvas.drawOval(
+      rect,
+      Paint()
+        ..shader = shader
+        ..blendMode = BlendMode.screen,
+    );
+  }
+
+  void _drawGalaxy(Canvas canvas, Offset center, double radius) {
+    final rng = math.Random(primaryColor.value);
+
+    void star(Color color, double minR, double maxR) {
+      // Reject-sample to keep stars within the circle.
+      while (true) {
+        final x = center.dx + (rng.nextDouble() * 2 - 1) * radius;
+        final y = center.dy + (rng.nextDouble() * 2 - 1) * radius;
+        if ((x - center.dx) * (x - center.dx) + (y - center.dy) * (y - center.dy) >
+            radius * radius) continue;
+        canvas.drawCircle(
+          Offset(x, y),
+          minR + rng.nextDouble() * (maxR - minR),
+          Paint()..color = color,
+        );
+        break;
+      }
+    }
+
+    for (var i = 0; i < 16; i++) star(const Color(0xFFE8E8FF), 0.8, 1.6);
+    for (var i = 0; i < 4; i++) star(const Color(0xFFCCBBFF), 1.2, 2.2);
+  }
+
+  @override
+  bool shouldRepaint(_SwatchPainter old) =>
+      old.primaryColor != primaryColor ||
+      old.extraColors != extraColors ||
+      old.series != series;
+}
+
 class _MaterialSection extends StatelessWidget {
   const _MaterialSection({required this.group, required this.onChipTap});
 
@@ -326,6 +456,9 @@ class _SwatchChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = _hexToColor(chip.hex);
+    final extraColors = chip.extraHexes
+        .map((h) => _hexToColor(h) ?? const Color(0xFF3F3F46))
+        .toList();
     final name = chip.name?.trim() ?? '';
     final count = chip.spoolIds.length;
 
@@ -336,39 +469,28 @@ class _SwatchChip extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                color: color ?? const Color(0xFF3F3F46),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color(0xFF3F3F46),
-                  width: 1.5,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                CustomPaint(
+                  size: const Size(42, 42),
+                  painter: _SwatchPainter(
+                    primaryColor: color ?? const Color(0xFF3F3F46),
+                    extraColors: extraColors,
+                    series: chip.series,
+                  ),
                 ),
-                boxShadow: color != null
-                    ? [
-                        BoxShadow(
-                          color: color.withValues(alpha: 0.30),
-                          blurRadius: 8,
-                          offset: const Offset(0, 3),
-                        ),
-                      ]
-                    : null,
-              ),
-              child: count > 1
-                  ? Center(
-                      child: Text(
-                        '$count',
-                        style: TextStyle(
-                          color: _contrastOn(color),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w800,
-                          height: 1,
-                        ),
-                      ),
-                    )
-                  : null,
+                if (count > 1)
+                  Text(
+                    '$count',
+                    style: TextStyle(
+                      color: _contrastOn(color),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                      height: 1,
+                    ),
+                  ),
+              ],
             ),
             if (name.isNotEmpty) ...[
               const SizedBox(height: 5),

@@ -51,6 +51,31 @@ void main() {
     expect(find.text('PLA'), findsNothing);
   });
 
+  testWidgets('Screen renders all series types without throwing', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          // standard
+          {'id': 1, 'rgba': 'F6F6F0', 'material': 'PLA+', 'brand': 'A', 'color_name': 'White', 'extra_colors': null},
+          // silk single
+          {'id': 2, 'rgba': 'B87333', 'material': 'PLA SILK', 'brand': 'A', 'color_name': 'Copper', 'extra_colors': null},
+          // silk multi-color
+          {'id': 3, 'rgba': '', 'material': 'PLA SILK', 'brand': 'A', 'color_name': 'Black-Gold', 'extra_colors': '111111,D4AF37'},
+          // metallic
+          {'id': 4, 'rgba': '3C91E6', 'material': 'PLA METALLIC', 'brand': 'A', 'color_name': 'Titanium Blue', 'extra_colors': null},
+          // galaxy
+          {'id': 5, 'rgba': '111111', 'material': 'PLA GALAXY', 'brand': 'A', 'color_name': 'Galaxy Black', 'extra_colors': null},
+        ]),
+      ),
+    );
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+    expect(find.text('PLA+'), findsOneWidget);
+    expect(find.text('PLA SILK'), findsOneWidget);
+    expect(find.text('PLA METALLIC'), findsOneWidget);
+    expect(find.text('PLA GALAXY'), findsOneWidget);
+  });
+
   testWidgets('Chips with same hue appear before chips with darker lightness', (tester) async {
     // ivory (FFFFF0, very light) and chocolate (5C3317, very dark) — both warm/yellow-orange hue
     await tester.pumpWidget(
