@@ -65,8 +65,6 @@ void main() {
     // Both chips render — screen is not empty.
     expect(find.text('No spools in inventory'), findsNothing);
     // Ivory name appears before Chocolate in the widget tree (light → dark).
-    final ivoryPos = tester.getTopLeft(find.text('Ivory')).dy;
-    final chocolatePos = tester.getTopLeft(find.text('Chocolate')).dy;
     // Same hue band → same row → same y. Light (Ivory, higher HSL L) appears to the left (lower x).
     expect(tester.getTopLeft(find.text('Ivory')).dx,
         lessThan(tester.getTopLeft(find.text('Chocolate')).dx));
