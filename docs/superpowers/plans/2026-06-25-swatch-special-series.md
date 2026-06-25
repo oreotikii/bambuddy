@@ -737,7 +737,7 @@ class _SwatchPainter extends CustomPainter {
 
     canvas.restore();
 
-    // Border drawn outside the clip so it sits cleanly on top.
+    // Outer zinc border — drawn outside the clip for a clean edge.
     canvas.drawCircle(
       center,
       radius - 0.75,
@@ -745,6 +745,16 @@ class _SwatchPainter extends CustomPainter {
         ..color = const Color(0xFF3F3F46)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.5,
+    );
+    // Inset highlight ring — 0.5px white at 8% opacity just inside the border.
+    // Gives the chip a physical "mounted disc" quality without any color glow.
+    canvas.drawCircle(
+      center,
+      radius - 1.75,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.08)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.5,
     );
   }
 
@@ -839,44 +849,28 @@ Widget build(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: 42,
-            height: 42,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: color != null && chip.series != _SpoolSeries.galaxy
-                  ? [
-                      BoxShadow(
-                        color: color.withValues(alpha: 0.30),
-                        blurRadius: 8,
-                        offset: const Offset(0, 3),
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomPaint(
-                  size: const Size(42, 42),
-                  painter: _SwatchPainter(
-                    primaryColor: color ?? const Color(0xFF3F3F46),
-                    extraColors: extraColors,
-                    series: chip.series,
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomPaint(
+                size: const Size(42, 42),
+                painter: _SwatchPainter(
+                  primaryColor: color ?? const Color(0xFF3F3F46),
+                  extraColors: extraColors,
+                  series: chip.series,
+                ),
+              ),
+              if (count > 1)
+                Text(
+                  '$count',
+                  style: TextStyle(
+                    color: _contrastOn(color),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    height: 1,
                   ),
                 ),
-                if (count > 1)
-                  Text(
-                    '$count',
-                    style: TextStyle(
-                      color: _contrastOn(color),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                      height: 1,
-                    ),
-                  ),
-              ],
-            ),
+            ],
           ),
           if (name.isNotEmpty) ...[
             const SizedBox(height: 5),
@@ -1054,7 +1048,8 @@ git commit -m "feat(swatches): show per-color hex rows in detail modal for multi
 | Metallic sheen (alpha 0.28, wider stops) | Task 5 |
 | Galaxy near-black fill + seeded star dots (16 white + 4 lavender) | Task 5 |
 | Galaxy glow suppressed (no color-based box shadow) | Task 5 |
-| Updated `_SwatchChip` uses `CustomPaint` | Task 5 |
+| Updated `_SwatchChip` uses `CustomPaint`, no color glow | Task 5 |
+| Inset highlight ring replaces color glow (physical disc feel) | Task 5 |
 | Multi-color hex rows in detail modal | Task 6 |
 
 **Placeholder scan:** None found. All code blocks are complete.
