@@ -155,7 +155,7 @@ class _SwatchScreenState extends State<SwatchScreen> {
                     color: const Color(0xFF00C853),
                     onRefresh: _load,
                     child: _groups.isEmpty
-                        ? _EmptyState()
+                        ? const _EmptyState()
                         : ListView.builder(
                             padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
                             itemCount: _groups.length,
@@ -467,6 +467,8 @@ class _ErrorState extends StatelessWidget {
 }
 
 class _EmptyState extends StatelessWidget {
+  const _EmptyState();
+
   @override
   Widget build(BuildContext context) {
     return ListView(
