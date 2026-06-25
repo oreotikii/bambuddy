@@ -4,6 +4,8 @@
 **Status:** Approved  
 **Scope:** `apps/filament-assignment-flutter/lib/src/ui/swatch_screen.dart`
 
+> **Amendment 2026-06-25:** Added 2D hue-matrix chip layout (rainbow vertically, light→dark horizontally) to replace the flat `Wrap` layout.
+
 ---
 
 ## Overview
@@ -173,7 +175,66 @@ Identical to silk but with `alpha: 0.28` and `stops: [0.20, 0.50, 0.80]` (wider,
 
 ---
 
-## 4. Detail Modal
+## 4. Chip Layout — Hue Matrix
+
+Replace the `Wrap` inside `_MaterialSection` with a **2D color matrix**:
+- **Vertical axis (rows):** hue bands in rainbow order
+- **Horizontal axis (within each row):** lightness, light on the left → dark on the right
+
+### 4.1 Hue bands
+
+Nine named bands plus a neutral catch-all, keyed by HSV hue angle:
+
+| Band | Hue range | Notes |
+|------|-----------|-------|
+| Red | 330°–360° and 0°–20° | wraps around 0° |
+| Orange | 20°–50° | |
+| Yellow | 50°–80° | |
+| Green | 80°–160° | |
+| Teal | 160°–200° | |
+| Blue | 200°–260° | |
+| Purple | 260°–300° | |
+| Pink | 300°–330° | |
+| Neutral | any hue, HSV saturation < 15% | greys, whites, blacks |
+
+Neutral is checked first (before hue range) so that near-white and near-black colours with an incidental hue tint don't pollute the colour rows.
+
+### 4.2 Row ordering
+
+Rows appear in the order: Red → Orange → Yellow → Green → Teal → Blue → Purple → Pink → Neutral. Empty bands are skipped entirely.
+
+### 4.3 Within-row sort: light → dark
+
+Sort chips inside each row by **HSL lightness descending** (highest L first = lightest on the left). For multi-color chips, compute lightness from the primary color only.
+
+### 4.4 Layout widget
+
+```
+Column(
+  children: [
+    for (final band in nonEmptyBands)
+      Padding(
+        padding: EdgeInsets.only(bottom: 10),
+        child: Row(
+          children: [
+            for (final chip in band.chips)
+              Padding(padding: EdgeInsets.only(right: 8), child: _SwatchChip(...)),
+          ],
+        ),
+      ),
+  ],
+)
+```
+
+No horizontal scrolling — the row wraps are removed. If a single row exceeds the screen width (unlikely given chip sizes), a `SingleChildScrollView` can be added per row, but this is not expected in practice.
+
+### 4.5 Flat-sort removal
+
+The `..sort(_byHue)` call on each group's chip list in `_buildGroups` is removed. Sorting is now entirely handled by `_buildHueBands` at render time inside `_MaterialSection`.
+
+---
+
+## 5. Detail Modal
 
 For multi-color chips, replace the single `Color hex` row with multiple rows:
 - `Color 1` — `#primaryHex`
@@ -184,13 +245,13 @@ For multi-color chips, replace the single `Color hex` row with multiple rows:
 
 ---
 
-## 5. File Scope
+## 6. File Scope
 
 All changes are within `apps/filament-assignment-flutter/lib/src/ui/swatch_screen.dart`. No new files, no new dependencies.
 
 ---
 
-## 6. Out of Scope
+## 7. Out of Scope
 
 - Backend changes — the design assumes `extra_colors` is already present in the list endpoint response. If it turns out to be absent, fall back gracefully (treat as single-color) and note as a follow-up.
 - PLA MATTE special paint effect — grouped separately but rendered the same as standard.
