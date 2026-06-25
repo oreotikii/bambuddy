@@ -29,13 +29,20 @@ enum _ReloginOutcome { success, failed, transient, notCredentialsMode }
 /// HTTP 403 (valid auth, insufficient permission/scope) sets
 /// [ApiException.isForbidden] and must NOT wipe credentials.
 class ApiClient {
-  ApiClient(this.baseUrl, this._apiKey, this._client, {String? token})
-    : _token = token;
+  ApiClient(
+    this.baseUrl,
+    this._apiKey,
+    this._client, {
+    String? token,
+    Future<String?> Function()? baseUrlResolver,
+  }) : _token = token,
+       _baseUrlResolver = baseUrlResolver;
 
-  final String baseUrl;
+  String baseUrl;
   final String? _apiKey;
   String? _token;
   final http.Client _client;
+  final Future<String?> Function()? _baseUrlResolver;
 
   static const String _prefix = '/api/v1';
 
@@ -53,7 +60,13 @@ class ApiClient {
       throw StateError('No Bambuddy base URL configured');
     }
     final token = await SessionStore.getAccessToken();
-    return ApiClient(base, null, _defaultClient(), token: token);
+    return ApiClient(
+      base,
+      null,
+      _defaultClient(),
+      token: token,
+      baseUrlResolver: SessionStore.getBaseUrl,
+    );
   }
 
   /// Sign in with username/password (no auth header). Throws [ApiException] on
@@ -126,7 +139,8 @@ class ApiClient {
     Map<String, dynamic>? body,
     bool isRetry = false,
   ]) async {
-    final uri = Uri.parse('$baseUrl$_prefix$path');
+    final requestBaseUrl = await _resolveBaseUrl();
+    final uri = Uri.parse('$requestBaseUrl$_prefix$path');
     try {
       final req = http.Request(method, uri)
         ..followRedirects = false
@@ -142,7 +156,7 @@ class ApiClient {
       final resp = await http.Response.fromStream(streamed);
       // Bearer token expired → silently refresh once and retry.
       if (resp.statusCode == 401 && !isRetry) {
-        final outcome = await _tryRelogin();
+        final outcome = await _tryRelogin(requestBaseUrl);
         if (outcome == _ReloginOutcome.success) {
           return _request(method, path, body, true);
         }
@@ -160,6 +174,18 @@ class ApiClient {
     }
   }
 
+  Future<String> _resolveBaseUrl() async {
+    final resolver = _baseUrlResolver;
+    if (resolver == null) return baseUrl;
+
+    final resolved = await resolver();
+    if (resolved == null) {
+      throw StateError('No Bambuddy base URL configured');
+    }
+    baseUrl = resolved;
+    return resolved;
+  }
+
   void _applyAuth(http.Request req) {
     if (_token != null) {
       req.headers['Authorization'] = 'Bearer $_token';
@@ -170,7 +196,7 @@ class ApiClient {
 
   /// Silent re-login using the stored credentials. Skipped only for direct
   /// test/legacy clients constructed with an API-key parameter.
-  Future<_ReloginOutcome> _tryRelogin() async {
+  Future<_ReloginOutcome> _tryRelogin(String requestBaseUrl) async {
     if (_token == null && _apiKey != null) {
       return _ReloginOutcome.notCredentialsMode;
     }
@@ -184,7 +210,7 @@ class ApiClient {
     }
     if (user == null || pass == null) return _ReloginOutcome.notCredentialsMode;
     try {
-      final res = await ApiClient.login(baseUrl, user, pass);
+      final res = await ApiClient.login(requestBaseUrl, user, pass);
       if (res.requires2fa || res.accessToken == null) {
         return _ReloginOutcome.failed;
       }

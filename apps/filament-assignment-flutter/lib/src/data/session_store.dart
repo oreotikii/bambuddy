@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../config/app_config.dart';
-import '../core/url_validator.dart';
+import 'base_url_resolver.dart';
 
 /// Stores the app's local session for credentials (B+) sign-in: the signed-in
 /// user's username + password, and a cached short-lived bearer access token.
@@ -24,9 +24,10 @@ class SessionStore {
   // ---- base URL (baked) ----
 
   static Future<String?> getBaseUrl() async {
-    final url = AppConfig.bakedBaseUrl;
-    if (url.isEmpty) return null;
-    return UrlValidator.isValid(url) ? url : null;
+    return BaseUrlResolver(
+      externalBaseUrl: AppConfig.bakedBaseUrl,
+      internalBaseUrl: AppConfig.bakedInternalBaseUrl,
+    ).resolve();
   }
 
   // ---- credentials ----

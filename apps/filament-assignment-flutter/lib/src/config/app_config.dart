@@ -11,5 +11,12 @@ class AppConfig {
     defaultValue: 'https://print.crav3d.com',
   );
 
+  /// Optional internal Bambuddy server base URL. When this URL is reachable,
+  /// the app uses it instead of [bakedBaseUrl].
+  static const String bakedInternalBaseUrl = String.fromEnvironment(
+    'BAMBUDDY_INTERNAL_BASE_URL',
+    defaultValue: '',
+  );
+
   static bool get isBaseUrlBaked => bakedBaseUrl.isNotEmpty;
 }

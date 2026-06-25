@@ -10,6 +10,7 @@ import 'assign_screen.dart';
 import 'design_effects.dart';
 import 'home_screen.dart';
 import 'scanner_sheet.dart';
+import 'swatch_screen.dart';
 import 'weigh_screen.dart';
 
 /// Bottom-nav shell for the three primary surfaces (Status / Weigh / Assign),
@@ -31,14 +32,16 @@ class _MainScaffoldState extends State<MainScaffold> {
   int _homeRefreshNonce = 0;
   int _weighRefreshNonce = 0;
   int _assignRefreshNonce = 0;
+  int _swatchRefreshNonce = 0;
 
   void _selectTab(int index) {
     if (_index == index) return;
     setState(() {
       _index = index;
       if (index == 0) _homeRefreshNonce += 1;
-      if (index == 1) _weighRefreshNonce += 1;
-      if (index == 2) _assignRefreshNonce += 1;
+      if (index == 1) _swatchRefreshNonce += 1;
+      if (index == 2) _weighRefreshNonce += 1;
+      if (index == 3) _assignRefreshNonce += 1;
     });
   }
 
@@ -64,7 +67,8 @@ class _MainScaffoldState extends State<MainScaffold> {
       tooltip: 'Scan QR',
       backgroundColor: cs.primary,
       foregroundColor: cs.onPrimary,
-      icon: Icon(Icons.qr_code_scanner, size: 28, color: cs.onPrimary),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      icon: Icon(Icons.qr_code_scanner, color: cs.onPrimary, size: 28),
       onTap: onTap,
     );
   }
@@ -96,6 +100,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           index: _index,
           children: [
             HomeScreen(refreshNonce: _homeRefreshNonce),
+            SwatchScreen(refreshNonce: _swatchRefreshNonce),
             WeighScreen(
               key: _weighKey,
               repository: widget.repository,
@@ -114,6 +119,7 @@ class _MainScaffoldState extends State<MainScaffold> {
       bottomNavigationBar: _SpacedCircularFloatyNavBar(
         selectedTab: _index,
         height: 74,
+        gap: 18,
         tabSpacing: 6,
         margin: const EdgeInsetsDirectional.only(top: 10, bottom: 18),
         backgroundColor: cs.surfaceContainerLow,
@@ -148,9 +154,22 @@ class _MainScaffoldState extends State<MainScaffold> {
           ),
           FloatyTab(
             isSelected: _index == 1,
-            title: 'Weigh',
+            title: 'Swatches',
             icon: _tabIcon(
               index: 1,
+              selectedIcon: Icons.palette,
+              icon: Icons.palette_outlined,
+              tooltip: 'Swatches',
+            ),
+            selectedColor: cs.primary,
+            unselectedColor: cs.surfaceContainerLow,
+            onTap: () => _selectTab(1),
+          ),
+          FloatyTab(
+            isSelected: _index == 2,
+            title: 'Weigh',
+            icon: _tabIcon(
+              index: 2,
               selectedIcon: Icons.scale,
               icon: Icons.scale_outlined,
               tooltip: 'Weigh',
@@ -162,13 +181,13 @@ class _MainScaffoldState extends State<MainScaffold> {
               heroTag: 'scan-qr-weigh',
               onTap: _scanWeighQr,
             ),
-            onTap: () => _selectTab(1),
+            onTap: () => _selectTab(2),
           ),
           FloatyTab(
-            isSelected: _index == 2,
+            isSelected: _index == 3,
             title: 'Assign',
             icon: _tabIcon(
-              index: 2,
+              index: 3,
               selectedIcon: Icons.assignment_turned_in,
               icon: Icons.assignment_turned_in_outlined,
               tooltip: 'Assign',
@@ -180,10 +199,9 @@ class _MainScaffoldState extends State<MainScaffold> {
               heroTag: 'scan-qr-assign',
               onTap: _scanAssignQr,
             ),
-            onTap: () => _selectTab(2),
+            onTap: () => _selectTab(3),
           ),
         ],
-        gap: 18,
       ),
     );
   }
@@ -194,7 +212,7 @@ class _SpacedCircularFloatyNavBar extends StatelessWidget {
     required this.tabs,
     required this.selectedTab,
     this.height = 60,
-    this.gap = 16,
+    this.gap = 18,
     this.tabSpacing = 8,
     this.margin = const EdgeInsetsDirectional.symmetric(vertical: 16),
     this.backgroundColor,
@@ -244,7 +262,11 @@ class _SpacedCircularFloatyNavBar extends StatelessWidget {
                   children: [
                     for (var i = 0; i < tabs.length; i++) ...[
                       if (i > 0) SizedBox(width: tabSpacing),
-                      _NavTab(tab: tabs[i], selected: i == selectedTab),
+                      _NavTab(
+                        tab: tabs[i],
+                        selected: i == selectedTab,
+                        compact: actionButton != null,
+                      ),
                     ],
                   ],
                 ),
@@ -265,57 +287,49 @@ class _SpacedCircularFloatyNavBar extends StatelessWidget {
               child: actionButton == null
                   ? const SizedBox.shrink()
                   : Container(
-                      height: 64,
-                      width: 64,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: cs.primary.withValues(alpha: 0.50),
-                            blurRadius: 24,
+                            color: const Color(0xFF00C853).withValues(alpha: 0.55),
+                            blurRadius: 20,
                             spreadRadius: 1,
                           ),
                           BoxShadow(
-                            color: cs.primary.withValues(alpha: 0.20),
-                            blurRadius: 48,
-                            spreadRadius: 4,
+                            color: const Color(0xFF00C853).withValues(alpha: 0.22),
+                            blurRadius: 44,
+                            spreadRadius: 6,
                           ),
                         ],
                       ),
-                      child: FloatingActionButton(
-                        elevation: 0,
-                        highlightElevation: 2,
-                        shape: actionButton.shape,
-                        backgroundColor: actionButton.backgroundColor,
-                        foregroundColor: actionButton.foregroundColor,
-                        onPressed: actionButton.onTap,
-                        heroTag: actionButton.heroTag,
-                        autofocus: actionButton.autofocus,
-                        clipBehavior: actionButton.clipBehavior,
-                        enableFeedback: actionButton.enableFeedback,
-                        focusColor: actionButton.focusColor,
-                        hoverColor: actionButton.hoverColor,
-                        splashColor: actionButton.splashColor,
-                        tooltip: actionButton.tooltip,
-                        focusNode: actionButton.focusNode,
-                        isExtended: actionButton.isExtended,
-                        key: ValueKey(actionButton.icon.hashCode),
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        mouseCursor: actionButton.mouseCursor,
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 260),
-                          transitionBuilder: (child, animation) =>
-                              ScaleTransition(
-                                scale: animation,
-                                child: FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                ),
-                              ),
-                          child: KeyedSubtree(
-                            key: ValueKey(actionButton.icon.hashCode),
-                            child: actionButton.icon,
-                          ),
+                      child: SizedBox(
+                        height: height,
+                        width: height,
+                        child: FloatingActionButton(
+                          elevation: 0,
+                          highlightElevation: 2,
+                          shape: actionButton.shape ?? shape.shapeBorder,
+                          backgroundColor:
+                              actionButton.backgroundColor ?? cs.primary,
+                          foregroundColor:
+                              actionButton.foregroundColor ?? cs.onPrimary,
+                          onPressed: actionButton.onTap,
+                          heroTag: actionButton.heroTag,
+                          autofocus: actionButton.autofocus,
+                          clipBehavior: actionButton.clipBehavior,
+                          enableFeedback: actionButton.enableFeedback,
+                          focusColor: actionButton.focusColor,
+                          hoverColor: actionButton.hoverColor,
+                          splashColor: actionButton.splashColor,
+                          tooltip: actionButton.tooltip,
+                          mini: actionButton.mini,
+                          focusNode: actionButton.focusNode,
+                          isExtended: actionButton.isExtended,
+                          key: ValueKey(actionButton.heroTag),
+                          materialTapTargetSize:
+                              actionButton.materialTapTargetSize,
+                          mouseCursor: actionButton.mouseCursor,
+                          child: actionButton.icon,
                         ),
                       ),
                     ),
@@ -330,10 +344,15 @@ class _SpacedCircularFloatyNavBar extends StatelessWidget {
 // Individual tab chip — constant button shape with a physical LED dot above
 // the icon. The LED glows green when the tab is active.
 class _NavTab extends StatelessWidget {
-  const _NavTab({required this.tab, required this.selected});
+  const _NavTab({
+    required this.tab,
+    required this.selected,
+    this.compact = false,
+  });
 
   final FloatyTab tab;
   final bool selected;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +365,10 @@ class _NavTab extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOutCubic,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+        padding: EdgeInsets.symmetric(
+          horizontal: compact ? 12 : 20,
+          vertical: 7,
+        ),
         decoration: BoxDecoration(
           color: const Color(0xFF252528),
           borderRadius: BorderRadius.circular(13),

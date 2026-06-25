@@ -1,0 +1,4 @@
+storePassword=luna3330
+keyPassword=luna3330
+keyAlias=upload
+storeFile=upload-keystore.jks

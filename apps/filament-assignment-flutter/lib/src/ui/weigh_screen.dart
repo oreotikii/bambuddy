@@ -414,7 +414,14 @@ class WeighScreenState extends State<WeighScreen> {
             ),
             if (_spool != null) ...[
               const SizedBox(height: 16),
-              _SpoolCard(spool: _spool!, detail: _detail),
+              _SpoolCard(
+                spool: _spool!,
+                detail: _detail,
+                pickedColor: _pickedColor,
+                enabled: !_busy,
+                onPickColor: _pickColorFromCamera,
+                onClearColor: () => setState(() => _pickedColor = null),
+              ),
               const SizedBox(height: 16),
               FrostedPanel(
                 radius: 14,
@@ -551,14 +558,7 @@ class WeighScreenState extends State<WeighScreen> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    _SwatchColorRow(
-                      currentHex: _spool?.rgba,
-                      pickedColor: _pickedColor,
-                      enabled: !_busy,
-                      onPick: _pickColorFromCamera,
-                      onClear: () => setState(() => _pickedColor = null),
-                    ),
-                    const SizedBox(height: 12),
+
                     _LocationField(
                       spoolId: _spool!.id,
                       locations: _locations,
@@ -682,10 +682,21 @@ class _LocationField extends StatelessWidget {
 }
 
 class _SpoolCard extends StatelessWidget {
-  const _SpoolCard({required this.spool, required this.detail});
+  const _SpoolCard({
+    required this.spool,
+    required this.detail,
+    required this.pickedColor,
+    required this.enabled,
+    required this.onPickColor,
+    required this.onClearColor,
+  });
 
   final MobileSpool spool;
   final MobileSpoolDetail? detail;
+  final Color? pickedColor;
+  final bool enabled;
+  final VoidCallback onPickColor;
+  final VoidCallback onClearColor;
 
   @override
   Widget build(BuildContext context) {
@@ -752,11 +763,58 @@ class _SpoolCard extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        _SpoolSideView(
-          color: primary,
-          fill: pct ?? 1.0,
-          surface: cs.surfaceContainerHigh,
-          track: cs.outline,
+        Stack(
+          children: [
+            _SpoolSideView(
+              color: pickedColor ?? primary,
+              fill: pct ?? 1.0,
+              surface: cs.surfaceContainerHigh,
+              track: cs.outline,
+            ),
+            Positioned(
+              top: 2,
+              right: 2,
+              child: GestureDetector(
+                onTap: enabled ? onPickColor : null,
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF27272A),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: const Color(0xFF3F3F46)),
+                  ),
+                  child: const Icon(
+                    Icons.camera_alt_outlined,
+                    size: 15,
+                    color: Color(0xFF00C853),
+                  ),
+                ),
+              ),
+            ),
+            if (pickedColor != null)
+              Positioned(
+                bottom: 2,
+                right: 2,
+                child: GestureDetector(
+                  onTap: enabled ? onClearColor : null,
+                  child: Container(
+                    width: 26,
+                    height: 26,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF27272A),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: const Color(0xFF3F3F46)),
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      size: 13,
+                      color: Color(0xFF71717A),
+                    ),
+                  ),
+                ),
+              ),
+          ],
         ),
       ],
     );
@@ -1024,89 +1082,6 @@ String? _firstNonEmpty(String? preferred, String? fallback) {
   final second = fallback?.trim();
   if (second != null && second.isNotEmpty) return second;
   return null;
-}
-
-class _SwatchColorRow extends StatelessWidget {
-  const _SwatchColorRow({
-    required this.currentHex,
-    required this.pickedColor,
-    required this.enabled,
-    required this.onPick,
-    required this.onClear,
-  });
-
-  final String? currentHex;
-  final Color? pickedColor;
-  final bool enabled;
-  final VoidCallback onPick;
-  final VoidCallback onClear;
-
-  @override
-  Widget build(BuildContext context) {
-    final currentColor = _parseHexColor(currentHex);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1F1F23),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF2E2E34)),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.palette_outlined,
-            color: Color(0xFF52525B),
-            size: 20,
-          ),
-          const SizedBox(width: 12),
-          if (currentColor != null)
-            _Swatch(color: currentColor)
-          else
-            const Text(
-              'No color',
-              style: TextStyle(color: Color(0xFF52525B), fontSize: 13),
-            ),
-          if (pickedColor != null) ...[
-            const SizedBox(width: 6),
-            const Icon(
-              Icons.arrow_forward,
-              size: 14,
-              color: Color(0xFF52525B),
-            ),
-            const SizedBox(width: 6),
-            _Swatch(color: pickedColor!),
-            const SizedBox(width: 2),
-            GestureDetector(
-              onTap: enabled ? onClear : null,
-              child: const Padding(
-                padding: EdgeInsets.all(4),
-                child: Icon(
-                  Icons.close,
-                  size: 14,
-                  color: Color(0xFF71717A),
-                ),
-              ),
-            ),
-          ],
-          const Spacer(),
-          TextButton.icon(
-            onPressed: enabled ? onPick : null,
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xFF00C853),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              minimumSize: Size.zero,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            icon: const Icon(Icons.camera_alt_outlined, size: 16),
-            label: const Text(
-              'Pick',
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 String _colorToHex(Color c) =>
