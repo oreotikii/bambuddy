@@ -94,4 +94,32 @@ void main() {
     expect(tester.getTopLeft(find.text('Ivory')).dx,
         lessThan(tester.getTopLeft(find.text('Chocolate')).dx));
   });
+
+  testWidgets('Detail modal shows individual color rows for multi-color chip', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {
+            'id': 3,
+            'rgba': '',
+            'material': 'PLA SILK',
+            'brand': 'Test',
+            'color_name': 'Black-Gold',
+            'extra_colors': '111111,D4AF37',
+          },
+        ]),
+      ),
+    );
+    await tester.pump();
+    // Tap the chip — the SizedBox wrapping the chip is 52x* so we tap the label.
+    await tester.tap(find.text('Black-Gold'));
+    await tester.pumpAndSettle();
+    // Expect two separate color rows.
+    expect(find.text('#111111'), findsOneWidget);
+    expect(find.text('#d4af37'), findsOneWidget);
+    // 'Color hex' label must NOT appear (replaced by 'Color 1', 'Color 2').
+    expect(find.text('Color hex'), findsNothing);
+    expect(find.text('Color 1'), findsOneWidget);
+    expect(find.text('Color 2'), findsOneWidget);
+  });
 }

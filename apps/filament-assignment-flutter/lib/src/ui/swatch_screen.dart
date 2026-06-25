@@ -232,11 +232,17 @@ class _SwatchScreenState extends State<SwatchScreen> {
                 _DetailRow(label: 'Brand', value: chip.brand!),
               if (chip.material != null)
                 _DetailRow(label: 'Material', value: chip.material!),
-              _DetailRow(
-                label: 'Color hex',
-                value: '#${chip.hex}',
-                mono: true,
-              ),
+              if (chip.extraHexes.isEmpty)
+                _DetailRow(label: 'Color hex', value: '#${chip.hex}', mono: true)
+              else ...[
+                _DetailRow(label: 'Color 1', value: '#${chip.hex}', mono: true),
+                for (var i = 0; i < chip.extraHexes.length; i++)
+                  _DetailRow(
+                    label: 'Color ${i + 2}',
+                    value: '#${chip.extraHexes[i]}',
+                    mono: true,
+                  ),
+              ],
               _DetailRow(
                 label: 'Spools',
                 value:
