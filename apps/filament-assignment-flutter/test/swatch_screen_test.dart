@@ -51,6 +51,34 @@ void main() {
     expect(find.text('PLA'), findsNothing);
   });
 
+  testWidgets('PLA MATTE appears as its own section separate from PLA', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {
+            'id': 1,
+            'rgba': '1A1A1A',
+            'material': 'PLA MATTE',
+            'brand': 'A',
+            'color_name': 'Matte Black',
+            'extra_colors': null,
+          },
+          {
+            'id': 2,
+            'rgba': 'FFFFFF',
+            'material': 'PLA',
+            'brand': 'A',
+            'color_name': 'White',
+            'extra_colors': null,
+          },
+        ]),
+      ),
+    );
+    await tester.pump();
+    expect(find.text('PLA MATTE'), findsOneWidget);
+    expect(find.text('PLA'), findsOneWidget);
+  });
+
   testWidgets('Screen renders all series types without throwing', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
@@ -78,6 +106,8 @@ void main() {
 
   testWidgets('Chips with same hue appear before chips with darker lightness', (tester) async {
     // ivory (FFFFF0, very light) and chocolate (5C3317, very dark) — both warm/yellow-orange hue
+    // Ivory (FFFFF0): HSV sat≈0.06, HSL sat≈0.80 — passes dual-saturation neutral check,
+    // HSV hue≈60° falls into orange band (hue < 65). Chocolate (5C3317) hue≈20° also orange.
     await tester.pumpWidget(
       const MaterialApp(
         home: SwatchScreen(testSpools: [

@@ -723,6 +723,7 @@ String _normalizeGroup(String? raw) {
   final s = (raw ?? '').trim().toUpperCase();
   if (s.isEmpty) return 'Other';
   // Exact match against special series first (preserves the full label).
+  // Exact match only: "PLA SILK+" or "PLA SILK DUAL" fall through to _kBases.
   for (final series in _kSpecialSeries) {
     if (s == series) return series;
   }
