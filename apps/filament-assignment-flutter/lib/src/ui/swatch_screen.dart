@@ -80,8 +80,13 @@ class _SwatchScreenState extends State<SwatchScreen> {
   List<_MaterialGroup> _buildGroups(List<Map<String, dynamic>> spools) {
     final byMaterial = <String, List<_SpoolEntry>>{};
     for (final sp in spools) {
-      final hex = _normalizeHex(sp['rgba'] as String?);
-      if (hex == null) continue; // skip uncolored spools
+      final extraHexes = _parseExtraColors(sp['extra_colors']);
+      final rawHex = _normalizeHex(sp['rgba'] as String?);
+      // Multi-color spools have empty rgba; promote first extra color to primary.
+      final hex = rawHex ?? (extraHexes.isNotEmpty ? extraHexes.first : null);
+      if (hex == null) continue;
+      final effectiveExtras =
+          rawHex == null && extraHexes.isNotEmpty ? extraHexes.sublist(1) : extraHexes;
       final material = _str(sp['material']);
       final group = _normalizeGroup(material);
       byMaterial.putIfAbsent(group, () => []).add(_SpoolEntry(
@@ -90,26 +95,32 @@ class _SwatchScreenState extends State<SwatchScreen> {
         brand: _str(sp['brand']),
         colorName: _str(sp['color_name']),
         hex: hex,
+        series: _detectSeries(material),
+        extraHexes: effectiveExtras,
       ));
     }
 
     final groups = <_MaterialGroup>[];
     for (final entry in byMaterial.entries) {
-      final byHex = <String, List<_SpoolEntry>>{};
+      // Composite key: all colors joined so multi-color variants don't merge.
+      final byKey = <String, List<_SpoolEntry>>{};
       for (final s in entry.value) {
-        byHex.putIfAbsent(s.hex, () => []).add(s);
+        final key = [s.hex, ...s.extraHexes].join('+');
+        byKey.putIfAbsent(key, () => []).add(s);
       }
-      final chips = byHex.entries.map((e) {
+      final chips = byKey.entries.map((e) {
         final ss = e.value;
         return _ColorChip(
-          hex: e.key,
+          hex: ss.first.hex,
           name: ss.first.colorName,
           brand: ss.first.brand,
           material: ss.first.material,
           spoolIds: ss.map((s) => s.id).toList(),
+          series: ss.first.series,
+          extraHexes: ss.first.extraHexes,
         );
-      }).toList()
-        ..sort(_byHue);
+      }).toList();
+      // No flat sort here — ordering is handled by _buildHueBands at render time.
       groups.add(_MaterialGroup(label: entry.key, chips: chips));
     }
     groups.sort((a, b) {
@@ -571,8 +582,10 @@ const _kGroupOrder = ['PLA', 'PETG', 'ABS', 'ASA', 'TPU', 'PA', 'PC', 'PEEK', 'P
 String _normalizeGroup(String? raw) {
   final s = (raw ?? '').trim().toUpperCase();
   if (s.isEmpty) return 'Other';
+  // Match only when the base IS the full material string (e.g. 'PLA' matches
+  // 'PLA' but not 'PLA SILK' — the series suffix makes it a distinct group).
   for (final b in _kBases) {
-    if (s.contains(b)) return b;
+    if (s == b) return b;
   }
   final cleaned = raw!.trim();
   return cleaned[0].toUpperCase() + cleaned.substring(1);
@@ -604,16 +617,6 @@ Color _contrastOn(Color? bg) {
       : Colors.white.withValues(alpha: 0.90);
 }
 
-int _byHue(_ColorChip a, _ColorChip b) {
-  final ca = _hexToColor(a.hex);
-  final cb = _hexToColor(b.hex);
-  if (ca == null && cb == null) return 0;
-  if (ca == null) return 1;
-  if (cb == null) return -1;
-  final ha = HSVColor.fromColor(ca).hue;
-  final hb = HSVColor.fromColor(cb).hue;
-  return ha.compareTo(hb);
-}
 
 _SpoolSeries _detectSeries(String? material) {
   final s = (material ?? '').toUpperCase();
