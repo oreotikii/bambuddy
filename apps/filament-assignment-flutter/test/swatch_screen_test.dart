@@ -50,4 +50,25 @@ void main() {
     // Ensure PLA SILK is NOT collapsed into PLA+
     expect(find.text('PLA'), findsNothing);
   });
+
+  testWidgets('Chips with same hue appear before chips with darker lightness', (tester) async {
+    // ivory (FFFFF0, very light) and chocolate (5C3317, very dark) — both warm/yellow-orange hue
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {'id': 1, 'rgba': '5C3317', 'material': 'PLA+', 'brand': 'A', 'color_name': 'Chocolate', 'extra_colors': null},
+          {'id': 2, 'rgba': 'FFFFF0', 'material': 'PLA+', 'brand': 'A', 'color_name': 'Ivory', 'extra_colors': null},
+        ]),
+      ),
+    );
+    await tester.pump();
+    // Both chips render — screen is not empty.
+    expect(find.text('No spools in inventory'), findsNothing);
+    // Ivory name appears before Chocolate in the widget tree (light → dark).
+    final ivoryPos = tester.getTopLeft(find.text('Ivory')).dy;
+    final chocolatePos = tester.getTopLeft(find.text('Chocolate')).dy;
+    // Same hue band → same row → same y. Light (Ivory, higher HSL L) appears to the left (lower x).
+    expect(tester.getTopLeft(find.text('Ivory')).dx,
+        lessThan(tester.getTopLeft(find.text('Chocolate')).dx));
+  });
 }

@@ -258,6 +258,7 @@ class _MaterialSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bands = _buildHueBands(group.chips);
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
       child: Column(
@@ -276,8 +277,7 @@ class _MaterialSection extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: const Color(0xFF27272A),
                   borderRadius: BorderRadius.circular(999),
@@ -294,18 +294,22 @@ class _MaterialSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 14,
-            children: [
-              for (final chip in group.chips)
-                _SwatchChip(
-                  chip: chip,
-                  onTap: () => onChipTap(chip),
-                ),
-            ],
-          ),
-          const SizedBox(height: 16),
+          for (final band in bands)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final chip in band)
+                    _SwatchChip(
+                      chip: chip,
+                      onTap: () => onChipTap(chip),
+                    ),
+                ],
+              ),
+            ),
+          const SizedBox(height: 6),
           const Divider(height: 1, color: Color(0xFF27272A)),
         ],
       ),
@@ -649,3 +653,69 @@ List<String> _parseExtraColors(dynamic raw) {
 }
 
 String? _str(dynamic v) => v is String && v.isNotEmpty ? v : null;
+
+double _hslLightness(Color? color) {
+  if (color == null) return 0;
+  return HSLColor.fromColor(color).lightness;
+}
+
+/// Groups [chips] into hue bands in rainbow order and sorts each band
+/// by HSL lightness descending (lightest first). Returns only non-empty bands.
+List<List<_ColorChip>> _buildHueBands(List<_ColorChip> chips) {
+  const bandNames = [
+    'red', 'orange', 'yellow', 'green', 'teal',
+    'blue', 'purple', 'pink', 'neutral',
+  ];
+  final bands = <String, List<_ColorChip>>{
+    for (final b in bandNames) b: [],
+  };
+
+  for (final chip in chips) {
+    final color = _hexToColor(chip.hex);
+    if (color == null) {
+      bands['neutral']!.add(chip);
+      continue;
+    }
+    final hsv = HSVColor.fromColor(color);
+    final hsl = HSLColor.fromColor(color);
+    // Classify as neutral only if both HSL and HSV saturation are low
+    // (avoids misclassifying near-white warm tones like ivory).
+    if (hsv.saturation < 0.15 && hsl.saturation < 0.15) {
+      bands['neutral']!.add(chip);
+      continue;
+    }
+    final hue = hsv.hue;
+    final String band;
+    if (hue >= 330 || hue < 20) {
+      band = 'red';
+    } else if (hue < 65) {
+      band = 'orange';
+    } else if (hue < 80) {
+      band = 'yellow';
+    } else if (hue < 160) {
+      band = 'green';
+    } else if (hue < 200) {
+      band = 'teal';
+    } else if (hue < 260) {
+      band = 'blue';
+    } else if (hue < 300) {
+      band = 'purple';
+    } else {
+      band = 'pink';
+    }
+    bands[band]!.add(chip);
+  }
+
+  for (final bandChips in bands.values) {
+    bandChips.sort((a, b) {
+      final la = _hslLightness(_hexToColor(a.hex));
+      final lb = _hslLightness(_hexToColor(b.hex));
+      return lb.compareTo(la); // descending → lightest first
+    });
+  }
+
+  return bandNames
+      .map((b) => bands[b]!)
+      .where((b) => b.isNotEmpty)
+      .toList(growable: false);
+}
