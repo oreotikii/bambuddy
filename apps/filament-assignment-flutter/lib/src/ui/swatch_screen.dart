@@ -1,0 +1,635 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import '../core/api_exception.dart';
+import '../data/api_client.dart';
+
+class SwatchScreen extends StatefulWidget {
+  const SwatchScreen({super.key, this.refreshNonce = 0, this.testSpools});
+
+  final int refreshNonce;
+
+  /// Inject raw spool maps for widget tests, bypassing the API call.
+  final List<Map<String, dynamic>>? testSpools;
+
+  @override
+  State<SwatchScreen> createState() => _SwatchScreenState();
+}
+
+class _SwatchScreenState extends State<SwatchScreen> {
+  ApiClient? _api;
+  List<_MaterialGroup> _groups = const [];
+  bool _loading = true;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_load());
+  }
+
+  @override
+  void didUpdateWidget(covariant SwatchScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.refreshNonce != oldWidget.refreshNonce) {
+      unawaited(_load());
+    }
+  }
+
+  Future<void> _load() async {
+    if (!mounted) return;
+    // Test injection: bypass API when testSpools is provided.
+    final injected = widget.testSpools;
+    if (injected != null) {
+      setState(() {
+        _groups = _buildGroups(injected);
+        _loading = false;
+      });
+      return;
+    }
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      _api ??= await ApiClient.create();
+      final raw = (await _api!.getArray('/spoolman/inventory/spools'))
+          .whereType<Map<String, dynamic>>()
+          .toList();
+      if (!mounted) return;
+      setState(() {
+        _groups = _buildGroups(raw);
+        _loading = false;
+      });
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _error = e.detailMessage();
+        _loading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _error = e.toString();
+        _loading = false;
+      });
+    }
+  }
+
+  List<_MaterialGroup> _buildGroups(List<Map<String, dynamic>> spools) {
+    final byMaterial = <String, List<_SpoolEntry>>{};
+    for (final sp in spools) {
+      final hex = _normalizeHex(sp['rgba'] as String?);
+      if (hex == null) continue; // skip uncolored spools
+      final material = _str(sp['material']);
+      final group = _normalizeGroup(material);
+      byMaterial.putIfAbsent(group, () => []).add(_SpoolEntry(
+        id: (sp['id'] as num?)?.toInt() ?? -1,
+        material: material,
+        brand: _str(sp['brand']),
+        colorName: _str(sp['color_name']),
+        hex: hex,
+      ));
+    }
+
+    final groups = <_MaterialGroup>[];
+    for (final entry in byMaterial.entries) {
+      final byHex = <String, List<_SpoolEntry>>{};
+      for (final s in entry.value) {
+        byHex.putIfAbsent(s.hex, () => []).add(s);
+      }
+      final chips = byHex.entries.map((e) {
+        final ss = e.value;
+        return _ColorChip(
+          hex: e.key,
+          name: ss.first.colorName,
+          brand: ss.first.brand,
+          material: ss.first.material,
+          spoolIds: ss.map((s) => s.id).toList(),
+        );
+      }).toList()
+        ..sort(_byHue);
+      groups.add(_MaterialGroup(label: entry.key, chips: chips));
+    }
+    groups.sort((a, b) {
+      final ai = _groupOrder(a.label);
+      final bi = _groupOrder(b.label);
+      if (ai != bi) return ai.compareTo(bi);
+      return a.label.compareTo(b.label);
+    });
+    return groups;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF18181B),
+      appBar: AppBar(
+        title: const Text(
+          'Swatches',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            letterSpacing: -0.5,
+          ),
+        ),
+        centerTitle: false,
+        backgroundColor: const Color(0xFF18181B),
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(height: 1, color: const Color(0xFF27272A)),
+        ),
+      ),
+      body: SafeArea(
+        child: _loading
+            ? const Center(
+                child: CircularProgressIndicator(color: Color(0xFF00C853)),
+              )
+            : _error != null
+                ? _ErrorState(message: _error!, onRetry: _load)
+                : RefreshIndicator(
+                    color: const Color(0xFF00C853),
+                    onRefresh: _load,
+                    child: _groups.isEmpty
+                        ? _EmptyState()
+                        : ListView.builder(
+                            padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
+                            itemCount: _groups.length,
+                            itemBuilder: (ctx, i) => _MaterialSection(
+                              group: _groups[i],
+                              onChipTap: (chip) =>
+                                  _showDetail(context, chip),
+                            ),
+                          ),
+                  ),
+      ),
+    );
+  }
+
+  void _showDetail(BuildContext context, _ColorChip chip) {
+    final color = _hexToColor(chip.hex);
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      backgroundColor: const Color(0xFF1C1C20),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(18, 0, 18, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: const Color(0xFF3F3F46)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: (color ?? Colors.transparent)
+                              .withValues(alpha: 0.40),
+                          blurRadius: 12,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      chip.name ?? 'Unknown color',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              if (chip.brand != null)
+                _DetailRow(label: 'Brand', value: chip.brand!),
+              if (chip.material != null)
+                _DetailRow(label: 'Material', value: chip.material!),
+              _DetailRow(
+                label: 'Color hex',
+                value: '#${chip.hex}',
+                mono: true,
+              ),
+              _DetailRow(
+                label: 'Spools',
+                value:
+                    '${chip.spoolIds.length} × ${chip.spoolIds.map((id) => '#$id').join(', ')}',
+                mono: true,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MaterialSection extends StatelessWidget {
+  const _MaterialSection({required this.group, required this.onChipTap});
+
+  final _MaterialGroup group;
+  final ValueChanged<_ColorChip> onChipTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                group.label,
+                style: const TextStyle(
+                  color: Color(0xFF71717A),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11,
+                  letterSpacing: 1.1,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF27272A),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  '${group.chips.length}',
+                  style: const TextStyle(
+                    color: Color(0xFF52525B),
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 14,
+            children: [
+              for (final chip in group.chips)
+                _SwatchChip(
+                  chip: chip,
+                  onTap: () => onChipTap(chip),
+                ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const Divider(height: 1, color: Color(0xFF27272A)),
+        ],
+      ),
+    );
+  }
+}
+
+class _SwatchChip extends StatelessWidget {
+  const _SwatchChip({required this.chip, required this.onTap});
+
+  final _ColorChip chip;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = _hexToColor(chip.hex);
+    final name = chip.name?.trim() ?? '';
+    final count = chip.spoolIds.length;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: 52,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                color: color ?? const Color(0xFF3F3F46),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: const Color(0xFF3F3F46),
+                  width: 1.5,
+                ),
+                boxShadow: color != null
+                    ? [
+                        BoxShadow(
+                          color: color.withValues(alpha: 0.30),
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ]
+                    : null,
+              ),
+              child: count > 1
+                  ? Center(
+                      child: Text(
+                        '$count',
+                        style: TextStyle(
+                          color: _contrastOn(color),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                          height: 1,
+                        ),
+                      ),
+                    )
+                  : null,
+            ),
+            if (name.isNotEmpty) ...[
+              const SizedBox(height: 5),
+              Text(
+                name,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Color(0xFF71717A),
+                  fontSize: 9,
+                  fontWeight: FontWeight.w500,
+                  height: 1.2,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DetailRow extends StatelessWidget {
+  const _DetailRow({
+    required this.label,
+    required this.value,
+    this.mono = false,
+  });
+
+  final String label;
+  final String value;
+  final bool mono;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 80,
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: Color(0xFF71717A),
+                fontSize: 13,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                fontFamily: mono ? 'monospace' : null,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ErrorState extends StatelessWidget {
+  const _ErrorState({required this.message, required this.onRetry});
+
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.error_outline,
+              size: 48,
+              color: Color(0xFF52525B),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0xFF71717A),
+                fontSize: 13,
+              ),
+            ),
+            const SizedBox(height: 16),
+            FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: const Color(0xFF00C853),
+                foregroundColor: Colors.black,
+              ),
+              onPressed: onRetry,
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: const [
+        SizedBox(height: 80),
+        Center(
+          child: Column(
+            children: [
+              Icon(
+                Icons.palette_outlined,
+                size: 64,
+                color: Color(0xFF52525B),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'No spools in inventory',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 6),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Text(
+                  'Add spools in Spoolman to see your color swatches here.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Color(0xFF71717A), fontSize: 14),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Data classes ─────────────────────────────────────────────────────────────
+
+enum _SpoolSeries { standard, silk, metallic, galaxy, matte }
+
+class _SpoolEntry {
+  const _SpoolEntry({
+    required this.id,
+    required this.hex,
+    this.material,
+    this.brand,
+    this.colorName,
+    this.series = _SpoolSeries.standard,
+    this.extraHexes = const [],
+  });
+
+  final int id;
+  final String hex;
+  final String? material;
+  final String? brand;
+  final String? colorName;
+  final _SpoolSeries series;
+  final List<String> extraHexes;
+}
+
+class _ColorChip {
+  const _ColorChip({
+    required this.hex,
+    required this.spoolIds,
+    this.name,
+    this.brand,
+    this.material,
+    this.series = _SpoolSeries.standard,
+    this.extraHexes = const [],
+  });
+
+  final String hex;
+  final String? name;
+  final String? brand;
+  final String? material;
+  final List<int> spoolIds;
+  final _SpoolSeries series;
+  final List<String> extraHexes;
+}
+
+class _MaterialGroup {
+  const _MaterialGroup({required this.label, required this.chips});
+
+  final String label;
+  final List<_ColorChip> chips;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+// Broad family groups in priority order. Longer/more-specific strings first
+// to prevent partial matches (e.g. 'PETG' before a hypothetical 'PET').
+const _kBases = ['PLA', 'PETG', 'ASA', 'ABS', 'TPU', 'PEEK', 'HIPS', 'PVA', 'PC', 'PA'];
+
+// Display order for the section list.
+const _kGroupOrder = ['PLA', 'PETG', 'ABS', 'ASA', 'TPU', 'PA', 'PC', 'PEEK', 'PVA', 'HIPS'];
+
+String _normalizeGroup(String? raw) {
+  final s = (raw ?? '').trim().toUpperCase();
+  if (s.isEmpty) return 'Other';
+  for (final b in _kBases) {
+    if (s.contains(b)) return b;
+  }
+  final cleaned = raw!.trim();
+  return cleaned[0].toUpperCase() + cleaned.substring(1);
+}
+
+int _groupOrder(String label) {
+  final i = _kGroupOrder.indexOf(label);
+  return i < 0 ? _kGroupOrder.length : i;
+}
+
+String? _normalizeHex(String? raw) {
+  if (raw == null) return null;
+  final s = raw.trim().replaceAll('#', '').toLowerCase();
+  if (s.length == 6) return s;
+  if (s.length == 8) return s.substring(0, 6);
+  return null;
+}
+
+Color? _hexToColor(String? hex) {
+  if (hex == null) return null;
+  final v = int.tryParse(hex.replaceAll('#', ''), radix: 16);
+  return v == null ? null : Color(0xFF000000 | v);
+}
+
+Color _contrastOn(Color? bg) {
+  if (bg == null) return Colors.white;
+  return bg.computeLuminance() > 0.45
+      ? Colors.black.withValues(alpha: 0.70)
+      : Colors.white.withValues(alpha: 0.90);
+}
+
+int _byHue(_ColorChip a, _ColorChip b) {
+  final ca = _hexToColor(a.hex);
+  final cb = _hexToColor(b.hex);
+  if (ca == null && cb == null) return 0;
+  if (ca == null) return 1;
+  if (cb == null) return -1;
+  final ha = HSVColor.fromColor(ca).hue;
+  final hb = HSVColor.fromColor(cb).hue;
+  return ha.compareTo(hb);
+}
+
+_SpoolSeries _detectSeries(String? material) {
+  final s = (material ?? '').toUpperCase();
+  if (s.contains('SILK')) return _SpoolSeries.silk;
+  if (s.contains('METALLIC')) return _SpoolSeries.metallic;
+  if (s.contains('GALAXY')) return _SpoolSeries.galaxy;
+  if (s.contains('MATTE')) return _SpoolSeries.matte;
+  return _SpoolSeries.standard;
+}
+
+List<String> _parseExtraColors(dynamic raw) {
+  if (raw is! String || raw.trim().isEmpty) return const [];
+  return raw
+      .split(RegExp(r'[,;\s|]+'))
+      .map((t) => t.trim().toLowerCase())
+      .where((t) => t.length == 6 || t.length == 8)
+      .map((t) => t.length == 8 ? t.substring(0, 6) : t)
+      .toList(growable: false);
+}
+
+String? _str(dynamic v) => v is String && v.isNotEmpty ? v : null;
