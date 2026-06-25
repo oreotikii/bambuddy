@@ -572,20 +572,31 @@ class _MaterialGroup {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-// Broad family groups in priority order. Longer/more-specific strings first
-// to prevent partial matches (e.g. 'PETG' before a hypothetical 'PET').
-const _kBases = ['PLA', 'PETG', 'ASA', 'ABS', 'TPU', 'PEEK', 'HIPS', 'PVA', 'PC', 'PA'];
+// Special series are matched by exact case-insensitive equality and preserved as-is.
+const _kSpecialSeries = [
+  'PLA GALAXY', 'PLA METALLIC', 'PLA SILK', 'PLA MATTE', 'PLA PRO',
+];
 
-// Display order for the section list.
-const _kGroupOrder = ['PLA', 'PETG', 'ABS', 'ASA', 'TPU', 'PA', 'PC', 'PEEK', 'PVA', 'HIPS'];
+// Base material normalization — longer/more-specific strings first.
+const _kBases = ['PETG', 'PLA+', 'PLA', 'ABS', 'ASA', 'TPU', 'PEEK', 'HIPS', 'PVA', 'PC', 'PA'];
+
+// Section display order.
+const _kGroupOrder = [
+  'PLA+', 'PLA PRO', 'PLA',
+  'PLA SILK', 'PLA METALLIC', 'PLA MATTE', 'PLA GALAXY',
+  'PETG', 'ABS', 'ASA', 'TPU', 'PA', 'PC', 'PEEK', 'PVA', 'HIPS',
+];
 
 String _normalizeGroup(String? raw) {
   final s = (raw ?? '').trim().toUpperCase();
   if (s.isEmpty) return 'Other';
-  // Match only when the base IS the full material string (e.g. 'PLA' matches
-  // 'PLA' but not 'PLA SILK' — the series suffix makes it a distinct group).
+  // Exact match against special series first (preserves the full label).
+  for (final series in _kSpecialSeries) {
+    if (s == series) return series;
+  }
+  // Fall back to base material normalization.
   for (final b in _kBases) {
-    if (s == b) return b;
+    if (s.contains(b)) return b;
   }
   final cleaned = raw!.trim();
   return cleaned[0].toUpperCase() + cleaned.substring(1);

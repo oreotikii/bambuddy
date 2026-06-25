@@ -32,4 +32,22 @@ void main() {
     // Must NOT show empty state.
     expect(find.text('No spools in inventory'), findsNothing);
   });
+
+  testWidgets('PLA SILK and PLA METALLIC appear as separate sections from PLA+', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {'id': 1, 'rgba': 'F6F6F0', 'material': 'PLA+', 'brand': 'A', 'color_name': 'Cool White', 'extra_colors': null},
+          {'id': 2, 'rgba': 'B87333', 'material': 'PLA SILK', 'brand': 'A', 'color_name': 'Silk Copper', 'extra_colors': null},
+          {'id': 3, 'rgba': '3C91E6', 'material': 'PLA METALLIC', 'brand': 'A', 'color_name': 'Titanium Blue', 'extra_colors': null},
+        ]),
+      ),
+    );
+    await tester.pump();
+    expect(find.text('PLA+'), findsOneWidget);
+    expect(find.text('PLA SILK'), findsOneWidget);
+    expect(find.text('PLA METALLIC'), findsOneWidget);
+    // Ensure PLA SILK is NOT collapsed into PLA+
+    expect(find.text('PLA'), findsNothing);
+  });
 }
