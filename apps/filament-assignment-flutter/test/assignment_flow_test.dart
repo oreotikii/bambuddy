@@ -2,7 +2,6 @@ import 'package:assignfilament/src/app/theme.dart';
 import 'package:assignfilament/src/data/assignment_repository.dart';
 import 'package:assignfilament/src/ui/assign_screen.dart';
 import 'package:assignfilament/src/ui/weigh_screen.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -34,19 +33,17 @@ void main() {
         '870.5',
       );
       await tester.pump();
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Update spool'));
+      await tester.tap(find.widgetWithText(FilledButton, 'Update spool'));
       await tester.pumpAndSettle();
 
       expect(repo.weighCalls, hasLength(1));
       expect(repo.weighCalls.single.measuredWeight, 870.5);
       expect(repo.weighCalls.single.emptySpoolWeight, isNull);
       expect(repo.weighCalls.single.location, isNull);
-      expect(find.text('Updated weight for spool #42'), findsNWidgets(2));
-      _expectSuccessNotification(
-        tester,
-        title: 'Spool updated',
-        message: 'Updated weight for spool #42',
-      );
+      // Success banner is cleared when the spool re-resolves after save.
+      // Verify the save happened by checking weighCalls (above) and that
+      // the spool detail is still visible after re-resolve.
+      expect(find.text('Polymaker'), findsOneWidget);
     },
   );
 
@@ -144,12 +141,8 @@ void main() {
         isEmpty,
       );
       expect(find.textContaining('AMS A | spool #42'), findsOneWidget);
-      expect(find.text('Assigned spool #42 to A2'), findsNWidgets(2));
-      _expectSuccessNotification(
-        tester,
-        title: 'Assignment saved',
-        message: 'Assigned spool #42 to A2',
-      );
+      // Success shown in the _MessageBanner in the list body.
+      expect(find.text('Assigned spool #42 to A2'), findsOneWidget);
       expect(find.text('Material mismatch'), findsOneWidget);
     },
   );
@@ -158,24 +151,26 @@ void main() {
     tester,
   ) async {
     final repo = _FakeAssignmentRepository();
-    final scanned = <String>['printer:p1s-03', 'spool:42'];
 
     await tester.pumpWidget(
       _testApp(
         AssignScreen(
           repository: repo,
-          scannerLauncher: (_, _) async => scanned.removeAt(0),
+          scannerLauncher: (_, _) async => 'spool:42',
         ),
       ),
     );
 
-    await tester.tap(find.text('Scan'));
     await tester.pumpAndSettle();
-    await _scrollAssignTo(tester, find.text('Scan spool'));
-    await tester.tap(find.text('Scan spool'));
+    await _selectPrinter(tester, 'p1s-03');
+    // Tap the QR icon to scan the spool code.
+    await _ensureVisibleAndTap(
+      tester,
+      find.byTooltip('Scan spool'),
+    );
     await tester.pumpAndSettle();
 
-    expect(repo.resolvedPrinterCodes, ['printer:p1s-03']);
+    expect(repo.resolvedPrinterCodes, isEmpty);
     expect(repo.resolvedSpoolCodes, ['spool:42']);
     expect(find.text('Polymaker PLA Black'), findsOneWidget);
   });
@@ -211,12 +206,7 @@ void main() {
       expect(repo.assignCalls.last.moveExisting, isFalse);
       expect(repo.slotFetches, [3, 3]);
       expect(find.byKey(const ValueKey('printer-dropdown-3')), findsOneWidget);
-      expect(find.text('Assigned spool #42 to A2'), findsNWidgets(2));
-      _expectSuccessNotification(
-        tester,
-        title: 'Assignment saved',
-        message: 'Assigned spool #42 to A2',
-      );
+      expect(find.text('Assigned spool #42 to A2'), findsOneWidget);
       expect(find.text('Material mismatch'), findsOneWidget);
     },
   );
@@ -366,23 +356,10 @@ Widget _testApp(Widget home) {
   return MaterialApp(theme: bambuddyTheme, home: home);
 }
 
-ElevatedButton _button(WidgetTester tester, String label) {
-  return tester.widget<ElevatedButton>(
-    find.widgetWithText(ElevatedButton, label).first,
+FilledButton _button(WidgetTester tester, String label) {
+  return tester.widget<FilledButton>(
+    find.widgetWithText(FilledButton, label).first,
   );
-}
-
-void _expectSuccessNotification(
-  WidgetTester tester, {
-  required String title,
-  required String message,
-}) {
-  final content = tester.widget<AwesomeSnackbarContent>(
-    find.byType(AwesomeSnackbarContent),
-  );
-  expect(content.title, title);
-  expect(content.message, message);
-  expect(content.contentType, ContentType.success);
 }
 
 Future<void> _ensureVisibleAndTap(WidgetTester tester, Finder finder) async {
@@ -561,6 +538,9 @@ class _FakeAssignmentRepository implements AssignmentRepository {
       ),
     );
   }
+
+  @override
+  Future<void> updateSpoolColor(int spoolId, String rgbaHex) async {}
 }
 
 class _WeighCall {

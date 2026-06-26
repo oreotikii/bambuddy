@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -356,7 +357,11 @@ class WeighScreenState extends State<WeighScreen> {
               onSubmitted: (_) => _resolveSpool(),
               decoration: InputDecoration(
                 hintText: 'Spool code',
-                prefixIcon: const Icon(Icons.qr_code_2),
+                prefixIcon: IconButton(
+                  tooltip: 'Scan spool',
+                  icon: const Icon(Icons.qr_code_2),
+                  onPressed: _busy ? null : _scanSpool,
+                ),
                 suffixIcon: IconButton(
                   tooltip: 'Resolve spool',
                   icon: _busy
@@ -770,6 +775,8 @@ class _SpoolCard extends StatelessWidget {
               fill: pct ?? 1.0,
               surface: cs.surfaceContainerHigh,
               track: cs.outline,
+              effect: _spoolEffect(detail, spool),
+              extraColors: swatches.length > 1 ? swatches.sublist(1) : const <Color>[],
             ),
             Positioned(
               top: 2,
@@ -936,12 +943,16 @@ class _SpoolSideView extends StatelessWidget {
     required this.fill,
     required this.surface,
     required this.track,
+    this.effect = '',
+    this.extraColors = const [],
   });
 
   final Color color;
   final double fill;
   final Color surface;
   final Color track;
+  final String effect;
+  final List<Color> extraColors;
 
   @override
   Widget build(BuildContext context) {
@@ -954,6 +965,8 @@ class _SpoolSideView extends StatelessWidget {
           fill: fill,
           surface: surface,
           track: track,
+          effect: effect,
+          extraColors: extraColors,
         ),
       ),
     );
@@ -966,12 +979,16 @@ class _SpoolSidePainter extends CustomPainter {
     required this.fill,
     required this.surface,
     required this.track,
+    this.effect = '',
+    this.extraColors = const [],
   });
 
   final Color color;
   final double fill;
   final Color surface;
   final Color track;
+  final String effect;
+  final List<Color> extraColors;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -981,9 +998,8 @@ class _SpoolSidePainter extends CustomPainter {
     final margin = outer * 0.05;
     final maxR = outer - margin;
     final fillR = coreR + (maxR - coreR) * fill.clamp(0.0, 1.0);
-    final winding = Color.lerp(color, Colors.black, 0.28)!;
 
-    // Flange (the two side plates of the spool).
+    // ── Flange (two side plates of the spool) ────────────────────────────────
     canvas.drawCircle(center, outer, Paint()..color = track);
     canvas.drawCircle(
       center,
@@ -994,8 +1010,28 @@ class _SpoolSidePainter extends CustomPainter {
         ..color = Color.lerp(track, surface, 0.35)!,
     );
 
-    // Wound filament — radius grows with the amount left.
-    canvas.drawCircle(center, fillR, Paint()..color = color);
+    // ── Wound filament ────────────────────────────────────────────────────────
+    if (extraColors.isNotEmpty) {
+      // Multi-color: sweep gradient that wraps around the fill disc.
+      final allColors = [color, ...extraColors];
+      // Repeat the first color at stop 1.0 to close the gradient loop cleanly.
+      final gradColors = [...allColors, allColors.first];
+      final stops = List.generate(allColors.length, (i) => i / allColors.length)
+        ..add(1.0);
+      final shader = SweepGradient(
+        colors: gradColors,
+        stops: stops,
+        center: Alignment.center,
+      ).createShader(Rect.fromCircle(center: center, radius: fillR));
+      canvas.drawCircle(center, fillR, Paint()..shader = shader);
+    } else {
+      canvas.drawCircle(center, fillR, Paint()..color = color);
+    }
+
+    // Winding lines — concentric rings suggesting wound layers.
+    final windingColor = extraColors.isNotEmpty
+        ? Colors.black.withValues(alpha: 0.20)
+        : Color.lerp(color, Colors.black, 0.28)!;
     for (var i = 1; i <= 3; i++) {
       final r = coreR + (fillR - coreR) * (i / 4);
       canvas.drawCircle(
@@ -1004,11 +1040,38 @@ class _SpoolSidePainter extends CustomPainter {
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 0.9
-          ..color = winding,
+          ..color = windingColor,
       );
     }
 
-    // Core hole (reveal the card) + hub ring.
+    // ── Effect overlay (on the fill area only) ────────────────────────────────
+    if (effect == 'silk' || effect == 'metallic') {
+      final alpha = effect == 'silk' ? 0.40 : 0.22;
+      final fillRect = Rect.fromCircle(center: center, radius: fillR);
+      final shader = LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Colors.transparent,
+          Colors.white.withValues(alpha: alpha),
+          Colors.transparent,
+        ],
+        stops: const [0.25, 0.50, 0.75],
+      ).createShader(fillRect);
+      canvas.save();
+      canvas.clipPath(Path()..addOval(fillRect));
+      canvas.drawRect(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        Paint()
+          ..shader = shader
+          ..blendMode = BlendMode.screen,
+      );
+      canvas.restore();
+    } else if (effect == 'galaxy') {
+      _drawDiscGalaxy(canvas, center, fillR);
+    }
+
+    // ── Core hole + hub ring ──────────────────────────────────────────────────
     canvas.drawCircle(center, coreR, Paint()..color = surface);
     canvas.drawCircle(
       center,
@@ -1020,12 +1083,49 @@ class _SpoolSidePainter extends CustomPainter {
     );
   }
 
+  /// Draws galaxy sparkles inside the fill circle on the spool disc.
+  /// Fewer particles than the swatch painter (18 + 4) because the disc is
+  /// primarily a fill-level indicator, not a color showcase.
+  void _drawDiscGalaxy(Canvas canvas, Offset center, double fillR) {
+    final rng = math.Random(color.value);
+    final hsl = HSLColor.fromColor(color);
+    final sparkle = hsl.withLightness(math.max(hsl.lightness, 0.72)).toColor();
+
+    canvas.save();
+    canvas.clipPath(
+      Path()..addOval(Rect.fromCircle(center: center, radius: fillR)),
+    );
+
+    void dot(Color c, double minR, double maxR) {
+      while (true) {
+        final x = center.dx + (rng.nextDouble() * 2 - 1) * fillR;
+        final y = center.dy + (rng.nextDouble() * 2 - 1) * fillR;
+        if ((x - center.dx) * (x - center.dx) +
+                (y - center.dy) * (y - center.dy) >
+            fillR * fillR) continue;
+        canvas.drawCircle(
+          Offset(x, y),
+          minR + rng.nextDouble() * (maxR - minR),
+          Paint()..color = c,
+        );
+        break;
+      }
+    }
+
+    for (var i = 0; i < 18; i++) dot(sparkle, 0.5, 1.3);
+    for (var i = 0; i < 4; i++) dot(const Color(0xFFEEEEFF), 1.0, 2.0);
+
+    canvas.restore();
+  }
+
   @override
   bool shouldRepaint(covariant _SpoolSidePainter old) =>
       old.color != color ||
       old.fill != fill ||
       old.surface != surface ||
-      old.track != track;
+      old.track != track ||
+      old.effect != effect ||
+      old.extraColors != extraColors;
 }
 
 double? _remainingPercent(MobileSpool spool) {
@@ -1074,6 +1174,17 @@ List<Color> _filamentSwatches(MobileSpool spool, MobileSpoolDetail? detail) {
     }
   }
   return colors;
+}
+
+/// Returns a lowercase effect tag for [_SpoolSidePainter].
+/// Checks [detail.effectType] (bambuddy-stored) first, then falls back to
+/// [spool.material] (spoolman-stored) so either source works.
+String _spoolEffect(MobileSpoolDetail? detail, MobileSpool spool) {
+  final s = '${detail?.effectType ?? ''}|${spool.material ?? ''}'.toUpperCase();
+  if (s.contains('GALAXY') || s.contains('STARLIGHT')) return 'galaxy';
+  if (s.contains('SILK')) return 'silk';
+  if (s.contains('METALLIC')) return 'metallic';
+  return '';
 }
 
 String? _firstNonEmpty(String? preferred, String? fallback) {

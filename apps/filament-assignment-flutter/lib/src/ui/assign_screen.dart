@@ -959,9 +959,13 @@ class AssignScreenState extends State<AssignScreen> {
             TextField(
               key: const ValueKey('assign-spool-code-field'),
               controller: _spoolController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Spool code',
-                prefixIcon: Icon(Icons.qr_code_2),
+                prefixIcon: IconButton(
+                  tooltip: 'Scan spool',
+                  icon: const Icon(Icons.qr_code_2),
+                  onPressed: _busy ? null : _scanSpool,
+                ),
                 filled: true,
                 fillColor: Color(0xFF1F1F23),
                 border: OutlineInputBorder(

@@ -33,7 +33,7 @@ void main() {
     expect(find.text('No spools in inventory'), findsNothing);
   });
 
-  testWidgets('PLA SILK and PLA METALLIC appear as separate sections from PLA+', (tester) async {
+  testWidgets('PLA SILK and PLA METALLIC appear as separate sections from PLA', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: SwatchScreen(testSpools: [
@@ -44,11 +44,11 @@ void main() {
       ),
     );
     await tester.pump();
-    expect(find.text('PLA+'), findsOneWidget);
+    // PLA+ normalizes to the PLA section.
+    expect(find.text('PLA'), findsOneWidget);
     expect(find.text('PLA SILK'), findsOneWidget);
     expect(find.text('PLA METALLIC'), findsOneWidget);
-    // Ensure PLA SILK is NOT collapsed into PLA+
-    expect(find.text('PLA'), findsNothing);
+    expect(find.text('PLA+'), findsNothing);
   });
 
   testWidgets('PLA MATTE appears as its own section separate from PLA', (tester) async {
@@ -98,16 +98,14 @@ void main() {
     );
     await tester.pump();
     expect(tester.takeException(), isNull);
-    expect(find.text('PLA+'), findsOneWidget);
+    // PLA+ normalizes to the PLA section.
+    expect(find.text('PLA'), findsOneWidget);
     expect(find.text('PLA SILK'), findsOneWidget);
     expect(find.text('PLA METALLIC'), findsOneWidget);
     expect(find.text('PLA GALAXY'), findsOneWidget);
   });
 
-  testWidgets('Chips with same hue appear before chips with darker lightness', (tester) async {
-    // ivory (FFFFF0, very light) and chocolate (5C3317, very dark) — both warm/yellow-orange hue
-    // Ivory (FFFFF0): HSV sat≈0.06, HSL sat≈0.80 — passes dual-saturation neutral check,
-    // HSV hue≈60° falls into orange band (hue < 65). Chocolate (5C3317) hue≈20° also orange.
+  testWidgets('Light chips appear before dark chips of same hue', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: SwatchScreen(testSpools: [
@@ -117,12 +115,17 @@ void main() {
       ),
     );
     await tester.pump();
-    // Both chips render — screen is not empty.
     expect(find.text('No spools in inventory'), findsNothing);
-    // Ivory name appears before Chocolate in the widget tree (light → dark).
-    // Same hue band → same row → same y. Light (Ivory, higher HSL L) appears to the left (lower x).
-    expect(tester.getTopLeft(find.text('Ivory')).dx,
-        lessThan(tester.getTopLeft(find.text('Chocolate')).dx));
+
+    final ivoryChip = find.byKey(const ValueKey('swatch-fffff0'));
+    final chocChip = find.byKey(const ValueKey('swatch-5c3317'));
+    expect(ivoryChip, findsOneWidget);
+    expect(chocChip, findsOneWidget);
+    // Ivory (higher lightness) is left of Chocolate in the flat grid.
+    expect(
+      tester.getTopLeft(ivoryChip).dx,
+      lessThan(tester.getTopLeft(chocChip).dx),
+    );
   });
 
   testWidgets('Detail modal shows individual color rows for multi-color chip', (tester) async {
@@ -141,15 +144,94 @@ void main() {
       ),
     );
     await tester.pump();
-    // Tap the chip — the SizedBox wrapping the chip is 52x* so we tap the label.
-    await tester.tap(find.text('Black-Gold'));
+
+    // Tap the chip by its hex key (primary color is first extraColor: 111111).
+    await tester.tap(find.byKey(const ValueKey('swatch-111111')));
     await tester.pumpAndSettle();
-    // Expect two separate color rows.
+
     expect(find.text('#111111'), findsOneWidget);
     expect(find.text('#d4af37'), findsOneWidget);
-    // 'Color hex' label must NOT appear (replaced by 'Color 1', 'Color 2').
     expect(find.text('Color hex'), findsNothing);
     expect(find.text('Color 1'), findsOneWidget);
     expect(find.text('Color 2'), findsOneWidget);
+  });
+
+  testWidgets('PLA PRO spools appear in the PLA section', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {'id': 1, 'rgba': 'F6F6F0', 'material': 'PLA PRO', 'brand': 'A', 'color_name': 'White', 'extra_colors': null},
+        ]),
+      ),
+    );
+    await tester.pump();
+    expect(find.text('PLA'), findsOneWidget);
+    expect(find.text('PLA PRO'), findsNothing);
+  });
+
+  testWidgets('Same hex from two brands produces one chip with two variants in modal', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {'id': 1, 'rgba': 'F0EDE4', 'material': 'PLA+', 'brand': 'Bambu Lab', 'color_name': 'Jade White', 'extra_colors': null},
+          {'id': 2, 'rgba': 'F0EDE4', 'material': 'PLA+', 'brand': 'Polymaker', 'color_name': 'Pearl White', 'extra_colors': null},
+        ]),
+      ),
+    );
+    await tester.pump();
+    // Only one chip should render (same hex).
+    expect(find.byKey(const ValueKey('swatch-f0ede4')), findsOneWidget);
+    // Open the modal.
+    await tester.tap(find.byKey(const ValueKey('swatch-f0ede4')));
+    await tester.pumpAndSettle();
+    // Both brands must appear (once each).
+    expect(find.text('Bambu Lab'), findsOneWidget);
+    expect(find.text('Polymaker'), findsOneWidget);
+    // Jade White is the first variant: shown in the header (primaryName) AND in
+    // its variant row → two occurrences. Pearl White only in its variant row.
+    expect(find.text('Jade White'), findsNWidgets(2));
+    expect(find.text('Pearl White'), findsOneWidget);
+    // Spool IDs.
+    expect(find.text('#1'), findsOneWidget);
+    expect(find.text('#2'), findsOneWidget);
+  });
+
+  testWidgets('Hash-prefixed extra_colors tokens are displayed as multi-color chip', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {
+            'id': 1,
+            'rgba': '',
+            'material': 'PLA SILK',
+            'brand': 'A',
+            'color_name': 'Duo',
+            'extra_colors': '#FF0000,#0000FF',
+          },
+        ]),
+      ),
+    );
+    await tester.pump();
+    expect(find.text('No spools in inventory'), findsNothing);
+    expect(find.byKey(const ValueKey('swatch-ff0000')), findsOneWidget);
+
+    await tester.tap(find.byKey(const ValueKey('swatch-ff0000')));
+    await tester.pumpAndSettle();
+    expect(find.text('#ff0000'), findsOneWidget);
+    expect(find.text('#0000ff'), findsOneWidget);
+  });
+
+  testWidgets('STARLIGHT material detected as galaxy series without throwing', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {'id': 1, 'rgba': '6A0DAD', 'material': 'PLA STARLIGHT', 'brand': 'A', 'color_name': 'Purple Starlight', 'extra_colors': null},
+        ]),
+      ),
+    );
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+    // PLA STARLIGHT normalizes to the PLA GALAXY section.
+    expect(find.text('PLA GALAXY'), findsOneWidget);
   });
 }

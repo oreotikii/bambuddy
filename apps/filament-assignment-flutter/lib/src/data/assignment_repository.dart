@@ -345,8 +345,9 @@ class MobileSpoolDetail {
     if (raw == null || raw.trim().isEmpty) return const [];
     return raw
         .split(RegExp(r'[,;\s|]+'))
-        .map((t) => t.trim())
-        .where((t) => t.isNotEmpty)
+        .map((t) => t.trim().replaceAll('#', ''))
+        .where((t) => t.length == 6 || t.length == 8)
+        .map((t) => t.length == 8 ? t.substring(0, 6) : t)
         .toList(growable: false);
   }
 }
