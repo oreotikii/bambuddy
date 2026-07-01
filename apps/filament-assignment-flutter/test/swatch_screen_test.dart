@@ -33,7 +33,7 @@ void main() {
     expect(find.text('No spools in inventory'), findsNothing);
   });
 
-  testWidgets('PLA SILK and PLA METALLIC appear as separate sections from PLA', (tester) async {
+  testWidgets('PLA SILK and PLA METALLIC appear as separate sections from PLA+', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: SwatchScreen(testSpools: [
@@ -44,11 +44,12 @@ void main() {
       ),
     );
     await tester.pump();
-    // PLA+ normalizes to the PLA section.
-    expect(find.text('PLA'), findsOneWidget);
+    // PLA+ material normalizes to its own PLA+ section.
+    expect(find.text('PLA+'), findsOneWidget);
     expect(find.text('PLA SILK'), findsOneWidget);
     expect(find.text('PLA METALLIC'), findsOneWidget);
-    expect(find.text('PLA+'), findsNothing);
+    // Pure PLA section must not appear (no PLA-material spool in fixture).
+    expect(find.text('PLA'), findsNothing);
   });
 
   testWidgets('PLA MATTE appears as its own section separate from PLA', (tester) async {
@@ -83,7 +84,7 @@ void main() {
     await tester.pumpWidget(
       const MaterialApp(
         home: SwatchScreen(testSpools: [
-          // standard
+          // standard (PLA+ normalizes to PLA+ section)
           {'id': 1, 'rgba': 'F6F6F0', 'material': 'PLA+', 'brand': 'A', 'color_name': 'White', 'extra_colors': null},
           // silk single
           {'id': 2, 'rgba': 'B87333', 'material': 'PLA SILK', 'brand': 'A', 'color_name': 'Copper', 'extra_colors': null},
@@ -98,8 +99,8 @@ void main() {
     );
     await tester.pump();
     expect(tester.takeException(), isNull);
-    // PLA+ normalizes to the PLA section.
-    expect(find.text('PLA'), findsOneWidget);
+    // PLA+ material normalizes to PLA+ section label.
+    expect(find.text('PLA+'), findsOneWidget);
     expect(find.text('PLA SILK'), findsOneWidget);
     expect(find.text('PLA METALLIC'), findsOneWidget);
     expect(find.text('PLA GALAXY'), findsOneWidget);
@@ -156,7 +157,7 @@ void main() {
     expect(find.text('Color 2'), findsOneWidget);
   });
 
-  testWidgets('PLA PRO spools appear in the PLA section', (tester) async {
+  testWidgets('PLA PRO spools appear in the PLA+ section', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: SwatchScreen(testSpools: [
@@ -165,7 +166,7 @@ void main() {
       ),
     );
     await tester.pump();
-    expect(find.text('PLA'), findsOneWidget);
+    expect(find.text('PLA+'), findsOneWidget);
     expect(find.text('PLA PRO'), findsNothing);
   });
 
@@ -187,9 +188,9 @@ void main() {
     // Both brands must appear (once each).
     expect(find.text('Bambu Lab'), findsOneWidget);
     expect(find.text('Polymaker'), findsOneWidget);
-    // Jade White is the first variant: shown in the header (primaryName) AND in
-    // its variant row → two occurrences. Pearl White only in its variant row.
-    expect(find.text('Jade White'), findsNWidgets(2));
+    // For multi-variant chips the modal header shows the material, not primaryName,
+    // so each color name appears exactly once (in its own variant row).
+    expect(find.text('Jade White'), findsOneWidget);
     expect(find.text('Pearl White'), findsOneWidget);
     // Spool IDs.
     expect(find.text('#1'), findsOneWidget);
@@ -233,5 +234,94 @@ void main() {
     expect(tester.takeException(), isNull);
     // PLA STARLIGHT normalizes to the PLA GALAXY section.
     expect(find.text('PLA GALAXY'), findsOneWidget);
+  });
+
+  testWidgets('extra_colors as a JSON array (not string) renders multi-color chip', (tester) async {
+    // Spoolman multi_color_hexes arrives as a List via the inventory endpoint.
+    await tester.pumpWidget(
+      MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {
+            'id': 1,
+            'rgba': '808080', // placeholder summary color set by Spoolman
+            'material': 'PLA SILK',
+            'brand': 'A',
+            'color_name': 'Tri-Color',
+            'extra_colors': ['ff0000', '0000ff', 'ffffff'], // JSON array
+          },
+        ]),
+      ),
+    );
+    await tester.pump();
+    // Chip key is the first extra_color (ff0000), not the placeholder rgba.
+    expect(find.byKey(const ValueKey('swatch-ff0000')), findsOneWidget);
+    // Placeholder gray must not appear as its own chip.
+    expect(find.byKey(const ValueKey('swatch-808080')), findsNothing);
+
+    // Modal shows the full color set (Color 1 / 2 / 3), not the placeholder.
+    await tester.tap(find.byKey(const ValueKey('swatch-ff0000')));
+    await tester.pumpAndSettle();
+    expect(find.text('Color 1'), findsOneWidget);
+    expect(find.text('Color 2'), findsOneWidget);
+    expect(find.text('Color 3'), findsOneWidget);
+    expect(find.text('#ff0000'), findsOneWidget);
+    expect(find.text('#0000ff'), findsOneWidget);
+    expect(find.text('#ffffff'), findsOneWidget);
+  });
+
+  testWidgets('gray placeholder spool derives multi-color from color_name when extra_colors absent', (tester) async {
+    // Simulates a Numakers PLA SILK spool where the backend returns rgba='808080FF'
+    // with no extra_colors field — colors are inferred from the descriptive name.
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {
+            'id': 27,
+            'rgba': '808080FF',
+            'material': 'PLA SILK',
+            'brand': 'Numakers',
+            'color_name': 'Black-Gold',
+            'extra_colors': null,
+          },
+        ]),
+      ),
+    );
+    await tester.pump();
+    // Chip key must be the first derived color (black), NOT the gray placeholder.
+    expect(find.byKey(const ValueKey('swatch-1a1a1a')), findsOneWidget);
+    expect(find.byKey(const ValueKey('swatch-808080')), findsNothing);
+
+    await tester.tap(find.byKey(const ValueKey('swatch-1a1a1a')));
+    await tester.pumpAndSettle();
+    expect(find.text('Color 1'), findsOneWidget);
+    expect(find.text('Color 2'), findsOneWidget);
+    expect(find.text('#1a1a1a'), findsOneWidget);
+    expect(find.text('#c9a227'), findsOneWidget);
+  });
+
+  testWidgets('rgba placeholder with extra_colors does not corrupt single-hex swatch', (tester) async {
+    // Spool with real rgba and NO extra_colors must still render as solid chip.
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SwatchScreen(testSpools: [
+          {
+            'id': 1,
+            'rgba': 'e63946',
+            'material': 'PLA',
+            'brand': 'A',
+            'color_name': 'Red',
+            'extra_colors': null,
+          },
+        ]),
+      ),
+    );
+    await tester.pump();
+    expect(find.byKey(const ValueKey('swatch-e63946')), findsOneWidget);
+    // Modal shows the single hex row under label "Hex".
+    await tester.tap(find.byKey(const ValueKey('swatch-e63946')));
+    await tester.pumpAndSettle();
+    expect(find.text('Hex'), findsOneWidget);
+    expect(find.text('#e63946'), findsOneWidget);
+    expect(find.text('Color 1'), findsNothing);
   });
 }

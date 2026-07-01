@@ -55,12 +55,53 @@ class _SwatchScreenState extends State<SwatchScreen> {
     });
     try {
       _api ??= await ApiClient.create();
-      final raw = (await _api!.getArray('/spoolman/inventory/spools'))
+      final rawList = (await _api!.getArray('/spoolman/inventory/spools'))
           .whereType<Map<String, dynamic>>()
           .toList();
+
+      // The list endpoint omits extra_colors for multi-color spools; Spoolman
+      // represents these with rgba='808080'. Fetch one detail per unique
+      // brand+colorName so each distinct filament gets its real hex set.
+      final repIds = <String, int>{}; // brand::colorName → representative spool id
+      for (final sp in rawList) {
+        if (_normalizeHex(sp['rgba'] as String?) != '808080') continue;
+        if (_parseExtraColors(sp['extra_colors']).isNotEmpty) continue;
+        final key = '${_str(sp['brand']) ?? ''}::${_str(sp['color_name']) ?? ''}';
+        repIds.putIfAbsent(key, () => (sp['id'] as num?)?.toInt() ?? -1);
+      }
+
+      // Parallel detail calls — one per unique brand+colorName combination.
+      final keys = repIds.keys.toList();
+      final fetched = await Future.wait(keys.map((k) async {
+        final id = repIds[k]!;
+        if (id < 0) return <String, dynamic>{};
+        try {
+          return await _api!.get('/spoolman/inventory/spools/$id');
+        } catch (_) {
+          return <String, dynamic>{};
+        }
+      }));
+
+      // Build a lookup: brand::colorName → raw extra_colors value from detail.
+      final detailExtras = <String, dynamic>{
+        for (var i = 0; i < keys.length; i++)
+          if (fetched[i]['extra_colors'] != null)
+            keys[i]: fetched[i]['extra_colors'],
+      };
+
+      // Enrich list entries that are still placeholder-gray.
+      final enriched = rawList.map((sp) {
+        if (_normalizeHex(sp['rgba'] as String?) != '808080') return sp;
+        if (_parseExtraColors(sp['extra_colors']).isNotEmpty) return sp;
+        final key = '${_str(sp['brand']) ?? ''}::${_str(sp['color_name']) ?? ''}';
+        final extras = detailExtras[key];
+        if (extras == null) return sp;
+        return {...sp, 'extra_colors': extras};
+      }).toList();
+
       if (!mounted) return;
       setState(() {
-        _groups = _buildGroups(raw);
+        _groups = _buildGroups(enriched);
         _loading = false;
       });
     } on ApiException catch (e) {
@@ -83,11 +124,29 @@ class _SwatchScreenState extends State<SwatchScreen> {
     for (final sp in spools) {
       final extraHexes = _parseExtraColors(sp['extra_colors']);
       final rawHex = _normalizeHex(sp['rgba'] as String?);
-      // Multi-color spools have empty rgba; promote first extra color to primary.
-      final hex = rawHex ?? (extraHexes.isNotEmpty ? extraHexes.first : null);
+      // When extra_colors is present it contains the complete multi-color set.
+      // rgba is then a Spoolman-derived summary/placeholder — ignore it so the
+      // placeholder doesn't appear as a sector alongside the real colors.
+      String? hex;
+      List<String> effectiveExtras;
+      if (extraHexes.isNotEmpty) {
+        hex = extraHexes.first;
+        effectiveExtras = extraHexes.sublist(1);
+      } else {
+        hex = rawHex;
+        effectiveExtras = const [];
+      }
+      // Last resort: if still the Spoolman gray placeholder and the backend
+      // didn't expose multi_color_hexes, derive approximate colors from the
+      // descriptive color_name (e.g. "Black-Gold" → ['1a1a1a', 'c9a227']).
+      if (hex == '808080' && effectiveExtras.isEmpty) {
+        final nameColors = _parseColorsFromName(_str(sp['color_name']));
+        if (nameColors.isNotEmpty) {
+          hex = nameColors.first;
+          effectiveExtras = nameColors.sublist(1);
+        }
+      }
       if (hex == null) continue;
-      final effectiveExtras =
-          rawHex == null && extraHexes.isNotEmpty ? extraHexes.sublist(1) : extraHexes;
       final material = _str(sp['material']);
       final group = _normalizeGroup(material);
       byMaterial.putIfAbsent(group, () => []).add(_SpoolEntry(
@@ -104,19 +163,41 @@ class _SwatchScreenState extends State<SwatchScreen> {
     final groups = <_MaterialGroup>[];
     for (final entry in byMaterial.entries) {
       // Composite key: all colors joined so multi-color variants don't merge.
+      // Fallback for spools whose extra_colors couldn't be fetched: key on
+      // brand+colorName so each distinct filament stays its own chip rather
+      // than all collapsing into one gray swatch.
       final byKey = <String, List<_SpoolEntry>>{};
       for (final s in entry.value) {
-        final key = [s.hex, ...s.extraHexes].join('+');
+        final String key;
+        if (s.hex == '808080' && s.extraHexes.isEmpty) {
+          key = '808080::${s.brand ?? ''}::${s.colorName ?? s.id}';
+        } else {
+          key = [s.hex, ...s.extraHexes].join('+');
+        }
         byKey.putIfAbsent(key, () => []).add(s);
       }
       final chips = byKey.entries.map((e) {
         final ss = e.value;
+
+        // Sub-group entries by brand+colorName to produce the variant list.
+        // Spools with the same brand and color name collapse into one variant.
+        final byVariant = <String, List<_SpoolEntry>>{};
+        for (final s in ss) {
+          final vk = '${s.brand ?? ''}::${s.colorName ?? ''}';
+          byVariant.putIfAbsent(vk, () => []).add(s);
+        }
+        final variants = byVariant.entries.map((ve) {
+          return _SpoolVariant(
+            brand: ve.value.first.brand,
+            colorName: ve.value.first.colorName,
+            spoolIds: ve.value.map((s) => s.id).toList(),
+          );
+        }).toList();
+
         return _ColorChip(
           hex: ss.first.hex,
-          name: ss.first.colorName,
-          brand: ss.first.brand,
+          variants: variants,
           material: ss.first.material,
-          spoolIds: ss.map((s) => s.id).toList(),
           series: ss.first.series,
           extraHexes: ss.first.extraHexes,
         );
@@ -184,56 +265,92 @@ class _SwatchScreenState extends State<SwatchScreen> {
 
   void _showDetail(BuildContext context, _ColorChip chip) {
     final color = _hexToColor(chip.hex);
+    final extraColors = chip.extraHexes
+        .map((h) => _hexToColor(h) ?? const Color(0xFF3F3F46))
+        .toList();
+
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
       backgroundColor: const Color(0xFF1C1C20),
       builder: (ctx) => SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(18, 0, 18, 24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // ── Header row ──────────────────────────────────────────────────
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  // Square swatch matches chip shape.
+                  SizedBox(
                     width: 32,
                     height: 32,
-                    margin: const EdgeInsets.only(right: 12),
-                    decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: const Color(0xFF3F3F46)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: (color ?? Colors.transparent)
-                              .withValues(alpha: 0.40),
-                          blurRadius: 12,
-                          spreadRadius: 1,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: CustomPaint(
+                        painter: _SwatchPainter(
+                          primaryColor: color ?? const Color(0xFF3F3F46),
+                          extraColors: extraColors,
+                          series: chip.series,
                         ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          // For multi-variant show material (primary name shown
+                          // per variant row instead, to avoid duplication).
+                          chip.variants.length > 1
+                              ? chip.material ?? 'Multiple colors'
+                              : chip.primaryName ?? 'Unknown color',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        if (chip.variants.length == 1 && chip.material != null)
+                          Text(
+                            chip.material!,
+                            style: const TextStyle(
+                              color: Color(0xFF71717A),
+                              fontSize: 13,
+                            ),
+                          ),
                       ],
                     ),
                   ),
-                  Expanded(
+                  // Spool count badge.
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF27272A),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: Text(
-                      chip.name ?? 'Unknown color',
+                      '${chip.totalSpools} spool${chip.totalSpools == 1 ? '' : 's'}',
                       style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF71717A),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              if (chip.brand != null)
-                _DetailRow(label: 'Brand', value: chip.brand!),
-              if (chip.material != null)
-                _DetailRow(label: 'Material', value: chip.material!),
+
+              // ── Hex values ──────────────────────────────────────────────────
               if (chip.extraHexes.isEmpty)
-                _DetailRow(label: 'Color hex', value: '#${chip.hex}', mono: true)
+                _DetailRow(label: 'Hex', value: '#${chip.hex}', mono: true)
               else ...[
                 _DetailRow(label: 'Color 1', value: '#${chip.hex}', mono: true),
                 for (var i = 0; i < chip.extraHexes.length; i++)
@@ -243,12 +360,16 @@ class _SwatchScreenState extends State<SwatchScreen> {
                     mono: true,
                   ),
               ],
-              _DetailRow(
-                label: 'Spools',
-                value:
-                    '${chip.spoolIds.length} × ${chip.spoolIds.map((id) => '#$id').join(', ')}',
-                mono: true,
-              ),
+
+              const SizedBox(height: 8),
+              const Divider(height: 1, color: Color(0xFF27272A)),
+              const SizedBox(height: 12),
+
+              // ── Variants (one per unique brand + colorName) ─────────────────
+              for (var vi = 0; vi < chip.variants.length; vi++) ...[
+                if (vi > 0) const SizedBox(height: 10),
+                _VariantRow(variant: chip.variants[vi]),
+              ],
             ],
           ),
         ),
@@ -272,8 +393,8 @@ class _SwatchPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2;
-    final rect = Rect.fromCircle(center: center, radius: radius);
-    final clip = Path()..addOval(rect);
+    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
+    final clip = Path()..addRect(rect);
 
     canvas.save();
     canvas.clipPath(clip);
@@ -281,13 +402,12 @@ class _SwatchPainter extends CustomPainter {
     final allColors = [primaryColor, ...extraColors];
 
     if (series == _SpoolSeries.galaxy) {
-      // Galaxy always uses a near-black base regardless of stored color.
-      canvas.drawOval(rect, Paint()..color = const Color(0xFF0A0A0F));
+      canvas.drawRect(rect, Paint()..color = const Color(0xFF0A0A0F));
       _drawGalaxy(canvas, center, radius);
     } else if (allColors.length >= 2) {
-      _drawSectors(canvas, center, radius, allColors);
+      _drawStripes(canvas, size, allColors);
     } else {
-      canvas.drawOval(rect, Paint()..color = primaryColor);
+      canvas.drawRect(rect, Paint()..color = primaryColor);
     }
 
     if (series == _SpoolSeries.silk || series == _SpoolSeries.metallic) {
@@ -295,38 +415,15 @@ class _SwatchPainter extends CustomPainter {
     }
 
     canvas.restore();
-
-    // Outer zinc border — drawn outside the clip for a clean edge.
-    canvas.drawCircle(
-      center,
-      radius - 0.75,
-      Paint()
-        ..color = const Color(0xFF3F3F46)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.5,
-    );
-    // Inset highlight ring — 0.5px white at 8% opacity just inside the border.
-    // Gives the chip a physical "mounted disc" quality without any color glow.
-    canvas.drawCircle(
-      center,
-      radius - 1.75,
-      Paint()
-        ..color = Colors.white.withValues(alpha: 0.08)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 0.5,
-    );
+    // No per-chip border. The grid container provides edge definition.
   }
 
-  void _drawSectors(Canvas canvas, Offset center, double radius, List<Color> colors) {
+  void _drawStripes(Canvas canvas, Size size, List<Color> colors) {
     final n = colors.length;
-    final sweep = 2 * math.pi / n;
-    const startAngle = -math.pi / 2;
+    final w = size.width / n;
     for (var i = 0; i < n; i++) {
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        startAngle + i * sweep,
-        sweep,
-        true,
+      canvas.drawRect(
+        Rect.fromLTWH(i * w, 0, w, size.height),
         Paint()..color = colors[i],
       );
     }
@@ -348,7 +445,7 @@ class _SwatchPainter extends CustomPainter {
       ],
       stops: stops,
     ).createShader(rect);
-    canvas.drawOval(
+    canvas.drawRect(
       rect,
       Paint()
         ..shader = shader
@@ -359,24 +456,32 @@ class _SwatchPainter extends CustomPainter {
   void _drawGalaxy(Canvas canvas, Offset center, double radius) {
     final rng = math.Random(primaryColor.value);
 
-    void star(Color color, double minR, double maxR) {
-      // Reject-sample to keep stars within the circle.
-      while (true) {
-        final x = center.dx + (rng.nextDouble() * 2 - 1) * radius;
-        final y = center.dy + (rng.nextDouble() * 2 - 1) * radius;
-        if ((x - center.dx) * (x - center.dx) + (y - center.dy) * (y - center.dy) >
-            radius * radius) continue;
-        canvas.drawCircle(
-          Offset(x, y),
-          minR + rng.nextDouble() * (maxR - minR),
-          Paint()..color = color,
-        );
-        break;
-      }
+    // Derive sparkle colors from the spool's primary color.
+    // Clamp lightness up to 0.72 so dark colors still produce visible sparkles.
+    final hsl = HSLColor.fromColor(primaryColor);
+    final sparkle = hsl.withLightness(math.max(hsl.lightness, 0.72)).toColor();
+    // Near-white tinted by the primary hue for mid-size dots.
+    final tinted = hsl
+        .withSaturation(hsl.saturation * 0.3)
+        .withLightness(0.88)
+        .toColor();
+
+    void dot(Color color, double minR, double maxR) {
+      final x = center.dx + (rng.nextDouble() * 2 - 1) * radius;
+      final y = center.dy + (rng.nextDouble() * 2 - 1) * radius;
+      canvas.drawCircle(
+        Offset(x, y),
+        minR + rng.nextDouble() * (maxR - minR),
+        Paint()..color = color,
+      );
     }
 
-    for (var i = 0; i < 16; i++) star(const Color(0xFFE8E8FF), 0.8, 1.6);
-    for (var i = 0; i < 4; i++) star(const Color(0xFFCCBBFF), 1.2, 2.2);
+    // Layer 1 — dense small sparkles in brightened primary color.
+    for (var i = 0; i < 90; i++) dot(sparkle, 0.4, 1.2);
+    // Layer 2 — medium near-white tinted dots.
+    for (var i = 0; i < 20; i++) dot(tinted, 0.9, 1.8);
+    // Layer 3 — five bright hot sparks near pure white.
+    for (var i = 0; i < 5; i++) dot(const Color(0xFFEEEEFF), 1.4, 2.4);
   }
 
   @override
@@ -394,7 +499,11 @@ class _MaterialSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bands = _buildHueBands(group.chips);
+    // Flatten all hue bands into a single ordered list.
+    // _buildHueBands returns bands in rainbow order; within each band chips
+    // are sorted light → dark. Flattening preserves that ordering.
+    final flatChips = _buildHueBands(group.chips).expand((band) => band).toList();
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
       child: Column(
@@ -429,22 +538,26 @@ class _MaterialSection extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          for (final band in bands)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  for (final chip in band)
-                    _SwatchChip(
-                      chip: chip,
-                      onTap: () => onChipTap(chip),
-                    ),
-                ],
+          const SizedBox(height: 10),
+          // Shade-card grid — zero gap, rounded outer corners.
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 8,
+                mainAxisSpacing: 0,
+                crossAxisSpacing: 0,
+                childAspectRatio: 1.0,
+              ),
+              itemCount: flatChips.length,
+              itemBuilder: (ctx, i) => _SwatchChip(
+                chip: flatChips[i],
+                onTap: () => onChipTap(flatChips[i]),
               ),
             ),
+          ),
           const SizedBox(height: 6),
           const Divider(height: 1, color: Color(0xFF27272A)),
         ],
@@ -461,61 +574,100 @@ class _SwatchChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _hexToColor(chip.hex);
+    final primaryColor = _hexToColor(chip.hex) ?? const Color(0xFF3F3F46);
     final extraColors = chip.extraHexes
         .map((h) => _hexToColor(h) ?? const Color(0xFF3F3F46))
         .toList();
-    final name = chip.name?.trim() ?? '';
-    final count = chip.spoolIds.length;
+    // Use dark label on light chips, light label on dark chips.
+    final labelColor = primaryColor.computeLuminance() > 0.4
+        ? const Color(0x99000000)
+        : const Color(0xCCFFFFFF);
 
     return GestureDetector(
+      key: ValueKey('swatch-${chip.hex}'),
       onTap: onTap,
-      child: SizedBox(
-        width: 52,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomPaint(
-                  size: const Size(42, 42),
-                  painter: _SwatchPainter(
-                    primaryColor: color ?? const Color(0xFF3F3F46),
-                    extraColors: extraColors,
-                    series: chip.series,
-                  ),
-                ),
-                if (count > 1)
-                  Text(
-                    '$count',
-                    style: TextStyle(
-                      color: _contrastOn(color),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                      height: 1,
-                    ),
-                  ),
-              ],
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          CustomPaint(
+            painter: _SwatchPainter(
+              primaryColor: primaryColor,
+              extraColors: extraColors,
+              series: chip.series,
             ),
-            if (name.isNotEmpty) ...[
-              const SizedBox(height: 5),
-              Text(
-                name,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Color(0xFF71717A),
-                  fontSize: 9,
-                  fontWeight: FontWeight.w500,
-                  height: 1.2,
-                ),
+          ),
+          Positioned(
+            right: 3,
+            bottom: 2,
+            child: Text(
+              '${chip.totalSpools}',
+              style: TextStyle(
+                fontSize: 8.5,
+                fontWeight: FontWeight.w800,
+                color: labelColor,
+                height: 1,
+                shadows: const [Shadow(blurRadius: 3, color: Color(0x55000000))],
               ),
-            ],
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class _VariantRow extends StatelessWidget {
+  const _VariantRow({required this.variant});
+
+  final _SpoolVariant variant;
+
+  @override
+  Widget build(BuildContext context) {
+    final brand = variant.brand;
+    final name = variant.colorName;
+    final ids = variant.spoolIds.map((id) => '#$id').join('  ');
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (brand != null)
+                Text(
+                  brand,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              if (name != null)
+                Text(
+                  name,
+                  style: const TextStyle(
+                    color: Color(0xFF71717A),
+                    fontSize: 12,
+                  ),
+                ),
+              if (brand == null && name == null)
+                const Text(
+                  'Unknown',
+                  style: TextStyle(color: Color(0xFF52525B), fontSize: 12),
+                ),
+            ],
+          ),
+        ),
+        Text(
+          ids,
+          style: const TextStyle(
+            color: Color(0xFF52525B),
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
+        ),
+      ],
     );
   }
 }
@@ -675,24 +827,38 @@ class _SpoolEntry {
   final List<String> extraHexes;
 }
 
+class _SpoolVariant {
+  const _SpoolVariant({
+    required this.brand,
+    required this.colorName,
+    required this.spoolIds,
+  });
+
+  final String? brand;
+  final String? colorName;
+  final List<int> spoolIds;
+}
+
 class _ColorChip {
   const _ColorChip({
     required this.hex,
-    required this.spoolIds,
-    this.name,
-    this.brand,
+    required this.variants,
     this.material,
     this.series = _SpoolSeries.standard,
     this.extraHexes = const [],
   });
 
   final String hex;
-  final String? name;
-  final String? brand;
+  final List<_SpoolVariant> variants;
   final String? material;
-  final List<int> spoolIds;
   final _SpoolSeries series;
   final List<String> extraHexes;
+
+  /// Total number of physical spools across all variants.
+  int get totalSpools => variants.fold(0, (n, v) => n + v.spoolIds.length);
+
+  /// Primary display name: first variant's colorName.
+  String? get primaryName => variants.isEmpty ? null : variants.first.colorName;
 }
 
 class _MaterialGroup {
@@ -706,7 +872,7 @@ class _MaterialGroup {
 
 // Special series are matched by exact case-insensitive equality and preserved as-is.
 const _kSpecialSeries = [
-  'PLA GALAXY', 'PLA METALLIC', 'PLA SILK', 'PLA MATTE', 'PLA PRO',
+  'PLA GALAXY', 'PLA METALLIC', 'PLA SILK', 'PLA MATTE',
 ];
 
 // Base material normalization — longer/more-specific strings first.
@@ -714,7 +880,7 @@ const _kBases = ['PETG', 'PLA+', 'PLA', 'ABS', 'ASA', 'TPU', 'PEEK', 'HIPS', 'PV
 
 // Section display order.
 const _kGroupOrder = [
-  'PLA+', 'PLA PRO', 'PLA',
+  'PLA+', 'PLA',
   'PLA SILK', 'PLA METALLIC', 'PLA MATTE', 'PLA GALAXY',
   'PETG', 'ABS', 'ASA', 'TPU', 'PA', 'PC', 'PEEK', 'PVA', 'HIPS',
 ];
@@ -722,6 +888,10 @@ const _kGroupOrder = [
 String _normalizeGroup(String? raw) {
   final s = (raw ?? '').trim().toUpperCase();
   if (s.isEmpty) return 'Other';
+  // PLA PRO folds into the PLA+ section.
+  if (s == 'PLA PRO') return 'PLA+';
+  // STARLIGHT is a brand variant of galaxy.
+  if (s.contains('STARLIGHT')) return 'PLA GALAXY';
   // Exact match against special series first (preserves the full label).
   // Exact match only: "PLA SILK+" or "PLA SILK DUAL" fall through to _kBases.
   for (final series in _kSpecialSeries) {
@@ -738,6 +908,42 @@ String _normalizeGroup(String? raw) {
 int _groupOrder(String label) {
   final i = _kGroupOrder.indexOf(label);
   return i < 0 ? _kGroupOrder.length : i;
+}
+
+// Approximate hex values for common color words used in multi-color filament names.
+const _kSimpleColors = <String, String>{
+  'black':   '1a1a1a',
+  'white':   'f0f0f0',
+  'red':     'e63946',
+  'blue':    '1d5fa3',
+  'green':   '2ecc71',
+  'yellow':  'f4d03f',
+  'orange':  'f4834f',
+  'purple':  '9b59b6',
+  'pink':    'ff80ab',
+  'gold':    'c9a227',
+  'silver':  'bdc3c7',
+  'copper':  'b87333',
+  'magenta': 'e040fb',
+  'cyan':    '00bcd4',
+  'teal':    '009688',
+  'brown':   '8d6e63',
+};
+
+/// Derives approximate hex colors from a descriptive filament name like "Black-Gold".
+/// Splits on hyphens/spaces and looks up each word in [_kSimpleColors].
+/// Returns the list only when all parts are recognised AND ≥ 2 colors are found;
+/// returns empty otherwise so the chip stays gray rather than showing wrong colors.
+List<String> _parseColorsFromName(String? name) {
+  if (name == null || name.trim().isEmpty) return const [];
+  final parts = name.toLowerCase().split(RegExp(r'[-\s]+'));
+  final hexes = <String>[];
+  for (final part in parts) {
+    final hex = _kSimpleColors[part.trim()];
+    if (hex == null) return const [];
+    hexes.add(hex);
+  }
+  return hexes.length >= 2 ? hexes : const [];
 }
 
 String? _normalizeHex(String? raw) {
@@ -761,21 +967,27 @@ Color _contrastOn(Color? bg) {
       : Colors.white.withValues(alpha: 0.90);
 }
 
-
 _SpoolSeries _detectSeries(String? material) {
   final s = (material ?? '').toUpperCase();
   if (s.contains('SILK')) return _SpoolSeries.silk;
   if (s.contains('METALLIC')) return _SpoolSeries.metallic;
-  if (s.contains('GALAXY')) return _SpoolSeries.galaxy;
+  if (s.contains('GALAXY') || s.contains('STARLIGHT')) return _SpoolSeries.galaxy;
   if (s.contains('MATTE')) return _SpoolSeries.matte;
   return _SpoolSeries.standard;
 }
 
 List<String> _parseExtraColors(dynamic raw) {
-  if (raw is! String || raw.trim().isEmpty) return const [];
-  return raw
-      .split(RegExp(r'[,;\s|]+'))
-      .map((t) => t.trim().toLowerCase())
+  // Accept both a JSON array (Spoolman multi_color_hexes) and a delimited string.
+  final Iterable<String> tokens;
+  if (raw is List) {
+    tokens = raw.whereType<String>();
+  } else if (raw is String && raw.trim().isNotEmpty) {
+    tokens = raw.split(RegExp(r'[,;\s|]+'));
+  } else {
+    return const [];
+  }
+  return tokens
+      .map((t) => t.trim().replaceAll('#', '').toLowerCase())
       .where((t) => t.length == 6 || t.length == 8)
       .map((t) => t.length == 8 ? t.substring(0, 6) : t)
       .toList(growable: false);
